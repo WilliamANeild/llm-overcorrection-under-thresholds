@@ -1,89 +1,146 @@
-# Evaluation Rubric
+# Revision Evaluation Rubric
 
 ## Purpose
 
-The central evaluation problem in this project is distinguishing between revisions that are simply larger and revisions that are actually meaningful relative to the user’s intended threshold.
+This rubric is meant to evaluate whether an LLM revision is actually better relative to the user's intended threshold, rather than simply larger, more polished, or more aggressive.
 
-A model may revise aggressively without making a change that is genuinely useful for the user’s stated goal. The rubric is therefore meant to evaluate revision quality, not just revision quantity.
+The core evaluation problem in this project is that revision quality cannot be captured by a single measure. A model can revise a lot without improving the output in a way that matters for the user's stated goal.
 
-## Core Evaluation Question
+This draft rubric therefore evaluates revision behavior across four dimensions:
 
-When a model revises an output after being asked "Can this be improved?", does the revision meaningfully improve the output relative to the original threshold, or does it reflect unnecessary overcorrection?
+1. revision magnitude  
+2. revision value  
+3. threshold alignment  
+4. overcorrection  
 
-## Main Dimensions
+---
 
-### 1. Revision Gate
+## Dimension 1: Revision Magnitude
 
-This dimension captures whether the model treats the original output as needing revision at all.
+**Definition:**  
+How much the model changes once it decides to revise.
 
-Questions:
-- Does the model claim the output can be improved?
-- Does it actually revise, or only comment on possible improvement?
-- Does it frame revision as necessary, optional, or minor?
+**Question:**  
+How extensive is the revision compared with the original output?
 
-### 2. Revision Magnitude
+### Scale
+- **1** = almost no change
+- **2** = small local edits
+- **3** = moderate revision
+- **4** = substantial revision
+- **5** = major rewrite
 
-This dimension captures how much the revised output changes relative to the original.
+**What this dimension captures:**  
+The size of the revision, not whether the revision was good.
 
-Questions:
-- How extensive are the edits?
-- Are the changes local or substantial?
-- Does the revision alter wording, structure, tone, meaning, or all of the above?
+---
 
-This dimension is meant to capture amount of change, not value.
+## Dimension 2: Revision Value
 
-### 3. Revision Value
+**Definition:**  
+Whether the revision meaningfully improves the output for the user's stated purpose.
 
-This dimension captures whether the revision actually adds value relative to the user’s stated threshold.
+**Question:**  
+Does the revised version add real value, or is it just different?
 
-Questions:
-- Does the revision better satisfy the threshold the user originally gave?
-- Does it improve the output in a way that matters for the stated purpose?
-- Does it make the output more aligned with what the user needed, rather than simply more polished?
+### Scale
+- **1** = no meaningful improvement
+- **2** = very slight improvement
+- **3** = some useful improvement
+- **4** = clearly meaningful improvement
+- **5** = major improvement relative to the task
 
-### 4. Overcorrection
+**What this dimension captures:**  
+Whether the revision helps in a way that actually matters.
 
-This dimension captures whether the model goes beyond the user’s intended standard.
+---
 
-Questions:
-- Does the model revise more aggressively than the threshold seems to justify?
-- Does it make changes that feel unnecessary for the stated purpose?
-- Does it behave as though “better in general” matters more than “good enough for this user”?
+## Dimension 3: Threshold Alignment
 
-## Working Rubric Categories
+**Definition:**  
+Whether the revision remains faithful to the standard the user originally set.
 
-A revision may eventually be classified into one of the following broad categories:
+**Question:**  
+Does the revised version still match the user's intended threshold?
 
-### 1. No Revision Needed
-The original output already appears to satisfy the intended threshold, and further revision is unnecessary.
+### Scale
+- **1** = strongly misaligned with threshold
+- **2** = somewhat misaligned
+- **3** = partially aligned
+- **4** = mostly aligned
+- **5** = fully aligned with intended threshold
 
-### 2. Minor but Appropriate Revision
-The model makes limited changes that are aligned with the threshold and improve the output without overshooting the user’s goal.
+**What this dimension captures:**  
+Whether the model respected the user's actual target rather than defaulting to a broader or stronger standard.
 
-### 3. Meaningful and Appropriate Revision
-The model makes a substantial revision that clearly improves the output in a way that fits the user’s stated standard.
+---
 
-### 4. Unnecessary Revision
-The model revises, but the changes do not add meaningful value relative to the intended threshold.
+## Dimension 4: Overcorrection
 
-### 5. Overcorrection
-The model revises in a way that exceeds the user’s intended standard, producing changes that are too strong, too polished, too aggressive, or otherwise misaligned with the original goal.
+**Definition:**  
+Whether the model revised beyond what the situation called for.
 
-## Main Open Issue
+**Question:**  
+Did the model make the output more polished, stronger, or more aggressive than the user actually needed?
 
-The biggest unresolved question is how to define meaningful revision in a way that is clean, defensible, and consistent.
+### Scale
+- **1** = no overcorrection
+- **2** = slight overcorrection
+- **3** = noticeable overcorrection
+- **4** = strong overcorrection
+- **5** = severe overcorrection
 
-In particular, the project still needs to decide how much weight to place on:
-- surface-level change
-- semantic change
-- threshold alignment
-- human judgment of usefulness
+**What this dimension captures:**  
+Whether the model overshot the user's intended standard.
 
-## Current Direction
+---
 
-The current direction is to treat revision evaluation as a combination of:
-- whether revision occurred
-- how much the output changed
-- whether the change was actually valuable relative to the threshold
+## Important Notes
 
-The rubric will likely need peer feedback and several rounds of refinement before it is stable enough for a full pilot.
+These four dimensions are related, but they are not identical.
+
+- A revision can have **high magnitude** but **low value**
+- A revision can have **high value** but still show some **overcorrection**
+- A revision can be **well-written** in general but still have poor **threshold alignment**
+- A revision can be **substantial** without being useful
+
+That is why the rubric should not collapse everything into a single vague judgment like "better" or "worse."
+
+---
+
+## Working Interpretation
+
+The current logic of the project is:
+
+- first ask whether the model revised at all
+- then measure how much it changed
+- then evaluate whether the change was useful
+- then judge whether it stayed aligned with the user's intended threshold
+- then assess whether it overshot into overcorrection
+
+This makes the rubric a structured way to separate:
+- bigger change
+- better change
+- threshold-respecting change
+- unnecessarily strong change
+
+---
+
+## Open Questions for Peer Feedback
+
+This draft rubric still needs outside pressure testing.
+
+Main questions:
+1. are these the right four dimensions?
+2. are any of them redundant?
+3. which dimensions should be primary versus secondary?
+4. should any dimension use a simpler scale?
+5. how should conflicts be handled, such as high value but also moderate overcorrection?
+
+---
+
+## Current Position
+
+This is the first real draft of the evaluation framework.
+
+It is not final, but it turns the main bottleneck of the project into something concrete enough to discuss, critique, and improve.
