@@ -113,3 +113,23 @@ Several condition-level questions still need to be worked out:
 - how natural the contextual threshold prompts should sound
 - whether model conditioning should be introduced in the first study or saved for later
 - whether different task types require different threshold phrasing styles
+
+
+## Threshold Ladder
+
+The project compares two parallel expectation layers:
+
+1. **Numeric expectation framing**
+2. **Qualitative expectation framing**
+
+These are designed to express similar target standards in two different ways.
+
+| Threshold Level | Numeric Expectation Framing | Qualitative Expectation Framing |
+|---|---|---|
+| 70 | My expected outcome only really needs to be a **70 out of 100** for me to consider it done. | My expected outcome only really needs to be **good enough to get the point across without causing any problems** for me to consider it done. |
+| 75 | My expected outcome only really needs to be a **75 out of 100** for me to consider it done. | My expected outcome only really needs to be **good enough that it comes across fine and does not reflect poorly on me** for me to consider it done. |
+| 80 | My expected outcome only really needs to be an **80 out of 100** for me to consider it done. | My expected outcome only really needs to be **clearly good and reasonably polished, but it does not need to stand out** for me to consider it done. |
+| 85 | My expected outcome only really needs to be an **85 out of 100** for me to consider it done. | My expected outcome only really needs to be **strong, thoughtful, and well-executed, but not overly refined** for me to consider it done. |
+| 90 | My expected outcome only really needs to be a **90 out of 100** for me to consider it done. | My expected outcome only really needs to be **very strong and polished, like something I would feel fully confident sending or posting** for me to consider it done. |
+| 95 | My expected outcome only really needs to be a **95 out of 100** for me to consider it done. | My expected outcome only really needs to be **excellent, highly polished, and difficult to improve in any meaningful way** for me to consider it done. |
+| 100 | My expected outcome needs to be as close to a **100 out of 100** as possible for me to consider it done. | My expected outcome needs to be **as strong as it can reasonably be, with almost no room for improvement** for me to consider it done. |
