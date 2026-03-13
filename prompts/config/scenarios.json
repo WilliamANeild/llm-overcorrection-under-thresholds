@@ -1,0 +1,27 @@
+[
+  {
+    "id": "linkedin_job_announcement",
+    "label": "LinkedIn Job Announcement",
+    "scenario_text": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy."
+  },
+  {
+    "id": "pto_request",
+    "label": "PTO Request to Manager",
+    "scenario_text": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long."
+  },
+  {
+    "id": "brunch_cancellation",
+    "label": "Sister-in-Law Brunch Cancellation",
+    "scenario_text": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text."
+  },
+  {
+    "id": "coworker_funny_text",
+    "label": "Funny Text to Coworker",
+    "scenario_text": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine."
+  },
+  {
+    "id": "client_sales_email",
+    "label": "Sales Email to Outside Client",
+    "scenario_text": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event."
+  }
+]
