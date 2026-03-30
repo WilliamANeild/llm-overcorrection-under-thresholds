@@ -1,0 +1,8 @@
+.env
+__pycache__/
+*.pyc
+.venv/
+
+# Raw trial data (large JSONL files)
+data/raw_responses/trials.jsonl
+data/processed/scored_trials.jsonl
