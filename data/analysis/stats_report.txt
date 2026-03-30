@@ -1,0 +1,85 @@
+======================================================================
+STATISTICAL ANALYSIS REPORT
+======================================================================
+
+── Mann-Whitney U: Numeric vs Qualitative Framing ──
+  claude-sonnet | revision_magnitude: U=21992, p=0.0598, r=-0.0996
+  claude-sonnet | revision_value: U=19840, p=0.8797, r=0.008
+  claude-sonnet | threshold_alignment: U=21800, p=0.0207*, r=-0.09
+  claude-sonnet | overcorrection: U=19311, p=0.4761, r=0.0344
+  gemini-flash | revision_magnitude: U=21139, p=0.2972, r=-0.057
+  gemini-flash | revision_value: U=22233, p=0.0393*, r=-0.1117
+  gemini-flash | threshold_alignment: U=22800, p=0.0001*, r=-0.14
+  gemini-flash | overcorrection: U=19701, p=0.7131, r=0.015
+  gpt-4o | revision_magnitude: U=19939, p=0.9517, r=0.003
+  gpt-4o | revision_value: U=20239, p=0.8098, r=-0.0119
+  gpt-4o | threshold_alignment: U=23508, p=0.0004*, r=-0.1754
+  gpt-4o | overcorrection: U=18982, p=0.2944, r=0.0509
+
+── Kruskal-Wallis H: Overcorrection Across Threshold Levels ──
+  claude-sonnet | numeric: H=7.43, p=0.3858
+  claude-sonnet | qualitative: H=8.62, p=0.2812
+  gemini-flash | numeric: H=9.40, p=0.2253
+  gemini-flash | qualitative: H=40.21, p=0.0000*
+    Pairwise 0 vs 70: U=190, p_adj=0.0053*, r=0.392
+    Pairwise 0 vs 100: U=400, p_adj=0.2235, r=-0.28
+    Pairwise 70 vs 100: U=505, p_adj=0.0001*, r=-0.616
+    Pairwise 70 vs 85: U=378, p_adj=0.4673, r=-0.208
+    Pairwise 85 vs 100: U=443, p_adj=0.0173*, r=-0.4176
+  gpt-4o | numeric: H=0.95, p=0.9956
+  gpt-4o | qualitative: H=2.08, p=0.9555
+
+── Spearman Correlation: Threshold Level vs Overcorrection ──
+  claude-sonnet: rho=-0.030, p=0.5448
+  gemini-flash: rho=-0.168, p=0.0008*
+  gpt-4o: rho=0.012, p=0.8070
+
+── Chi-Squared: Revision Gate Distribution by Framing ──
+  claude-sonnet: chi2=2.44, dof=1, p=0.1182
+  gemini-flash: chi2=6.11, dof=2, p=0.0471*
+  gpt-4o: chi2=0.00, dof=1, p=1.0000
+
+── Bootstrap 95% CIs for Median Overcorrection ──
+  claude-sonnet | numeric: median=2.0, 95% CI=[2.0, 2.0]
+  claude-sonnet | qualitative: median=2.0, 95% CI=[2.0, 2.0]
+  gemini-flash | numeric: median=2.0, 95% CI=[2.0, 2.0]
+  gemini-flash | qualitative: median=2.0, 95% CI=[2.0, 2.0]
+  gpt-4o | numeric: median=2.0, 95% CI=[2.0, 2.0]
+  gpt-4o | qualitative: median=2.0, 95% CI=[2.0, 2.0]
+
+── Judge Self-Preferencing Bias Detection ──
+  Judge model: gpt-4o
+  Self trials: 400, Other trials: 800
+  revision_magnitude: self_mean=3.26, other_mean=3.42 (lower), U=143664, p=0.0017*, r=0.1021
+  revision_value: self_mean=2.60, other_mean=3.27 (lower), U=81940, p=0.0000*, r=0.4879
+  threshold_alignment: self_mean=4.55, other_mean=4.83 (lower), U=115002, p=0.0000*, r=0.2812
+  overcorrection: self_mean=1.65, other_mean=1.76 (lower), U=142234, p=0.0001*, r=0.111
+
+  Per-model mean scores (judge bias check):
+    revision_magnitude: claude-sonnet=3.41, gemini-flash=3.44, gpt-4o=3.26
+    revision_value: claude-sonnet=3.36, gemini-flash=3.17, gpt-4o=2.60
+    threshold_alignment: claude-sonnet=4.82, gemini-flash=4.86, gpt-4o=4.55
+    overcorrection: claude-sonnet=1.65, gemini-flash=1.88, gpt-4o=1.65
+
+── Response Length Analysis (Bias-Free Proxy) ──
+  claude-sonnet: turn1_mean=574, turn2_mean=855, delta_mean=280, ratio_mean=1.70
+  gemini-flash: turn1_mean=706, turn2_mean=2038, delta_mean=1332, ratio_mean=3.97
+  gpt-4o: turn1_mean=590, turn2_mean=591, delta_mean=1, ratio_mean=1.01
+
+  Spearman: threshold_level vs response length delta:
+    claude-sonnet: rho=0.006, p=0.9031
+    gemini-flash: rho=-0.054, p=0.2777
+    gpt-4o: rho=0.048, p=0.3415
+
+  Spearman: response length delta vs judge overcorrection score:
+    claude-sonnet: rho=-0.083, p=0.0981
+    gemini-flash: rho=0.114, p=0.0230*
+    gpt-4o: rho=0.019, p=0.7020
+
+  Bias convergence check (do length and judge agree on model ranking?):
+    Length delta rank:      {'claude-sonnet': np.float64(2.0), 'gemini-flash': np.float64(3.0), 'gpt-4o': np.float64(1.0)}
+    Judge overcorrection rank: {'claude-sonnet': np.float64(2.0), 'gemini-flash': np.float64(3.0), 'gpt-4o': np.float64(1.0)}
+    CONVERGE: Length and judge rankings match perfectly
+
+  Wrote /Users/liamneild/Desktop/School/llm-overcorrection-under-thresholds/data/analysis/response_length_summary.csv
+  Wrote /Users/liamneild/Desktop/School/llm-overcorrection-under-thresholds/data/analysis/scored_with_length.csv

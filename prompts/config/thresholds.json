@@ -1,6 +1,10 @@
 {
   "numeric": [
     {
+      "level": 0,
+      "text": ""
+    },
+    {
       "level": 70,
       "text": "My expected outcome only really needs to be a 70 out of 100 for me to consider it done."
     },
@@ -30,6 +34,10 @@
     }
   ],
   "qualitative": [
+    {
+      "level": 0,
+      "text": ""
+    },
     {
       "level": 70,
       "text": "My expected outcome only really needs to be good enough to get the point across without causing any problems for me to consider it done."
