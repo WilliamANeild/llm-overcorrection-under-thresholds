@@ -48,7 +48,7 @@ JUDGE_PROVIDER = "openai"
 # Second judge for inter-rater reliability
 SECOND_JUDGE_MODEL = "claude-sonnet-4-20250514"
 SECOND_JUDGE_PROVIDER = "anthropic"
-IRR_SAMPLE_FRACTION = 0.15
+IRR_SAMPLE_SIZE = 60  # absolute count; stratified across model/threshold/scenario
 
 # ── Rate limiting (seconds between requests per provider) ──
 RATE_LIMIT_SECONDS = {
@@ -64,3 +64,4 @@ RETRY_BACKOFF_BASE = 2  # seconds: 2, 4, 8
 # ── Experiment parameters ──
 RUNS_PER_CELL = 5
 FRAMINGS = ["numeric", "qualitative"]
+PROBE_TYPES = ["leading", "neutral"]

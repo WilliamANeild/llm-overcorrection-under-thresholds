@@ -92,8 +92,8 @@ def fig3_framing_comparison(df):
             means.append(vals.mean())
             sems.append(vals.sem())
         offset = (i - 0.5) * width
-        bars = ax.bar(x + offset, means, width, yerr=sems, label=framing.capitalize(),
-                      capsize=3, alpha=0.85)
+        ax.bar(x + offset, means, width, yerr=sems, label=framing.capitalize(),
+               capsize=3, alpha=0.85)
 
     # Significance stars
     for j, model in enumerate(models):
@@ -290,6 +290,110 @@ def fig9_length_vs_overcorrection(df):
     save_fig(fig, "09_length_vs_overcorrection")
 
 
+def fig10_probe_comparison(df):
+    """Bar chart: leading vs neutral probe effect on overcorrection, per model."""
+    if "probe_type" not in df.columns or df["probe_type"].nunique() < 2:
+        print("  Skipping probe comparison (only one probe type)")
+        return
+
+    models = sorted(df["model"].unique())
+    x = np.arange(len(models))
+    width = 0.35
+
+    fig, axes = plt.subplots(1, 2, figsize=(16, 5))
+
+    # Panel 1: Overcorrection by probe type
+    ax = axes[0]
+    for i, probe in enumerate(["leading", "neutral"]):
+        means = []
+        sems = []
+        for model in models:
+            vals = df[(df["model"] == model) & (df["probe_type"] == probe)]["overcorrection"].dropna()
+            means.append(vals.mean() if len(vals) > 0 else 0)
+            sems.append(vals.sem() if len(vals) > 1 else 0)
+        offset = (i - 0.5) * width
+        ax.bar(x + offset, means, width, yerr=sems,
+               label=f"{probe.capitalize()} probe", capsize=3, alpha=0.85)
+
+    # Significance stars
+    for j, model in enumerate(models):
+        vals_l = df[(df["model"] == model) & (df["probe_type"] == "leading")]["overcorrection"].dropna()
+        vals_n = df[(df["model"] == model) & (df["probe_type"] == "neutral")]["overcorrection"].dropna()
+        if len(vals_l) >= 2 and len(vals_n) >= 2:
+            _, p = sp_stats.mannwhitneyu(vals_l, vals_n, alternative="two-sided")
+            if p < 0.001:
+                star = "***"
+            elif p < 0.01:
+                star = "**"
+            elif p < 0.05:
+                star = "*"
+            else:
+                star = ""
+            if star:
+                y_max = max(vals_l.mean() + vals_l.sem(), vals_n.mean() + vals_n.sem())
+                ax.text(j, y_max + 0.15, star, ha="center", fontsize=14)
+
+    ax.set_xlabel("Model")
+    ax.set_ylabel("Mean Overcorrection")
+    ax.set_title("Probe Type Effect on Overcorrection")
+    ax.set_xticks(x)
+    ax.set_xticklabels(models)
+    ax.legend()
+    ax.set_ylim(0, 5.5)
+
+    # Panel 2: Revision gate by probe type
+    ax = axes[1]
+    gate_data = df.groupby(["model", "probe_type"])["revision_gate"].value_counts(normalize=True).unstack(fill_value=0)
+    for g in GATE_CATEGORIES:
+        if g not in gate_data.columns:
+            gate_data[g] = 0.0
+    gate_data = gate_data[GATE_CATEGORIES]
+
+    gate_data.plot(kind="bar", stacked=True, ax=ax, colormap="Set2", edgecolor="white")
+    ax.set_ylabel("Proportion")
+    ax.set_title("Revision Gate by Model and Probe Type")
+    ax.set_xlabel("")
+    ax.legend(title="Gate", bbox_to_anchor=(1.02, 1), loc="upper left")
+    ax.set_ylim(0, 1)
+    plt.setp(ax.get_xticklabels(), rotation=45, ha="right")
+
+    fig.tight_layout()
+    save_fig(fig, "10_probe_comparison")
+
+
+def fig11_probe_threshold_interaction(df):
+    """Line plot: overcorrection across threshold levels, panels for leading vs neutral."""
+    if "probe_type" not in df.columns or df["probe_type"].nunique() < 2:
+        print("  Skipping probe × threshold interaction (only one probe type)")
+        return
+
+    probe_types = sorted(df["probe_type"].unique())
+    fig, axes = plt.subplots(1, len(probe_types), figsize=(7 * len(probe_types), 5), sharey=True)
+    if len(probe_types) == 1:
+        axes = [axes]
+
+    for ax, probe in zip(axes, probe_types):
+        subset = df[df["probe_type"] == probe]
+        for model in sorted(subset["model"].unique()):
+            mdata = subset[subset["model"] == model]
+            means = mdata.groupby("threshold_level")["overcorrection"].mean()
+            sems = mdata.groupby("threshold_level")["overcorrection"].sem()
+            levels = sorted(means.index)
+            ax.errorbar(levels, [means[l] for l in levels], yerr=[sems[l] for l in levels],
+                        marker="o", label=model, capsize=3)
+
+        ax.set_title(f"{probe.capitalize()} Probe")
+        ax.set_xlabel("Threshold Level")
+        ax.set_ylabel("Mean Overcorrection" if probe == probe_types[0] else "")
+        ax.set_xticks(sorted(subset["threshold_level"].unique()))
+        ax.legend()
+        ax.set_ylim(0.5, 5.5)
+
+    fig.suptitle("Overcorrection Across Thresholds: Leading vs Neutral Probe", fontsize=14, y=1.02)
+    fig.tight_layout()
+    save_fig(fig, "11_probe_threshold_interaction")
+
+
 def main():
     scored = load_jsonl(SCORED_TRIALS_JSONL)
     if not scored:
@@ -299,6 +403,12 @@ def main():
     df = pd.DataFrame(scored)
     for dim in DIMENSIONS:
         df[dim] = pd.to_numeric(df[dim], errors="coerce")
+
+    # Backfill probe_type for v1 data
+    if "probe_type" not in df.columns:
+        df["probe_type"] = "leading"
+    df["probe_type"] = df["probe_type"].fillna("leading")
+
     print(f"Loaded {len(df)} scored trials")
 
     print("Generating figures...")
@@ -311,6 +421,8 @@ def main():
     fig7_judge_bias_check(df)
     fig8_response_length(df)
     fig9_length_vs_overcorrection(df)
+    fig10_probe_comparison(df)
+    fig11_probe_threshold_interaction(df)
     print("Done.")
 
 

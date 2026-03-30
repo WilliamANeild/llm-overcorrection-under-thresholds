@@ -92,7 +92,15 @@ def main():
     df = pd.DataFrame(scored)
     for dim in DIMENSIONS:
         df[dim] = pd.to_numeric(df[dim], errors="coerce")
+
+    # Backfill probe_type for v1 data
+    if "probe_type" not in df.columns:
+        df["probe_type"] = "leading"
+    df["probe_type"] = df["probe_type"].fillna("leading")
+
     print(f"Loaded {len(df)} scored trials")
+    probe_types = sorted(df["probe_type"].unique())
+    print(f"Probe types: {probe_types}")
 
     # ── 1. Summary by condition (framing × threshold_level) ──
     rows = []
@@ -129,6 +137,26 @@ def main():
         rows.append(row)
     pd.DataFrame(rows).to_csv(SUMMARY_BY_SCENARIO_CSV, index=False)
     print(f"Wrote {SUMMARY_BY_SCENARIO_CSV}")
+
+    # ── 4b. Summary by probe type ──
+    summary_by_probe_path = STATS_DIR / "summary_by_probe_type.csv"
+    rows = []
+    for probe, group in df.groupby("probe_type"):
+        row = {"probe_type": probe}
+        row.update(descriptive_stats(group))
+        rows.append(row)
+    pd.DataFrame(rows).to_csv(summary_by_probe_path, index=False)
+    print(f"Wrote {summary_by_probe_path}")
+
+    # ── 4c. Summary by model × probe type ──
+    summary_by_model_probe_path = STATS_DIR / "summary_by_model_probe.csv"
+    rows = []
+    for (model, probe), group in df.groupby(["model", "probe_type"]):
+        row = {"model": model, "probe_type": probe}
+        row.update(descriptive_stats(group))
+        rows.append(row)
+    pd.DataFrame(rows).to_csv(summary_by_model_probe_path, index=False)
+    print(f"Wrote {summary_by_model_probe_path}")
 
     # ── Statistical tests ──
     STATS_DIR.mkdir(parents=True, exist_ok=True)
@@ -168,6 +196,84 @@ def main():
                 "statistic": round(u_stat, 2),
                 "p_value": round(p_val, 6),
                 "effect_size_r": r,
+                "significant_0.05": p_val < 0.05,
+            })
+
+    # ── 5b. Mann-Whitney U: leading vs neutral probe ──
+    if len(probe_types) > 1:
+        log("\n── Mann-Whitney U: Leading vs Neutral Probe ──")
+        for model in models:
+            mdf = df[df["model"] == model]
+            leading = mdf[mdf["probe_type"] == "leading"]
+            neutral = mdf[mdf["probe_type"] == "neutral"]
+            for dim in DIMENSIONS:
+                vals_l = leading[dim].dropna().values
+                vals_n = neutral[dim].dropna().values
+                if len(vals_l) < 2 or len(vals_n) < 2:
+                    continue
+                u_stat, p_val = sp_stats.mannwhitneyu(vals_l, vals_n, alternative="two-sided")
+                r = rank_biserial(u_stat, len(vals_l), len(vals_n))
+                sig = "*" if p_val < 0.05 else ""
+                log(f"  {model} | {dim}: U={u_stat:.0f}, p={p_val:.4f}{sig}, r={r}")
+                test_rows.append({
+                    "test": "mann_whitney_u",
+                    "comparison": "leading_vs_neutral",
+                    "model": model,
+                    "dimension": dim,
+                    "statistic": round(u_stat, 2),
+                    "p_value": round(p_val, 6),
+                    "effect_size_r": r,
+                    "significant_0.05": p_val < 0.05,
+                })
+
+        # Pooled probe effect
+        log("\n── Pooled Probe Effect (all models) ──")
+        for dim in DIMENSIONS:
+            vals_l = df[df["probe_type"] == "leading"][dim].dropna().values
+            vals_n = df[df["probe_type"] == "neutral"][dim].dropna().values
+            if len(vals_l) < 2 or len(vals_n) < 2:
+                continue
+            u_stat, p_val = sp_stats.mannwhitneyu(vals_l, vals_n, alternative="two-sided")
+            r = rank_biserial(u_stat, len(vals_l), len(vals_n))
+            sig = "*" if p_val < 0.05 else ""
+            log(f"  {dim}: leading_mean={np.mean(vals_l):.2f}, neutral_mean={np.mean(vals_n):.2f}, "
+                f"U={u_stat:.0f}, p={p_val:.4f}{sig}, r={r}")
+
+        # Probe × threshold interaction: does probe type moderate the threshold-overcorrection relationship?
+        log("\n── Probe × Threshold Interaction: Spearman rho per probe type per model ──")
+        for model in models:
+            for probe in probe_types:
+                subset = df[(df["model"] == model) & (df["probe_type"] == probe)]
+                if len(subset) < 3:
+                    continue
+                rho, p_val = sp_stats.spearmanr(subset["threshold_level"], subset["overcorrection"])
+                sig = "*" if p_val < 0.05 else ""
+                log(f"  {model} | {probe}: rho={rho:.3f}, p={p_val:.4f}{sig}")
+
+        # Revision gate by probe type
+        log("\n── Chi-Squared: Revision Gate by Probe Type ──")
+        for model in models:
+            mdf = df[df["model"] == model]
+            ct = pd.crosstab(mdf["probe_type"], mdf["revision_gate"])
+            if ct.shape[0] < 2 or ct.shape[1] < 2:
+                continue
+            chi2, p_val, dof, _ = sp_stats.chi2_contingency(ct)
+            sig = "*" if p_val < 0.05 else ""
+            log(f"  {model}: chi2={chi2:.2f}, dof={dof}, p={p_val:.4f}{sig}")
+            # Show gate distribution per probe
+            for probe in probe_types:
+                pdata = mdf[mdf["probe_type"] == probe]
+                gate_pcts = pdata["revision_gate"].value_counts(normalize=True) * 100
+                log(f"    {probe}: " + ", ".join(
+                    f"{g}={gate_pcts.get(g, 0):.1f}%" for g in GATE_CATEGORIES))
+            test_rows.append({
+                "test": "chi_squared",
+                "comparison": "gate_by_probe_type",
+                "model": model,
+                "dimension": "revision_gate",
+                "statistic": round(chi2, 2),
+                "p_value": round(p_val, 6),
+                "effect_size_r": None,
                 "significant_0.05": p_val < 0.05,
             })
 
@@ -276,10 +382,8 @@ def main():
             log(f"  {model} | {framing}: median={np.median(vals):.1f}, 95% CI=[{lo}, {hi}]")
 
     # ── 10. Judge Self-Preferencing Bias Detection ──
-    # The judge model (GPT-4o) may score its own outputs differently than other models'.
-    # We test this by comparing judge scores for "self" trials (model == judge) vs "other".
     log("\n── Judge Self-Preferencing Bias Detection ──")
-    judge_model_name = "gpt-4o"  # matches JUDGE_MODEL config
+    judge_model_name = "gpt-4o"
     df["is_judge_model"] = df["model"] == judge_model_name
     self_trials = df[df["is_judge_model"]]
     other_trials = df[~df["is_judge_model"]]
@@ -308,7 +412,7 @@ def main():
             "significant_0.05": p_val < 0.05,
         })
 
-    # Per-model breakdown: does the judge score each model differently?
+    # Per-model breakdown
     log("\n  Per-model mean scores (judge bias check):")
     for dim in DIMENSIONS:
         means = df.groupby("model")[dim].mean()
@@ -341,7 +445,18 @@ def main():
                 "len_ratio_mean": round(mdf["len_ratio"].mean(), 3),
             })
 
-        # Spearman: threshold_level vs len_delta (does length change track threshold?)
+        # Response length by probe type
+        if "probe_type" in len_df.columns and len(len_df["probe_type"].unique()) > 1:
+            log("\n  Response length by probe type:")
+            for model in sorted(len_df["model"].unique()):
+                for probe in sorted(len_df["probe_type"].unique()):
+                    subset = len_df[(len_df["model"] == model) & (len_df["probe_type"] == probe)]
+                    if len(subset) == 0:
+                        continue
+                    log(f"    {model} | {probe}: delta_mean={subset['len_delta'].mean():.0f}, "
+                        f"ratio_mean={subset['len_ratio'].mean():.2f}")
+
+        # Spearman: threshold_level vs len_delta
         log("\n  Spearman: threshold_level vs response length delta:")
         for model in sorted(len_df["model"].unique()):
             mdf = len_df[len_df["model"] == model].dropna(subset=["len_delta"])
@@ -362,7 +477,6 @@ def main():
             })
 
         # Correlation between len_delta and judge overcorrection score
-        # Merge length data with scored data
         merged = df.merge(
             len_df[["trial_id", "turn1_len", "turn2_len", "len_delta", "len_ratio"]],
             on="trial_id", how="inner"
@@ -387,7 +501,7 @@ def main():
                     "significant_0.05": p_val < 0.05,
                 })
 
-            # Key bias check: does length-based ranking match judge-based ranking?
+            # Bias convergence check
             log("\n  Bias convergence check (do length and judge agree on model ranking?):")
             model_len_rank = merged.groupby("model")["len_delta"].mean().rank()
             model_oc_rank = merged.groupby("model")["overcorrection"].mean().rank()

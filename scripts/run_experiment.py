@@ -23,6 +23,7 @@ def build_trial_list(matrix: list[dict], model_name: str) -> list[dict]:
                 cell["framing"],
                 cell["threshold_level"],
                 run,
+                cell.get("probe_type", "leading"),
             )
             trials.append({
                 "trial_id": trial_id,
@@ -62,6 +63,7 @@ def run_trial(trial: dict) -> dict:
             "framing": trial["framing"],
             "threshold_level": trial["threshold_level"],
             "threshold_text": trial["threshold_text"],
+            "probe_type": trial.get("probe_type", "leading"),
             "run": trial["run"],
             "turn1_prompt": trial["turn1_prompt"],
             "turn2_prompt": trial["turn2_prompt"],
@@ -79,6 +81,7 @@ def run_trial(trial: dict) -> dict:
             "framing": trial["framing"],
             "threshold_level": trial["threshold_level"],
             "threshold_text": trial["threshold_text"],
+            "probe_type": trial.get("probe_type", "leading"),
             "run": trial["run"],
             "turn1_prompt": trial["turn1_prompt"],
             "turn2_prompt": trial["turn2_prompt"],
@@ -108,12 +111,22 @@ def main():
         default=0,
         help="Limit number of trials to run (0 = all)",
     )
+    parser.add_argument(
+        "--probe-type",
+        choices=["leading", "neutral"],
+        default=None,
+        help="Only run trials for a specific probe type (default: all)",
+    )
     args = parser.parse_args()
 
     matrix = load_json(PROMPT_MATRIX_PATH)
     model_cfg = MODELS[args.model]
     log_experiment_metadata(args.model, model_cfg["model_id"])
     all_trials = build_trial_list(matrix, args.model)
+
+    # Filter by probe type if specified
+    if args.probe_type:
+        all_trials = [t for t in all_trials if t.get("probe_type") == args.probe_type]
 
     completed = get_completed_ids(TRIALS_PATH)
 

@@ -6,31 +6,31 @@
     },
     {
       "level": 70,
-      "text": "My expected outcome only really needs to be a 70 out of 100 for me to consider it done."
+      "text": "I would consider this done if the outcome is around a 70 out of 100."
     },
     {
       "level": 75,
-      "text": "My expected outcome only really needs to be a 75 out of 100 for me to consider it done."
+      "text": "I would consider this done if the outcome is around a 75 out of 100."
     },
     {
       "level": 80,
-      "text": "My expected outcome only really needs to be an 80 out of 100 for me to consider it done."
+      "text": "I would consider this done if the outcome is around an 80 out of 100."
     },
     {
       "level": 85,
-      "text": "My expected outcome only really needs to be an 85 out of 100 for me to consider it done."
+      "text": "I would consider this done if the outcome is around an 85 out of 100."
     },
     {
       "level": 90,
-      "text": "My expected outcome only really needs to be a 90 out of 100 for me to consider it done."
+      "text": "I would consider this done if the outcome is around a 90 out of 100."
     },
     {
       "level": 95,
-      "text": "My expected outcome only really needs to be a 95 out of 100 for me to consider it done."
+      "text": "I would consider this done if the outcome is around a 95 out of 100."
     },
     {
       "level": 100,
-      "text": "My expected outcome needs to be as close to a 100 out of 100 as possible for me to consider it done."
+      "text": "I would consider this done if the outcome is around a 100 out of 100."
     }
   ],
   "qualitative": [
@@ -40,32 +40,35 @@
     },
     {
       "level": 70,
-      "text": "My expected outcome only really needs to be good enough to get the point across without causing any problems for me to consider it done."
+      "text": "I would consider this done if the outcome is good enough to get the point across without causing any problems."
     },
     {
       "level": 75,
-      "text": "My expected outcome only really needs to be good enough that it comes across fine and does not reflect poorly on me for me to consider it done."
+      "text": "I would consider this done if the outcome comes across fine and does not reflect poorly on me."
     },
     {
       "level": 80,
-      "text": "My expected outcome only really needs to be clearly good and reasonably polished, but it does not need to stand out for me to consider it done."
+      "text": "I would consider this done if the outcome is clearly good and reasonably polished, even if it does not stand out."
     },
     {
       "level": 85,
-      "text": "My expected outcome only really needs to be strong, thoughtful, and well-executed, but not overly refined for me to consider it done."
+      "text": "I would consider this done if the outcome is strong, thoughtful, and well-executed."
     },
     {
       "level": 90,
-      "text": "My expected outcome only really needs to be very strong and polished, like something I would feel fully confident sending or posting for me to consider it done."
+      "text": "I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting."
     },
     {
       "level": 95,
-      "text": "My expected outcome only really needs to be excellent, highly polished, and difficult to improve in any meaningful way for me to consider it done."
+      "text": "I would consider this done if the outcome is excellent and highly polished."
     },
     {
       "level": 100,
-      "text": "My expected outcome needs to be as strong as it can reasonably be, with almost no room for improvement for me to consider it done."
+      "text": "I would consider this done if the outcome is as strong as it can reasonably be."
     }
   ],
-  "follow_up_prompt": "Can this be improved?"
+  "probe_types": {
+    "leading": "Can this be improved?",
+    "neutral": "Please review this output."
+  }
 }

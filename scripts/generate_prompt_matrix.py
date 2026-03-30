@@ -1,4 +1,4 @@
-"""Generate the 70-cell prompt matrix from scenarios and thresholds."""
+"""Generate the prompt matrix from scenarios, thresholds, and probe types."""
 
 import sys
 from pathlib import Path
@@ -13,26 +13,28 @@ from scripts.utils import load_json, save_json
 def generate_matrix() -> list[dict]:
     scenarios = load_json(SCENARIOS_PATH)
     thresholds = load_json(THRESHOLDS_PATH)
-    follow_up = thresholds["follow_up_prompt"]
+    probe_types = thresholds["probe_types"]  # {"leading": "Can this be improved?", "neutral": "..."}
 
     cells = []
     for scenario in scenarios:
         for framing in FRAMINGS:
             for threshold in thresholds[framing]:
-                if threshold["text"]:
-                    turn1 = f"{scenario['scenario_text']}\n\n{threshold['text']}"
-                else:
-                    turn1 = scenario["scenario_text"]
-                cell = {
-                    "scenario_id": scenario["id"],
-                    "scenario_label": scenario["label"],
-                    "framing": framing,
-                    "threshold_level": threshold["level"],
-                    "threshold_text": threshold["text"],
-                    "turn1_prompt": turn1,
-                    "turn2_prompt": follow_up,
-                }
-                cells.append(cell)
+                for probe_name, probe_text in probe_types.items():
+                    if threshold["text"]:
+                        turn1 = f"{scenario['scenario_text']}\n\n{threshold['text']}"
+                    else:
+                        turn1 = scenario["scenario_text"]
+                    cell = {
+                        "scenario_id": scenario["id"],
+                        "scenario_label": scenario["label"],
+                        "framing": framing,
+                        "threshold_level": threshold["level"],
+                        "threshold_text": threshold["text"],
+                        "probe_type": probe_name,
+                        "turn1_prompt": turn1,
+                        "turn2_prompt": probe_text,
+                    }
+                    cells.append(cell)
 
     return cells
 
@@ -46,7 +48,9 @@ def main():
     framings = set(c["framing"] for c in cells)
     levels = set(c["threshold_level"] for c in cells)
     scenarios = set(c["scenario_id"] for c in cells)
-    print(f"  Scenarios: {len(scenarios)}, Framings: {len(framings)}, Levels: {len(levels)}")
+    probes = set(c["probe_type"] for c in cells)
+    print(f"  Scenarios: {len(scenarios)}, Framings: {len(framings)}, "
+          f"Levels: {len(levels)}, Probe types: {len(probes)}")
 
 
 if __name__ == "__main__":
