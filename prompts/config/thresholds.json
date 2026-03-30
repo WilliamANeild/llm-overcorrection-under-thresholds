@@ -69,6 +69,9 @@
   ],
   "probe_types": {
     "leading": "Can this be improved?",
-    "neutral": "Please review this output."
+    "neutral": "What do you think?",
+    "pilot_a": "Is there anything you would change about this?",
+    "pilot_b": "Review this against the quality threshold I specified. Does it meet the bar?",
+    "pilot_c": "Take another look at this and let me know if it's ready."
   }
 }
