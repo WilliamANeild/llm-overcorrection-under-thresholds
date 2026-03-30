@@ -113,7 +113,7 @@ def main():
     )
     parser.add_argument(
         "--probe-type",
-        choices=["leading", "neutral"],
+        choices=["leading", "neutral", "pilot_a", "pilot_b", "pilot_c"],
         default=None,
         help="Only run trials for a specific probe type (default: all)",
     )
