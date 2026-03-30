@@ -1,6 +1,6 @@
 scenario_id,n,gate_decline_count,gate_decline_pct,gate_suggest_minor_count,gate_suggest_minor_pct,gate_full_revision_count,gate_full_revision_pct,revision_magnitude_mean,revision_magnitude_median,revision_magnitude_std,revision_value_mean,revision_value_median,revision_value_std,threshold_alignment_mean,threshold_alignment_median,threshold_alignment_std,overcorrection_mean,overcorrection_median,overcorrection_std,high_overcorrection_count,high_overcorrection_pct
-brunch_cancellation,720,184,25.6,470,65.3,66,9.2,1.94,2.0,0.84,1.94,2.0,0.68,4.71,5.0,0.66,1.22,1.0,0.55,5,0.7
-client_sales_email,720,206,28.6,67,9.3,447,62.1,3.0,4.0,1.46,2.48,2.0,1.18,3.96,4.0,1.11,1.99,2.0,0.94,27,3.8
-coworker_funny_text,720,169,23.5,68,9.4,483,67.1,3.17,4.0,1.41,2.56,3.0,1.04,4.1,4.0,0.94,1.89,2.0,0.89,37,5.1
-linkedin_job_announcement,720,197,27.4,86,11.9,437,60.7,2.89,4.0,1.36,2.33,3.0,0.98,3.97,4.0,1.08,1.98,2.0,0.89,8,1.1
-pto_request,720,192,26.7,412,57.2,116,16.1,1.96,2.0,0.8,1.97,2.0,0.74,4.62,5.0,0.7,1.32,1.0,0.57,3,0.4
+brunch_cancellation,480,215,44.8,230,47.9,35,7.3,1.7,2.0,0.82,1.81,2.0,0.84,4.61,5.0,0.73,1.21,1.0,0.49,0,0.0
+client_sales_email,480,157,32.7,85,17.7,238,49.6,2.69,2.0,1.44,2.46,3.0,1.19,4.29,5.0,0.93,1.73,1.0,0.85,12,2.5
+coworker_funny_text,480,160,33.3,50,10.4,270,56.2,2.84,4.0,1.49,2.46,3.0,1.19,4.31,4.0,0.81,1.68,2.0,0.78,11,2.3
+linkedin_job_announcement,572,266,46.5,68,11.9,238,41.6,2.32,2.0,1.4,2.03,2.0,1.09,4.4,5.0,0.89,1.6,1.0,0.8,2,0.3
+pto_request,480,174,36.2,214,44.6,92,19.2,1.91,2.0,0.88,1.96,2.0,0.87,4.61,5.0,0.65,1.3,1.0,0.53,0,0.0
