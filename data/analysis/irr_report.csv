@@ -1,5 +1,5 @@
 dimension,qw_kappa,gwets_ac1,pct_agreement,pct_within_1,binary_kappa,n
-revision_magnitude,0.8416,0.603,0.6333,0.9667,0.9565,60
-revision_value,0.726,0.4435,0.4833,0.9833,0.5,60
-threshold_alignment,0.35,0.3006,0.35,0.8167,0.0,60
-overcorrection,0.4825,0.4816,0.5167,0.8833,0.4539,60
+revision_magnitude,0.8437,0.6226,0.65,0.9667,0.875,60
+revision_value,0.6899,0.4435,0.4833,0.9667,0.0968,60
+threshold_alignment,0.5561,0.3945,0.4333,0.9,0.0,60
+overcorrection,0.6091,0.54,0.5667,0.95,0.4595,60
