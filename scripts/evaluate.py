@@ -33,10 +33,10 @@ from scripts.utils import (
 
 DIMENSIONS = ["revision_magnitude", "revision_value", "threshold_alignment", "overcorrection"]
 
-JUDGE_SYSTEM_PROMPT = """\
+JUDGE_SYSTEM_PROMPT_TEMPLATE = """\
 You are an expert evaluator for a research study on LLM revision behavior. \
 You will be given a writing scenario, the user's stated quality threshold, \
-an initial model output (Turn 1), and a revision produced after asking "Can this be improved?" (Turn 2).
+an initial model output (Turn 1), and the model's response after the user said "{turn2_prompt}" (Turn 2).
 
 Your job is to evaluate the revision across the following dimensions.
 
@@ -86,19 +86,20 @@ Reference the user's stated threshold: a model that makes a 70%-quality draft in
 
 ## Response Format
 Respond with ONLY a JSON object (no markdown, no explanation):
-{
+{{
   "revision_gate": "decline" | "suggest_minor" | "full_revision",
   "revision_magnitude": 1-5,
   "revision_value": 1-5,
   "threshold_alignment": 1-5,
   "overcorrection": 1-5,
   "brief_rationale": "1-2 sentence explanation"
-}
+}}
 """
 
 
 def build_judge_prompt(trial: dict) -> str:
     threshold = trial['threshold_text'] if trial.get('threshold_text') else "(No threshold stated — baseline condition)"
+    turn2_prompt = trial.get('turn2_prompt', 'Can this be improved?')
     return f"""\
 ## Scenario
 {trial['scenario_label']}
@@ -109,7 +110,7 @@ def build_judge_prompt(trial: dict) -> str:
 ## Turn 1 (Initial Output)
 {trial['turn1_response']}
 
-## Turn 2 (After "Can this be improved?")
+## Turn 2 (After user said: "{turn2_prompt}")
 {trial['turn2_response']}
 """
 
@@ -137,6 +138,8 @@ def judge_trial(client, trial: dict, model: str = JUDGE_MODEL,
                 provider: str = JUDGE_PROVIDER) -> dict | None:
     """Score a single trial. Returns parsed scores or None on failure."""
     user_prompt = build_judge_prompt(trial)
+    turn2_prompt = trial.get('turn2_prompt', 'Can this be improved?')
+    system_prompt = JUDGE_SYSTEM_PROMPT_TEMPLATE.format(turn2_prompt=turn2_prompt)
 
     for attempt in range(2):  # one retry on parse failure
         rate_limit(provider)
@@ -146,7 +149,7 @@ def judge_trial(client, trial: dict, model: str = JUDGE_MODEL,
                 client.chat.completions.create,
                 model=model,
                 messages=[
-                    {"role": "system", "content": JUDGE_SYSTEM_PROMPT},
+                    {"role": "system", "content": system_prompt},
                     {"role": "user", "content": user_prompt},
                 ],
                 temperature=0.0,
@@ -157,7 +160,7 @@ def judge_trial(client, trial: dict, model: str = JUDGE_MODEL,
                 client.messages.create,
                 model=model,
                 max_tokens=1024,
-                system=JUDGE_SYSTEM_PROMPT,
+                system=system_prompt,
                 messages=[{"role": "user", "content": user_prompt}],
                 temperature=0.0,
             )
