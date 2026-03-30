@@ -47,8 +47,8 @@ def load_jsonl(path: Path) -> list[dict]:
 
 # ── Trial ID generator ──
 
-def make_trial_id(model: str, scenario_id: str, framing: str, level: int, run: int) -> str:
-    return f"{model}__{scenario_id}__{framing}__{level}__run{run}"
+def make_trial_id(model: str, scenario_id: str, framing: str, level: int, run: int, probe_type: str = "leading") -> str:
+    return f"{model}__{scenario_id}__{framing}__{level}__{probe_type}__run{run}"
 
 
 # ── Rate limiter ──

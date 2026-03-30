@@ -1,4 +1,4 @@
-"""Deep statistical analysis: 5 research angles for publication."""
+"""Deep statistical analysis: 5 research angles + probe type analysis for publication."""
 
 import sys
 from pathlib import Path
@@ -52,6 +52,17 @@ def main():
     len_df = pd.read_csv("data/analysis/scored_with_length.csv")
     dims = ["revision_magnitude", "revision_value", "threshold_alignment", "overcorrection"]
 
+    # Backfill probe_type for v1 data
+    if "probe_type" not in df.columns:
+        df["probe_type"] = "leading"
+    df["probe_type"] = df["probe_type"].fillna("leading")
+    if "probe_type" not in len_df.columns:
+        len_df["probe_type"] = "leading"
+    len_df["probe_type"] = len_df["probe_type"].fillna("leading")
+
+    probe_types = sorted(df["probe_type"].unique())
+    has_probes = len(probe_types) > 1
+
     lines = []
     def log(s=""):
         lines.append(s)
@@ -72,8 +83,8 @@ def main():
         log(f"  {dim}: H={h:.2f}, p={p:.6f}{sig}")
 
     # Pairwise model comparisons
-    log("\n## Pairwise Model Comparisons (overcorrection)")
     models = sorted(df["model"].unique())
+    log("\n## Pairwise Model Comparisons (overcorrection)")
     pairs = bonferroni_pairwise(df, "model", "overcorrection", models)
     for p in pairs:
         sig = "*" if p["sig"] else ""
@@ -328,6 +339,8 @@ def main():
         log(f"  By scenario: {dict(decline_df['scenario_id'].value_counts())}")
         log(f"  By threshold: {dict(decline_df['threshold_level'].value_counts())}")
         log(f"  By framing: {dict(decline_df['framing'].value_counts())}")
+        if has_probes:
+            log(f"  By probe_type: {dict(decline_df['probe_type'].value_counts())}")
 
     # Three-way outlier cells
     log("\n## Three-Way Outlier Cells (mean OC ≥ 1 SD above grand mean)")
@@ -350,6 +363,94 @@ def main():
             log(f"  {c['model']} | {c['framing']} | level={c['level']}: OC={c['mean_oc']} (n={c['n']})")
     else:
         log("  (none)")
+
+    # ====================================================================
+    # ANALYSIS 6: PROBE TYPE EFFECTS (leading vs neutral)
+    # ====================================================================
+    if has_probes:
+        log("\n\n# Deep Analysis 6: Probe Type Effects (Leading vs Neutral)")
+        log("=" * 60)
+
+        # Pooled probe effect
+        log("\n## Pooled Probe Effect")
+        for dim in dims:
+            vl = df[df["probe_type"] == "leading"][dim].dropna().values
+            vn = df[df["probe_type"] == "neutral"][dim].dropna().values
+            if len(vl) < 2 or len(vn) < 2:
+                continue
+            u, p = sp_stats.mannwhitneyu(vl, vn, alternative="two-sided")
+            r = rank_biserial(u, len(vl), len(vn))
+            sig = "*" if p < 0.05 else ""
+            log(f"  {dim}: leading_mean={np.mean(vl):.2f}, neutral_mean={np.mean(vn):.2f}, "
+                f"U={u:.0f}, p={p:.6f}{sig}, r={r}")
+
+        # Per-model probe effect
+        log("\n## Per-Model Probe Effect (overcorrection)")
+        for model in models:
+            mdf = df[df["model"] == model]
+            vl = mdf[mdf["probe_type"] == "leading"]["overcorrection"].dropna().values
+            vn = mdf[mdf["probe_type"] == "neutral"]["overcorrection"].dropna().values
+            if len(vl) < 2 or len(vn) < 2:
+                continue
+            u, p = sp_stats.mannwhitneyu(vl, vn, alternative="two-sided")
+            r = rank_biserial(u, len(vl), len(vn))
+            sig = "*" if p < 0.05 else ""
+            log(f"  {model}: leading_mean={np.mean(vl):.2f}, neutral_mean={np.mean(vn):.2f}, "
+                f"r={r}, p={p:.6f}{sig}")
+
+        # Revision gate by probe type per model
+        log("\n## Revision Gate by Probe Type")
+        for model in models:
+            mdf = df[df["model"] == model]
+            log(f"  {model}:")
+            for probe in probe_types:
+                pdata = mdf[mdf["probe_type"] == probe]
+                gate_pcts = pdata["revision_gate"].value_counts(normalize=True) * 100
+                log(f"    {probe}: " + ", ".join(
+                    f"{g}={gate_pcts.get(g, 0):.1f}%" for g in ["decline", "suggest_minor", "full_revision"]))
+
+        # Key question: does the neutral probe increase decline rates?
+        log("\n## Decline Rate Comparison (leading vs neutral)")
+        for model in models:
+            mdf = df[df["model"] == model]
+            for probe in probe_types:
+                pdata = mdf[mdf["probe_type"] == probe]
+                n_decline = (pdata["revision_gate"] == "decline").sum()
+                log(f"  {model} | {probe}: {n_decline}/{len(pdata)} declines ({n_decline/len(pdata)*100:.1f}%)")
+
+        # Probe × threshold interaction
+        log("\n## Probe × Threshold: Does probe type moderate threshold sensitivity?")
+        for model in models:
+            for probe in probe_types:
+                subset = df[(df["model"] == model) & (df["probe_type"] == probe)]
+                if len(subset) < 3:
+                    continue
+                rho, p = sp_stats.spearmanr(subset["threshold_level"], subset["overcorrection"])
+                sig = "*" if p < 0.05 else ""
+                log(f"  {model} | {probe}: rho={rho:.3f}, p={p:.4f}{sig}")
+
+        # Dose-response slopes by probe type
+        log("\n## Per-Model Overcorrection Trend by Probe Type")
+        for model in models:
+            for probe in probe_types:
+                subset = df[(df["model"] == model) & (df["probe_type"] == probe)]
+                means = subset.groupby("threshold_level")["overcorrection"].mean()
+                levels = np.array(sorted(means.index), dtype=float)
+                vals = np.array([means[l] for l in levels])
+                if len(levels) < 3:
+                    continue
+                slope, intercept, r_val, p_val, std_err = sp_stats.linregress(levels, vals)
+                log(f"  {model} | {probe}: slope={slope:.5f}, R²={r_val**2:.4f}, p={p_val:.4f}")
+
+        # Response length by probe type
+        log("\n## Response Length Delta by Probe Type")
+        for model in models:
+            for probe in probe_types:
+                subset = len_df[(len_df["model"] == model) & (len_df["probe_type"] == probe)]
+                if len(subset) == 0:
+                    continue
+                log(f"  {model} | {probe}: delta_mean={subset['len_delta'].mean():.0f}, "
+                    f"ratio_mean={subset['len_ratio'].mean():.2f}")
 
     # ====================================================================
     # SAVE

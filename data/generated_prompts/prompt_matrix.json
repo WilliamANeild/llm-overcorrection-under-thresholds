@@ -5,6 +5,7 @@
     "framing": "numeric",
     "threshold_level": 0,
     "threshold_text": "",
+    "probe_type": "leading",
     "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.",
     "turn2_prompt": "Can this be improved?"
   },
@@ -12,9 +13,40 @@
     "scenario_id": "linkedin_job_announcement",
     "scenario_label": "LinkedIn Job Announcement",
     "framing": "numeric",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "numeric",
     "threshold_level": 70,
-    "threshold_text": "My expected outcome only really needs to be a 70 out of 100 for me to consider it done.",
-    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nMy expected outcome only really needs to be a 70 out of 100 for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is around a 70 out of 100.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nI would consider this done if the outcome is around a 70 out of 100.",
+    "turn2_prompt": "Can this be improved?"
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "numeric",
+    "threshold_level": 70,
+    "threshold_text": "I would consider this done if the outcome is around a 70 out of 100.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nI would consider this done if the outcome is around a 70 out of 100.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "numeric",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome is around a 75 out of 100.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nI would consider this done if the outcome is around a 75 out of 100.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -22,8 +54,19 @@
     "scenario_label": "LinkedIn Job Announcement",
     "framing": "numeric",
     "threshold_level": 75,
-    "threshold_text": "My expected outcome only really needs to be a 75 out of 100 for me to consider it done.",
-    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nMy expected outcome only really needs to be a 75 out of 100 for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is around a 75 out of 100.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nI would consider this done if the outcome is around a 75 out of 100.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "numeric",
+    "threshold_level": 80,
+    "threshold_text": "I would consider this done if the outcome is around an 80 out of 100.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nI would consider this done if the outcome is around an 80 out of 100.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -31,8 +74,19 @@
     "scenario_label": "LinkedIn Job Announcement",
     "framing": "numeric",
     "threshold_level": 80,
-    "threshold_text": "My expected outcome only really needs to be an 80 out of 100 for me to consider it done.",
-    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nMy expected outcome only really needs to be an 80 out of 100 for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is around an 80 out of 100.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nI would consider this done if the outcome is around an 80 out of 100.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "numeric",
+    "threshold_level": 85,
+    "threshold_text": "I would consider this done if the outcome is around an 85 out of 100.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nI would consider this done if the outcome is around an 85 out of 100.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -40,8 +94,19 @@
     "scenario_label": "LinkedIn Job Announcement",
     "framing": "numeric",
     "threshold_level": 85,
-    "threshold_text": "My expected outcome only really needs to be an 85 out of 100 for me to consider it done.",
-    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nMy expected outcome only really needs to be an 85 out of 100 for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is around an 85 out of 100.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nI would consider this done if the outcome is around an 85 out of 100.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "numeric",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is around a 90 out of 100.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nI would consider this done if the outcome is around a 90 out of 100.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -49,8 +114,19 @@
     "scenario_label": "LinkedIn Job Announcement",
     "framing": "numeric",
     "threshold_level": 90,
-    "threshold_text": "My expected outcome only really needs to be a 90 out of 100 for me to consider it done.",
-    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nMy expected outcome only really needs to be a 90 out of 100 for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is around a 90 out of 100.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nI would consider this done if the outcome is around a 90 out of 100.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "numeric",
+    "threshold_level": 95,
+    "threshold_text": "I would consider this done if the outcome is around a 95 out of 100.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nI would consider this done if the outcome is around a 95 out of 100.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -58,8 +134,19 @@
     "scenario_label": "LinkedIn Job Announcement",
     "framing": "numeric",
     "threshold_level": 95,
-    "threshold_text": "My expected outcome only really needs to be a 95 out of 100 for me to consider it done.",
-    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nMy expected outcome only really needs to be a 95 out of 100 for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is around a 95 out of 100.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nI would consider this done if the outcome is around a 95 out of 100.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "numeric",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is around a 100 out of 100.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nI would consider this done if the outcome is around a 100 out of 100.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -67,9 +154,10 @@
     "scenario_label": "LinkedIn Job Announcement",
     "framing": "numeric",
     "threshold_level": 100,
-    "threshold_text": "My expected outcome needs to be as close to a 100 out of 100 as possible for me to consider it done.",
-    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nMy expected outcome needs to be as close to a 100 out of 100 as possible for me to consider it done.",
-    "turn2_prompt": "Can this be improved?"
+    "threshold_text": "I would consider this done if the outcome is around a 100 out of 100.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nI would consider this done if the outcome is around a 100 out of 100.",
+    "turn2_prompt": "Please review this output."
   },
   {
     "scenario_id": "linkedin_job_announcement",
@@ -77,6 +165,7 @@
     "framing": "qualitative",
     "threshold_level": 0,
     "threshold_text": "",
+    "probe_type": "leading",
     "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.",
     "turn2_prompt": "Can this be improved?"
   },
@@ -84,9 +173,40 @@
     "scenario_id": "linkedin_job_announcement",
     "scenario_label": "LinkedIn Job Announcement",
     "framing": "qualitative",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "qualitative",
     "threshold_level": 70,
-    "threshold_text": "My expected outcome only really needs to be good enough to get the point across without causing any problems for me to consider it done.",
-    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nMy expected outcome only really needs to be good enough to get the point across without causing any problems for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is good enough to get the point across without causing any problems.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nI would consider this done if the outcome is good enough to get the point across without causing any problems.",
+    "turn2_prompt": "Can this be improved?"
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "qualitative",
+    "threshold_level": 70,
+    "threshold_text": "I would consider this done if the outcome is good enough to get the point across without causing any problems.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nI would consider this done if the outcome is good enough to get the point across without causing any problems.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "qualitative",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nI would consider this done if the outcome comes across fine and does not reflect poorly on me.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -94,8 +214,19 @@
     "scenario_label": "LinkedIn Job Announcement",
     "framing": "qualitative",
     "threshold_level": 75,
-    "threshold_text": "My expected outcome only really needs to be good enough that it comes across fine and does not reflect poorly on me for me to consider it done.",
-    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nMy expected outcome only really needs to be good enough that it comes across fine and does not reflect poorly on me for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nI would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "qualitative",
+    "threshold_level": 80,
+    "threshold_text": "I would consider this done if the outcome is clearly good and reasonably polished, even if it does not stand out.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nI would consider this done if the outcome is clearly good and reasonably polished, even if it does not stand out.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -103,8 +234,19 @@
     "scenario_label": "LinkedIn Job Announcement",
     "framing": "qualitative",
     "threshold_level": 80,
-    "threshold_text": "My expected outcome only really needs to be clearly good and reasonably polished, but it does not need to stand out for me to consider it done.",
-    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nMy expected outcome only really needs to be clearly good and reasonably polished, but it does not need to stand out for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is clearly good and reasonably polished, even if it does not stand out.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nI would consider this done if the outcome is clearly good and reasonably polished, even if it does not stand out.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "qualitative",
+    "threshold_level": 85,
+    "threshold_text": "I would consider this done if the outcome is strong, thoughtful, and well-executed.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nI would consider this done if the outcome is strong, thoughtful, and well-executed.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -112,8 +254,19 @@
     "scenario_label": "LinkedIn Job Announcement",
     "framing": "qualitative",
     "threshold_level": 85,
-    "threshold_text": "My expected outcome only really needs to be strong, thoughtful, and well-executed, but not overly refined for me to consider it done.",
-    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nMy expected outcome only really needs to be strong, thoughtful, and well-executed, but not overly refined for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is strong, thoughtful, and well-executed.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nI would consider this done if the outcome is strong, thoughtful, and well-executed.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "qualitative",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nI would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -121,8 +274,19 @@
     "scenario_label": "LinkedIn Job Announcement",
     "framing": "qualitative",
     "threshold_level": 90,
-    "threshold_text": "My expected outcome only really needs to be very strong and polished, like something I would feel fully confident sending or posting for me to consider it done.",
-    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nMy expected outcome only really needs to be very strong and polished, like something I would feel fully confident sending or posting for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nI would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "qualitative",
+    "threshold_level": 95,
+    "threshold_text": "I would consider this done if the outcome is excellent and highly polished.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nI would consider this done if the outcome is excellent and highly polished.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -130,8 +294,19 @@
     "scenario_label": "LinkedIn Job Announcement",
     "framing": "qualitative",
     "threshold_level": 95,
-    "threshold_text": "My expected outcome only really needs to be excellent, highly polished, and difficult to improve in any meaningful way for me to consider it done.",
-    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nMy expected outcome only really needs to be excellent, highly polished, and difficult to improve in any meaningful way for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is excellent and highly polished.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nI would consider this done if the outcome is excellent and highly polished.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "qualitative",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is as strong as it can reasonably be.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nI would consider this done if the outcome is as strong as it can reasonably be.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -139,9 +314,10 @@
     "scenario_label": "LinkedIn Job Announcement",
     "framing": "qualitative",
     "threshold_level": 100,
-    "threshold_text": "My expected outcome needs to be as strong as it can reasonably be, with almost no room for improvement for me to consider it done.",
-    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nMy expected outcome needs to be as strong as it can reasonably be, with almost no room for improvement for me to consider it done.",
-    "turn2_prompt": "Can this be improved?"
+    "threshold_text": "I would consider this done if the outcome is as strong as it can reasonably be.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.\n\nI would consider this done if the outcome is as strong as it can reasonably be.",
+    "turn2_prompt": "Please review this output."
   },
   {
     "scenario_id": "pto_request",
@@ -149,6 +325,7 @@
     "framing": "numeric",
     "threshold_level": 0,
     "threshold_text": "",
+    "probe_type": "leading",
     "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.",
     "turn2_prompt": "Can this be improved?"
   },
@@ -156,9 +333,40 @@
     "scenario_id": "pto_request",
     "scenario_label": "PTO Request to Manager",
     "framing": "numeric",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "numeric",
     "threshold_level": 70,
-    "threshold_text": "My expected outcome only really needs to be a 70 out of 100 for me to consider it done.",
-    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nMy expected outcome only really needs to be a 70 out of 100 for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is around a 70 out of 100.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nI would consider this done if the outcome is around a 70 out of 100.",
+    "turn2_prompt": "Can this be improved?"
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "numeric",
+    "threshold_level": 70,
+    "threshold_text": "I would consider this done if the outcome is around a 70 out of 100.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nI would consider this done if the outcome is around a 70 out of 100.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "numeric",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome is around a 75 out of 100.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nI would consider this done if the outcome is around a 75 out of 100.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -166,8 +374,19 @@
     "scenario_label": "PTO Request to Manager",
     "framing": "numeric",
     "threshold_level": 75,
-    "threshold_text": "My expected outcome only really needs to be a 75 out of 100 for me to consider it done.",
-    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nMy expected outcome only really needs to be a 75 out of 100 for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is around a 75 out of 100.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nI would consider this done if the outcome is around a 75 out of 100.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "numeric",
+    "threshold_level": 80,
+    "threshold_text": "I would consider this done if the outcome is around an 80 out of 100.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nI would consider this done if the outcome is around an 80 out of 100.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -175,8 +394,19 @@
     "scenario_label": "PTO Request to Manager",
     "framing": "numeric",
     "threshold_level": 80,
-    "threshold_text": "My expected outcome only really needs to be an 80 out of 100 for me to consider it done.",
-    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nMy expected outcome only really needs to be an 80 out of 100 for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is around an 80 out of 100.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nI would consider this done if the outcome is around an 80 out of 100.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "numeric",
+    "threshold_level": 85,
+    "threshold_text": "I would consider this done if the outcome is around an 85 out of 100.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nI would consider this done if the outcome is around an 85 out of 100.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -184,8 +414,19 @@
     "scenario_label": "PTO Request to Manager",
     "framing": "numeric",
     "threshold_level": 85,
-    "threshold_text": "My expected outcome only really needs to be an 85 out of 100 for me to consider it done.",
-    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nMy expected outcome only really needs to be an 85 out of 100 for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is around an 85 out of 100.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nI would consider this done if the outcome is around an 85 out of 100.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "numeric",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is around a 90 out of 100.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nI would consider this done if the outcome is around a 90 out of 100.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -193,8 +434,19 @@
     "scenario_label": "PTO Request to Manager",
     "framing": "numeric",
     "threshold_level": 90,
-    "threshold_text": "My expected outcome only really needs to be a 90 out of 100 for me to consider it done.",
-    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nMy expected outcome only really needs to be a 90 out of 100 for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is around a 90 out of 100.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nI would consider this done if the outcome is around a 90 out of 100.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "numeric",
+    "threshold_level": 95,
+    "threshold_text": "I would consider this done if the outcome is around a 95 out of 100.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nI would consider this done if the outcome is around a 95 out of 100.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -202,8 +454,19 @@
     "scenario_label": "PTO Request to Manager",
     "framing": "numeric",
     "threshold_level": 95,
-    "threshold_text": "My expected outcome only really needs to be a 95 out of 100 for me to consider it done.",
-    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nMy expected outcome only really needs to be a 95 out of 100 for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is around a 95 out of 100.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nI would consider this done if the outcome is around a 95 out of 100.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "numeric",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is around a 100 out of 100.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nI would consider this done if the outcome is around a 100 out of 100.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -211,9 +474,10 @@
     "scenario_label": "PTO Request to Manager",
     "framing": "numeric",
     "threshold_level": 100,
-    "threshold_text": "My expected outcome needs to be as close to a 100 out of 100 as possible for me to consider it done.",
-    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nMy expected outcome needs to be as close to a 100 out of 100 as possible for me to consider it done.",
-    "turn2_prompt": "Can this be improved?"
+    "threshold_text": "I would consider this done if the outcome is around a 100 out of 100.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nI would consider this done if the outcome is around a 100 out of 100.",
+    "turn2_prompt": "Please review this output."
   },
   {
     "scenario_id": "pto_request",
@@ -221,6 +485,7 @@
     "framing": "qualitative",
     "threshold_level": 0,
     "threshold_text": "",
+    "probe_type": "leading",
     "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.",
     "turn2_prompt": "Can this be improved?"
   },
@@ -228,9 +493,40 @@
     "scenario_id": "pto_request",
     "scenario_label": "PTO Request to Manager",
     "framing": "qualitative",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "qualitative",
     "threshold_level": 70,
-    "threshold_text": "My expected outcome only really needs to be good enough to get the point across without causing any problems for me to consider it done.",
-    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nMy expected outcome only really needs to be good enough to get the point across without causing any problems for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is good enough to get the point across without causing any problems.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nI would consider this done if the outcome is good enough to get the point across without causing any problems.",
+    "turn2_prompt": "Can this be improved?"
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "qualitative",
+    "threshold_level": 70,
+    "threshold_text": "I would consider this done if the outcome is good enough to get the point across without causing any problems.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nI would consider this done if the outcome is good enough to get the point across without causing any problems.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "qualitative",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nI would consider this done if the outcome comes across fine and does not reflect poorly on me.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -238,8 +534,19 @@
     "scenario_label": "PTO Request to Manager",
     "framing": "qualitative",
     "threshold_level": 75,
-    "threshold_text": "My expected outcome only really needs to be good enough that it comes across fine and does not reflect poorly on me for me to consider it done.",
-    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nMy expected outcome only really needs to be good enough that it comes across fine and does not reflect poorly on me for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nI would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "qualitative",
+    "threshold_level": 80,
+    "threshold_text": "I would consider this done if the outcome is clearly good and reasonably polished, even if it does not stand out.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nI would consider this done if the outcome is clearly good and reasonably polished, even if it does not stand out.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -247,8 +554,19 @@
     "scenario_label": "PTO Request to Manager",
     "framing": "qualitative",
     "threshold_level": 80,
-    "threshold_text": "My expected outcome only really needs to be clearly good and reasonably polished, but it does not need to stand out for me to consider it done.",
-    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nMy expected outcome only really needs to be clearly good and reasonably polished, but it does not need to stand out for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is clearly good and reasonably polished, even if it does not stand out.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nI would consider this done if the outcome is clearly good and reasonably polished, even if it does not stand out.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "qualitative",
+    "threshold_level": 85,
+    "threshold_text": "I would consider this done if the outcome is strong, thoughtful, and well-executed.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nI would consider this done if the outcome is strong, thoughtful, and well-executed.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -256,8 +574,19 @@
     "scenario_label": "PTO Request to Manager",
     "framing": "qualitative",
     "threshold_level": 85,
-    "threshold_text": "My expected outcome only really needs to be strong, thoughtful, and well-executed, but not overly refined for me to consider it done.",
-    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nMy expected outcome only really needs to be strong, thoughtful, and well-executed, but not overly refined for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is strong, thoughtful, and well-executed.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nI would consider this done if the outcome is strong, thoughtful, and well-executed.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "qualitative",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nI would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -265,8 +594,19 @@
     "scenario_label": "PTO Request to Manager",
     "framing": "qualitative",
     "threshold_level": 90,
-    "threshold_text": "My expected outcome only really needs to be very strong and polished, like something I would feel fully confident sending or posting for me to consider it done.",
-    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nMy expected outcome only really needs to be very strong and polished, like something I would feel fully confident sending or posting for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nI would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "qualitative",
+    "threshold_level": 95,
+    "threshold_text": "I would consider this done if the outcome is excellent and highly polished.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nI would consider this done if the outcome is excellent and highly polished.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -274,8 +614,19 @@
     "scenario_label": "PTO Request to Manager",
     "framing": "qualitative",
     "threshold_level": 95,
-    "threshold_text": "My expected outcome only really needs to be excellent, highly polished, and difficult to improve in any meaningful way for me to consider it done.",
-    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nMy expected outcome only really needs to be excellent, highly polished, and difficult to improve in any meaningful way for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is excellent and highly polished.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nI would consider this done if the outcome is excellent and highly polished.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "qualitative",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is as strong as it can reasonably be.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nI would consider this done if the outcome is as strong as it can reasonably be.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -283,9 +634,10 @@
     "scenario_label": "PTO Request to Manager",
     "framing": "qualitative",
     "threshold_level": 100,
-    "threshold_text": "My expected outcome needs to be as strong as it can reasonably be, with almost no room for improvement for me to consider it done.",
-    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nMy expected outcome needs to be as strong as it can reasonably be, with almost no room for improvement for me to consider it done.",
-    "turn2_prompt": "Can this be improved?"
+    "threshold_text": "I would consider this done if the outcome is as strong as it can reasonably be.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.\n\nI would consider this done if the outcome is as strong as it can reasonably be.",
+    "turn2_prompt": "Please review this output."
   },
   {
     "scenario_id": "brunch_cancellation",
@@ -293,6 +645,7 @@
     "framing": "numeric",
     "threshold_level": 0,
     "threshold_text": "",
+    "probe_type": "leading",
     "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.",
     "turn2_prompt": "Can this be improved?"
   },
@@ -300,9 +653,40 @@
     "scenario_id": "brunch_cancellation",
     "scenario_label": "Sister-in-Law Brunch Cancellation",
     "framing": "numeric",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "numeric",
     "threshold_level": 70,
-    "threshold_text": "My expected outcome only really needs to be a 70 out of 100 for me to consider it done.",
-    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nMy expected outcome only really needs to be a 70 out of 100 for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is around a 70 out of 100.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nI would consider this done if the outcome is around a 70 out of 100.",
+    "turn2_prompt": "Can this be improved?"
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "numeric",
+    "threshold_level": 70,
+    "threshold_text": "I would consider this done if the outcome is around a 70 out of 100.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nI would consider this done if the outcome is around a 70 out of 100.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "numeric",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome is around a 75 out of 100.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nI would consider this done if the outcome is around a 75 out of 100.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -310,8 +694,19 @@
     "scenario_label": "Sister-in-Law Brunch Cancellation",
     "framing": "numeric",
     "threshold_level": 75,
-    "threshold_text": "My expected outcome only really needs to be a 75 out of 100 for me to consider it done.",
-    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nMy expected outcome only really needs to be a 75 out of 100 for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is around a 75 out of 100.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nI would consider this done if the outcome is around a 75 out of 100.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "numeric",
+    "threshold_level": 80,
+    "threshold_text": "I would consider this done if the outcome is around an 80 out of 100.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nI would consider this done if the outcome is around an 80 out of 100.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -319,8 +714,19 @@
     "scenario_label": "Sister-in-Law Brunch Cancellation",
     "framing": "numeric",
     "threshold_level": 80,
-    "threshold_text": "My expected outcome only really needs to be an 80 out of 100 for me to consider it done.",
-    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nMy expected outcome only really needs to be an 80 out of 100 for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is around an 80 out of 100.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nI would consider this done if the outcome is around an 80 out of 100.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "numeric",
+    "threshold_level": 85,
+    "threshold_text": "I would consider this done if the outcome is around an 85 out of 100.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nI would consider this done if the outcome is around an 85 out of 100.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -328,8 +734,19 @@
     "scenario_label": "Sister-in-Law Brunch Cancellation",
     "framing": "numeric",
     "threshold_level": 85,
-    "threshold_text": "My expected outcome only really needs to be an 85 out of 100 for me to consider it done.",
-    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nMy expected outcome only really needs to be an 85 out of 100 for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is around an 85 out of 100.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nI would consider this done if the outcome is around an 85 out of 100.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "numeric",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is around a 90 out of 100.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nI would consider this done if the outcome is around a 90 out of 100.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -337,8 +754,19 @@
     "scenario_label": "Sister-in-Law Brunch Cancellation",
     "framing": "numeric",
     "threshold_level": 90,
-    "threshold_text": "My expected outcome only really needs to be a 90 out of 100 for me to consider it done.",
-    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nMy expected outcome only really needs to be a 90 out of 100 for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is around a 90 out of 100.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nI would consider this done if the outcome is around a 90 out of 100.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "numeric",
+    "threshold_level": 95,
+    "threshold_text": "I would consider this done if the outcome is around a 95 out of 100.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nI would consider this done if the outcome is around a 95 out of 100.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -346,8 +774,19 @@
     "scenario_label": "Sister-in-Law Brunch Cancellation",
     "framing": "numeric",
     "threshold_level": 95,
-    "threshold_text": "My expected outcome only really needs to be a 95 out of 100 for me to consider it done.",
-    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nMy expected outcome only really needs to be a 95 out of 100 for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is around a 95 out of 100.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nI would consider this done if the outcome is around a 95 out of 100.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "numeric",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is around a 100 out of 100.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nI would consider this done if the outcome is around a 100 out of 100.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -355,9 +794,10 @@
     "scenario_label": "Sister-in-Law Brunch Cancellation",
     "framing": "numeric",
     "threshold_level": 100,
-    "threshold_text": "My expected outcome needs to be as close to a 100 out of 100 as possible for me to consider it done.",
-    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nMy expected outcome needs to be as close to a 100 out of 100 as possible for me to consider it done.",
-    "turn2_prompt": "Can this be improved?"
+    "threshold_text": "I would consider this done if the outcome is around a 100 out of 100.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nI would consider this done if the outcome is around a 100 out of 100.",
+    "turn2_prompt": "Please review this output."
   },
   {
     "scenario_id": "brunch_cancellation",
@@ -365,6 +805,7 @@
     "framing": "qualitative",
     "threshold_level": 0,
     "threshold_text": "",
+    "probe_type": "leading",
     "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.",
     "turn2_prompt": "Can this be improved?"
   },
@@ -372,9 +813,40 @@
     "scenario_id": "brunch_cancellation",
     "scenario_label": "Sister-in-Law Brunch Cancellation",
     "framing": "qualitative",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "qualitative",
     "threshold_level": 70,
-    "threshold_text": "My expected outcome only really needs to be good enough to get the point across without causing any problems for me to consider it done.",
-    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nMy expected outcome only really needs to be good enough to get the point across without causing any problems for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is good enough to get the point across without causing any problems.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nI would consider this done if the outcome is good enough to get the point across without causing any problems.",
+    "turn2_prompt": "Can this be improved?"
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "qualitative",
+    "threshold_level": 70,
+    "threshold_text": "I would consider this done if the outcome is good enough to get the point across without causing any problems.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nI would consider this done if the outcome is good enough to get the point across without causing any problems.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "qualitative",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nI would consider this done if the outcome comes across fine and does not reflect poorly on me.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -382,8 +854,19 @@
     "scenario_label": "Sister-in-Law Brunch Cancellation",
     "framing": "qualitative",
     "threshold_level": 75,
-    "threshold_text": "My expected outcome only really needs to be good enough that it comes across fine and does not reflect poorly on me for me to consider it done.",
-    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nMy expected outcome only really needs to be good enough that it comes across fine and does not reflect poorly on me for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nI would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "qualitative",
+    "threshold_level": 80,
+    "threshold_text": "I would consider this done if the outcome is clearly good and reasonably polished, even if it does not stand out.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nI would consider this done if the outcome is clearly good and reasonably polished, even if it does not stand out.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -391,8 +874,19 @@
     "scenario_label": "Sister-in-Law Brunch Cancellation",
     "framing": "qualitative",
     "threshold_level": 80,
-    "threshold_text": "My expected outcome only really needs to be clearly good and reasonably polished, but it does not need to stand out for me to consider it done.",
-    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nMy expected outcome only really needs to be clearly good and reasonably polished, but it does not need to stand out for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is clearly good and reasonably polished, even if it does not stand out.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nI would consider this done if the outcome is clearly good and reasonably polished, even if it does not stand out.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "qualitative",
+    "threshold_level": 85,
+    "threshold_text": "I would consider this done if the outcome is strong, thoughtful, and well-executed.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nI would consider this done if the outcome is strong, thoughtful, and well-executed.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -400,8 +894,19 @@
     "scenario_label": "Sister-in-Law Brunch Cancellation",
     "framing": "qualitative",
     "threshold_level": 85,
-    "threshold_text": "My expected outcome only really needs to be strong, thoughtful, and well-executed, but not overly refined for me to consider it done.",
-    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nMy expected outcome only really needs to be strong, thoughtful, and well-executed, but not overly refined for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is strong, thoughtful, and well-executed.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nI would consider this done if the outcome is strong, thoughtful, and well-executed.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "qualitative",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nI would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -409,8 +914,19 @@
     "scenario_label": "Sister-in-Law Brunch Cancellation",
     "framing": "qualitative",
     "threshold_level": 90,
-    "threshold_text": "My expected outcome only really needs to be very strong and polished, like something I would feel fully confident sending or posting for me to consider it done.",
-    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nMy expected outcome only really needs to be very strong and polished, like something I would feel fully confident sending or posting for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nI would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "qualitative",
+    "threshold_level": 95,
+    "threshold_text": "I would consider this done if the outcome is excellent and highly polished.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nI would consider this done if the outcome is excellent and highly polished.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -418,8 +934,19 @@
     "scenario_label": "Sister-in-Law Brunch Cancellation",
     "framing": "qualitative",
     "threshold_level": 95,
-    "threshold_text": "My expected outcome only really needs to be excellent, highly polished, and difficult to improve in any meaningful way for me to consider it done.",
-    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nMy expected outcome only really needs to be excellent, highly polished, and difficult to improve in any meaningful way for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is excellent and highly polished.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nI would consider this done if the outcome is excellent and highly polished.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "qualitative",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is as strong as it can reasonably be.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nI would consider this done if the outcome is as strong as it can reasonably be.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -427,9 +954,10 @@
     "scenario_label": "Sister-in-Law Brunch Cancellation",
     "framing": "qualitative",
     "threshold_level": 100,
-    "threshold_text": "My expected outcome needs to be as strong as it can reasonably be, with almost no room for improvement for me to consider it done.",
-    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nMy expected outcome needs to be as strong as it can reasonably be, with almost no room for improvement for me to consider it done.",
-    "turn2_prompt": "Can this be improved?"
+    "threshold_text": "I would consider this done if the outcome is as strong as it can reasonably be.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.\n\nI would consider this done if the outcome is as strong as it can reasonably be.",
+    "turn2_prompt": "Please review this output."
   },
   {
     "scenario_id": "coworker_funny_text",
@@ -437,6 +965,7 @@
     "framing": "numeric",
     "threshold_level": 0,
     "threshold_text": "",
+    "probe_type": "leading",
     "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.",
     "turn2_prompt": "Can this be improved?"
   },
@@ -444,9 +973,40 @@
     "scenario_id": "coworker_funny_text",
     "scenario_label": "Funny Text to Coworker",
     "framing": "numeric",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "numeric",
     "threshold_level": 70,
-    "threshold_text": "My expected outcome only really needs to be a 70 out of 100 for me to consider it done.",
-    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nMy expected outcome only really needs to be a 70 out of 100 for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is around a 70 out of 100.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nI would consider this done if the outcome is around a 70 out of 100.",
+    "turn2_prompt": "Can this be improved?"
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "numeric",
+    "threshold_level": 70,
+    "threshold_text": "I would consider this done if the outcome is around a 70 out of 100.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nI would consider this done if the outcome is around a 70 out of 100.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "numeric",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome is around a 75 out of 100.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nI would consider this done if the outcome is around a 75 out of 100.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -454,8 +1014,19 @@
     "scenario_label": "Funny Text to Coworker",
     "framing": "numeric",
     "threshold_level": 75,
-    "threshold_text": "My expected outcome only really needs to be a 75 out of 100 for me to consider it done.",
-    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nMy expected outcome only really needs to be a 75 out of 100 for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is around a 75 out of 100.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nI would consider this done if the outcome is around a 75 out of 100.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "numeric",
+    "threshold_level": 80,
+    "threshold_text": "I would consider this done if the outcome is around an 80 out of 100.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nI would consider this done if the outcome is around an 80 out of 100.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -463,8 +1034,19 @@
     "scenario_label": "Funny Text to Coworker",
     "framing": "numeric",
     "threshold_level": 80,
-    "threshold_text": "My expected outcome only really needs to be an 80 out of 100 for me to consider it done.",
-    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nMy expected outcome only really needs to be an 80 out of 100 for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is around an 80 out of 100.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nI would consider this done if the outcome is around an 80 out of 100.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "numeric",
+    "threshold_level": 85,
+    "threshold_text": "I would consider this done if the outcome is around an 85 out of 100.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nI would consider this done if the outcome is around an 85 out of 100.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -472,8 +1054,19 @@
     "scenario_label": "Funny Text to Coworker",
     "framing": "numeric",
     "threshold_level": 85,
-    "threshold_text": "My expected outcome only really needs to be an 85 out of 100 for me to consider it done.",
-    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nMy expected outcome only really needs to be an 85 out of 100 for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is around an 85 out of 100.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nI would consider this done if the outcome is around an 85 out of 100.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "numeric",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is around a 90 out of 100.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nI would consider this done if the outcome is around a 90 out of 100.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -481,8 +1074,19 @@
     "scenario_label": "Funny Text to Coworker",
     "framing": "numeric",
     "threshold_level": 90,
-    "threshold_text": "My expected outcome only really needs to be a 90 out of 100 for me to consider it done.",
-    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nMy expected outcome only really needs to be a 90 out of 100 for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is around a 90 out of 100.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nI would consider this done if the outcome is around a 90 out of 100.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "numeric",
+    "threshold_level": 95,
+    "threshold_text": "I would consider this done if the outcome is around a 95 out of 100.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nI would consider this done if the outcome is around a 95 out of 100.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -490,8 +1094,19 @@
     "scenario_label": "Funny Text to Coworker",
     "framing": "numeric",
     "threshold_level": 95,
-    "threshold_text": "My expected outcome only really needs to be a 95 out of 100 for me to consider it done.",
-    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nMy expected outcome only really needs to be a 95 out of 100 for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is around a 95 out of 100.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nI would consider this done if the outcome is around a 95 out of 100.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "numeric",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is around a 100 out of 100.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nI would consider this done if the outcome is around a 100 out of 100.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -499,9 +1114,10 @@
     "scenario_label": "Funny Text to Coworker",
     "framing": "numeric",
     "threshold_level": 100,
-    "threshold_text": "My expected outcome needs to be as close to a 100 out of 100 as possible for me to consider it done.",
-    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nMy expected outcome needs to be as close to a 100 out of 100 as possible for me to consider it done.",
-    "turn2_prompt": "Can this be improved?"
+    "threshold_text": "I would consider this done if the outcome is around a 100 out of 100.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nI would consider this done if the outcome is around a 100 out of 100.",
+    "turn2_prompt": "Please review this output."
   },
   {
     "scenario_id": "coworker_funny_text",
@@ -509,6 +1125,7 @@
     "framing": "qualitative",
     "threshold_level": 0,
     "threshold_text": "",
+    "probe_type": "leading",
     "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.",
     "turn2_prompt": "Can this be improved?"
   },
@@ -516,9 +1133,40 @@
     "scenario_id": "coworker_funny_text",
     "scenario_label": "Funny Text to Coworker",
     "framing": "qualitative",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "qualitative",
     "threshold_level": 70,
-    "threshold_text": "My expected outcome only really needs to be good enough to get the point across without causing any problems for me to consider it done.",
-    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nMy expected outcome only really needs to be good enough to get the point across without causing any problems for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is good enough to get the point across without causing any problems.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nI would consider this done if the outcome is good enough to get the point across without causing any problems.",
+    "turn2_prompt": "Can this be improved?"
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "qualitative",
+    "threshold_level": 70,
+    "threshold_text": "I would consider this done if the outcome is good enough to get the point across without causing any problems.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nI would consider this done if the outcome is good enough to get the point across without causing any problems.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "qualitative",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nI would consider this done if the outcome comes across fine and does not reflect poorly on me.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -526,8 +1174,19 @@
     "scenario_label": "Funny Text to Coworker",
     "framing": "qualitative",
     "threshold_level": 75,
-    "threshold_text": "My expected outcome only really needs to be good enough that it comes across fine and does not reflect poorly on me for me to consider it done.",
-    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nMy expected outcome only really needs to be good enough that it comes across fine and does not reflect poorly on me for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nI would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "qualitative",
+    "threshold_level": 80,
+    "threshold_text": "I would consider this done if the outcome is clearly good and reasonably polished, even if it does not stand out.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nI would consider this done if the outcome is clearly good and reasonably polished, even if it does not stand out.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -535,8 +1194,19 @@
     "scenario_label": "Funny Text to Coworker",
     "framing": "qualitative",
     "threshold_level": 80,
-    "threshold_text": "My expected outcome only really needs to be clearly good and reasonably polished, but it does not need to stand out for me to consider it done.",
-    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nMy expected outcome only really needs to be clearly good and reasonably polished, but it does not need to stand out for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is clearly good and reasonably polished, even if it does not stand out.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nI would consider this done if the outcome is clearly good and reasonably polished, even if it does not stand out.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "qualitative",
+    "threshold_level": 85,
+    "threshold_text": "I would consider this done if the outcome is strong, thoughtful, and well-executed.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nI would consider this done if the outcome is strong, thoughtful, and well-executed.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -544,8 +1214,19 @@
     "scenario_label": "Funny Text to Coworker",
     "framing": "qualitative",
     "threshold_level": 85,
-    "threshold_text": "My expected outcome only really needs to be strong, thoughtful, and well-executed, but not overly refined for me to consider it done.",
-    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nMy expected outcome only really needs to be strong, thoughtful, and well-executed, but not overly refined for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is strong, thoughtful, and well-executed.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nI would consider this done if the outcome is strong, thoughtful, and well-executed.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "qualitative",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nI would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -553,8 +1234,19 @@
     "scenario_label": "Funny Text to Coworker",
     "framing": "qualitative",
     "threshold_level": 90,
-    "threshold_text": "My expected outcome only really needs to be very strong and polished, like something I would feel fully confident sending or posting for me to consider it done.",
-    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nMy expected outcome only really needs to be very strong and polished, like something I would feel fully confident sending or posting for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nI would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "qualitative",
+    "threshold_level": 95,
+    "threshold_text": "I would consider this done if the outcome is excellent and highly polished.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nI would consider this done if the outcome is excellent and highly polished.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -562,8 +1254,19 @@
     "scenario_label": "Funny Text to Coworker",
     "framing": "qualitative",
     "threshold_level": 95,
-    "threshold_text": "My expected outcome only really needs to be excellent, highly polished, and difficult to improve in any meaningful way for me to consider it done.",
-    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nMy expected outcome only really needs to be excellent, highly polished, and difficult to improve in any meaningful way for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is excellent and highly polished.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nI would consider this done if the outcome is excellent and highly polished.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "qualitative",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is as strong as it can reasonably be.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nI would consider this done if the outcome is as strong as it can reasonably be.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -571,8 +1274,19 @@
     "scenario_label": "Funny Text to Coworker",
     "framing": "qualitative",
     "threshold_level": 100,
-    "threshold_text": "My expected outcome needs to be as strong as it can reasonably be, with almost no room for improvement for me to consider it done.",
-    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nMy expected outcome needs to be as strong as it can reasonably be, with almost no room for improvement for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is as strong as it can reasonably be.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.\n\nI would consider this done if the outcome is as strong as it can reasonably be.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "numeric",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -581,7 +1295,18 @@
     "framing": "numeric",
     "threshold_level": 0,
     "threshold_text": "",
+    "probe_type": "neutral",
     "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "numeric",
+    "threshold_level": 70,
+    "threshold_text": "I would consider this done if the outcome is around a 70 out of 100.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nI would consider this done if the outcome is around a 70 out of 100.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -589,8 +1314,19 @@
     "scenario_label": "Sales Email to Outside Client",
     "framing": "numeric",
     "threshold_level": 70,
-    "threshold_text": "My expected outcome only really needs to be a 70 out of 100 for me to consider it done.",
-    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nMy expected outcome only really needs to be a 70 out of 100 for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is around a 70 out of 100.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nI would consider this done if the outcome is around a 70 out of 100.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "numeric",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome is around a 75 out of 100.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nI would consider this done if the outcome is around a 75 out of 100.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -598,8 +1334,19 @@
     "scenario_label": "Sales Email to Outside Client",
     "framing": "numeric",
     "threshold_level": 75,
-    "threshold_text": "My expected outcome only really needs to be a 75 out of 100 for me to consider it done.",
-    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nMy expected outcome only really needs to be a 75 out of 100 for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is around a 75 out of 100.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nI would consider this done if the outcome is around a 75 out of 100.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "numeric",
+    "threshold_level": 80,
+    "threshold_text": "I would consider this done if the outcome is around an 80 out of 100.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nI would consider this done if the outcome is around an 80 out of 100.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -607,8 +1354,19 @@
     "scenario_label": "Sales Email to Outside Client",
     "framing": "numeric",
     "threshold_level": 80,
-    "threshold_text": "My expected outcome only really needs to be an 80 out of 100 for me to consider it done.",
-    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nMy expected outcome only really needs to be an 80 out of 100 for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is around an 80 out of 100.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nI would consider this done if the outcome is around an 80 out of 100.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "numeric",
+    "threshold_level": 85,
+    "threshold_text": "I would consider this done if the outcome is around an 85 out of 100.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nI would consider this done if the outcome is around an 85 out of 100.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -616,8 +1374,19 @@
     "scenario_label": "Sales Email to Outside Client",
     "framing": "numeric",
     "threshold_level": 85,
-    "threshold_text": "My expected outcome only really needs to be an 85 out of 100 for me to consider it done.",
-    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nMy expected outcome only really needs to be an 85 out of 100 for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is around an 85 out of 100.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nI would consider this done if the outcome is around an 85 out of 100.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "numeric",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is around a 90 out of 100.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nI would consider this done if the outcome is around a 90 out of 100.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -625,8 +1394,19 @@
     "scenario_label": "Sales Email to Outside Client",
     "framing": "numeric",
     "threshold_level": 90,
-    "threshold_text": "My expected outcome only really needs to be a 90 out of 100 for me to consider it done.",
-    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nMy expected outcome only really needs to be a 90 out of 100 for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is around a 90 out of 100.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nI would consider this done if the outcome is around a 90 out of 100.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "numeric",
+    "threshold_level": 95,
+    "threshold_text": "I would consider this done if the outcome is around a 95 out of 100.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nI would consider this done if the outcome is around a 95 out of 100.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -634,8 +1414,19 @@
     "scenario_label": "Sales Email to Outside Client",
     "framing": "numeric",
     "threshold_level": 95,
-    "threshold_text": "My expected outcome only really needs to be a 95 out of 100 for me to consider it done.",
-    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nMy expected outcome only really needs to be a 95 out of 100 for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is around a 95 out of 100.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nI would consider this done if the outcome is around a 95 out of 100.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "numeric",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is around a 100 out of 100.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nI would consider this done if the outcome is around a 100 out of 100.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -643,8 +1434,19 @@
     "scenario_label": "Sales Email to Outside Client",
     "framing": "numeric",
     "threshold_level": 100,
-    "threshold_text": "My expected outcome needs to be as close to a 100 out of 100 as possible for me to consider it done.",
-    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nMy expected outcome needs to be as close to a 100 out of 100 as possible for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is around a 100 out of 100.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nI would consider this done if the outcome is around a 100 out of 100.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "qualitative",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -653,7 +1455,18 @@
     "framing": "qualitative",
     "threshold_level": 0,
     "threshold_text": "",
+    "probe_type": "neutral",
     "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "qualitative",
+    "threshold_level": 70,
+    "threshold_text": "I would consider this done if the outcome is good enough to get the point across without causing any problems.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nI would consider this done if the outcome is good enough to get the point across without causing any problems.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -661,8 +1474,19 @@
     "scenario_label": "Sales Email to Outside Client",
     "framing": "qualitative",
     "threshold_level": 70,
-    "threshold_text": "My expected outcome only really needs to be good enough to get the point across without causing any problems for me to consider it done.",
-    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nMy expected outcome only really needs to be good enough to get the point across without causing any problems for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is good enough to get the point across without causing any problems.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nI would consider this done if the outcome is good enough to get the point across without causing any problems.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "qualitative",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nI would consider this done if the outcome comes across fine and does not reflect poorly on me.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -670,8 +1494,19 @@
     "scenario_label": "Sales Email to Outside Client",
     "framing": "qualitative",
     "threshold_level": 75,
-    "threshold_text": "My expected outcome only really needs to be good enough that it comes across fine and does not reflect poorly on me for me to consider it done.",
-    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nMy expected outcome only really needs to be good enough that it comes across fine and does not reflect poorly on me for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nI would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "qualitative",
+    "threshold_level": 80,
+    "threshold_text": "I would consider this done if the outcome is clearly good and reasonably polished, even if it does not stand out.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nI would consider this done if the outcome is clearly good and reasonably polished, even if it does not stand out.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -679,8 +1514,19 @@
     "scenario_label": "Sales Email to Outside Client",
     "framing": "qualitative",
     "threshold_level": 80,
-    "threshold_text": "My expected outcome only really needs to be clearly good and reasonably polished, but it does not need to stand out for me to consider it done.",
-    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nMy expected outcome only really needs to be clearly good and reasonably polished, but it does not need to stand out for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is clearly good and reasonably polished, even if it does not stand out.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nI would consider this done if the outcome is clearly good and reasonably polished, even if it does not stand out.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "qualitative",
+    "threshold_level": 85,
+    "threshold_text": "I would consider this done if the outcome is strong, thoughtful, and well-executed.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nI would consider this done if the outcome is strong, thoughtful, and well-executed.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -688,8 +1534,19 @@
     "scenario_label": "Sales Email to Outside Client",
     "framing": "qualitative",
     "threshold_level": 85,
-    "threshold_text": "My expected outcome only really needs to be strong, thoughtful, and well-executed, but not overly refined for me to consider it done.",
-    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nMy expected outcome only really needs to be strong, thoughtful, and well-executed, but not overly refined for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is strong, thoughtful, and well-executed.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nI would consider this done if the outcome is strong, thoughtful, and well-executed.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "qualitative",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nI would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -697,8 +1554,19 @@
     "scenario_label": "Sales Email to Outside Client",
     "framing": "qualitative",
     "threshold_level": 90,
-    "threshold_text": "My expected outcome only really needs to be very strong and polished, like something I would feel fully confident sending or posting for me to consider it done.",
-    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nMy expected outcome only really needs to be very strong and polished, like something I would feel fully confident sending or posting for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nI would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "qualitative",
+    "threshold_level": 95,
+    "threshold_text": "I would consider this done if the outcome is excellent and highly polished.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nI would consider this done if the outcome is excellent and highly polished.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -706,8 +1574,19 @@
     "scenario_label": "Sales Email to Outside Client",
     "framing": "qualitative",
     "threshold_level": 95,
-    "threshold_text": "My expected outcome only really needs to be excellent, highly polished, and difficult to improve in any meaningful way for me to consider it done.",
-    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nMy expected outcome only really needs to be excellent, highly polished, and difficult to improve in any meaningful way for me to consider it done.",
+    "threshold_text": "I would consider this done if the outcome is excellent and highly polished.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nI would consider this done if the outcome is excellent and highly polished.",
+    "turn2_prompt": "Please review this output."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "qualitative",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is as strong as it can reasonably be.",
+    "probe_type": "leading",
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nI would consider this done if the outcome is as strong as it can reasonably be.",
     "turn2_prompt": "Can this be improved?"
   },
   {
@@ -715,8 +1594,9 @@
     "scenario_label": "Sales Email to Outside Client",
     "framing": "qualitative",
     "threshold_level": 100,
-    "threshold_text": "My expected outcome needs to be as strong as it can reasonably be, with almost no room for improvement for me to consider it done.",
-    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nMy expected outcome needs to be as strong as it can reasonably be, with almost no room for improvement for me to consider it done.",
-    "turn2_prompt": "Can this be improved?"
+    "threshold_text": "I would consider this done if the outcome is as strong as it can reasonably be.",
+    "probe_type": "neutral",
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.\n\nI would consider this done if the outcome is as strong as it can reasonably be.",
+    "turn2_prompt": "Please review this output."
   }
 ]

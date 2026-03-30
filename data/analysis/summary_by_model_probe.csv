@@ -1,0 +1,7 @@
+model,probe_type,n,gate_decline_count,gate_decline_pct,gate_suggest_minor_count,gate_suggest_minor_pct,gate_full_revision_count,gate_full_revision_pct,revision_magnitude_mean,revision_magnitude_median,revision_magnitude_std,revision_value_mean,revision_value_median,revision_value_std,threshold_alignment_mean,threshold_alignment_median,threshold_alignment_std,overcorrection_mean,overcorrection_median,overcorrection_std,high_overcorrection_count,high_overcorrection_pct
+claude-sonnet,leading,800,0,0.0,288,36.0,512,64.0,3.24,4.0,1.0,3.05,3.0,0.72,4.15,4.0,0.9,1.82,2.0,0.81,10,1.2
+claude-sonnet,neutral,400,223,55.8,94,23.5,83,20.8,1.82,1.0,1.12,1.71,1.0,0.92,4.66,5.0,0.67,1.23,1.0,0.54,0,0.0
+gemini-flash,leading,800,6,0.8,282,35.2,512,64.0,3.46,4.0,1.2,2.92,3.0,0.73,3.84,4.0,1.11,2.19,2.0,0.96,69,8.6
+gemini-flash,neutral,400,400,100.0,0,0.0,0,0.0,1.0,1.0,0.0,1.0,1.0,0.0,4.89,5.0,0.55,1.06,1.0,0.36,1,0.2
+gpt-4o,leading,800,0,0.0,361,45.1,439,54.9,2.94,3.0,0.93,2.21,2.0,0.41,3.98,4.0,1.01,1.88,2.0,0.83,0,0.0
+gpt-4o,neutral,400,319,79.8,78,19.5,3,0.8,1.22,1.0,0.46,1.21,1.0,0.44,4.95,5.0,0.26,1.05,1.0,0.25,0,0.0
