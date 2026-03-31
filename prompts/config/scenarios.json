@@ -23,5 +23,20 @@
     "id": "client_sales_email",
     "label": "Sales Email to Outside Client",
     "scenario_text": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event."
+  },
+  {
+    "id": "slack_project_update",
+    "label": "Slack Project Status Update",
+    "scenario_text": "Write a short Slack message to my team channel updating everyone on where we stand with the Riverside Heights apartment photography project. We finished shooting units 1 through 6 last week and the edited photos are with the client for review. Units 7 through 12 are scheduled for next Thursday and Friday. I want the message to sound clear and organized but still casual enough for Slack. Do not make it sound like a formal report."
+  },
+  {
+    "id": "setup_instructions",
+    "label": "Software Setup Instructions for Teammate",
+    "scenario_text": "Write a short set of instructions for my teammate, Marcus, explaining how to set up the local development environment for our team's inventory tracking app. He needs to clone the repo from GitHub, install Python 3.11, create a virtual environment, install the dependencies from requirements.txt, copy the example env file, and run the database migrations before starting the dev server. Keep it straightforward and easy to follow. Do not over-explain things a developer would already know, but do not skip any steps either."
+  },
+  {
+    "id": "headphones_review",
+    "label": "Online Product Review for Headphones",
+    "scenario_text": "Write a short online review for a pair of wireless headphones I bought, the SoundCore Q40, which I have been using for about three weeks. I mostly use them for long work-from-home days and occasional runs. The noise cancellation is solid, battery life has been great, and they are comfortable for hours. My only complaint is that the Bluetooth connection drops for a second or two when I walk between rooms. I want the review to sound honest, helpful, and like a normal person wrote it. Do not make it sound like an advertisement."
   }
 ]
