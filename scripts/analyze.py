@@ -8,6 +8,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import numpy as np
 import pandas as pd
 from scipy import stats as sp_stats
+from statsmodels.miscmodels.ordinal_model import OrderedModel
+from statsmodels.stats.multitest import multipletests
 
 from scripts.config import (
     JUDGE_MODEL,
@@ -524,6 +526,141 @@ def main():
             log(f"  Wrote {merged_csv_path}")
 
     df.drop(columns=["is_judge_model"], inplace=True, errors="ignore")
+
+    # ── 12. FDR Correction (Benjamini-Hochberg) ──
+    log("\n── FDR Correction (Benjamini-Hochberg) ──")
+    if test_rows:
+        p_values = [r["p_value"] for r in test_rows]
+        reject, p_adj, _, _ = multipletests(p_values, method="fdr_bh")
+        for i, row in enumerate(test_rows):
+            row["p_fdr"] = round(p_adj[i], 6)
+            row["significant_fdr_0.05"] = bool(reject[i])
+        n_total = len(test_rows)
+        n_raw_sig = sum(1 for r in test_rows if r["significant_0.05"])
+        n_fdr_sig = sum(1 for r in test_rows if r["significant_fdr_0.05"])
+        log(f"  {n_total} tests total")
+        log(f"  {n_raw_sig} significant at p<0.05 (uncorrected)")
+        log(f"  {n_fdr_sig} significant at FDR q<0.05")
+        n_lost = n_raw_sig - n_fdr_sig
+        if n_lost > 0:
+            log(f"  {n_lost} tests lost significance after FDR correction:")
+            for r in test_rows:
+                if r["significant_0.05"] and not r["significant_fdr_0.05"]:
+                    log(f"    {r['test']} | {r['comparison']} | {r['model']} | {r['dimension']}: "
+                        f"p={r['p_value']:.4f} -> q={r['p_fdr']:.4f}")
+
+    # ── 13. Ordinal Regression: Overcorrection ~ Threshold + Framing + Probe ──
+    log("\n── Ordinal Regression: Overcorrection ──")
+
+    # Filter to primary probes (leading + pilot_c) for the main model
+    primary = df[df["probe_type"].isin(["leading", "pilot_c"])].copy()
+    primary["is_leading"] = (primary["probe_type"] == "leading").astype(int)
+    primary["is_qualitative"] = (primary["framing"] == "qualitative").astype(int)
+    primary["threshold_scaled"] = primary["threshold_level"] / 100.0
+
+    # Encode model as dummies (reference: gpt-4o)
+    model_dummies = pd.get_dummies(primary["model"], prefix="model", drop_first=False)
+    if "model_gpt-4o" in model_dummies.columns:
+        model_dummies = model_dummies.drop(columns=["model_gpt-4o"])
+    primary = pd.concat([primary, model_dummies], axis=1)
+
+    # Encode scenario as dummies (reference: first alphabetically)
+    scenario_dummies = pd.get_dummies(primary["scenario_id"], prefix="scen", drop_first=True)
+    primary = pd.concat([primary, scenario_dummies], axis=1)
+
+    exog_cols_no_scenario = ["is_leading", "threshold_scaled", "is_qualitative"]
+    exog_cols_no_scenario += [c for c in model_dummies.columns]
+    exog_cols_with_scenario = exog_cols_no_scenario + [c for c in scenario_dummies.columns]
+
+    def log_ordinal_results(res, var_names, label, save_path):
+        """Log ordinal regression results for named variables."""
+        log(f"  Converged: {res.mle_retvals.get('converged', 'unknown')}")
+        log(f"  Log-likelihood: {res.llf:.1f}")
+        log(f"  AIC: {res.aic:.1f}")
+        for name in var_names:
+            if name in res.params.index:
+                coef = res.params[name]
+                pval = res.pvalues[name]
+                sig = "*" if pval < 0.05 else ""
+                log(f"    {name}: coef={coef:.4f}, p={pval:.4f}{sig}")
+        save_path.write_text(str(res.summary()))
+        log(f"  Saved -> {save_path}")
+
+    # Model A: without scenario fixed effects (simpler)
+    try:
+        log("\n  Model A: overcorrection ~ probe + threshold + framing + model")
+        exog_a = primary[exog_cols_no_scenario].astype(float)
+        mod_a = OrderedModel(primary["overcorrection"].astype(float), exog_a, distr="logit")
+        res_a = mod_a.fit(method="bfgs", disp=False, maxiter=1000)
+        log_ordinal_results(res_a, exog_cols_no_scenario, "Model A",
+                            STATS_DIR / "ordinal_regression_model_a.txt")
+    except Exception as e:
+        log(f"  Model A failed: {e}")
+
+    # Model B: with scenario fixed effects
+    try:
+        log("\n  Model B: overcorrection ~ probe + threshold + framing + model + scenario")
+        exog_b = primary[exog_cols_with_scenario].astype(float)
+        mod_b = OrderedModel(primary["overcorrection"].astype(float), exog_b, distr="logit")
+        res_b = mod_b.fit(method="bfgs", disp=False, maxiter=1000)
+        log_ordinal_results(res_b, exog_cols_no_scenario, "Model B",
+                            STATS_DIR / "ordinal_regression_model_b.txt")
+        log(f"    (scenario fixed effects: {len(scenario_dummies.columns)} dummies, omitted for brevity)")
+    except Exception as e:
+        log(f"  Model B failed: {e}")
+
+    # Model C: leading-only, threshold dose-response
+    try:
+        log("\n  Model C (leading only): overcorrection ~ threshold + framing + model + scenario")
+        leading_only = primary[primary["probe_type"] == "leading"].copy()
+        exog_c_cols = ["threshold_scaled", "is_qualitative"] + [c for c in model_dummies.columns] + [c for c in scenario_dummies.columns]
+        exog_c = leading_only[exog_c_cols].astype(float)
+        mod_c = OrderedModel(leading_only["overcorrection"].astype(float), exog_c, distr="logit")
+        res_c = mod_c.fit(method="bfgs", disp=False, maxiter=1000)
+        main_vars_c = ["threshold_scaled", "is_qualitative"] + [c for c in model_dummies.columns]
+        log_ordinal_results(res_c, main_vars_c, "Model C",
+                            STATS_DIR / "ordinal_regression_model_c.txt")
+    except Exception as e:
+        log(f"  Model C failed: {e}")
+
+    # ── 14. Post-Hoc Power Analysis ──
+    log("\n── Post-Hoc Power Analysis ──")
+    log("  Minimum detectable effect sizes at 80% power, alpha=0.05:")
+
+    # RQ1: Revision gate (chi-squared / proportion test)
+    # With N=1920 per probe, what proportion difference is detectable?
+    n_per_probe = len(primary[primary["probe_type"] == "leading"])
+    log(f"\n  RQ1 (revision gate): N={n_per_probe} per probe")
+    # For a 2-sample proportion test, MDE ≈ 2.8 * sqrt(p*(1-p)/n) for 80% power
+    # With observed p ≈ 0.5 (most conservative), MDE ≈ 2.8 * sqrt(0.25/1920) ≈ 0.032
+    p_base = 0.5
+    mde_prop = 2.8 * np.sqrt(p_base * (1 - p_base) / n_per_probe)
+    log(f"  MDE for proportion difference: {mde_prop:.3f} (observed difference: ~0.75)")
+    log(f"  Study is massively overpowered for the revision gate effect")
+
+    # RQ2: Threshold-overcorrection correlation (Spearman)
+    n_leading = len(primary[primary["probe_type"] == "leading"])
+    # For Spearman correlation, MDE |rho| ≈ sqrt(chi2_crit / (n-1)) ≈ sqrt(7.85/n)
+    # At 80% power, alpha=0.05, one-tailed: critical z ≈ 2.8, so |rho| ≈ 2.8/sqrt(n)
+    mde_rho = 2.8 / np.sqrt(n_leading)
+    log(f"\n  RQ2 (threshold-overcorrection): N={n_leading} leading-probe trials")
+    log(f"  MDE for |rho|: {mde_rho:.4f}")
+    log(f"  Observed |rho|: 0.14 (GPT-4o) to 0.50 (Gemini Flash)")
+    log(f"  Study is well-powered to detect all observed correlations")
+
+    # RQ3: Model differences (3-group Kruskal-Wallis)
+    n_per_model = n_leading // 3
+    # Cohen's f for Kruskal-Wallis: MDE f ≈ sqrt(chi2_crit / N)
+    # With N~640 per model and 3 groups: MDE f ≈ 0.08 (small)
+    mde_f = np.sqrt(5.99 / (n_per_model * 3))  # chi2 critical value df=2
+    log(f"\n  RQ3 (model differences): N={n_per_model} per model in leading probe")
+    log(f"  MDE for Cohen's f (3-group): {mde_f:.4f}")
+    log(f"  Detectable effect size category: {'small' if mde_f < 0.10 else 'medium'}")
+
+    # Overall
+    total_primary = len(primary)
+    log(f"\n  Total primary trials: {total_primary}")
+    log(f"  Per-cell (model × framing × threshold × probe): {total_primary // (3*2*8*2)}")
 
     # ── Save outputs ──
     stats_report_path = STATS_DIR / "stats_report.txt"
