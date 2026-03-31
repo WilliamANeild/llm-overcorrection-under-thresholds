@@ -2,84 +2,130 @@
 
 ## Core Setup
 
-This project studies how large language models respond to user-defined quality thresholds during revision.
+This project studies whether LLMs respect user-stated quality thresholds when deciding to revise their output, or whether the phrasing of the follow-up prompt overrides the stated threshold entirely.
 
 The basic interaction structure is:
 
-1. A user gives a task along with an intended threshold or target standard.
-2. The model produces an initial output.
-3. The user gives no further detailed guidance and instead asks: **"Can this be improved?"**
-4. The model either declines revision or proposes a revised version.
-5. The project evaluates both whether the model chooses to revise and how much the revised output changes.
-
-The goal is to test whether the model’s revision behavior remains calibrated to the user’s intended threshold or whether it continues optimizing beyond what the user actually wanted.
+1. A user gives a writing task along with an intended quality threshold (or no threshold, as a baseline).
+2. The model produces an initial output (Turn 1).
+3. The user sends a follow-up prompt — either a revision-implying probe or an evaluative probe (Turn 2).
+4. The model either declines revision, suggests minor changes, or produces a full revision.
+5. An LLM judge evaluates the revision across four rubric dimensions.
 
 ## Main Experimental Comparison
 
-The current comparison of interest is between two forms of threshold framing:
+The experiment crosses three factors in a fully factorial design:
 
-### 1. Numeric Threshold Framing
-Examples:
-- "This only needs to be around a 70."
-- "This should be at least a 90."
-- "This only needs to be good enough for an 80."
+### Factor 1: Probe Framing (2 levels)
 
-### 2. User-Defined Contextual Threshold Framing
-Examples:
-- "Make it good enough that nobody will think poorly of me."
-- "Make it clear and polite enough to get my point across."
-- "Make it strong enough for the purpose, but it does not need to be perfect."
+The follow-up prompt after the model's initial output:
+- **Leading probe**: "Can this be improved?" — implies that revision is expected
+- **Evaluative probe**: "Take another look at this and let me know if it's ready." — invites assessment without directing revision
 
-The project asks whether these different framing styles change:
-- whether the model says further improvement is needed
-- how aggressively the model revises once revision begins
+This is the primary independent variable. The prediction is that probe framing dominates the revision gate.
+
+### Factor 2: Quality Threshold (8 levels)
+
+The user's stated quality bar, embedded in the initial prompt:
+- **Baseline (0)**: No threshold stated
+- **7 threshold levels**: 70, 75, 80, 85, 90, 95, 100
+
+Each threshold level has two framing variants:
+- **Numeric**: "I would consider this done if the outcome is around a 75 out of 100."
+- **Qualitative**: "I would consider this done if the outcome comes across fine and does not reflect poorly on me."
+
+### Factor 3: Model (3 levels)
+
+- GPT-4o (OpenAI)
+- Claude Sonnet 4 (Anthropic)
+- Gemini 2.5 Flash (Google)
+
+## Scenario Stimuli
+
+Eight writing scenarios spanning four register categories:
+
+| Category | Scenario | Description |
+|----------|----------|-------------|
+| Formal | PTO request | Email to manager requesting time off |
+| Formal | Sales email | Sales email to an outside client |
+| Neutral | LinkedIn post | Job announcement on LinkedIn |
+| Neutral | Slack update | Project status message in team Slack channel |
+| Informal | Brunch cancellation | Text to sister-in-law canceling plans |
+| Informal | Coworker text | Funny text to a coworker about a bad day |
+| Other | Setup instructions | Software setup guide for a teammate |
+| Other | Product review | Online review of wireless headphones |
+
+Each scenario is 60-90 words, grounded in a specific real situation with named entities, and includes clear tone/style guidance.
+
+## Design Matrix
+
+The full design is:
+- 8 scenarios × 2 framings × 8 threshold levels × 2 probes × 3 models × 5 runs = 38,400 possible trials
+
+For the primary analysis, we run the leading and evaluative probes only:
+- 8 scenarios × 2 framings × 8 thresholds × 2 probes × 3 models × 5 runs = 3,840 primary trials
+
+Additional pilot probes (neutral, pilot_a, pilot_b) were run on the original 5 scenarios for calibration purposes (92 trials).
 
 ## Core Outcomes
 
-### Revision Gate
-Whether the model decides the output can or should be improved at all.
+### Revision Gate (Primary DV for RQ1)
 
-This is the first decision point in the interaction. A model may:
-- decline revision
-- suggest minor improvements
-- immediately produce a revised version
+A three-level categorical variable:
+- **decline** — the model says the output is fine or does not need changes
+- **suggest_minor** — the model suggests small tweaks without a full rewrite
+- **full_revision** — the model produces a substantially revised version
 
-### Revision Magnitude
-How much the model changes once it decides to revise.
+For binary analysis, suggest_minor and full_revision are collapsed into "revised."
 
-This is currently the main dependent variable of interest. The project is especially concerned with whether models produce larger-than-necessary changes relative to the user’s stated threshold.
+### Overcorrection (Primary DV for RQ2)
 
-### Revision Value
-Whether the revision is actually meaningful relative to the original threshold.
+A 1-5 scale measuring whether the model revised beyond what the user's stated threshold called for:
+- 1 = no overcorrection (proportionate to need)
+- 2 = slight overcorrection
+- 3 = noticeable overcorrection
+- 4 = strong overcorrection
+- 5 = severe overcorrection
 
-This remains the main open evaluation issue. A revision may be larger without being better aligned to the user’s intended standard.
+### Supporting Dimensions
 
-## Main Design Logic
+- **Revision magnitude** (1-5): How extensive is the revision?
+- **Revision value** (1-5): Does the revision add real value?
+- **Threshold alignment** (1-5): Does the revision quality match the stated threshold? (secondary — IRR kappa = 0.556)
 
-The current design is meant to isolate a simple but important question:
+## Evaluation
 
-When a user signals that a response only needs to meet a certain threshold, does the model later respect that threshold when asked if the output can be improved, or does it behave as though all revision opportunities should be pursued?
+All trials are scored by GPT-4o as an LLM judge using a structured rubric with anchoring examples. The judge receives the scenario description, the user's stated threshold, the Turn 1 output, the actual Turn 2 prompt, and the Turn 2 response. The judge produces a JSON object with the revision gate classification and four rubric dimension scores.
 
-The design therefore focuses on the interaction between:
-- threshold framing
-- prompt wording
-- model conditioning
-- revision behavior
+### Inter-Rater Reliability
 
-## Open Design Questions
+A stratified sample of 60 trials (balanced across model, threshold, and scenario) is re-scored by Claude Sonnet 4 as a second judge. Reliability is assessed using quadratic-weighted Cohen's kappa, Gwet's AC1, percent agreement, percent agreement within ±1, and binary kappa.
 
-Several design details still need to be refined:
+### Bias Controls
 
-- how to measure revision magnitude cleanly
-- how to distinguish meaningful revision from larger revision
-- how to operationalize model conditioning
-- which task types best fit the project
-- whether to compare multiple models or keep the first study within one model family
+- **Self-preferencing check**: GPT-4o judges its own outputs; we test whether it scores itself differently from other models.
+- **Response length proxy**: Character-count change between Turn 1 and Turn 2, used as a judge-independent proxy for overcorrection. Model rankings on this proxy are compared with judge rankings.
 
-## Current Direction
+## Analysis Plan
 
-The current direction is to keep the setup simple, defensible, and easy to pilot. The first version of the study will likely prioritize:
-- a small set of controlled task types
-- a comparison between numeric and contextual threshold framing
-- a fixed follow-up revision prompt
-- a rubric-based evaluation of revision value
+### RQ1: Revision Gate
+- Chi-squared tests of revision gate distribution by probe type, per model
+- Logistic regression: revised (yes/no) ~ probe + threshold + probe:threshold + (1|scenario)
+
+### RQ2: Threshold Sensitivity Within Revisions
+- Spearman correlation: threshold level vs. overcorrection, within leading-probe trials only
+- Kruskal-Wallis H tests across threshold levels, per model × framing
+- Pairwise Mann-Whitney U with Bonferroni correction for significant omnibus tests
+- Mixed-effects ordinal regression: overcorrection ~ threshold + framing + (1|scenario) + (1|model)
+
+### RQ3: Model Differences
+- Per-model decline rates under evaluative probe
+- Kruskal-Wallis across models for overcorrection under leading probe
+- Interaction tests: model × threshold on overcorrection
+
+### Multiple Comparison Correction
+- Benjamini-Hochberg FDR correction applied across all hypothesis tests within each RQ family.
+
+### Robustness
+- Response length delta as judge-independent overcorrection proxy
+- Convergence check: do length rankings match judge rankings across models?
