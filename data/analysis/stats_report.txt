@@ -172,3 +172,68 @@ STATISTICAL ANALYSIS REPORT
 
   Wrote /Users/liamneild/Desktop/School/llm-overcorrection-under-thresholds/data/analysis/response_length_summary.csv
   Wrote /Users/liamneild/Desktop/School/llm-overcorrection-under-thresholds/data/analysis/scored_with_length.csv
+
+── FDR Correction (Benjamini-Hochberg) ──
+  69 tests total
+  43 significant at p<0.05 (uncorrected)
+  38 significant at FDR q<0.05
+  5 tests lost significance after FDR correction:
+    mann_whitney_u | numeric_vs_qualitative | gpt-4o | overcorrection: p=0.0331 -> q=0.0557
+    mann_whitney_u_pairwise | numeric_70_vs_100 | claude-sonnet | overcorrection: p=0.0350 -> q=0.0576
+    mann_whitney_u_pairwise | qualitative_70_vs_100 | claude-sonnet | overcorrection: p=0.0410 -> q=0.0659
+    mann_whitney_u_pairwise | numeric_0_vs_70 | gemini-flash | overcorrection: p=0.0308 -> q=0.0546
+    judge_self_preference | self_vs_other_overcorrection | gpt-4o | overcorrection: p=0.0320 -> q=0.0551
+
+── Ordinal Regression: Overcorrection ──
+
+  Model A: overcorrection ~ probe + threshold + framing + model
+  Converged: True
+  Log-likelihood: -2651.5
+  AIC: 5318.9
+    is_leading: coef=3.4667, p=0.0000*
+    threshold_scaled: coef=-0.9349, p=0.0000*
+    is_qualitative: coef=-0.7392, p=0.0000*
+    model_claude-sonnet: coef=0.0958, p=0.3103
+    model_gemini-flash: coef=0.4165, p=0.0000*
+  Saved -> /Users/liamneild/Desktop/School/llm-overcorrection-under-thresholds/data/analysis/ordinal_regression_model_a.txt
+
+  Model B: overcorrection ~ probe + threshold + framing + model + scenario
+  Converged: True
+  Log-likelihood: -2404.5
+  AIC: 4839.1
+    is_leading: coef=3.9436, p=0.0000*
+    threshold_scaled: coef=-1.0391, p=0.0000*
+    is_qualitative: coef=-0.8458, p=0.0000*
+    model_claude-sonnet: coef=0.1534, p=0.1152
+    model_gemini-flash: coef=0.5160, p=0.0000*
+  Saved -> /Users/liamneild/Desktop/School/llm-overcorrection-under-thresholds/data/analysis/ordinal_regression_model_b.txt
+    (scenario fixed effects: 7 dummies, omitted for brevity)
+
+  Model C (leading only): overcorrection ~ threshold + framing + model + scenario
+  Converged: True
+  Log-likelihood: -1758.6
+  AIC: 3545.2
+    threshold_scaled: coef=-1.6493, p=0.0000*
+    is_qualitative: coef=-1.0505, p=0.0000*
+    model_claude-sonnet: coef=0.3271, p=0.0033*
+    model_gemini-flash: coef=1.1533, p=0.0000*
+  Saved -> /Users/liamneild/Desktop/School/llm-overcorrection-under-thresholds/data/analysis/ordinal_regression_model_c.txt
+
+── Post-Hoc Power Analysis ──
+  Minimum detectable effect sizes at 80% power, alpha=0.05:
+
+  RQ1 (revision gate): N=1920 per probe
+  MDE for proportion difference: 0.032 (observed difference: ~0.75)
+  Study is massively overpowered for the revision gate effect
+
+  RQ2 (threshold-overcorrection): N=1920 leading-probe trials
+  MDE for |rho|: 0.0639
+  Observed |rho|: 0.14 (GPT-4o) to 0.50 (Gemini Flash)
+  Study is well-powered to detect all observed correlations
+
+  RQ3 (model differences): N=640 per model in leading probe
+  MDE for Cohen's f (3-group): 0.0559
+  Detectable effect size category: small
+
+  Total primary trials: 3840
+  Per-cell (model × framing × threshold × probe): 40
