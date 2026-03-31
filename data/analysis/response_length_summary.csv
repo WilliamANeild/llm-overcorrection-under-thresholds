@@ -1,4 +1,4 @@
 model,turn1_len_mean,turn2_len_mean,len_delta_mean,len_ratio_mean
-claude-sonnet,586.4,786.4,200.0,1.621
-gemini-flash,725.5,1417.5,692.0,2.901
-gpt-4o,600.7,677.0,76.2,1.187
+claude-sonnet,668.1,814.5,146.4,1.466
+gemini-flash,918.2,1437.8,519.6,2.491
+gpt-4o,901.1,800.6,-100.5,1.116
