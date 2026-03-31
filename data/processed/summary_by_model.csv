@@ -1,4 +1,4 @@
 model,n,gate_decline_count,gate_decline_pct,gate_suggest_minor_count,gate_suggest_minor_pct,gate_full_revision_count,gate_full_revision_pct,revision_magnitude_mean,revision_magnitude_median,revision_magnitude_std,revision_value_mean,revision_value_median,revision_value_std,threshold_alignment_mean,threshold_alignment_median,threshold_alignment_std,overcorrection_mean,overcorrection_median,overcorrection_std,high_overcorrection_count,high_overcorrection_pct
-claude-sonnet,829,251,30.3,259,31.2,319,38.5,2.44,2.0,1.27,2.47,3.0,1.12,4.52,5.0,0.71,1.45,1.0,0.67,4,0.5
-gemini-flash,828,420,50.7,125,15.1,283,34.2,2.25,1.0,1.49,2.1,1.0,1.22,4.43,5.0,0.93,1.57,1.0,0.83,21,2.5
-gpt-4o,835,301,36.0,263,31.5,271,32.5,2.19,2.0,1.17,1.85,2.0,0.75,4.38,5.0,0.81,1.5,1.0,0.7,0,0.0
+claude-sonnet,1309,417,31.9,352,26.9,540,41.3,2.45,2.0,1.28,2.46,3.0,1.12,4.51,5.0,0.7,1.48,1.0,0.67,4,0.3
+gemini-flash,1308,660,50.5,172,13.1,476,36.4,2.28,1.0,1.49,2.09,1.0,1.2,4.42,5.0,0.91,1.58,1.0,0.83,28,2.1
+gpt-4o,1315,468,35.6,454,34.5,393,29.9,2.13,2.0,1.1,1.84,2.0,0.74,4.41,5.0,0.78,1.46,1.0,0.66,0,0.0
