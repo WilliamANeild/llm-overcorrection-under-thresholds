@@ -290,7 +290,114 @@ def fig9_length_vs_overcorrection(df):
     save_fig(fig, "09_length_vs_overcorrection")
 
 
-def fig10_probe_comparison(df):
+def fig10_probe_calibration_cliff(df):
+    """Bar chart showing revision rate across all 5 probe wordings — the compliance cliff."""
+    probe_labels = {
+        "leading": '"Can this be improved?"',
+        "pilot_a": '"Is there anything you\nwould change?"',
+        "pilot_c": '"Take another look…\nlet me know if it\'s ready."',
+        "pilot_b": '"Review this against the\nquality threshold…"',
+        "neutral": '"What do you think?"',
+    }
+    probe_order = ["leading", "pilot_a", "pilot_c", "pilot_b", "neutral"]
+
+    # Only include probes that exist in data
+    available = [p for p in probe_order if p in df["probe_type"].unique()]
+    if len(available) < 3:
+        print("  Skipping probe calibration cliff (fewer than 3 probe types)")
+        return
+
+    fig, ax = plt.subplots(figsize=(10, 6))
+
+    # Compute pooled revision rate per probe
+    rates = []
+    ns = []
+    for probe in available:
+        sub = df[df["probe_type"] == probe]
+        rate = (sub["revision_gate"] != "decline").mean() * 100
+        rates.append(rate)
+        ns.append(len(sub))
+
+    colors = []
+    for r in rates:
+        if r > 80:
+            colors.append("#d32f2f")  # red — revision-implying
+        elif r > 40:
+            colors.append("#f57c00")  # orange — intermediate
+        else:
+            colors.append("#388e3c")  # green — evaluative
+
+    bars = ax.bar(range(len(available)), rates, color=colors, edgecolor="white", width=0.7)
+
+    # Add n labels on bars
+    for bar, n in zip(bars, ns):
+        ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 1.5,
+                f"n={n}", ha="center", va="bottom", fontsize=9, color="gray")
+
+    ax.set_xticks(range(len(available)))
+    ax.set_xticklabels([probe_labels.get(p, p) for p in available], fontsize=9)
+    ax.set_ylabel("Revision Rate (%)", fontsize=12)
+    ax.set_title("Probe Calibration: The Binary Compliance Cliff", fontsize=14)
+    ax.set_ylim(0, 115)
+    ax.axhline(y=50, color="gray", linestyle="--", alpha=0.3, linewidth=0.8)
+
+    # Annotate the cliff
+    ax.annotate("Revision-implying\nprobes", xy=(0.5, 95), fontsize=10, color="#d32f2f",
+                ha="center", style="italic")
+    ax.annotate("Evaluative\nprobes", xy=(3.5, 35), fontsize=10, color="#388e3c",
+                ha="center", style="italic")
+
+    fig.tight_layout()
+    save_fig(fig, "10_probe_calibration_cliff")
+
+
+def fig11_probe_cliff_by_model(df):
+    """Grouped bar chart: revision rate per probe per model — shows the cliff holds across models."""
+    probe_order = ["leading", "pilot_a", "pilot_c", "pilot_b", "neutral"]
+    available = [p for p in probe_order if p in df["probe_type"].unique()]
+    if len(available) < 3:
+        print("  Skipping probe cliff by model (fewer than 3 probe types)")
+        return
+
+    models = sorted(df["model"].unique())
+    x = np.arange(len(available))
+    width = 0.25
+    model_colors = {"claude-sonnet": "#4ecdc4", "gemini-flash": "#ffe66d", "gpt-4o": "#ff6b6b"}
+
+    fig, ax = plt.subplots(figsize=(12, 6))
+
+    for i, model in enumerate(models):
+        rates = []
+        for probe in available:
+            sub = df[(df["probe_type"] == probe) & (df["model"] == model)]
+            if len(sub) > 0:
+                rates.append((sub["revision_gate"] != "decline").mean() * 100)
+            else:
+                rates.append(0)
+        offset = (i - 1) * width
+        ax.bar(x + offset, rates, width, label=model,
+               color=model_colors.get(model, "gray"), edgecolor="white", alpha=0.85)
+
+    probe_labels = {
+        "leading": "Leading",
+        "pilot_a": "Pilot A",
+        "pilot_c": "Evaluative",
+        "pilot_b": "Pilot B",
+        "neutral": "Neutral",
+    }
+    ax.set_xticks(x)
+    ax.set_xticklabels([probe_labels.get(p, p) for p in available])
+    ax.set_ylabel("Revision Rate (%)")
+    ax.set_title("Revision Rate by Probe Type and Model")
+    ax.set_ylim(0, 115)
+    ax.legend()
+    ax.axhline(y=50, color="gray", linestyle="--", alpha=0.3)
+
+    fig.tight_layout()
+    save_fig(fig, "11_probe_cliff_by_model")
+
+
+def fig12_probe_comparison(df):
     """Bar chart: leading vs neutral probe effect on overcorrection, per model."""
     if "probe_type" not in df.columns or df["probe_type"].nunique() < 2:
         print("  Skipping probe comparison (only one probe type)")
@@ -358,10 +465,10 @@ def fig10_probe_comparison(df):
     plt.setp(ax.get_xticklabels(), rotation=45, ha="right")
 
     fig.tight_layout()
-    save_fig(fig, "10_probe_comparison")
+    save_fig(fig, "12_probe_comparison")
 
 
-def fig11_probe_threshold_interaction(df):
+def fig13_probe_threshold_interaction(df):
     """Line plot: overcorrection across threshold levels, panels for leading vs neutral."""
     if "probe_type" not in df.columns or df["probe_type"].nunique() < 2:
         print("  Skipping probe × threshold interaction (only one probe type)")
@@ -391,7 +498,7 @@ def fig11_probe_threshold_interaction(df):
 
     fig.suptitle("Overcorrection Across Thresholds: Leading vs Neutral Probe", fontsize=14, y=1.02)
     fig.tight_layout()
-    save_fig(fig, "11_probe_threshold_interaction")
+    save_fig(fig, "13_probe_threshold_interaction")
 
 
 def main():
@@ -421,8 +528,10 @@ def main():
     fig7_judge_bias_check(df)
     fig8_response_length(df)
     fig9_length_vs_overcorrection(df)
-    fig10_probe_comparison(df)
-    fig11_probe_threshold_interaction(df)
+    fig10_probe_calibration_cliff(df)
+    fig11_probe_cliff_by_model(df)
+    fig12_probe_comparison(df)
+    fig13_probe_threshold_interaction(df)
     print("Done.")
 
 

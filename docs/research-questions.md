@@ -48,6 +48,15 @@ While the leading probe produces uniform compliance across models, the evaluativ
 
 **Revision disposition** refers to a model's baseline tendency to revise under ambiguous conditions — how much prompting is required to trigger revision behavior. This is the primary dependent variable for RQ3.
 
+## Theoretical Framework: Two-Stage Revision Decision Model
+
+We formalize this as a two-stage model (see `docs/two-stage-model.md`):
+
+- **Stage 1 (Revision Gate):** A binary decision controlled by the pragmatic force of the follow-up prompt. Quality thresholds have no effect. This is the mechanism tested by RQ1.
+- **Stage 2 (Revision Intensity):** A calibration mechanism that modulates overcorrection based on the stated threshold. Effect sizes range from weak (GPT-4o, ρ = −0.14) to moderate (Gemini, ρ = −0.50). This is the mechanism tested by RQ2.
+
+The two stages are independent: the probe × threshold interaction term is not significant in ordinal regression, confirming that what triggers revision and what calibrates revision are separate mechanisms operating on different input signals.
+
 ## Boundary of the Claim
 
 This project does not ask whether LLM revision is beneficial in an absolute sense. It asks whether the decision to revise is appropriately conditioned on the user's stated quality standard or whether it is instead dominated by surface-level features of the follow-up prompt.
