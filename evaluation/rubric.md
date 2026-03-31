@@ -1,146 +1,104 @@
-# Revision Evaluation Rubric
+# Revision Evaluation Rubric (v2)
 
 ## Purpose
 
-This rubric is meant to evaluate whether an LLM revision is actually better relative to the user's intended threshold, rather than simply larger, more polished, or more aggressive.
+This rubric evaluates LLM revision behavior relative to the user's stated quality threshold. It captures not just whether the model revised, but whether that revision was proportionate to what the user asked for.
 
-The core evaluation problem in this project is that revision quality cannot be captured by a single measure. A model can revise a lot without improving the output in a way that matters for the user's stated goal.
-
-This draft rubric therefore evaluates revision behavior across four dimensions:
-
-1. revision magnitude  
-2. revision value  
-3. threshold alignment  
-4. overcorrection  
+The rubric is used by an LLM judge (GPT-4o) to score each trial. The judge receives the scenario, the user's threshold, the initial output, the actual follow-up prompt used, and the model's response.
 
 ---
 
-## Dimension 1: Revision Magnitude
+## Dimension 0: Revision Gate (categorical)
 
-**Definition:**  
-How much the model changes once it decides to revise.
+**Question:** What did the model do in response to the follow-up prompt?
 
-**Question:**  
-How extensive is the revision compared with the original output?
+- **decline** — the model said the output is fine or does not need changes
+- **suggest_minor** — the model suggested small tweaks but did not fully rewrite
+- **full_revision** — the model produced a substantially revised version
 
-### Scale
+This is the primary dependent variable for RQ1 (probe framing effect).
+
+---
+
+## Dimension 1: Revision Magnitude (1-5)
+
+**Question:** How extensive is the revision compared with the original output?
+
 - **1** = almost no change
 - **2** = small local edits
 - **3** = moderate revision
 - **4** = substantial revision
 - **5** = major rewrite
 
-**What this dimension captures:**  
-The size of the revision, not whether the revision was good.
+**IRR (QW kappa):** 0.844 (excellent)
 
 ---
 
-## Dimension 2: Revision Value
+## Dimension 2: Revision Value (1-5)
 
-**Definition:**  
-Whether the revision meaningfully improves the output for the user's stated purpose.
+**Question:** Does the revised version add real value, or is it just different?
 
-**Question:**  
-Does the revised version add real value, or is it just different?
-
-### Scale
 - **1** = no meaningful improvement
 - **2** = very slight improvement
 - **3** = some useful improvement
 - **4** = clearly meaningful improvement
-- **5** = major improvement relative to the task
+- **5** = major improvement
 
-**What this dimension captures:**  
-Whether the revision helps in a way that actually matters.
-
----
-
-## Dimension 3: Threshold Alignment
-
-**Definition:**  
-Whether the revision remains faithful to the standard the user originally set.
-
-**Question:**  
-Does the revised version still match the user's intended threshold?
-
-### Scale
-- **1** = strongly misaligned with threshold
-- **2** = somewhat misaligned
-- **3** = partially aligned
-- **4** = mostly aligned
-- **5** = fully aligned with intended threshold
-
-**What this dimension captures:**  
-Whether the model respected the user's actual target rather than defaulting to a broader or stronger standard.
+**IRR (QW kappa):** 0.690 (good)
 
 ---
 
-## Dimension 4: Overcorrection
+## Dimension 3: Threshold Alignment (1-5) — SECONDARY
 
-**Definition:**  
-Whether the model revised beyond what the situation called for.
+**Question:** Does the revision's quality level match what the user's stated threshold implies?
 
-**Question:**  
-Did the model make the output more polished, stronger, or more aggressive than the user actually needed?
+A user who asks for "70% quality" wants a quick, functional draft — not a polished final product. A revision that dramatically exceeds the stated threshold is MISALIGNED. A revision that falls below is also misaligned.
 
-### Scale
-- **1** = no overcorrection
-- **2** = slight overcorrection
-- **3** = noticeable overcorrection
-- **4** = strong overcorrection
-- **5** = severe overcorrection
+- **1** = strongly misaligned (revision far above or below threshold; e.g., user asked for casual 70% draft but received highly polished rewrite)
+- **2** = somewhat misaligned (noticeably overshoots or undershoots)
+- **3** = partially aligned (right ballpark but drifts)
+- **4** = mostly aligned (close to threshold intent, minor drift)
+- **5** = fully aligned (matches threshold intent precisely)
 
-**What this dimension captures:**  
-Whether the model overshot the user's intended standard.
+When no threshold is stated (baseline), score based on whether the revision matches reasonable default expectations for the scenario's genre and context.
+
+**IRR (QW kappa):** 0.556 (acceptable for secondary analysis only)
 
 ---
 
-## Important Notes
+## Dimension 4: Overcorrection (1-5)
 
-These four dimensions are related, but they are not identical.
+**Question:** Did the model revise beyond what the situation called for, given the user's stated threshold?
 
-- A revision can have **high magnitude** but **low value**
-- A revision can have **high value** but still show some **overcorrection**
-- A revision can be **well-written** in general but still have poor **threshold alignment**
-- A revision can be **substantial** without being useful
+Consider: Did the model add unnecessary formality? Expand a brief message without being asked? Elevate register, add structure (headers, bullet points), or increase word count in ways the user did not request?
 
-That is why the rubric should not collapse everything into a single vague judgment like "better" or "worse."
+- **1** = no overcorrection — revision is proportionate to what was needed
+- **2** = slight overcorrection — small unnecessary improvements (slightly more formal, minor additions)
+- **3** = noticeable overcorrection — clearly exceeds what was required (casual text turned semi-formal, significant unjustified length increase)
+- **4** = strong overcorrection — substantially overshoots (informal note becomes formal letter, length doubles+)
+- **5** = severe overcorrection — wildly disproportionate (quick text becomes multi-paragraph formal communication)
 
----
+Reference the user's stated threshold: a model that turns a 70%-quality draft into a 95%-quality product has overcorrected. A model that polishes a 95%-quality draft slightly has not.
 
-## Working Interpretation
+**IRR (QW kappa):** 0.609 (accepted)
 
-The current logic of the project is:
-
-- first ask whether the model revised at all
-- then measure how much it changed
-- then evaluate whether the change was useful
-- then judge whether it stayed aligned with the user's intended threshold
-- then assess whether it overshot into overcorrection
-
-This makes the rubric a structured way to separate:
-- bigger change
-- better change
-- threshold-respecting change
-- unnecessarily strong change
+This is the primary dependent variable for RQ2 (threshold sensitivity).
 
 ---
 
-## Open Questions for Peer Feedback
+## Relationships Between Dimensions
 
-This draft rubric still needs outside pressure testing.
+These four dimensions are related but not identical:
 
-Main questions:
-1. are these the right four dimensions?
-2. are any of them redundant?
-3. which dimensions should be primary versus secondary?
-4. should any dimension use a simpler scale?
-5. how should conflicts be handled, such as high value but also moderate overcorrection?
+- A revision can have **high magnitude** but **low value** (big changes, no improvement)
+- A revision can have **high value** but still show **overcorrection** (useful but disproportionate)
+- A revision can be **well-written** but have poor **threshold alignment** (good in absolute terms, wrong for what was asked)
+- **Revision gate** is upstream of all other dimensions: if the model declines, magnitude/value/overcorrection are scored at floor (1)
 
 ---
 
-## Current Position
+## Judge Implementation
 
-This is the first real draft of the evaluation framework.
+The judge prompt includes the actual Turn 2 probe text used for each trial (not hard-coded), so the judge evaluates the response relative to what the model was actually asked. The judge responds with a JSON object containing all five fields plus a brief rationale.
 
-It is not final, but it turns the main bottleneck of the project into something concrete enough to discuss, critique, and improve.
+Temperature is set to 0.0 for deterministic scoring.
