@@ -134,6 +134,13 @@
 
 \begin{figure}[h]
     \centering
+    \includegraphics[width=\columnwidth]{figures/11_probe_cliff_by_model.pdf}
+    \caption{Compliance cliff broken down by model. All three models exhibit the same cliff pattern, but the evaluative-probe decline rate varies: Gemini declines 99.7\% of the time, while Claude and GPT-4o show more intermediate behavior with lower decline rates.}
+    \label{fig:probe-cliff-model}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
     \includegraphics[width=\columnwidth]{figures/13_probe_threshold_interaction.pdf}
     \caption{Probe $\times$ threshold interaction plot. The interaction term is statistically significant ($\beta = -2.20$, $p < 0.001$) but is consistent with a floor effect: the evaluative probe suppresses revision almost entirely, leaving minimal overcorrection variance for the threshold to modulate. Within each probe condition, the threshold effect operates consistently, consistent with the two-stage account in which the revision gate (Stage~1) and intensity calibration (Stage~2) respond to different inputs.}
     \label{fig:probe-threshold-interaction}

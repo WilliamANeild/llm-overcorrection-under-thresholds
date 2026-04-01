@@ -106,14 +106,7 @@ Under the leading probe, all three models behave nearly identically ($\sim$100\%
     \item Claude Sonnet 4: 62.0\% decline rate (most willing to revise)
 \end{itemize}
 
-This divergence is consistent with the ordinal regression results: Gemini shows the strongest overcorrection tendency (Model C: $\beta = 1.15$, $p < 0.001$) but also the highest evaluative-probe decline rate. When Gemini does revise, it overcorrects more aggressively, but it is also the model most likely to correctly decline revision under an evaluative prompt. This pattern is consistent with Gemini having a more binary revision gate, while GPT-4o and Claude show more intermediate behavior between the evaluative and revision modes (Figure~\ref{fig:probe-cliff-model}; see also Appendix Figure~\ref{fig:probe-threshold-interaction}).
-
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=\columnwidth]{figures/11_probe_cliff_by_model.pdf}
-    \caption{Compliance cliff broken down by model. All three models exhibit the same cliff pattern, but the evaluative-probe decline rate varies: Gemini declines 99.7\% of the time, while Claude and GPT-4o show more intermediate behavior with lower decline rates.}
-    \label{fig:probe-cliff-model}
-\end{figure}
+This divergence is consistent with the ordinal regression results: Gemini shows the strongest overcorrection tendency (Model C: $\beta = 1.15$, $p < 0.001$) but also the highest evaluative-probe decline rate. When Gemini does revise, it overcorrects more aggressively, but it is also the model most likely to correctly decline revision under an evaluative prompt. This pattern is consistent with Gemini having a more binary revision gate, while GPT-4o and Claude show more intermediate behavior between the evaluative and revision modes (Appendix Figure~\ref{fig:probe-cliff-model}; see also Appendix Figure~\ref{fig:probe-threshold-interaction}).
 
 \subsection{Framing Effects}
 
