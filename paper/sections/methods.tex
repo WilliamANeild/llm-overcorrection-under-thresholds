@@ -83,49 +83,7 @@ Threshold alignment & 0.556 & Marginal \\
 
 \subsection{Analysis}
 
-The full pipeline is shown in Figure~\ref{fig:pipeline}.
-
-\begin{figure}[b]
-    \centering
-    \small
-    \begin{tikzpicture}[
-        node distance=0.3cm,
-        box/.style={draw, rounded corners, minimum height=0.6cm, align=center, font=\scriptsize},
-        arr/.style={->, thick, >=stealth},
-    ]
-    % Factors
-    \node[box, fill=blue!8, text width=6.8cm] (factors) {
-        \textbf{8} scenarios $\times$ \textbf{16} thresholds $\times$ \textbf{2} probes $\times$ \textbf{3} models $\times$ 5 runs $=$ \textbf{3,840} trials
-    };
-
-    % Trial
-    \node[box, fill=blue!5, below=0.3cm of factors, text width=6.8cm] (trial) {
-        Turn~1: task + threshold $\to$ draft \quad Turn~2: probe $\to$ revise/decline
-    };
-    \draw[arr] (factors) -- (trial);
-
-    % Judge
-    \node[box, fill=green!8, below=0.3cm of trial, text width=3.2cm] (judge) {
-        GPT-4o judge ($T{=}0$)
-    };
-    \node[box, fill=green!6, right=0.15cm of judge, text width=2.8cm] (irr) {
-        2nd judge (Claude)\\$\kappa = 0.56$--$0.84$
-    };
-    \draw[arr] (trial) -- (judge);
-    \draw[arr, dashed] (judge) -- (irr);
-
-    % Outputs
-    \node[box, fill=yellow!10, below=0.3cm of judge, text width=6.8cm] (out) {
-        Gate (3-level) \enspace Overcorrection (1--5) \enspace Magnitude \enspace Value \enspace Alignment
-    };
-    \draw[arr] (judge) -- (out);
-
-    \end{tikzpicture}
-    \caption{Experimental pipeline. Four factors are crossed in a fully factorial design. Each trial is a two-turn conversation scored by a GPT-4o judge on five dimensions, with inter-rater reliability verified by a second judge.}
-    \label{fig:pipeline}
-\end{figure}
-
-We use chi-squared tests for revision gate distributions (RQ1), Spearman correlations and Kruskal-Wallis $H$ tests for threshold--overcorrection relationships (RQ2), and ordinal regression for multivariate analysis. We fit three ordinal regression models:
+The experimental pipeline is shown in Appendix Figure~\ref{fig:pipeline}. We use chi-squared tests for revision gate distributions (RQ1), Spearman correlations and Kruskal-Wallis $H$ tests for threshold--overcorrection relationships (RQ2), and ordinal regression for multivariate analysis. We fit three ordinal regression models:
 \begin{itemize}
     \item \textbf{Model A:} overcorrection $\sim$ probe $+$ threshold $+$ framing $+$ model
     \item \textbf{Model B:} Model A $+$ scenario fixed effects

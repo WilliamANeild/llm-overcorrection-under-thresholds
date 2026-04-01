@@ -52,7 +52,7 @@ Within the leading-probe condition, where revision is universal, higher stated t
 \begin{figure*}[t]
     \centering
     \includegraphics[width=\textwidth]{figures/02_threshold_ladder.pdf}
-    \caption{Overcorrection by threshold level within leading-probe trials (one panel per model). Higher thresholds are associated with less overcorrection for Gemini ($\rho = -0.50$) and Claude ($\rho = -0.35$), but the effect is not statistically distinguishable from zero for GPT-4o ($\rho = -0.14$). Dashed line marks proportionate revision (overcorrection $= 1$).}
+    \caption{Overcorrection by threshold level within leading-probe trials, one panel per model. Dashed line marks proportionate revision.}
     \label{fig:threshold-ladder}
 \end{figure*}
 
@@ -98,7 +98,7 @@ Under the leading probe, all three models behave nearly identically ($\sim$100\%
     \item Claude Sonnet 4: 62.0\% decline rate (most willing to revise)
 \end{itemize}
 
-This divergence is consistent with the ordinal regression results: Gemini shows the strongest overcorrection tendency (Model C: $\beta = 1.15$, $p < 0.001$) but also the highest evaluative-probe decline rate. When Gemini does revise, it overcorrects more aggressively, but it is also the model most likely to correctly decline revision under an evaluative prompt. This pattern is consistent with Gemini having a more binary revision gate, while GPT-4o and Claude show more intermediate behavior between the evaluative and revision modes (Appendix Figure~\ref{fig:probe-cliff-model}; see also Appendix Figure~\ref{fig:probe-threshold-interaction}).
+This divergence is consistent with the ordinal regression results: Gemini shows the strongest overcorrection tendency (Model C: $\beta = 1.15$, $p < 0.001$) but also the highest evaluative-probe decline rate. When Gemini does revise, it overcorrects more aggressively, but it is also the model most likely to correctly decline revision under an evaluative prompt. This pattern is consistent with Gemini having a more binary revision gate, while GPT-4o and Claude show more intermediate behavior between the evaluative and revision modes (Appendix Figure~\ref{fig:probe-cliff-model}).
 
 \subsection{Framing Effects}
 
@@ -107,7 +107,7 @@ Qualitative threshold framings produce significantly less overcorrection than nu
 \subsection{Robustness}
 \label{sec:robustness}
 
-\paragraph{Length Proxy.} Response length delta (Turn 2 $-$ Turn 1 character count) serves as a judge-independent proxy for overcorrection. Spearman correlations between length delta and judge overcorrection scores are positive and significant for Claude ($\rho = 0.20$, $p < 0.001$) and Gemini ($\rho = 0.56$, $p < 0.001$). GPT-4o shows a near-zero negative correlation ($\rho = -0.07$, $p = 0.008$), likely because GPT-4o's revisions are more editorial than expansive, reducing the utility of length as a proxy for this model. Between-model rankings on length delta are broadly consistent with judge rankings on overcorrection (Appendix Figure~\ref{fig:length-convergence}): Gemini shows the largest length increases, Claude intermediate, and GPT-4o the smallest. See also Appendix Figure~\ref{fig:length-delta} for the full length delta breakdown.
+\paragraph{Length Proxy.} Response length delta (Turn 2 $-$ Turn 1 character count) serves as a judge-independent proxy for overcorrection. Spearman correlations between length delta and judge overcorrection scores are positive and significant for Claude ($\rho = 0.20$, $p < 0.001$) and Gemini ($\rho = 0.56$, $p < 0.001$). GPT-4o shows a near-zero negative correlation ($\rho = -0.07$, $p = 0.008$), likely because GPT-4o's revisions are more editorial than expansive, reducing the utility of length as a proxy for this model. Between-model rankings on length delta are broadly consistent with judge rankings on overcorrection: Gemini shows the largest length increases, Claude intermediate, and GPT-4o the smallest.
 
 \paragraph{Judge Self-Preferencing.} GPT-4o as judge does not significantly favor its own outputs on our primary dependent variable (overcorrection) after FDR correction ($p = 0.032 \to q = 0.055$). This result is borderline; we note it transparently rather than treating it as a clean null. On revision value, the judge scores GPT-4o outputs \textit{lower} than other models (self mean $= 1.84$ vs.\ other mean $= 2.27$), suggesting a conservative rather than self-preferencing bias. See Appendix Figure~\ref{fig:judge-bias} for the full comparison.
 

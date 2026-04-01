@@ -74,74 +74,86 @@
     \label{fig:trial-anatomy}
 \end{figure*}
 
+\section{Experimental Pipeline}
+\label{sec:appendix-pipeline}
+
+\begin{figure}[h]
+    \centering
+    \small
+    \begin{tikzpicture}[
+        node distance=0.3cm,
+        box/.style={draw, rounded corners, minimum height=0.6cm, align=center, font=\scriptsize},
+        arr/.style={->, thick, >=stealth},
+    ]
+    \node[box, fill=blue!8, text width=6.8cm] (factors) {
+        \textbf{8} scenarios $\times$ \textbf{16} thresholds $\times$ \textbf{2} probes $\times$ \textbf{3} models $\times$ 5 runs $=$ \textbf{3,840} trials
+    };
+    \node[box, fill=blue!5, below=0.3cm of factors, text width=6.8cm] (trial) {
+        Turn~1: task + threshold $\to$ draft \quad Turn~2: probe $\to$ revise/decline
+    };
+    \draw[arr] (factors) -- (trial);
+    \node[box, fill=green!8, below=0.3cm of trial, text width=3.2cm] (judge) {
+        GPT-4o judge ($T{=}0$)
+    };
+    \node[box, fill=green!6, right=0.15cm of judge, text width=2.8cm] (irr) {
+        2nd judge (Claude)\\$\kappa = 0.56$--$0.84$
+    };
+    \draw[arr] (trial) -- (judge);
+    \draw[arr, dashed] (judge) -- (irr);
+    \node[box, fill=yellow!10, below=0.3cm of judge, text width=6.8cm] (out) {
+        Gate (3-level) \enspace Overcorrection (1--5) \enspace Magnitude \enspace Value \enspace Alignment
+    };
+    \draw[arr] (judge) -- (out);
+    \end{tikzpicture}
+    \caption{Experimental pipeline. Four factors crossed in a fully factorial design; each trial scored by a GPT-4o judge on five dimensions with inter-rater reliability verified by a second judge.}
+    \label{fig:pipeline}
+\end{figure}
+
 \section{Supplementary Figures}
 \label{sec:appendix-figures}
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\columnwidth]{figures/12_probe_comparison.pdf}
-    \caption{Revision gate distribution by model and probe type. The leading probe produces near-universal revision across all models. The evaluative probe suppresses revision, with model-specific decline rates ranging from 62\% (Claude) to 99.7\% (Gemini).}
+    \caption{Revision gate distribution by model and probe type. The leading probe produces near-universal revision; the evaluative probe suppresses it, with decline rates from 62\% (Claude) to 99.7\% (Gemini).}
     \label{fig:revision-gate}
 \end{figure}
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\columnwidth]{figures/14_overcorrection_by_probe.pdf}
-    \caption{Overcorrection by probe type across models. The leading probe produces higher overcorrection than the evaluative probe for all three models ($p < 0.001$). Complements Figure~\ref{fig:revision-gate}.}
-    \label{fig:overcorrection-by-probe}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=\columnwidth]{figures/09_length_vs_overcorrection.pdf}
-    \caption{Response length delta vs.\ judge overcorrection score (binned by decile, one panel per model). Between-model rankings are broadly consistent across the two measures, though GPT-4o's near-zero correlation limits the proxy's utility for that model.}
-    \label{fig:length-convergence}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
     \includegraphics[width=\columnwidth]{figures/01_overcorrection_heatmap.pdf}
-    \caption{Overcorrection heatmap across models and threshold levels (leading probe only, numeric and qualitative framings shown side by side). Cell values show mean overcorrection scores. Gemini shows the clearest dose-response; GPT-4o remains largely flat ($\rho = -0.14$). Complements Figure~\ref{fig:threshold-ladder}.}
+    \caption{Overcorrection heatmap across models and threshold levels (leading probe only). Cell values show mean overcorrection scores.}
     \label{fig:heatmap}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/04_revision_gate_stacked.pdf}
+    \caption{Revision gate distribution by threshold framing (numeric vs.\ qualitative). Framing does not affect the gate ($\chi^2$ tests: all $p > 0.77$), consistent with framing effects operating at Stage~2 only.}
+    \label{fig:revision-gate-framing}
 \end{figure}
 
 \clearpage
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\columnwidth]{figures/04_revision_gate_stacked.pdf}
-    \caption{Revision gate distribution by model and threshold framing (numeric vs.\ qualitative). The framing of the threshold does not affect the revision gate distribution ($\chi^2$ tests: all $p > 0.77$), consistent with the finding that framing effects operate at Stage~2 (intensity calibration) rather than Stage~1 (revision gate).}
-    \label{fig:revision-gate-framing}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
     \includegraphics[width=\columnwidth]{figures/03_framing_comparison.pdf}
-    \caption{Overcorrection by threshold framing (numeric vs.\ qualitative) across all models and threshold levels. Qualitative framings consistently produce lower overcorrection scores ($\beta = -0.74$ to $-1.05$, all $p < 0.001$). One possible explanation is that natural-language quality descriptions are more grounded in the model's training distribution than numeric scores, though we did not test this directly.}
+    \caption{Overcorrection by threshold framing (numeric vs.\ qualitative) across all models and threshold levels. Qualitative framings produce lower overcorrection scores ($\beta = -0.74$ to $-1.05$, all $p < 0.001$).}
     \label{fig:framing-comparison}
 \end{figure}
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\columnwidth]{figures/06_scenario_boxplots.pdf}
-    \caption{Overcorrection distribution across eight writing scenarios (leading probe only). Scenarios with higher baseline register expectations (e.g., sales email, LinkedIn post) tend to produce higher overcorrection. The brunch cancellation scenario shows the lowest overcorrection. This pattern is consistent with register expectations influencing revision intensity, though other scenario-level factors may also contribute.}
+    \caption{Overcorrection distribution across eight writing scenarios (leading probe only).}
     \label{fig:scenario-boxplots}
 \end{figure}
-
-\clearpage
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\columnwidth]{figures/07_judge_bias_check.pdf}
-    \caption{Judge self-preferencing check. GPT-4o as judge scores its own outputs (GPT-4o) \textit{lower} on revision value than outputs from Claude Sonnet 4 and Gemini 2.5 Flash (self mean $= 1.84$ vs.\ other mean $= 2.27$), indicating a conservative rather than self-preferencing bias. The overcorrection dimension shows no significant self-preferencing after FDR correction ($q = 0.055$).}
+    \caption{Judge self-preferencing check. GPT-4o as judge scores its own outputs \textit{lower} on revision value than other models (self mean $= 1.84$ vs.\ other mean $= 2.27$). Overcorrection shows no significant self-preferencing after FDR correction ($q = 0.055$).}
     \label{fig:judge-bias}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=\columnwidth]{figures/08_response_length_delta.pdf}
-    \caption{Response length delta (Turn~2 $-$ Turn~1 character count) across threshold levels by model, split by numeric and qualitative framing. Between-model rankings on length delta mirror judge-scored overcorrection rankings, though the proxy is weak for GPT-4o ($\rho = -0.07$).}
-    \label{fig:length-delta}
 \end{figure}
 
 \clearpage
@@ -149,15 +161,8 @@
 \begin{figure}[h]
     \centering
     \includegraphics[width=\columnwidth]{figures/11_probe_cliff_by_model.pdf}
-    \caption{Compliance cliff broken down by model. All three models exhibit the same cliff pattern, but the evaluative-probe decline rate varies: Gemini declines 99.7\% of the time, while Claude and GPT-4o show more intermediate behavior with lower decline rates.}
+    \caption{Compliance cliff by model. All three models exhibit the cliff pattern, but evaluative-probe decline rates vary from 62\% (Claude) to 99.7\% (Gemini).}
     \label{fig:probe-cliff-model}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=\columnwidth]{figures/13_probe_threshold_interaction.pdf}
-    \caption{Probe $\times$ threshold interaction plot. The interaction term is statistically significant ($\beta = -2.20$, $p < 0.001$) but is consistent with a floor effect: the evaluative probe suppresses revision almost entirely, leaving minimal overcorrection variance for the threshold to modulate.}
-    \label{fig:probe-threshold-interaction}
 \end{figure}
 
 \section{Full Statistical Results}
