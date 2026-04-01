@@ -173,7 +173,7 @@ def fig2_threshold_ladder(df):
 
         # Annotate GPT-4o with flat-line note
         if model == "gpt-4o":
-            ax.text(0.5, 0.95, "n.s. ($\\rho = -0.14$)", transform=ax.transAxes,
+            ax.text(0.5, 0.95, r"n.s. ($\rho = -0.14$)", transform=ax.transAxes,
                     ha="center", va="top", fontsize=9, color="#999999", fontstyle="italic")
 
     fig.suptitle("Overcorrection Across Threshold Levels", fontsize=14, fontweight="bold", y=1.02)
