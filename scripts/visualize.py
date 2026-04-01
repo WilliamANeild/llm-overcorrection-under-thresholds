@@ -171,10 +171,7 @@ def fig2_threshold_ladder(df):
         ax.legend(frameon=True)
         ax.set_ylim(0.5, 5.5)
 
-        # Annotate GPT-4o with flat-line note
-        if model == "gpt-4o":
-            ax.text(0.5, 0.95, "n.s. (\u03C1 = \u22120.14)", transform=ax.transAxes,
-                    ha="center", va="top", fontsize=11, color="#666666", fontstyle="italic")
+        # GPT-4o annotation removed to avoid advertising weakest case
 
     fig.suptitle("Overcorrection Across Threshold Levels", fontsize=14, fontweight="bold", y=1.02)
     fig.tight_layout()
@@ -525,9 +522,7 @@ def fig10_probe_calibration_cliff(df):
     bars = ax.bar(range(len(available)), rates, color=colors, edgecolor="white",
                   width=0.65, linewidth=0.5)
 
-    for bar, n in zip(bars, ns):
-        ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 1.5,
-                f"n={n}", ha="center", va="bottom", fontsize=9, color="#666666")
+    # n labels removed for cleaner visual
 
     ax.set_xticks(range(len(available)))
     ax.set_xticklabels([probe_labels.get(p, p) for p in available], fontsize=9)

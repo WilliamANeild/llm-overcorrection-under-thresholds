@@ -85,114 +85,45 @@ Threshold alignment & 0.556 & Marginal \\
 
 The full pipeline is shown in Figure~\ref{fig:pipeline}.
 
-\begin{figure*}[t]
+\begin{figure}[b]
     \centering
+    \small
     \begin{tikzpicture}[
-        node distance=0.5cm,
-        factor/.style={draw, rounded corners, fill=blue!8, minimum width=3.2cm, minimum height=1.6cm, align=center, font=\small},
-        factortitle/.style={font=\small\bfseries},
-        factoritems/.style={font=\scriptsize, align=left},
-        process/.style={draw, rounded corners, fill=orange!10, minimum height=0.7cm, align=center, font=\small},
+        node distance=0.3cm,
+        box/.style={draw, rounded corners, minimum height=0.6cm, align=center, font=\scriptsize},
         arr/.style={->, thick, >=stealth},
-        brace/.style={decorate, decoration={brace, amplitude=5pt, mirror}},
     ]
-
-    % === Row 1: Independent Variables ===
-    \node[factor] (scenarios) {
-        \textbf{8 Scenarios}\\[2pt]
-        {\scriptsize\begin{tabular}{@{}ll@{}}
-        Formal: & PTO, Sales\\
-        Neutral: & LinkedIn, Slack\\
-        Informal: & Brunch, Coworker\\
-        Technical: & Setup\\
-        Creative: & Review
-        \end{tabular}}
+    % Factors
+    \node[box, fill=blue!8, text width=6.8cm] (factors) {
+        \textbf{8} scenarios $\times$ \textbf{16} thresholds $\times$ \textbf{2} probes $\times$ \textbf{3} models $\times$ 5 runs $=$ \textbf{3,840} trials
     };
 
-    \node[factor, right=0.4cm of scenarios] (thresholds) {
-        \textbf{8 Thresholds}\\[2pt]
-        {\scriptsize\begin{tabular}{@{}l@{}}
-        0 (none), 70, 75, 80,\\
-        85, 90, 95, 100\\[2pt]
-        $\times$ 2 framings:\\
-        Numeric / Qualitative
-        \end{tabular}}
+    % Trial
+    \node[box, fill=blue!5, below=0.3cm of factors, text width=6.8cm] (trial) {
+        Turn~1: task + threshold $\to$ draft \quad Turn~2: probe $\to$ revise/decline
     };
+    \draw[arr] (factors) -- (trial);
 
-    \node[factor, right=0.4cm of thresholds] (probes) {
-        \textbf{2 Probes}\\[2pt]
-        {\scriptsize\begin{tabular}{@{}l@{}}
-        \textit{Leading:}\\
-        ``Can this be improved?''\\[2pt]
-        \textit{Evaluative:}\\
-        ``Take another look...\\
-        let me know if it's ready.''
-        \end{tabular}}
+    % Judge
+    \node[box, fill=green!8, below=0.3cm of trial, text width=3.2cm] (judge) {
+        GPT-4o judge ($T{=}0$)
     };
-
-    \node[factor, right=0.4cm of probes] (models) {
-        \textbf{3 Models}\\[2pt]
-        {\scriptsize\begin{tabular}{@{}l@{}}
-        \textcolor{gptdark}{\rule{6pt}{6pt}} GPT-4o (OpenAI)\\[2pt]
-        \textcolor{claudeorange}{\rule{6pt}{6pt}} Claude Sonnet 4 (Anthropic)\\[2pt]
-        \textcolor{googleblue}{\rule{6pt}{6pt}} Gemini 2.5 Flash (Google)
-        \end{tabular}}
+    \node[box, fill=green!6, right=0.15cm of judge, text width=2.8cm] (irr) {
+        2nd judge (Claude)\\$\kappa = 0.56$--$0.84$
     };
-
-    % === Fully Factorial Label ===
-    \node[below=0.6cm of $(scenarios.south)!0.5!(models.south)$, process, minimum width=14cm, fill=gray!10] (crossing) {
-        Fully factorial: $8 \times 16 \times 2 \times 3 \times 5$ runs $= \mathbf{3{,}840}$ primary trials
-    };
-
-    \draw[arr] (scenarios.south) -- ++(0,-0.2) -| (crossing.north -| scenarios);
-    \draw[arr] (thresholds.south) -- (crossing.north -| thresholds);
-    \draw[arr] (probes.south) -- (crossing.north -| probes);
-    \draw[arr] (models.south) -- ++(0,-0.2) -| (crossing.north -| models);
-
-    % === Row 2: Trial Execution ===
-    \node[below=0.5cm of crossing, process, minimum width=6.4cm, fill=blue!6] (turn1) {
-        \textbf{Turn 1:} Scenario + threshold $\to$ Model $\to$ Initial draft
-    };
-    \node[below=0.25cm of turn1, process, minimum width=6.4cm, fill=blue!6] (turn2) {
-        \textbf{Turn 2:} Probe $\to$ Model $\to$ Revise / Decline / Suggest
-    };
-
-    \draw[arr] (crossing) -- (turn1);
-    \draw[arr] (turn1) -- (turn2);
-
-    % === Row 3: Evaluation ===
-    \node[below=0.5cm of turn2, process, minimum width=6.4cm, fill=green!8] (judge) {
-        \textbf{LLM Judge} (GPT-4o, $T{=}0$)
-    };
-    \draw[arr] (turn2) -- (judge);
-
-    % Judge outputs
-    \node[below=0.4cm of judge, draw, rounded corners, fill=yellow!8, minimum width=12cm, align=center, font=\small] (outputs) {
-        \begin{tabular}{@{}ccccc@{}}
-        \textbf{Revision Gate} & \textbf{Overcorrection} & \textbf{Rev.\ Magnitude} & \textbf{Rev.\ Value} & \textbf{Threshold Align.} \\
-        {\scriptsize 3-level categorical} & {\scriptsize 1--5 scale} & {\scriptsize 1--5 scale} & {\scriptsize 1--5 scale} & {\scriptsize 1--5 scale}
-        \end{tabular}
-    };
-    \draw[arr] (judge) -- (outputs);
-
-    % IRR check
-    \node[right=0.3cm of judge, process, fill=green!8, minimum width=3.4cm, font=\scriptsize] (irr) {
-        \textbf{2nd Judge} (Claude Sonnet 4)\\
-        60 stratified trials\\
-        $\kappa = 0.56$--$0.84$
-    };
+    \draw[arr] (trial) -- (judge);
     \draw[arr, dashed] (judge) -- (irr);
 
-    % === Row 4: Analysis ===
-    \node[below=0.4cm of outputs, process, minimum width=12cm, fill=red!6] (analysis) {
-        \textbf{Analysis:} $\chi^2$ tests (RQ1) \quad Spearman $\rho$ + Kruskal-Wallis (RQ2) \quad Ordinal regression (RQ1--3) \quad FDR correction
+    % Outputs
+    \node[box, fill=yellow!10, below=0.3cm of judge, text width=6.8cm] (out) {
+        Gate (3-level) \enspace Overcorrection (1--5) \enspace Magnitude \enspace Value \enspace Alignment
     };
-    \draw[arr] (outputs) -- (analysis);
+    \draw[arr] (judge) -- (out);
 
     \end{tikzpicture}
-    \caption{Experimental pipeline overview. Four independent variables are crossed in a fully factorial design to produce 3,840 trials. Each trial is a two-turn conversation: the user requests a writing task with an embedded quality threshold (Turn~1), then sends a follow-up probe (Turn~2). The model's response is scored by a GPT-4o judge on five dimensions, with inter-rater reliability verified on a stratified subsample by a second judge (Claude Sonnet 4).}
+    \caption{Experimental pipeline. Four factors are crossed in a fully factorial design. Each trial is a two-turn conversation scored by a GPT-4o judge on five dimensions, with inter-rater reliability verified by a second judge.}
     \label{fig:pipeline}
-\end{figure*}
+\end{figure}
 
 We use chi-squared tests for revision gate distributions (RQ1), Spearman correlations and Kruskal-Wallis $H$ tests for threshold--overcorrection relationships (RQ2), and ordinal regression for multivariate analysis. We fit three ordinal regression models:
 \begin{itemize}
