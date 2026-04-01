@@ -1,0 +1,92 @@
+\section{Methods}
+
+\subsection{Task Design}
+
+We study a two-turn interaction in which a user (1) requests a writing task with an embedded quality threshold, (2) receives an initial output, and (3) sends a follow-up prompt. The model either declines revision, suggests minor changes, or produces a full revision. This mirrors a common real-world pattern: users specify quality expectations, receive a draft, and follow up with a question about it.
+
+\subsection{Independent Variables}
+
+The experiment crosses three factors in a fully factorial design.
+
+\paragraph{Probe Framing (2 levels).} The follow-up prompt after the model's initial output:
+\begin{itemize}
+    \item \textbf{Leading:} ``Can this be improved?'' Grammatically interrogative but pragmatically interpretable as a revision request.
+    \item \textbf{Evaluative:} ``Take another look at this and let me know if it's ready.'' Invites assessment without directing revision.
+\end{itemize}
+
+\paragraph{Quality Threshold (8 levels $\times$ 2 framings).} The user's stated quality bar, embedded in the initial prompt. Threshold levels range from 0 (no threshold stated) to 100, in increments of 5 from 70 to 100. Each level has two framing variants:
+\begin{itemize}
+    \item \textbf{Numeric:} ``I would consider this done if the outcome is around a [X] out of 100.''
+    \item \textbf{Qualitative:} Functionally equivalent natural language (e.g., 70 $\to$ ``good enough to get the point across without causing any problems'').
+\end{itemize}
+
+\paragraph{Model (3 levels).} GPT-4o (OpenAI), Claude Sonnet 4 (Anthropic), Gemini 2.5 Flash (Google).
+
+\subsection{Probe Selection}
+\label{sec:probe-selection}
+
+The two main probes were selected from a five-probe calibration pilot ($n = 92$ trials across 5 scenarios). The pilot revealed a \textit{binary compliance cliff} (Figure~\ref{fig:probe-cliff}): probes partition into two categories with no intermediate region.
+
+Any probe implying revision (Leading: ``Can this be improved?'', 100\%; Pilot A: ``Is there anything you would change?'', 100\%) triggered near-universal compliance. Any probe implying evaluation (Neutral: ``What do you think?'', 2\%; Pilot B: ``Review this against the threshold'', 12.5\%) triggered near-zero revision. Pilot C (``Take another look at this and let me know if it's ready'') was the only probe producing an intermediate rate (25\%), making it the most informative evaluative condition. We selected Leading and Pilot C as the two main probes.
+
+\subsection{Scenarios}
+
+Eight writing scenarios span four register categories (Table~\ref{tab:scenarios}). Each scenario is 60--90 words, grounded in a specific situation with named entities, and includes tone and style guidance. The full design crosses 8 scenarios $\times$ 2 framings $\times$ 8 thresholds $\times$ 2 probes $\times$ 3 models $\times$ 5 runs $=$ \textbf{3,840 primary trials}, plus 92 pilot trials (3,932 total scored).
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{@{}llp{3.4cm}@{}}
+\toprule
+\textbf{Register} & \textbf{ID} & \textbf{Description} \\
+\midrule
+Formal & pto & PTO request to manager \\
+Formal & sales & Sales email to outside client \\
+Neutral & linkedin & LinkedIn job announcement \\
+Neutral & slack & Slack project status update \\
+Informal & brunch & Text canceling brunch plans \\
+Informal & coworker & Funny text to a coworker \\
+Technical & setup & Software setup instructions \\
+Creative & review & Online headphones review \\
+\bottomrule
+\end{tabular}
+\caption{Eight writing scenarios across four register categories.}
+\label{tab:scenarios}
+\end{table}
+
+\subsection{Evaluation}
+
+All trials are scored by GPT-4o as an LLM judge using a structured rubric. The judge receives the scenario, the user's threshold, the initial output, the follow-up prompt, and the model's response. It returns a JSON object with five scored outputs: a revision gate classification (3-level categorical) and four continuous dimension scores.
+
+\paragraph{Dependent Variables.} The \textit{revision gate} is a three-level categorical variable: decline, suggest minor changes, or full revision. For RQ2, we measure \textit{overcorrection} on a 1--5 scale, where 1 indicates proportionate revision and 5 indicates severe overcorrection relative to the stated threshold. Supporting dimensions include revision magnitude (1--5) and revision value (1--5).
+
+\paragraph{Inter-Rater Reliability.} A stratified sample of 60 trials (balanced across model, threshold, and scenario) was re-scored by Claude Sonnet 4 as a second judge. Table~\ref{tab:irr} reports quadratic-weighted Cohen's $\kappa$.
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\textbf{Dimension} & \textbf{QW $\kappa$} & \textbf{Interpretation} \\
+\midrule
+Revision magnitude & 0.844 & Excellent \\
+Revision value & 0.690 & Good \\
+Overcorrection & 0.609 & Acceptable \\
+Threshold alignment & 0.556 & Marginal \\
+\bottomrule
+\end{tabular}
+\caption{Inter-rater reliability (quadratic-weighted Cohen's $\kappa$) between GPT-4o and Claude Sonnet 4 judges on a stratified sample of 60 trials.}
+\label{tab:irr}
+\end{table}
+
+\paragraph{Bias Controls.} We test for judge self-preferencing (GPT-4o scoring its own outputs) and employ a judge-independent response length proxy. Between-model rankings on the length proxy show the same rank ordering as judge rankings (\S\ref{sec:robustness}).
+
+\subsection{Analysis}
+
+We use chi-squared tests for revision gate distributions (RQ1), Spearman correlations and Kruskal-Wallis $H$ tests for threshold--overcorrection relationships (RQ2), and ordinal regression for multivariate analysis. We fit three ordinal regression models:
+\begin{itemize}
+    \item \textbf{Model A:} overcorrection $\sim$ probe $+$ threshold $+$ framing $+$ model
+    \item \textbf{Model B:} Model A $+$ scenario fixed effects
+    \item \textbf{Model C:} Leading-probe trials only: overcorrection $\sim$ threshold $+$ framing $+$ model $+$ scenario
+\end{itemize}
+All $p$-values are corrected for multiple comparisons using Benjamini-Hochberg FDR ($q < 0.05$).
