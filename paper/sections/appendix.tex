@@ -74,71 +74,13 @@
     \label{fig:trial-anatomy}
 \end{figure*}
 
-\section{Experimental Pipeline}
-\label{sec:appendix-pipeline}
-
-\begin{figure}[h]
-    \centering
-    \small
-    \begin{tikzpicture}[
-        node distance=0.3cm,
-        box/.style={draw, rounded corners, minimum height=0.6cm, align=center, font=\scriptsize},
-        arr/.style={->, thick, >=stealth},
-    ]
-    \node[box, fill=blue!8, text width=6.8cm] (factors) {
-        \textbf{8} scenarios $\times$ \textbf{16} thresholds $\times$ \textbf{2} probes $\times$ \textbf{3} models $\times$ 5 runs $=$ \textbf{3,840} trials
-    };
-    \node[box, fill=blue!5, below=0.3cm of factors, text width=6.8cm] (trial) {
-        Turn~1: task + threshold $\to$ draft \quad Turn~2: probe $\to$ revise/decline
-    };
-    \draw[arr] (factors) -- (trial);
-    \node[box, fill=green!8, below=0.3cm of trial, text width=3.2cm] (judge) {
-        GPT-4o judge ($T{=}0$)
-    };
-    \node[box, fill=green!6, right=0.15cm of judge, text width=2.8cm] (irr) {
-        2nd judge (Claude)\\$\kappa = 0.56$--$0.84$
-    };
-    \draw[arr] (trial) -- (judge);
-    \draw[arr, dashed] (judge) -- (irr);
-    \node[box, fill=yellow!10, below=0.3cm of judge, text width=6.8cm] (out) {
-        Gate (3-level) \enspace Overcorrection (1--5) \enspace Magnitude \enspace Value \enspace Alignment
-    };
-    \draw[arr] (judge) -- (out);
-    \end{tikzpicture}
-    \caption{Experimental pipeline. Four factors crossed in a fully factorial design; each trial scored by a GPT-4o judge on five dimensions with inter-rater reliability verified by a second judge.}
-    \label{fig:pipeline}
-\end{figure}
-
 \section{Supplementary Figures}
 \label{sec:appendix-figures}
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\columnwidth]{figures/12_probe_comparison.pdf}
-    \caption{Revision gate distribution by model and probe type. The leading probe produces near-universal revision; the evaluative probe suppresses it, with decline rates from 62\% (Claude) to 99.7\% (Gemini).}
-    \label{fig:revision-gate}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=\columnwidth]{figures/01_overcorrection_heatmap.pdf}
-    \caption{Overcorrection heatmap across models and threshold levels (leading probe only). Cell values show mean overcorrection scores.}
-    \label{fig:heatmap}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=\columnwidth]{figures/04_revision_gate_stacked.pdf}
-    \caption{Revision gate distribution by threshold framing (numeric vs.\ qualitative). Framing does not affect the gate ($\chi^2$ tests: all $p > 0.77$), consistent with framing effects operating at Stage~2 only.}
-    \label{fig:revision-gate-framing}
-\end{figure}
-
-\clearpage
-
-\begin{figure}[h]
-    \centering
     \includegraphics[width=\columnwidth]{figures/03_framing_comparison.pdf}
-    \caption{Overcorrection by threshold framing (numeric vs.\ qualitative) across all models and threshold levels. Qualitative framings produce lower overcorrection scores ($\beta = -0.74$ to $-1.05$, all $p < 0.001$).}
+    \caption{Overcorrection by threshold framing (numeric vs.\ qualitative). Qualitative framings produce lower overcorrection ($\beta = -0.74$ to $-1.05$, all $p < 0.001$).}
     \label{fig:framing-comparison}
 \end{figure}
 
@@ -155,8 +97,6 @@
     \caption{Judge self-preferencing check. GPT-4o as judge scores its own outputs \textit{lower} on revision value than other models (self mean $= 1.84$ vs.\ other mean $= 2.27$). Overcorrection shows no significant self-preferencing after FDR correction ($q = 0.055$).}
     \label{fig:judge-bias}
 \end{figure}
-
-\clearpage
 
 \begin{figure}[h]
     \centering

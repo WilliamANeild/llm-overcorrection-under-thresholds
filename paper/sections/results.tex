@@ -1,47 +1,12 @@
 \section{Results}
 
-Our results are consistent with a two-stage account of revision behavior, visualized in Figure~\ref{fig:two-stage}. Stage~1 (the revision gate) responds to probe phrasing; Stage~2 (intensity calibration) responds to the stated threshold. We present evidence for each stage in turn.
-
-\begin{figure}[t]
-    \centering
-    \begin{tikzpicture}[
-        node distance=1.0cm and 2.0cm,
-        stage/.style={draw, rounded corners=4pt, minimum width=2.8cm, minimum height=1.0cm, align=center, font=\small\bfseries, line width=0.8pt},
-        input/.style={font=\small, align=center},
-        output/.style={font=\small, align=center, text=gray!70!black},
-        arr/.style={->, thick, >=stealth, line width=0.8pt},
-        lbl/.style={font=\scriptsize, midway, above, text=black!70}
-    ]
-        % Stage 1
-        \node[stage, fill=gatered!20, draw=gatered!60] (gate) {Stage 1\\Revision Gate};
-        % Stage 2
-        \node[stage, fill=googleblue!20, draw=googleblue!60, right=2.4cm of gate] (intensity) {Stage 2\\Intensity};
-
-        % Inputs
-        \node[input, above=0.8cm of gate, font=\small\bfseries] (probe) {Probe phrasing};
-        \node[input, above=0.8cm of intensity, font=\small\bfseries] (threshold) {Quality threshold};
-
-        % Outputs
-        \node[output, below=0.8cm of gate] (decline) {\textit{Decline}};
-        \node[output, below=0.8cm of intensity] (level) {\textit{Overcorrection}};
-
-        % Arrows
-        \draw[arr, gatered!70] (probe) -- (gate);
-        \draw[arr, googleblue!70] (threshold) -- (intensity);
-        \draw[arr] (gate) -- node[lbl] {revise} (intensity);
-        \draw[arr, gatered!50] (gate) -- (decline);
-        \draw[arr, googleblue!50] (intensity) -- (level);
-
-    \end{tikzpicture}
-    \caption{Two-stage account. Stage~1 (revision gate) responds to prompt phrasing; Stage~2 (intensity) responds to the stated threshold. The interaction is significant but consistent with a floor effect (\S\ref{sec:discussion-two-stage}).}
-    \label{fig:two-stage}
-\end{figure}
+Our results are consistent with a two-stage account of revision behavior. Stage~1 (the revision gate) responds to probe phrasing; Stage~2 (intensity calibration) responds to the stated threshold. We present evidence for each stage in turn.
 
 \subsection{RQ1: The Revision Gate}
 
 The follow-up probe dominates the revision gate; the stated quality threshold has no detectable effect. Under the leading probe (``Can this be improved?''), models revised in 99.9\% of trials: GPT-4o and Claude Sonnet 4 declined 0.0\% of the time, and Gemini 2.5 Flash declined just 0.2\%. Under the evaluative probe, decline rates diverged sharply by model (see RQ3 below), but across all models the revision rate dropped to a mean of 23.2\%.
 
-Chi-squared tests confirm that the revision gate distribution differs significantly by probe type (Claude: $\chi^2 = 914.37$, $p < 0.0001$; Gemini: $\chi^2 = 1326.89$, $p < 0.0001$; GPT-4o: $\chi^2 = 788.96$, $p < 0.0001$).\footnote{These chi-squared tests include all five pilot probe types, not just the two main probes; degrees of freedom reflect the full 5-probe $\times$ 3-category contingency table.} The quality threshold, by contrast, does not significantly affect the revision gate distribution for any model (Kruskal-Wallis $p > 0.40$ for all models). Given the study's power to detect proportion differences as small as 0.032, these null results are unlikely to reflect insufficient power. The full gate distribution by model and probe type is shown in Appendix Figure~\ref{fig:revision-gate}.
+Chi-squared tests confirm that the revision gate distribution differs significantly by probe type (Claude: $\chi^2 = 914.37$, $p < 0.0001$; Gemini: $\chi^2 = 1326.89$, $p < 0.0001$; GPT-4o: $\chi^2 = 788.96$, $p < 0.0001$).\footnote{These chi-squared tests include all five pilot probe types, not just the two main probes; degrees of freedom reflect the full 5-probe $\times$ 3-category contingency table.} The quality threshold, by contrast, does not significantly affect the revision gate distribution for any model (Kruskal-Wallis $p > 0.40$ for all models). Given the study's power to detect proportion differences as small as 0.032, these null results are unlikely to reflect insufficient power. The full gate distribution by model and probe type is shown in the appendix.
 
 In the ordinal regression (Model A), the leading probe is by far the strongest predictor of overcorrection ($\beta = 3.47$, $z = 33.73$, $p < 0.001$), dwarfing all other coefficients (Table~\ref{tab:regression}). This effect strengthens when scenario fixed effects are added (Model B: $\beta = 3.94$, $p < 0.001$). Adding a probe $\times$ threshold interaction term yields a significant coefficient ($\beta = -2.20$, $z = -5.69$, $p < 0.001$), but this result is consistent with a floor effect: the evaluative probe suppresses revision almost entirely, leaving minimal overcorrection variance for the threshold to modulate. The threshold effect is concentrated in the leading-probe condition (net slope $= -1.40$), while the evaluative-probe slope ($+0.80$) is driven by the small minority of trials that pass the gate.
 
@@ -65,7 +30,7 @@ Spearman correlations between threshold level and overcorrection (leading probe 
 
 Kruskal-Wallis $H$ tests across threshold levels confirm a significant threshold effect for Gemini (numeric: $H = 50.40$, $p < 0.0001$; qualitative: $H = 23.42$, $p = 0.001$) and Claude (numeric: $H = 17.59$, $p = 0.014$; qualitative: $H = 23.30$, $p = 0.002$), but not for GPT-4o (numeric: $H = 3.20$, $p = 0.87$; qualitative: $H = 4.89$, $p = 0.67$).
 
-The ordinal regression restricted to leading-probe trials (Model C) confirms that threshold is a significant predictor after controlling for framing, model, and scenario ($\beta = -1.65$, $p < 0.001$). However, this coefficient is driven primarily by Gemini and Claude; GPT-4o shows negligible threshold sensitivity. For the cell-level overcorrection heatmap, see Appendix Figure~\ref{fig:heatmap}.
+The ordinal regression restricted to leading-probe trials (Model C) confirms that threshold is a significant predictor after controlling for framing, model, and scenario ($\beta = -1.65$, $p < 0.001$). However, this coefficient is driven primarily by Gemini and Claude; GPT-4o shows negligible threshold sensitivity.
 
 \begin{table}[b]
 \centering
@@ -102,7 +67,7 @@ This divergence is consistent with the ordinal regression results: Gemini shows 
 
 \subsection{Framing Effects}
 
-Qualitative threshold framings produce significantly less overcorrection than numeric framings (Model A: $\beta = -0.74$, $p < 0.001$; Model C: $\beta = -1.05$, $p < 0.001$). This effect is consistent across all three regression models and is not an artifact of scenario or model differences. Revision gate distributions do not differ by framing ($\chi^2$ tests: all $p > 0.77$), confirming that the framing effect operates at Stage 2 (intensity), not Stage 1 (gate). For the full framing comparison, see Appendix Figures~\ref{fig:framing-comparison} and~\ref{fig:revision-gate-framing}.
+Qualitative threshold framings produce significantly less overcorrection than numeric framings (Model A: $\beta = -0.74$, $p < 0.001$; Model C: $\beta = -1.05$, $p < 0.001$). This effect is consistent across all three regression models and is not an artifact of scenario or model differences. Revision gate distributions do not differ by framing ($\chi^2$ tests: all $p > 0.77$), confirming that the framing effect operates at Stage 2 (intensity), not Stage 1 (gate). For the full framing comparison, see Appendix Figure~\ref{fig:framing-comparison}.
 
 \subsection{Robustness}
 \label{sec:robustness}
