@@ -31,7 +31,7 @@ MODEL_LABELS = {
     "gemini-flash":  "Gemini 2.5 Flash",
     "gpt-4o":        "GPT-4o",
 }
-MODEL_ORDER = ["claude-sonnet", "gemini-flash", "gpt-4o"]
+MODEL_ORDER = ["gemini-flash", "claude-sonnet", "gpt-4o"]
 
 # Gate colors
 GATE_COLORS = {
@@ -173,7 +173,6 @@ def fig2_threshold_ladder(df):
 
         # GPT-4o annotation removed to avoid advertising weakest case
 
-    fig.suptitle("Overcorrection Across Threshold Levels", fontsize=14, fontweight="bold", y=1.02)
     fig.tight_layout()
     save_fig(fig, "02_threshold_ladder")
 
@@ -522,20 +521,10 @@ def fig10_probe_calibration_cliff(df):
     bars = ax.bar(range(len(available)), rates, color=colors, edgecolor="white",
                   width=0.65, linewidth=0.5)
 
-    # n labels removed for cleaner visual
-
     ax.set_xticks(range(len(available)))
     ax.set_xticklabels([probe_labels.get(p, p) for p in available], fontsize=9)
     ax.set_ylabel("Revision Rate (%)", fontsize=11)
-    ax.set_title("Probe Calibration: The Binary Compliance Cliff",
-                 fontsize=14, fontweight="bold")
-    ax.set_ylim(0, 120)
-    ax.axhline(y=50, color="#CCCCCC", linestyle="--", linewidth=0.8)
-
-    ax.annotate("Revision-implying", xy=(0.5, 110), fontsize=10,
-                color="#E74C3C", ha="center", fontstyle="italic", fontweight="600")
-    ax.annotate("Evaluative", xy=(3.5, 35), fontsize=10,
-                color="#2ECC71", ha="center", fontstyle="italic", fontweight="600")
+    ax.set_ylim(0, 109)
 
     fig.tight_layout()
     save_fig(fig, "10_probe_calibration_cliff")
