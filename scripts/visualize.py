@@ -31,7 +31,7 @@ MODEL_LABELS = {
     "gemini-flash":  "Gemini 2.5 Flash",
     "gpt-4o":        "GPT-4o",
 }
-MODEL_ORDER = ["gemini-flash", "claude-sonnet", "gpt-4o"]
+MODEL_ORDER = ["claude-sonnet", "gemini-flash", "gpt-4o"]
 
 # Gate colors
 GATE_COLORS = {
@@ -521,10 +521,15 @@ def fig10_probe_calibration_cliff(df):
     bars = ax.bar(range(len(available)), rates, color=colors, edgecolor="white",
                   width=0.65, linewidth=0.5)
 
+    # Percentage labels on bars
+    for bar, rate in zip(bars, rates):
+        ax.text(bar.get_x() + bar.get_width() / 2, rate + 1.5, f"{rate:.0f}%",
+                ha="center", va="bottom", fontsize=10, fontweight="600")
+
     ax.set_xticks(range(len(available)))
     ax.set_xticklabels([probe_labels.get(p, p) for p in available], fontsize=9)
     ax.set_ylabel("Revision Rate (%)", fontsize=11)
-    ax.set_ylim(0, 109)
+    ax.set_ylim(0, 115)
 
     fig.tight_layout()
     save_fig(fig, "10_probe_calibration_cliff")
