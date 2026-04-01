@@ -34,7 +34,7 @@ Our results support a two-stage account of revision behavior, visualized in Figu
         % Independence annotation
         \node[font=\scriptsize, text=gray, below=0.15cm of gate.south east, anchor=north west, xshift=0.3cm] {(interaction: floor effect, see \S4.1)};
     \end{tikzpicture}
-    \caption{Two-stage account of revision behavior. Stage~1 (revision gate) is controlled by the pragmatic force of the follow-up prompt; Stage~2 (intensity calibration) is modulated by the user's stated quality threshold. The probe $\times$ threshold interaction is significant but attributable to a floor effect (\S\ref{sec:discussion-two-stage}). Within each probe condition, the stages operate on separate inputs.}
+    \caption{Two-stage account of revision behavior. Stage~1 (revision gate) is controlled by the pragmatic force of the follow-up prompt; Stage~2 (intensity calibration) is modulated by the user's stated quality threshold. The probe $\times$ threshold interaction is significant but consistent with a floor effect (\S\ref{sec:discussion-two-stage}). Within each probe condition, the stages appear to operate on separate inputs.}
     \label{fig:two-stage}
 \end{figure}
 
@@ -42,7 +42,7 @@ Our results support a two-stage account of revision behavior, visualized in Figu
 
 The follow-up probe dominates the revision gate; the stated quality threshold has no detectable effect. Under the leading probe (``Can this be improved?''), models revised in 99.9\% of trials: GPT-4o and Claude Sonnet 4 declined 0.0\% of the time, and Gemini 2.5 Flash declined just 0.2\%. Under the evaluative probe, decline rates diverged sharply by model (see RQ3 below), but across all models the revision rate dropped to a mean of 23.2\%.
 
-Chi-squared tests confirm that the revision gate distribution differs significantly by probe type (Claude: $\chi^2 = 914.37$, $p < 0.0001$; Gemini: $\chi^2 = 1326.89$, $p < 0.0001$; GPT-4o: $\chi^2 = 788.96$, $p < 0.0001$).\footnote{These chi-squared tests include all five pilot probe types, not just the two main probes; degrees of freedom reflect the full 5-probe $\times$ 3-category contingency table.} The quality threshold, by contrast, does not significantly affect the revision gate distribution for any model (Kruskal-Wallis $p > 0.40$ for all models). Given the study's power to detect proportion differences as small as 0.032, these null results represent genuine insensitivity rather than insufficient power.
+Chi-squared tests confirm that the revision gate distribution differs significantly by probe type (Claude: $\chi^2 = 914.37$, $p < 0.0001$; Gemini: $\chi^2 = 1326.89$, $p < 0.0001$; GPT-4o: $\chi^2 = 788.96$, $p < 0.0001$).\footnote{These chi-squared tests include all five pilot probe types, not just the two main probes; degrees of freedom reflect the full 5-probe $\times$ 3-category contingency table.} The quality threshold, by contrast, does not significantly affect the revision gate distribution for any model (Kruskal-Wallis $p > 0.40$ for all models). Given the study's power to detect proportion differences as small as 0.032, these null results are unlikely to reflect insufficient power.
 
 \begin{figure}[tb]
     \centering
@@ -51,7 +51,7 @@ Chi-squared tests confirm that the revision gate distribution differs significan
     \label{fig:revision-gate}
 \end{figure}
 
-In the ordinal regression (Model A), the leading probe is by far the strongest predictor of overcorrection ($\beta = 3.47$, $z = 33.73$, $p < 0.001$), dwarfing all other coefficients (Table~\ref{tab:regression}). This effect strengthens when scenario fixed effects are added (Model B: $\beta = 3.94$, $p < 0.001$). Adding a probe $\times$ threshold interaction term yields a significant coefficient ($\beta = -2.20$, $z = -5.69$, $p < 0.001$), but this reflects a floor effect: the evaluative probe suppresses revision almost entirely, leaving minimal overcorrection variance for the threshold to modulate. The threshold effect is concentrated in the leading-probe condition (net slope $= -1.40$), while the evaluative-probe slope ($+0.80$) is driven by the small minority of trials that pass the gate.
+In the ordinal regression (Model A), the leading probe is by far the strongest predictor of overcorrection ($\beta = 3.47$, $z = 33.73$, $p < 0.001$), dwarfing all other coefficients (Table~\ref{tab:regression}). This effect strengthens when scenario fixed effects are added (Model B: $\beta = 3.94$, $p < 0.001$). Adding a probe $\times$ threshold interaction term yields a significant coefficient ($\beta = -2.20$, $z = -5.69$, $p < 0.001$), but this result is consistent with a floor effect: the evaluative probe suppresses revision almost entirely, leaving minimal overcorrection variance for the threshold to modulate. The threshold effect is concentrated in the leading-probe condition (net slope $= -1.40$), while the evaluative-probe slope ($+0.80$) is driven by the small minority of trials that pass the gate.
 
 \subsection{RQ2: Threshold Sensitivity Within Revisions}
 
