@@ -103,14 +103,14 @@
 \begin{figure}[h]
     \centering
     \includegraphics[width=\columnwidth]{figures/03_framing_comparison.pdf}
-    \caption{Overcorrection by threshold framing (numeric vs.\ qualitative) across all models and threshold levels. Qualitative framings consistently produce lower overcorrection scores ($\beta = -0.74$ to $-1.05$, all $p < 0.001$), suggesting that natural-language quality descriptions activate the model's calibration system more effectively than numeric scores.}
+    \caption{Overcorrection by threshold framing (numeric vs.\ qualitative) across all models and threshold levels. Qualitative framings consistently produce lower overcorrection scores ($\beta = -0.74$ to $-1.05$, all $p < 0.001$). One possible explanation is that natural-language quality descriptions are more grounded in the model's training distribution than numeric scores, though we did not test this directly.}
     \label{fig:framing-comparison}
 \end{figure}
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\columnwidth]{figures/06_scenario_boxplots.pdf}
-    \caption{Overcorrection distribution across eight writing scenarios (leading probe only). Scenarios with higher baseline register expectations (e.g., sales email, LinkedIn post) tend to produce higher overcorrection, likely because models default to formal revision norms regardless of the user's stated threshold. The brunch cancellation scenario shows the lowest overcorrection, consistent with models recognizing casual register.}
+    \caption{Overcorrection distribution across eight writing scenarios (leading probe only). Scenarios with higher baseline register expectations (e.g., sales email, LinkedIn post) tend to produce higher overcorrection. The brunch cancellation scenario shows the lowest overcorrection. This pattern is consistent with register expectations influencing revision intensity, though other scenario-level factors may also contribute.}
     \label{fig:scenario-boxplots}
 \end{figure}
 
@@ -135,7 +135,7 @@
 \begin{figure}[h]
     \centering
     \includegraphics[width=\columnwidth]{figures/13_probe_threshold_interaction.pdf}
-    \caption{Probe $\times$ threshold interaction plot. The interaction term is statistically significant ($\beta = -2.20$, $p < 0.001$) but reflects a floor effect: the evaluative probe suppresses revision almost entirely, leaving minimal overcorrection variance for the threshold to modulate. Within each probe condition, the threshold effect operates consistently, supporting functional separability of the revision gate (Stage~1) and intensity calibration (Stage~2).}
+    \caption{Probe $\times$ threshold interaction plot. The interaction term is statistically significant ($\beta = -2.20$, $p < 0.001$) but is consistent with a floor effect: the evaluative probe suppresses revision almost entirely, leaving minimal overcorrection variance for the threshold to modulate. Within each probe condition, the threshold effect operates consistently, consistent with the two-stage account in which the revision gate (Stage~1) and intensity calibration (Stage~2) respond to different inputs.}
     \label{fig:probe-threshold-interaction}
 \end{figure}
 
