@@ -5,36 +5,35 @@ Our results are consistent with a two-stage account of revision behavior, visual
 \begin{figure}[t]
     \centering
     \begin{tikzpicture}[
-        node distance=1.2cm and 1.8cm,
-        box/.style={draw, rounded corners, minimum width=2.4cm, minimum height=0.8cm, align=center, font=\small},
-        input/.style={font=\small\itshape, align=center},
-        arr/.style={->, thick, >=stealth},
-        label/.style={font=\scriptsize, midway, above}
+        node distance=1.0cm and 2.0cm,
+        stage/.style={draw, rounded corners=4pt, minimum width=2.8cm, minimum height=1.0cm, align=center, font=\small\bfseries, line width=0.8pt},
+        input/.style={font=\small, align=center},
+        output/.style={font=\small, align=center, text=gray!70!black},
+        arr/.style={->, thick, >=stealth, line width=0.8pt},
+        lbl/.style={font=\scriptsize, midway, above, text=black!70}
     ]
         % Stage 1
-        \node[box, fill=gatered!15] (gate) {Stage 1:\\Revision Gate};
+        \node[stage, fill=gatered!20, draw=gatered!60] (gate) {Stage 1\\Revision Gate};
         % Stage 2
-        \node[box, fill=googleblue!15, right=2.2cm of gate] (intensity) {Stage 2:\\Intensity Calibration};
+        \node[stage, fill=googleblue!20, draw=googleblue!60, right=2.4cm of gate] (intensity) {Stage 2\\Intensity};
 
         % Inputs
-        \node[input, above=0.9cm of gate] (probe) {Probe phrasing\\(pragmatic force)};
-        \node[input, above=0.9cm of intensity] (threshold) {Quality threshold\\(stated bar)};
+        \node[input, above=0.8cm of gate, font=\small\bfseries] (probe) {Probe phrasing};
+        \node[input, above=0.8cm of intensity, font=\small\bfseries] (threshold) {Quality threshold};
 
         % Outputs
-        \node[input, below=0.9cm of gate] (decline) {Decline};
-        \node[input, below=0.9cm of intensity] (level) {Overcorrection\\level};
+        \node[output, below=0.8cm of gate] (decline) {\textit{Decline}};
+        \node[output, below=0.8cm of intensity] (level) {\textit{Overcorrection}};
 
         % Arrows
-        \draw[arr] (probe) -- (gate);
-        \draw[arr] (threshold) -- (intensity);
-        \draw[arr] (gate) -- node[label] {revise} (intensity);
-        \draw[arr] (gate) -- (decline);
-        \draw[arr] (intensity) -- (level);
+        \draw[arr, gatered!70] (probe) -- (gate);
+        \draw[arr, googleblue!70] (threshold) -- (intensity);
+        \draw[arr] (gate) -- node[lbl] {revise} (intensity);
+        \draw[arr, gatered!50] (gate) -- (decline);
+        \draw[arr, googleblue!50] (intensity) -- (level);
 
-        % Independence annotation
-        \node[font=\scriptsize, text=gray, below=0.15cm of gate.south east, anchor=north west, xshift=0.3cm] {(interaction: floor effect, see \S\ref{sec:discussion-two-stage})};
     \end{tikzpicture}
-    \caption{Two-stage account of revision behavior. Stage~1 (revision gate) is controlled by the pragmatic force of the follow-up prompt; Stage~2 (intensity calibration) is modulated by the user's stated quality threshold. The probe $\times$ threshold interaction is significant but consistent with a floor effect (\S\ref{sec:discussion-two-stage}).}
+    \caption{Two-stage account. Stage~1 (revision gate) responds to prompt phrasing; Stage~2 (intensity) responds to the stated threshold. The interaction is significant but consistent with a floor effect (\S\ref{sec:discussion-two-stage}).}
     \label{fig:two-stage}
 \end{figure}
 
@@ -42,14 +41,7 @@ Our results are consistent with a two-stage account of revision behavior, visual
 
 The follow-up probe dominates the revision gate; the stated quality threshold has no detectable effect. Under the leading probe (``Can this be improved?''), models revised in 99.9\% of trials: GPT-4o and Claude Sonnet 4 declined 0.0\% of the time, and Gemini 2.5 Flash declined just 0.2\%. Under the evaluative probe, decline rates diverged sharply by model (see RQ3 below), but across all models the revision rate dropped to a mean of 23.2\%.
 
-Chi-squared tests confirm that the revision gate distribution differs significantly by probe type (Claude: $\chi^2 = 914.37$, $p < 0.0001$; Gemini: $\chi^2 = 1326.89$, $p < 0.0001$; GPT-4o: $\chi^2 = 788.96$, $p < 0.0001$).\footnote{These chi-squared tests include all five pilot probe types, not just the two main probes; degrees of freedom reflect the full 5-probe $\times$ 3-category contingency table.} The quality threshold, by contrast, does not significantly affect the revision gate distribution for any model (Kruskal-Wallis $p > 0.40$ for all models). Given the study's power to detect proportion differences as small as 0.032, these null results are unlikely to reflect insufficient power.
-
-\begin{figure}[tb]
-    \centering
-    \includegraphics[width=\columnwidth]{figures/12_probe_comparison.pdf}
-    \caption{Revision gate distribution by model and probe type. The leading probe produces near-universal revision across all models. The evaluative probe suppresses revision, with model-specific decline rates ranging from 62\% (Claude) to 99.7\% (Gemini). See Appendix Figure~\ref{fig:overcorrection-by-probe} for the corresponding overcorrection comparison.}
-    \label{fig:revision-gate}
-\end{figure}
+Chi-squared tests confirm that the revision gate distribution differs significantly by probe type (Claude: $\chi^2 = 914.37$, $p < 0.0001$; Gemini: $\chi^2 = 1326.89$, $p < 0.0001$; GPT-4o: $\chi^2 = 788.96$, $p < 0.0001$).\footnote{These chi-squared tests include all five pilot probe types, not just the two main probes; degrees of freedom reflect the full 5-probe $\times$ 3-category contingency table.} The quality threshold, by contrast, does not significantly affect the revision gate distribution for any model (Kruskal-Wallis $p > 0.40$ for all models). Given the study's power to detect proportion differences as small as 0.032, these null results are unlikely to reflect insufficient power. The full gate distribution by model and probe type is shown in Appendix Figure~\ref{fig:revision-gate}.
 
 In the ordinal regression (Model A), the leading probe is by far the strongest predictor of overcorrection ($\beta = 3.47$, $z = 33.73$, $p < 0.001$), dwarfing all other coefficients (Table~\ref{tab:regression}). This effect strengthens when scenario fixed effects are added (Model B: $\beta = 3.94$, $p < 0.001$). Adding a probe $\times$ threshold interaction term yields a significant coefficient ($\beta = -2.20$, $z = -5.69$, $p < 0.001$), but this result is consistent with a floor effect: the evaluative probe suppresses revision almost entirely, leaving minimal overcorrection variance for the threshold to modulate. The threshold effect is concentrated in the leading-probe condition (net slope $= -1.40$), while the evaluative-probe slope ($+0.80$) is driven by the small minority of trials that pass the gate.
 
@@ -115,14 +107,7 @@ Qualitative threshold framings produce significantly less overcorrection than nu
 \subsection{Robustness}
 \label{sec:robustness}
 
-\paragraph{Length Proxy.} Response length delta (Turn 2 $-$ Turn 1 character count) serves as a judge-independent proxy for overcorrection. Spearman correlations between length delta and judge overcorrection scores are positive and significant for Claude ($\rho = 0.20$, $p < 0.001$) and Gemini ($\rho = 0.56$, $p < 0.001$). GPT-4o shows a near-zero negative correlation ($\rho = -0.07$, $p = 0.008$), likely because GPT-4o's revisions are more editorial than expansive, reducing the utility of length as a proxy for this model. Between-model rankings on length delta are broadly consistent with judge rankings on overcorrection (Figure~\ref{fig:length-convergence}): Gemini shows the largest length increases, Claude intermediate, and GPT-4o the smallest. See also Appendix Figure~\ref{fig:length-delta} for the full length delta breakdown.
-
-\begin{figure}[b]
-    \centering
-    \includegraphics[width=\columnwidth]{figures/09_length_vs_overcorrection.pdf}
-    \caption{Response length delta vs.\ judge overcorrection score (binned by decile, one panel per model). Between-model rankings are broadly consistent across the two measures, though GPT-4o's near-zero length-overcorrection correlation limits the proxy's utility for that model.}
-    \label{fig:length-convergence}
-\end{figure}
+\paragraph{Length Proxy.} Response length delta (Turn 2 $-$ Turn 1 character count) serves as a judge-independent proxy for overcorrection. Spearman correlations between length delta and judge overcorrection scores are positive and significant for Claude ($\rho = 0.20$, $p < 0.001$) and Gemini ($\rho = 0.56$, $p < 0.001$). GPT-4o shows a near-zero negative correlation ($\rho = -0.07$, $p = 0.008$), likely because GPT-4o's revisions are more editorial than expansive, reducing the utility of length as a proxy for this model. Between-model rankings on length delta are broadly consistent with judge rankings on overcorrection (Appendix Figure~\ref{fig:length-convergence}): Gemini shows the largest length increases, Claude intermediate, and GPT-4o the smallest. See also Appendix Figure~\ref{fig:length-delta} for the full length delta breakdown.
 
 \paragraph{Judge Self-Preferencing.} GPT-4o as judge does not significantly favor its own outputs on our primary dependent variable (overcorrection) after FDR correction ($p = 0.032 \to q = 0.055$). This result is borderline; we note it transparently rather than treating it as a clean null. On revision value, the judge scores GPT-4o outputs \textit{lower} than other models (self mean $= 1.84$ vs.\ other mean $= 2.27$), suggesting a conservative rather than self-preferencing bias. See Appendix Figure~\ref{fig:judge-bias} for the full comparison.
 

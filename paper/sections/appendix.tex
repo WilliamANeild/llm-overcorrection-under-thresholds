@@ -79,9 +79,23 @@
 
 \begin{figure}[h]
     \centering
+    \includegraphics[width=\columnwidth]{figures/12_probe_comparison.pdf}
+    \caption{Revision gate distribution by model and probe type. The leading probe produces near-universal revision across all models. The evaluative probe suppresses revision, with model-specific decline rates ranging from 62\% (Claude) to 99.7\% (Gemini).}
+    \label{fig:revision-gate}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
     \includegraphics[width=\columnwidth]{figures/14_overcorrection_by_probe.pdf}
-    \caption{Overcorrection by probe type across models. The leading probe produces significantly higher overcorrection than the evaluative probe for all three models ($p < 0.001$). This panel complements the gate distribution shown in Figure~\ref{fig:revision-gate}.}
+    \caption{Overcorrection by probe type across models. The leading probe produces higher overcorrection than the evaluative probe for all three models ($p < 0.001$). Complements Figure~\ref{fig:revision-gate}.}
     \label{fig:overcorrection-by-probe}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/09_length_vs_overcorrection.pdf}
+    \caption{Response length delta vs.\ judge overcorrection score (binned by decile, one panel per model). Between-model rankings are broadly consistent across the two measures, though GPT-4o's near-zero correlation limits the proxy's utility for that model.}
+    \label{fig:length-convergence}
 \end{figure}
 
 \begin{figure}[h]
