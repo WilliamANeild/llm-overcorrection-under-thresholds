@@ -56,13 +56,11 @@ We do not control or evaluate the quality of Turn~1 outputs. If models produce o
 
 Our main experiment uses two probes selected from a five-probe pilot. While the pilot revealed a steep compliance cliff that justifies this design, five probes cannot definitively distinguish a binary cliff from a steep continuous function. A finer-grained probe gradient (e.g., 15--20 wordings spanning the revision-evaluation spectrum) would better characterize the transition region and determine whether intermediate compliance rates exist.
 
-Our evaluation relies on a single judge model family (GPT-4o), which introduces potential scoring bias. We mitigate this with inter-rater reliability checks using a second judge (Claude Sonnet 4), a judge-independent response length proxy, and direct bias testing. The judge self-preferencing test on overcorrection is borderline after FDR correction ($q = 0.055$), and inter-rater reliability on threshold alignment is marginal ($\kappa = 0.556$). Human evaluation would strengthen claims about overcorrection severity.
+Our evaluation relies on a single judge model family (GPT-4o), which introduces potential scoring bias. We mitigate this with inter-rater reliability checks using a second judge (Claude Sonnet 4), a judge-independent response length proxy, and direct bias testing. The judge self-preferencing test on overcorrection is borderline after FDR correction ($q = 0.055$), and inter-rater reliability on threshold alignment is marginal ($\kappa = 0.556$).
 
-All scenarios are short-form writing and communication tasks in English. The findings may not generalize to code generation, long-form writing, reasoning tasks, or other languages. Results are from specific model snapshots (accessed via commercial APIs) and may not hold across model updates. We did not test open-weight models, which may exhibit different revision gate behavior due to different training pipelines.
+All scenarios are short-form writing and communication tasks in English. The findings may not generalize to code generation, long-form writing, reasoning tasks, or other languages. Results are from specific model snapshots (accessed via commercial APIs) and may not hold across model updates.
 
-The design uses 5 runs per cell. Within-cell variance is low (ICC(1) $= 0.71$; 71\% of overcorrection variance lies between cells, only 29\% within), confirming that runs are near-deterministic at low temperature settings. We report nominal $N = 3{,}840$, but the conservative effective sample size is 768 unique cells. Readers should interpret marginal results with this effective sample size in mind.
-
-All trials use a fixed two-turn structure. Real conversations involve longer histories where thresholds might accumulate force across turns, potentially modulating the revision gate differently than in our controlled setting.
+The design uses 5 runs per cell. Within-cell variance is low (ICC(1) $= 0.71$), confirming near-deterministic behavior at low temperature. The conservative effective sample size is 768 unique cells rather than the nominal $N = 3{,}840$. All trials use a fixed two-turn structure; real conversations involve longer histories where thresholds might accumulate force across turns.
 
 \section*{Ethics Statement}
 
