@@ -60,7 +60,7 @@ Our evaluation relies on a single judge model family (GPT-4o), which introduces 
 
 All scenarios are short-form writing and communication tasks in English. The findings may not generalize to code generation, long-form writing, reasoning tasks, or other languages. Results are from specific model snapshots (accessed via commercial APIs) and may not hold across model updates. We did not test open-weight models, which may exhibit different revision gate behavior due to different training pipelines.
 
-The design uses 5 runs per cell. Within-cell variance is low (ICC(1) $= 0.71$; 71\% of overcorrection variance lies between cells, only 29\% within), confirming that runs are near-deterministic at low temperature settings. We report nominal $N = 3{,}840$, but the conservative effective sample size is 768 unique cells. All primary effects (which are large) survive this deflation, but readers should interpret marginal results with this in mind.
+The design uses 5 runs per cell. Within-cell variance is low (ICC(1) $= 0.71$; 71\% of overcorrection variance lies between cells, only 29\% within), confirming that runs are near-deterministic at low temperature settings. We report nominal $N = 3{,}840$, but the conservative effective sample size is 768 unique cells. Readers should interpret marginal results with this effective sample size in mind.
 
 All trials use a fixed two-turn structure. Real conversations involve longer histories where thresholds might accumulate force across turns, potentially modulating the revision gate differently than in our controlled setting.
 
