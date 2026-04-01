@@ -1,10 +1,10 @@
 \section{Results}
 
-Our results are consistent with a two-stage account of revision behavior. Stage~1 (the revision gate) responds to probe phrasing; Stage~2 (intensity calibration) responds to the stated threshold. We present evidence for each stage in turn.
+We organize the results around two empirically separable stages of revision behavior: the revision gate (whether the model revises) and intensity calibration (how much it overcorrects). We present evidence for each stage in turn.
 
 \subsection{RQ1: The Revision Gate}
 
-The follow-up probe dominates the revision gate; the stated quality threshold has no detectable effect. Under the leading probe (``Can this be improved?''), models revised in 99.9\% of trials: GPT-4o and Claude Sonnet 4 declined 0.0\% of the time, and Gemini 2.5 Flash declined just 0.2\%. Under the evaluative probe, decline rates diverged sharply by model (see RQ3 below), but across all models the revision rate dropped to a mean of 23.2\%.
+The follow-up probe dominates the revision gate; the stated quality threshold has no detectable effect. Under the leading probe (``Can this be improved?''), models revised in 99.9\% of trials: Claude Sonnet 4 and GPT-4o declined 0.0\% of the time, and Gemini 2.5 Flash declined just 0.2\%. Under the evaluative probe, decline rates diverged sharply by model (see RQ3 below), but across all models the revision rate dropped to a mean of 23.2\%.
 
 Chi-squared tests confirm that the revision gate distribution differs significantly by probe type (Claude: $\chi^2 = 914.37$, $p < 0.0001$; Gemini: $\chi^2 = 1326.89$, $p < 0.0001$; GPT-4o: $\chi^2 = 788.96$, $p < 0.0001$).\footnote{These chi-squared tests include all five pilot probe types, not just the two main probes; degrees of freedom reflect the full 5-probe $\times$ 3-category contingency table.} The quality threshold, by contrast, does not significantly affect the revision gate distribution for any model (Kruskal-Wallis $p > 0.40$ for all models). Given the study's power to detect proportion differences as small as 0.032, these null results are unlikely to reflect insufficient power. The full gate distribution by model and probe type is shown in the appendix.
 
@@ -32,7 +32,7 @@ Kruskal-Wallis $H$ tests across threshold levels confirm a significant threshold
 
 The ordinal regression restricted to leading-probe trials (Model C) confirms that threshold is a significant predictor after controlling for framing, model, and scenario ($\beta = -1.65$, $p < 0.001$). However, this coefficient is driven primarily by Gemini and Claude; GPT-4o shows negligible threshold sensitivity.
 
-\begin{table}[b]
+\begin{table}[t]
 \centering
 \small
 \begin{tabular}{@{}lrrr@{}}
@@ -63,7 +63,7 @@ Under the leading probe, all three models behave nearly identically ($\sim$100\%
     \item Claude Sonnet 4: 62.0\% decline rate (most willing to revise)
 \end{itemize}
 
-This divergence is consistent with the ordinal regression results: Gemini shows the strongest overcorrection tendency (Model C: $\beta = 1.15$, $p < 0.001$) but also the highest evaluative-probe decline rate. When Gemini does revise, it overcorrects more aggressively, but it is also the model most likely to correctly decline revision under an evaluative prompt. This pattern is consistent with Gemini having a more binary revision gate, while GPT-4o and Claude show more intermediate behavior between the evaluative and revision modes (Appendix Figure~\ref{fig:probe-cliff-model}).
+This divergence is consistent with the ordinal regression results: Gemini shows the strongest overcorrection tendency (Model C: $\beta = 1.15$, $p < 0.001$) but also the highest evaluative-probe decline rate. Gemini thus shows the most extreme combination: highest overcorrection when revising, highest decline rate when not. Claude and GPT-4o show more intermediate behavior across both probe conditions (Appendix Figure~\ref{fig:probe-cliff-model}).
 
 \subsection{Framing Effects}
 
