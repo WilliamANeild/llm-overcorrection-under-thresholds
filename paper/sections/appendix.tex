@@ -1,0 +1,325 @@
+\section{Experimental Pipeline}
+\label{sec:appendix-pipeline}
+
+\begin{figure*}[t]
+    \centering
+    \begin{tikzpicture}[
+        node distance=0.5cm,
+        factor/.style={draw, rounded corners, fill=blue!8, minimum width=3.2cm, minimum height=1.6cm, align=center, font=\small},
+        factortitle/.style={font=\small\bfseries},
+        factoritems/.style={font=\scriptsize, align=left},
+        process/.style={draw, rounded corners, fill=orange!10, minimum height=0.7cm, align=center, font=\small},
+        arr/.style={->, thick, >=stealth},
+        brace/.style={decorate, decoration={brace, amplitude=5pt, mirror}},
+    ]
+
+    % === Row 1: Independent Variables ===
+    \node[factor] (scenarios) {
+        \textbf{8 Scenarios}\\[2pt]
+        {\scriptsize\begin{tabular}{@{}ll@{}}
+        Formal: & PTO, Sales\\
+        Neutral: & LinkedIn, Slack\\
+        Informal: & Brunch, Coworker\\
+        Technical: & Setup\\
+        Creative: & Review
+        \end{tabular}}
+    };
+
+    \node[factor, right=0.4cm of scenarios] (thresholds) {
+        \textbf{8 Thresholds}\\[2pt]
+        {\scriptsize\begin{tabular}{@{}l@{}}
+        0 (none), 70, 75, 80,\\
+        85, 90, 95, 100\\[2pt]
+        $\times$ 2 framings:\\
+        Numeric / Qualitative
+        \end{tabular}}
+    };
+
+    \node[factor, right=0.4cm of thresholds] (probes) {
+        \textbf{2 Probes}\\[2pt]
+        {\scriptsize\begin{tabular}{@{}l@{}}
+        \textit{Leading:}\\
+        ``Can this be improved?''\\[2pt]
+        \textit{Evaluative:}\\
+        ``Take another look...\\
+        let me know if it's ready.''
+        \end{tabular}}
+    };
+
+    \node[factor, right=0.4cm of probes] (models) {
+        \textbf{3 Models}\\[2pt]
+        {\scriptsize\begin{tabular}{@{}l@{}}
+        \textcolor{gptdark}{\rule{6pt}{6pt}} GPT-4o (OpenAI)\\[2pt]
+        \textcolor{claudeorange}{\rule{6pt}{6pt}} Claude Sonnet 4 (Anthropic)\\[2pt]
+        \textcolor{googleblue}{\rule{6pt}{6pt}} Gemini 2.5 Flash (Google)
+        \end{tabular}}
+    };
+
+    % === Fully Factorial Label ===
+    \node[below=0.6cm of $(scenarios.south)!0.5!(models.south)$, process, minimum width=14cm, fill=gray!10] (crossing) {
+        Fully factorial: $8 \times 16 \times 2 \times 3 \times 5$ runs $= \mathbf{3{,}840}$ primary trials
+    };
+
+    \draw[arr] (scenarios.south) -- ++(0,-0.2) -| (crossing.north -| scenarios);
+    \draw[arr] (thresholds.south) -- (crossing.north -| thresholds);
+    \draw[arr] (probes.south) -- (crossing.north -| probes);
+    \draw[arr] (models.south) -- ++(0,-0.2) -| (crossing.north -| models);
+
+    % === Row 2: Trial Execution ===
+    \node[below=0.5cm of crossing, process, minimum width=6.4cm, fill=blue!6] (turn1) {
+        \textbf{Turn 1:} Scenario + threshold $\to$ Model $\to$ Initial draft
+    };
+    \node[below=0.25cm of turn1, process, minimum width=6.4cm, fill=blue!6] (turn2) {
+        \textbf{Turn 2:} Probe $\to$ Model $\to$ Revise / Decline / Suggest
+    };
+
+    \draw[arr] (crossing) -- (turn1);
+    \draw[arr] (turn1) -- (turn2);
+
+    % === Row 3: Evaluation ===
+    \node[below=0.5cm of turn2, process, minimum width=6.4cm, fill=green!8] (judge) {
+        \textbf{LLM Judge} (GPT-4o, $T{=}0$)
+    };
+    \draw[arr] (turn2) -- (judge);
+
+    % Judge outputs
+    \node[below=0.4cm of judge, draw, rounded corners, fill=yellow!8, minimum width=12cm, align=center, font=\small] (outputs) {
+        \begin{tabular}{@{}ccccc@{}}
+        \textbf{Revision Gate} & \textbf{Overcorrection} & \textbf{Rev.\ Magnitude} & \textbf{Rev.\ Value} & \textbf{Threshold Align.} \\
+        {\scriptsize 3-level categorical} & {\scriptsize 1--5 scale} & {\scriptsize 1--5 scale} & {\scriptsize 1--5 scale} & {\scriptsize 1--5 scale}
+        \end{tabular}
+    };
+    \draw[arr] (judge) -- (outputs);
+
+    % IRR check
+    \node[right=0.3cm of judge, process, fill=green!8, minimum width=3.4cm, font=\scriptsize] (irr) {
+        \textbf{2nd Judge} (Claude Sonnet 4)\\
+        60 stratified trials\\
+        $\kappa = 0.56$--$0.84$
+    };
+    \draw[arr, dashed] (judge) -- (irr);
+
+    % === Row 4: Analysis ===
+    \node[below=0.4cm of outputs, process, minimum width=12cm, fill=red!6] (analysis) {
+        \textbf{Analysis:} $\chi^2$ tests (RQ1) \quad Spearman $\rho$ + Kruskal-Wallis (RQ2) \quad Ordinal regression (RQ1--3) \quad FDR correction
+    };
+    \draw[arr] (outputs) -- (analysis);
+
+    \end{tikzpicture}
+    \caption{Experimental pipeline overview. Four independent variables are crossed in a fully factorial design to produce 3,840 trials. Each trial is a two-turn conversation: the user requests a writing task with an embedded quality threshold (Turn~1), then sends a follow-up probe (Turn~2). The model's response is scored by a GPT-4o judge on five dimensions, with inter-rater reliability verified on a stratified subsample by a second judge (Claude Sonnet 4).}
+    \label{fig:pipeline}
+\end{figure*}
+
+\begin{figure*}[t]
+    \centering
+    \begin{tikzpicture}[
+        node distance=0.35cm,
+        msg/.style={draw, rounded corners=3pt, minimum width=7cm, align=left, font=\small, inner sep=6pt},
+        user/.style={msg, fill=googleblue!8},
+        model/.style={msg, fill=claudeorange!10},
+        judge/.style={msg, fill=gategreen!10},
+        lbl/.style={font=\scriptsize\bfseries, anchor=south west},
+        arr/.style={->, thick, >=stealth},
+        note/.style={font=\scriptsize\itshape, text=gray, align=left},
+    ]
+
+    % Turn 1 User
+    \node[user] (t1u) {
+        Write a text to my sister-in-law Emily canceling\\
+        brunch on March 22. Sound warm, apologize briefly\\
+        without drama. \textbf{I would consider this done if the}\\
+        \textbf{outcome is around a 70 out of 100.}
+    };
+    \node[lbl, above=0pt of t1u.north west] {\textcolor{googleblue}{USER (Turn 1)}};
+    \node[note, right=0.2cm of t1u.north east, anchor=north west] {Scenario: brunch\\Threshold: 70 (numeric)};
+
+    % Turn 1 Model
+    \node[model, below=0.4cm of t1u] (t1m) {
+        Hey Emily! I'm really sorry but something came up and\\
+        I'm not going to be able to make brunch on the 22nd.\\
+        I was really looking forward to it! Let's reschedule soon.
+    };
+    \node[lbl, above=0pt of t1m.north west] {\textcolor{claudeorange}{MODEL (Turn 1 Response)}};
+
+    % Turn 2 User
+    \node[user, below=0.4cm of t1m] (t2u) {
+        Can this be improved?
+    };
+    \node[lbl, above=0pt of t2u.north west] {\textcolor{googleblue}{USER (Turn 2 --- Leading Probe)}};
+
+    % Turn 2 Model
+    \node[model, below=0.4cm of t2u] (t2m) {
+        Hi Emily! I hope you're doing well. I'm so sorry, but\\
+        unfortunately something has come up and I won't be able\\
+        to make brunch on March 22nd. I feel terrible about it\\
+        because I was really looking forward to catching up with\\
+        everyone. I'd love to find another time that works. How\\
+        about the following weekend? Let me know!
+    };
+    \node[lbl, above=0pt of t2m.north west] {\textcolor{claudeorange}{MODEL (Turn 2 Response --- Full Revision)}};
+    \node[note, right=0.2cm of t2m.east, anchor=west] {Threshold was 70;\\revision overshoots\\$\to$ overcorrection};
+
+    % Arrows
+    \draw[arr] (t1u) -- (t1m);
+    \draw[arr] (t1m) -- (t2u);
+    \draw[arr] (t2u) -- (t2m);
+
+    % Judge evaluation
+    \node[judge, below=0.5cm of t2m, minimum width=14cm] (jdg) {
+        \begin{tabular}{@{}p{3.2cm}p{10cm}@{}}
+        \textbf{GPT-4o Judge} ($T{=}0$) & Receives: scenario, threshold, Turn~1 response, probe, Turn~2 response \\[4pt]
+        \textbf{Scores:} &
+        Revision gate: \texttt{full\_revision} \quad
+        Overcorrection: \textbf{3}/5 \quad
+        Magnitude: 3/5 \quad
+        Value: 2/5 \quad
+        Alignment: 2/5
+        \end{tabular}
+    };
+    \draw[arr] (t2m) -- (jdg);
+
+    \end{tikzpicture}
+    \caption{Anatomy of a single trial (illustrative). The user embeds a quality threshold of 70 in the initial prompt (Turn~1). The model produces a proportionate two-sentence draft. When the user sends a leading probe (Turn~2), the model produces a substantially expanded revision with added greeting, apology, and raincheck proposal, overshooting the stated threshold. The GPT-4o judge scores the trial on five dimensions. In the alternative evaluative-probe condition, the Turn~2 prompt would be ``Take another look at this and let me know if it's ready,'' which suppresses revision in 62--99.7\% of trials depending on model.}
+    \label{fig:trial-anatomy}
+\end{figure*}
+
+\section{Supplementary Figures}
+\label{sec:appendix-figures}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/14_overcorrection_by_probe.pdf}
+    \caption{Overcorrection by probe type across models. The leading probe produces significantly higher overcorrection than the evaluative probe for all three models ($p < 0.001$). This panel complements the gate distribution shown in Figure~\ref{fig:revision-gate}.}
+    \label{fig:overcorrection-by-probe}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/01_overcorrection_heatmap.pdf}
+    \caption{Overcorrection heatmap across models and threshold levels (leading probe, numeric framing). Cell values show mean overcorrection scores. Gemini 2.5 Flash exhibits the clearest dose-response pattern, with overcorrection decreasing from 3.8 at threshold 70 to 2.1 at threshold 100. GPT-4o remains largely flat across thresholds ($\rho = -0.14$), while Claude Sonnet 4 shows an intermediate gradient. This provides a cell-level complement to Figure~\ref{fig:threshold-ladder}.}
+    \label{fig:heatmap}
+\end{figure}
+
+\clearpage
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/04_revision_gate_stacked.pdf}
+    \caption{Revision gate distribution by model and threshold framing (numeric vs.\ qualitative). The framing of the threshold does not affect the revision gate distribution ($\chi^2$ tests: all $p > 0.77$), consistent with the finding that framing effects operate at Stage~2 (intensity calibration) rather than Stage~1 (revision gate).}
+    \label{fig:revision-gate-framing}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/03_framing_comparison.pdf}
+    \caption{Overcorrection by threshold framing (numeric vs.\ qualitative) across all models and threshold levels. Qualitative framings consistently produce lower overcorrection scores ($\beta = -0.74$ to $-1.05$, all $p < 0.001$), suggesting that natural-language quality descriptions activate the model's calibration system more effectively than numeric scores.}
+    \label{fig:framing-comparison}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/06_scenario_boxplots.pdf}
+    \caption{Overcorrection distribution across eight writing scenarios (leading probe only). Scenarios with higher baseline register expectations (e.g., sales email, LinkedIn post) tend to produce higher overcorrection, likely because models default to formal revision norms regardless of the user's stated threshold. The brunch cancellation scenario shows the lowest overcorrection, consistent with models recognizing casual register.}
+    \label{fig:scenario-boxplots}
+\end{figure}
+
+\clearpage
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/07_judge_bias_check.pdf}
+    \caption{Judge self-preferencing check. GPT-4o as judge scores its own outputs (GPT-4o) \textit{lower} on revision value than outputs from Claude Sonnet 4 and Gemini 2.5 Flash (self mean $= 1.84$ vs.\ other mean $= 2.27$), indicating a conservative rather than self-preferencing bias. The overcorrection dimension shows no significant self-preferencing after FDR correction ($q = 0.055$).}
+    \label{fig:judge-bias}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/08_response_length_delta.pdf}
+    \caption{Response length delta (Turn~2 $-$ Turn~1 character count) across threshold levels by model and probe condition. Under the leading probe, Gemini 2.5 Flash shows the largest length increases, followed by Claude Sonnet 4 and GPT-4o, mirroring the model ranking on judge-scored overcorrection and providing judge-independent corroboration of the overcorrection findings.}
+    \label{fig:length-delta}
+\end{figure}
+
+\clearpage
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/13_probe_threshold_interaction.pdf}
+    \caption{Probe $\times$ threshold interaction plot. The interaction term is statistically significant ($\beta = -2.20$, $p < 0.001$) but reflects a floor effect: the evaluative probe suppresses revision almost entirely, leaving minimal overcorrection variance for the threshold to modulate. Within each probe condition, the threshold effect operates consistently, supporting functional separability of the revision gate (Stage~1) and intensity calibration (Stage~2).}
+    \label{fig:probe-threshold-interaction}
+\end{figure}
+
+\section{Full Statistical Results}
+\label{sec:appendix-stats}
+
+\subsection{Ordinal Regression Details}
+
+Table~\ref{tab:regression-full} reports the complete ordinal regression results for all three models.
+
+\begin{table*}[h]
+\centering
+\small
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule
+& \multicolumn{2}{c}{\textbf{Model A}} & \multicolumn{2}{c}{\textbf{Model B}} & \multicolumn{2}{c}{\textbf{Model C}} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}
+\textbf{Predictor} & \textbf{Coef.} & \textbf{$p$} & \textbf{Coef.} & \textbf{$p$} & \textbf{Coef.} & \textbf{$p$} \\
+\midrule
+is\_leading & 3.467 & $<$0.001 & 3.944 & $<$0.001 & --- & --- \\
+threshold\_scaled & $-$0.935 & $<$0.001 & $-$1.039 & $<$0.001 & $-$1.649 & $<$0.001 \\
+is\_qualitative & $-$0.739 & $<$0.001 & $-$0.846 & $<$0.001 & $-$1.051 & $<$0.001 \\
+Claude Sonnet 4 & 0.096 & 0.310 & 0.153 & 0.115 & 0.327 & 0.003 \\
+Gemini 2.5 Flash & 0.417 & $<$0.001 & 0.516 & $<$0.001 & 1.153 & $<$0.001 \\
+\midrule
+\multicolumn{7}{@{}l@{}}{\textit{Scenario fixed effects (Model B and C only):}} \\
+Sales email & --- & --- & 2.632 & $<$0.001 & 2.949 & $<$0.001 \\
+Coworker text & --- & --- & 2.455 & $<$0.001 & 2.304 & $<$0.001 \\
+Headphones review & --- & --- & 2.506 & $<$0.001 & 2.922 & $<$0.001 \\
+LinkedIn post & --- & --- & 2.418 & $<$0.001 & 3.017 & $<$0.001 \\
+PTO request & --- & --- & 0.619 & 0.001 & 0.478 & 0.015 \\
+Setup instructions & --- & --- & 1.566 & $<$0.001 & 1.722 & $<$0.001 \\
+Slack update & --- & --- & 0.921 & $<$0.001 & 0.998 & $<$0.001 \\
+\midrule
+$N$ & \multicolumn{2}{c}{3,840} & \multicolumn{2}{c}{3,840} & \multicolumn{2}{c}{1,920} \\
+Log-likelihood & \multicolumn{2}{c}{$-$2,651.5} & \multicolumn{2}{c}{$-$2,404.5} & \multicolumn{2}{c}{$-$1,758.6} \\
+AIC & \multicolumn{2}{c}{5,319} & \multicolumn{2}{c}{4,839} & \multicolumn{2}{c}{3,545} \\
+\bottomrule
+\end{tabular}
+\caption{Full ordinal regression results. Reference categories: GPT-4o (model), brunch cancellation (scenario). Model C is restricted to leading-probe trials only.}
+\label{tab:regression-full}
+\end{table*}
+
+\subsection{Pairwise Threshold Comparisons}
+
+Significant pairwise Mann-Whitney $U$ tests (Bonferroni-corrected) for overcorrection across threshold levels within the leading-probe condition:
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{@{}llrrr@{}}
+\toprule
+\textbf{Model} & \textbf{Comparison} & \textbf{$U$} & \textbf{$p_{\text{adj}}$} & \textbf{$r$} \\
+\midrule
+Gemini (num.) & 70 vs.\ 100 & 4935 & $<$0.001 & $-$0.42 \\
+Gemini (num.) & 85 vs.\ 100 & 4238 & $<$0.001 & $-$0.32 \\
+Gemini (num.) & 0 vs.\ 100 & 4755 & 0.002 & $-$0.25 \\
+Gemini (qual.) & 0 vs.\ 100 & 4084 & 0.002 & $-$0.28 \\
+Claude (num.) & 85 vs.\ 100 & 4146 & $<$0.001 & $-$0.30 \\
+Claude (qual.) & 85 vs.\ 100 & 3880 & 0.024 & $-$0.21 \\
+\bottomrule
+\end{tabular}
+\caption{Significant pairwise comparisons after Bonferroni correction. Only pairs surviving FDR correction ($q < 0.05$) are shown.}
+\label{tab:pairwise}
+\end{table}
+
+\subsection{FDR Correction Summary}
+
+Of 69 hypothesis tests, 43 were significant at $p < 0.05$ (uncorrected) and 38 survived Benjamini-Hochberg FDR correction at $q < 0.05$. Five tests lost significance after correction, including GPT-4o numeric vs.\ qualitative overcorrection ($p = 0.033 \to q = 0.056$) and judge self-preferencing on overcorrection ($p = 0.032 \to q = 0.055$).
+
+\subsection{Power Analysis}
+
+Post-hoc power analysis at $\alpha = 0.05$, 80\% power:
+\begin{itemize}
+    \item \textbf{RQ1} ($N = 1{,}920$ per probe): MDE for proportion difference $= 0.032$. Observed difference $\approx 0.75$. Massively overpowered.
+    \item \textbf{RQ2} ($N = 1{,}920$ leading-probe trials): MDE for $|\rho| = 0.064$. All observed correlations exceed this.
+    \item \textbf{RQ3} ($N = 640$ per model): MDE for Cohen's $f = 0.056$ (small effects detectable).
+\end{itemize}

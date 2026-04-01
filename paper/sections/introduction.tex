@@ -1,0 +1,23 @@
+\section{Introduction}
+
+Every prompt engineering guide tells users to state their quality expectations explicitly. ``Tell the model what quality level you need.'' ``Set clear standards.'' The logic is intuitive: if you tell a model that a task only needs to be a 70 out of 100, it should produce a quick, functional draft rather than an exhaustive opus. Users internalize this assumption and routinely embed quality thresholds in their prompts, treating them as binding constraints on model behavior \cite{white2023prompt, schulhoff2024prompt}.
+
+But does the model actually respect these constraints when asked to revise? Consider an illustrative case: a user asks for a quick text message canceling brunch plans, specifying the quality only needs to be ``around a 70 out of 100.'' The model produces a reasonable two-sentence text. The user then asks, ``Can this be improved?'' Instead of a minor polish, the model returns a three-paragraph message with a greeting, an apology, and a rain-check proposal. The stated threshold was 70; the revision overshoots it dramatically. This pattern, where models revise far beyond the user's stated quality bar, is what we call \textit{overcorrection}, and we observe it across all eight scenarios in our experiment.
+
+We test this empirically in a two-turn writing-revision setup. In a fully factorial experiment with 3,840 trials, we cross follow-up prompt phrasing (2 levels), stated quality threshold (8 levels, with numeric and qualitative framings), and model (GPT-4o, Claude Sonnet 4, Gemini 2.5 Flash) across eight writing scenarios spanning four register categories. An LLM judge evaluates each revision on a revision gate classification and four rubric dimension scores, with inter-rater reliability verified against a second judge model.
+
+Contrary to the assumption that thresholds constrain revision, we find that the follow-up prompt's phrasing, not the quality threshold, is the dominant predictor of whether the model revises at all. A five-probe pilot study reveals this starkly: revision rates drop from 100\% to below 25\% based on probe phrasing alone, with no smooth gradient between (Figure~\ref{fig:probe-cliff}). Thresholds do modulate \textit{how much} the model overcorrects once revision is triggered, but this calibration ability is locked behind a phrasing-sensitive gate that shows no detectable sensitivity to thresholds (Kruskal-Wallis $p > 0.40$ for all models; the study is powered to detect proportion differences as small as 0.032). We characterize this as a \textbf{two-stage account of revision behavior}: Stage~1 is a phrasing-sensitive \textit{revision gate}; Stage~2 is a threshold-sensitive \textit{intensity calibration}. The two stages are functionally separable: the probe $\times$ threshold interaction, while statistically significant, reflects a floor effect rather than true mechanistic coupling (see $\S$4.1). This means that the calibration ability users would most benefit from (having the model decline unnecessary revision) is not activated under the revision-implying conversational conditions we tested.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/10_probe_calibration_cliff.pdf}
+    \caption{The compliance cliff across five pilot probes. Revision rate drops from 100\% to $\leq$25\% with no smooth gradient, indicating a categorical rather than continuous sensitivity to prompt phrasing. This binary pattern motivates the two-stage account developed in the paper.}
+    \label{fig:probe-cliff}
+\end{figure}
+
+Our contributions are:
+\begin{enumerate}
+    \item A two-stage account (gate $+$ intensity) of LLM revision behavior, supported by 3,840 trials showing that the decision to revise and the calibration of that revision respond to different input signals, with a significant but floor-effect-driven interaction.
+    \item A five-probe calibration study revealing a binary \textit{compliance cliff}: any probe implying revision triggers near-100\% compliance; any probe implying evaluation triggers near-0\% revision, with no gradient between (though 5 probes cannot rule out a steep continuous function).
+    \item A cross-model comparison showing that revision disposition under evaluative prompts varies sharply across model families (0.3\% to 38.0\% revision rate), while behavior under revision-implying prompts is uniformly compliant.
+\end{enumerate}
