@@ -87,7 +87,7 @@
 \begin{figure}[h]
     \centering
     \includegraphics[width=\columnwidth]{figures/01_overcorrection_heatmap.pdf}
-    \caption{Overcorrection heatmap across models and threshold levels (leading probe only, numeric and qualitative framings shown side by side). Cell values show mean overcorrection scores. Gemini 2.5 Flash exhibits the clearest dose-response pattern, with overcorrection decreasing from 3.8 at threshold 70 to 2.1 at threshold 100. GPT-4o remains largely flat across thresholds ($\rho = -0.14$), while Claude Sonnet 4 shows an intermediate gradient. This provides a cell-level complement to Figure~\ref{fig:threshold-ladder}.}
+    \caption{Overcorrection heatmap across models and threshold levels (leading probe only, numeric and qualitative framings shown side by side). Cell values show mean overcorrection scores. Gemini shows the clearest dose-response; GPT-4o remains largely flat ($\rho = -0.14$). Complements Figure~\ref{fig:threshold-ladder}.}
     \label{fig:heatmap}
 \end{figure}
 
@@ -126,7 +126,7 @@
 \begin{figure}[h]
     \centering
     \includegraphics[width=\columnwidth]{figures/08_response_length_delta.pdf}
-    \caption{Response length delta (Turn~2 $-$ Turn~1 character count) across threshold levels by model, split by numeric and qualitative framing. Gemini 2.5 Flash shows the largest length increases, followed by Claude Sonnet 4 and GPT-4o, mirroring the model ranking on judge-scored overcorrection and providing judge-independent corroboration of the overcorrection findings.}
+    \caption{Response length delta (Turn~2 $-$ Turn~1 character count) across threshold levels by model, split by numeric and qualitative framing. Between-model rankings on length delta mirror judge-scored overcorrection rankings, though the proxy is weak for GPT-4o ($\rho = -0.07$).}
     \label{fig:length-delta}
 \end{figure}
 
@@ -142,7 +142,7 @@
 \begin{figure}[h]
     \centering
     \includegraphics[width=\columnwidth]{figures/13_probe_threshold_interaction.pdf}
-    \caption{Probe $\times$ threshold interaction plot. The interaction term is statistically significant ($\beta = -2.20$, $p < 0.001$) but is consistent with a floor effect: the evaluative probe suppresses revision almost entirely, leaving minimal overcorrection variance for the threshold to modulate. Within each probe condition, the threshold effect operates consistently, consistent with the two-stage account in which the revision gate (Stage~1) and intensity calibration (Stage~2) respond to different inputs.}
+    \caption{Probe $\times$ threshold interaction plot. The interaction term is statistically significant ($\beta = -2.20$, $p < 0.001$) but is consistent with a floor effect: the evaluative probe suppresses revision almost entirely, leaving minimal overcorrection variance for the threshold to modulate.}
     \label{fig:probe-threshold-interaction}
 \end{figure}
 
