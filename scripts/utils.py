@@ -68,14 +68,20 @@ def rate_limit(provider: str) -> None:
 # ── Retry wrapper ──
 
 def retry_with_backoff(fn, *args, **kwargs):
+    import random
     for attempt in range(MAX_RETRIES):
         try:
             return fn(*args, **kwargs)
         except Exception as e:
             if attempt == MAX_RETRIES - 1:
                 raise
-            wait = RETRY_BACKOFF_BASE * (2 ** attempt)
-            print(f"  Retry {attempt + 1}/{MAX_RETRIES} after error: {e}. Waiting {wait}s...")
+            # Longer base wait for 503/capacity errors
+            err_str = str(e)
+            if "503" in err_str or "UNAVAILABLE" in err_str or "high demand" in err_str:
+                wait = 10 * (2 ** attempt) + random.uniform(0, 5)
+            else:
+                wait = RETRY_BACKOFF_BASE * (2 ** attempt) + random.uniform(0, 1)
+            print(f"  Retry {attempt + 1}/{MAX_RETRIES} after error: {e}. Waiting {wait:.0f}s...")
             time.sleep(wait)
 
 
@@ -199,3 +205,70 @@ def chat_two_turns(provider: str, model_id: str, turn1_prompt: str, turn2_prompt
 
     else:
         raise ValueError(f"Unknown provider: {provider}")
+
+
+def chat_n_turns(provider: str, model_id: str, prompts: list[str]) -> dict:
+    """Send an N-turn conversation and return all responses.
+
+    No system prompt is used (testing default model behavior).
+    temperature=1.0 is set explicitly for reproducibility documentation.
+    Returns {"responses": [str, ...]}.
+    """
+    responses = []
+
+    if provider == "openai":
+        client = get_openai_client()
+        messages = []
+        for prompt in prompts:
+            rate_limit(provider)
+            messages.append({"role": "user", "content": prompt})
+            r = retry_with_backoff(
+                client.chat.completions.create,
+                model=model_id,
+                messages=messages,
+                temperature=1.0,
+            )
+            text = r.choices[0].message.content
+            responses.append(text)
+            messages.append({"role": "assistant", "content": text})
+
+    elif provider == "anthropic":
+        client = get_anthropic_client()
+        messages = []
+        for prompt in prompts:
+            rate_limit(provider)
+            messages.append({"role": "user", "content": prompt})
+            r = retry_with_backoff(
+                client.messages.create,
+                model=model_id,
+                max_tokens=4096,
+                messages=messages,
+                temperature=1.0,
+            )
+            text = r.content[0].text
+            responses.append(text)
+            messages.append({"role": "assistant", "content": text})
+
+    elif provider == "google":
+        from google.genai import types
+
+        client = get_google_client()
+        config = types.GenerateContentConfig(temperature=1.0)
+        contents = []
+        for prompt in prompts:
+            rate_limit(provider)
+            contents.append({"role": "user", "parts": [{"text": prompt}]})
+            r = retry_with_backoff(
+                client.models.generate_content,
+                model=model_id,
+                contents=contents,
+                config=config,
+            )
+            text = r.text
+            responses.append(text)
+            contents.append({"role": "model", "parts": [{"text": text}]})
+
+    else:
+        raise ValueError(f"Unknown provider: {provider}")
+
+    return {"responses": responses}

@@ -69,11 +69,72 @@ This divergence is consistent with the ordinal regression results: Gemini shows 
 
 Qualitative threshold framings produce significantly less overcorrection than numeric framings (Model A: $\beta = -0.74$, $p < 0.001$; Model C: $\beta = -1.05$, $p < 0.001$). This effect is consistent across all three regression models and is not an artifact of scenario or model differences. Revision gate distributions do not differ by framing ($\chi^2$ tests: all $p > 0.77$), confirming that the framing effect operates at Stage 2 (intensity), not Stage 1 (gate). For the full framing comparison, see Appendix Figure~\ref{fig:framing-comparison}.
 
+\subsection{Study 2: Momentum}
+
+Study~2 tests whether prior revision rounds shift the revision gate on a subsequent evaluative probe. In the no-momentum baseline (dose $= 0$), the model receives only the scenario prompt and then the evaluative probe, with no prior revision requests; these trials are drawn from Study~1's evaluative-probe condition. In the momentum conditions (dose $= 1, 2, 3$), the model first completes one, two, or three rounds of ``Can this be improved?'' followed by revision before encountering the same evaluative probe.
+
+\subsubsection{RQ4: Does Revision History Shift the Gate?}
+
+Overall, revision history nearly doubles the evaluative-probe revision rate. Without any prior revision rounds, models revised 23.2\% of the time ($n = 1{,}920$); after 1--3 prior revision rounds, this rises to 44.6\% ($n = 1{,}813$). The gate distribution shift is highly significant ($\chi^2 = 376.54$, $p < 0.0001$, $df = 2$).
+
+However, this aggregate effect masks dramatic model-level divergence (Table~\ref{tab:momentum-model}).
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Model} & \textbf{Dose 0} & \textbf{Dose 1} & \textbf{Dose 2} & \textbf{Dose 3} \\
+\midrule
+GPT-4o & 31.4\% & 98.4\% & 99.5\% & 97.4\% \\
+Claude Sonnet 4 & 38.0\% & 38.0\% & 27.1\% & 24.5\% \\
+Gemini 2.5 Flash & 0.3\% & 12.8\% & 9.9\% & 8.6\% \\
+\bottomrule
+\end{tabular}
+\caption{Revision rate at the evaluative probe by momentum dose and model. GPT-4o exhibits near-total sycophantic shift; Claude and Gemini resist or decline.}
+\label{tab:momentum-model}
+\end{table}
+
+GPT-4o's revision rate jumps from 31.4\% to 98.4\% with a single prior revision round, reaching a ceiling that additional doses do not increase. Claude Sonnet 4 shows no positive momentum effect and actually \textit{declines} from 38.0\% to 24.5\% at dose~3. Gemini 2.5 Flash rises from its near-zero baseline (0.3\%) to a modest 12.8\% at dose~1, but does not increase further.
+
+\subsubsection{RQ5: Dose-Response}
+
+Across all models, the Spearman correlation between dose and revision (binary) is $\rho = 0.199$ ($p < 0.0001$). The significant but modest effect size reflects the step-function shape: the entire shift occurs between dose~0 and dose~1, with no additional gain at doses~2 and~3. The full revision rate (as opposed to any revision) follows the same pattern: 3.0\% at dose~0, jumping to 22.1\% at dose~1, with no further increase (Figure~\ref{fig:dose-response}).
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/dose_response_curve.pdf}
+    \caption{Revision rate at the evaluative probe by momentum dose, per model. The momentum effect is a step function driven almost entirely by GPT-4o.}
+    \label{fig:dose-response}
+\end{figure}
+
+\subsubsection{RQ6: Threshold $\times$ Momentum}
+
+Logistic regression (revised $\sim$ dose $+$ threshold $+$ dose $\times$ threshold) confirms that dose is a significant predictor ($\beta = 0.28$, $z = 4.21$, $p < 0.0001$), but threshold level is not ($\beta = -0.001$, $p = 0.39$), and the interaction term is not significant ($\beta = 0.001$, $p = 0.51$). Momentum operates independently of the stated quality threshold, consistent with Study~1's finding that thresholds do not modulate the gate.
+
+\subsubsection{Overcorrection Under Momentum}
+
+Overcorrection scores increase modestly with dose (mean: 1.09 at dose~0 to 1.33 at dose~3; Kruskal-Wallis $H = 213.76$, $p < 0.0001$). However, medians remain at 1.0 across all doses, indicating that most trials show proportionate revision even under momentum. The effect is concentrated in GPT-4o trials, where the high revision rate at dose~1+ produces more opportunities for overcorrection.
+
+\subsubsection{Reverse Momentum}
+
+To test whether conversational framing can suppress revision below the no-momentum baseline, we ran a reverse condition (dose $= -1$) in which the model receives one round of affirming feedback (``This looks great, no changes needed'') before the evaluative probe. Across 576 scored trials, no model produced a full revision; all responses were either declines or minor suggestions:
+
+\begin{itemize}
+    \item Gemini 2.5 Flash: 0.0\% revision (down from 0.3\% at dose~0)
+    \item GPT-4o: 1.0\% revision (down from 31.4\% at dose~0)
+    \item Claude Sonnet 4: 21.9\% revision (down from 38.0\% at dose~0), all minor suggestions
+\end{itemize}
+
+GPT-4o's trajectory illustrates the range of the framing effect: affirming feedback drops revision from 31.4\% to 1.0\%, while a single round of revision-prompting feedback raises it to 98.4\%. Claude shows the most resistance to suppression, still offering minor suggestions in about one-fifth of trials, consistent with its tendency to provide feedback even when not asked. No model produced a full revision under reverse momentum.
+
 \subsection{Robustness}
 \label{sec:robustness}
 
 \paragraph{Length Proxy.} Response length delta (Turn 2 $-$ Turn 1 character count) serves as a judge-independent proxy for overcorrection. Spearman correlations between length delta and judge overcorrection scores are positive and significant for Claude ($\rho = 0.20$, $p < 0.001$) and Gemini ($\rho = 0.56$, $p < 0.001$). GPT-4o shows a near-zero negative correlation ($\rho = -0.07$, $p = 0.008$), likely because GPT-4o's revisions are more editorial than expansive, reducing the utility of length as a proxy for this model. Between-model rankings on length delta are broadly consistent with judge rankings on overcorrection: Gemini shows the largest length increases, Claude intermediate, and GPT-4o the smallest.
 
 \paragraph{Judge Self-Preferencing.} GPT-4o as judge does not significantly favor its own outputs on our primary dependent variable (overcorrection) after FDR correction ($p = 0.032 \to q = 0.055$). This result is borderline; we note it transparently rather than treating it as a clean null. On revision value, the judge scores GPT-4o outputs \textit{lower} than other models (self mean $= 1.84$ vs.\ other mean $= 2.27$), suggesting a conservative rather than self-preferencing bias. See Appendix Figure~\ref{fig:judge-bias} for the full comparison.
+
+\paragraph{Context Length Confound.} A potential concern is that momentum trials have longer conversation histories, and that context length itself drives revision behavior. We test this by correlating context length with revision outcomes. The correlation between threshold level and response length delta is $r = 0.015$, effectively zero, confirming that threshold conditions do not systematically differ in length. Within momentum trials, longer contexts actually predict \textit{less} revision, not more: the relationship runs opposite to what a length confound would predict. Response length rankings across models (Gemini $>$ Claude $>$ GPT-4o) are consistent with judge-based overcorrection rankings, providing convergent validity.
 
 \paragraph{Power.} Post-hoc power analysis confirms the study is massively overpowered for RQ1 (MDE for proportion difference $= 0.032$; observed $\approx 0.75$) and well-powered for RQ2 (MDE for $|\rho| = 0.064$; observed $0.14$--$0.50$).
