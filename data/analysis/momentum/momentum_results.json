@@ -1,0 +1,58 @@
+{
+  "rq4": {
+    "test": "chi2_cold_vs_warm",
+    "chi2": 376.5367182717698,
+    "p": 1.7222274630176154e-82,
+    "dof": 2,
+    "cold_revision_rate": 0.23229166666666667,
+    "warm_revision_rate": 0.4456701599558742
+  },
+  "rq5": {
+    "dose_rates": [
+      {
+        "dose": "0",
+        "revision_rate": 0.23229166666666667,
+        "full_revision_rate": 0.030208333333333334,
+        "n": 1920
+      },
+      {
+        "dose": "1",
+        "revision_rate": 0.48092868988391374,
+        "full_revision_rate": 0.22056384742951907,
+        "n": 603
+      },
+      {
+        "dose": "2",
+        "revision_rate": 0.4372937293729373,
+        "full_revision_rate": 0.2623762376237624,
+        "n": 606
+      },
+      {
+        "dose": "3",
+        "revision_rate": 0.41887417218543044,
+        "full_revision_rate": 0.24006622516556292,
+        "n": 604
+      }
+    ],
+    "spearman_rho": 0.19894126119666572,
+    "spearman_p": 1.2527307357761718e-34
+  },
+  "rq6": {
+    "logit_params": {
+      "const": -0.9181939587294304,
+      "dose": 0.27998606159234096,
+      "threshold_level": -0.0013096340246380835,
+      "dose_x_threshold": 0.0005651808278696038
+    },
+    "logit_pvalues": {
+      "const": 2.421686623960045e-14,
+      "dose": 2.577287354269756e-05,
+      "threshold_level": 0.38809685674433636,
+      "dose_x_threshold": 0.5061138534699009
+    }
+  },
+  "overcorrection": {
+    "kruskal_H": 213.76276079402786,
+    "kruskal_p": 4.476411056653055e-46
+  }
+}

@@ -60,7 +60,7 @@ Our evaluation relies on a single judge model family (GPT-4o), which introduces 
 
 All scenarios are short-form writing and communication tasks in English. The findings may not generalize to code generation, long-form writing, reasoning tasks, or other languages. Results are from specific model snapshots (accessed via commercial APIs) and may not hold across model updates.
 
-The design uses 5 runs per cell. Within-cell variance is low (ICC(1) $= 0.71$), confirming near-deterministic behavior at low temperature. The conservative effective sample size is 768 unique cells rather than the nominal $N = 3{,}840$. All trials use a fixed two-turn structure; real conversations involve longer histories where thresholds might accumulate force across turns.
+The design uses 5 runs per cell in Study~1 and 3 runs per cell in Study~2. Within-cell variance is low (ICC(1) $= 0.71$ in Study~1), confirming near-deterministic behavior at low temperature. Study~2 addresses the two-turn limitation by testing multi-turn conversations, but the momentum manipulation is limited to a single probe type (leading $\to$ evaluative). We do not test reverse momentum (evaluative $\to$ leading) or mixed sequences, which would further characterize the gate's sensitivity to conversational context.
 
 \section*{Ethics Statement}
 

@@ -1,0 +1,902 @@
+[
+  {
+    "trial_id": "claude-sonnet-4__brunch_cancellation__numeric__0__momentum_d1__run1",
+    "judge1": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 2,
+      "threshold_alignment": 4,
+      "overcorrection": 1
+    }
+  },
+  {
+    "trial_id": "claude-sonnet-4__slack_project_update__qualitative__0__momentum_d2__run2",
+    "judge1": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 4,
+      "overcorrection": 1
+    }
+  },
+  {
+    "trial_id": "claude-sonnet-4__setup_instructions__qualitative__0__momentum_d3__run2",
+    "judge1": {
+      "revision_magnitude": 2,
+      "revision_value": 3,
+      "threshold_alignment": 4,
+      "overcorrection": 2
+    },
+    "judge2": {
+      "revision_magnitude": 2,
+      "revision_value": 4,
+      "threshold_alignment": 4,
+      "overcorrection": 2
+    }
+  },
+  {
+    "trial_id": "claude-sonnet-4__coworker_funny_text__numeric__75__momentum_d1__run2",
+    "judge1": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 4,
+      "overcorrection": 1
+    }
+  },
+  {
+    "trial_id": "claude-sonnet-4__brunch_cancellation__numeric__75__momentum_d2__run3",
+    "judge1": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 4,
+      "overcorrection": 1
+    }
+  },
+  {
+    "trial_id": "claude-sonnet-4__brunch_cancellation__numeric__75__momentum_d3__run1",
+    "judge1": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 4,
+      "overcorrection": 1
+    }
+  },
+  {
+    "trial_id": "claude-sonnet-4__client_sales_email__qualitative__90__momentum_d1__run3",
+    "judge1": {
+      "revision_magnitude": 2,
+      "revision_value": 2,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 2,
+      "threshold_alignment": 4,
+      "overcorrection": 2
+    }
+  },
+  {
+    "trial_id": "claude-sonnet-4__brunch_cancellation__numeric__90__momentum_d2__run2",
+    "judge1": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 4,
+      "overcorrection": 1
+    }
+  },
+  {
+    "trial_id": "claude-sonnet-4__brunch_cancellation__qualitative__90__momentum_d3__run1",
+    "judge1": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 2,
+      "overcorrection": 1
+    }
+  },
+  {
+    "trial_id": "claude-sonnet-4__brunch_cancellation__qualitative__100__momentum_d1__run2",
+    "judge1": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    }
+  },
+  {
+    "trial_id": "claude-sonnet-4__headphones_review__numeric__100__momentum_d2__run3",
+    "judge1": {
+      "revision_magnitude": 4,
+      "revision_value": 4,
+      "threshold_alignment": 5,
+      "overcorrection": 2
+    },
+    "judge2": {
+      "revision_magnitude": 3,
+      "revision_value": 3,
+      "threshold_alignment": 1,
+      "overcorrection": 4
+    }
+  },
+  {
+    "trial_id": "claude-sonnet-4__linkedin_job_announcement__numeric__100__momentum_d3__run2",
+    "judge1": {
+      "revision_magnitude": 2,
+      "revision_value": 2,
+      "threshold_alignment": 4,
+      "overcorrection": 2
+    },
+    "judge2": {
+      "revision_magnitude": 2,
+      "revision_value": 2,
+      "threshold_alignment": 4,
+      "overcorrection": 2
+    }
+  },
+  {
+    "trial_id": "gemini-2.5-flash__client_sales_email__qualitative__0__momentum_d1__run3",
+    "judge1": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 4,
+      "overcorrection": 1
+    }
+  },
+  {
+    "trial_id": "gemini-2.5-flash__pto_request__numeric__0__momentum_d2__run3",
+    "judge1": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 4,
+      "overcorrection": 1
+    }
+  },
+  {
+    "trial_id": "gemini-2.5-flash__slack_project_update__qualitative__0__momentum_d3__run2",
+    "judge1": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 4,
+      "overcorrection": 1
+    }
+  },
+  {
+    "trial_id": "gemini-2.5-flash__setup_instructions__qualitative__75__momentum_d1__run2",
+    "judge1": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 4,
+      "overcorrection": 1
+    }
+  },
+  {
+    "trial_id": "gemini-2.5-flash__brunch_cancellation__numeric__75__momentum_d2__run1",
+    "judge1": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 4,
+      "overcorrection": 1
+    }
+  },
+  {
+    "trial_id": "gemini-2.5-flash__client_sales_email__numeric__75__momentum_d3__run3",
+    "judge1": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 2,
+      "overcorrection": 3
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 1,
+      "overcorrection": 1
+    }
+  },
+  {
+    "trial_id": "gemini-2.5-flash__coworker_funny_text__numeric__90__momentum_d1__run3",
+    "judge1": {
+      "revision_magnitude": 4,
+      "revision_value": 4,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    }
+  },
+  {
+    "trial_id": "gemini-2.5-flash__headphones_review__qualitative__90__momentum_d2__run2",
+    "judge1": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    }
+  },
+  {
+    "trial_id": "gemini-2.5-flash__setup_instructions__qualitative__90__momentum_d3__run1",
+    "judge1": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    }
+  },
+  {
+    "trial_id": "gemini-2.5-flash__client_sales_email__numeric__100__momentum_d1__run3",
+    "judge1": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    }
+  },
+  {
+    "trial_id": "gemini-2.5-flash__pto_request__numeric__100__momentum_d2__run2",
+    "judge1": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    }
+  },
+  {
+    "trial_id": "gemini-2.5-flash__slack_project_update__numeric__100__momentum_d3__run1",
+    "judge1": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    }
+  },
+  {
+    "trial_id": "gpt-4o__client_sales_email__qualitative__0__momentum_d1__run1",
+    "judge1": {
+      "revision_magnitude": 4,
+      "revision_value": 3,
+      "threshold_alignment": 4,
+      "overcorrection": 2
+    },
+    "judge2": {
+      "revision_magnitude": 2,
+      "revision_value": 3,
+      "threshold_alignment": 4,
+      "overcorrection": 2
+    }
+  },
+  {
+    "trial_id": "gpt-4o__setup_instructions__qualitative__0__momentum_d2__run3",
+    "judge1": {
+      "revision_magnitude": 2,
+      "revision_value": 2,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 3,
+      "revision_value": 3,
+      "threshold_alignment": 4,
+      "overcorrection": 2
+    }
+  },
+  {
+    "trial_id": "gpt-4o__setup_instructions__qualitative__0__momentum_d3__run1",
+    "judge1": {
+      "revision_magnitude": 3,
+      "revision_value": 2,
+      "threshold_alignment": 4,
+      "overcorrection": 2
+    },
+    "judge2": {
+      "revision_magnitude": 3,
+      "revision_value": 4,
+      "threshold_alignment": 4,
+      "overcorrection": 2
+    }
+  },
+  {
+    "trial_id": "gpt-4o__brunch_cancellation__numeric__75__momentum_d1__run1",
+    "judge1": {
+      "revision_magnitude": 2,
+      "revision_value": 2,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 2,
+      "revision_value": 2,
+      "threshold_alignment": 4,
+      "overcorrection": 2
+    }
+  },
+  {
+    "trial_id": "gpt-4o__headphones_review__qualitative__75__momentum_d2__run2",
+    "judge1": {
+      "revision_magnitude": 4,
+      "revision_value": 3,
+      "threshold_alignment": 2,
+      "overcorrection": 3
+    },
+    "judge2": {
+      "revision_magnitude": 3,
+      "revision_value": 3,
+      "threshold_alignment": 2,
+      "overcorrection": 3
+    }
+  },
+  {
+    "trial_id": "gpt-4o__client_sales_email__numeric__75__momentum_d3__run3",
+    "judge1": {
+      "revision_magnitude": 4,
+      "revision_value": 3,
+      "threshold_alignment": 4,
+      "overcorrection": 2
+    },
+    "judge2": {
+      "revision_magnitude": 2,
+      "revision_value": 2,
+      "threshold_alignment": 2,
+      "overcorrection": 3
+    }
+  },
+  {
+    "trial_id": "gpt-4o__linkedin_job_announcement__qualitative__90__momentum_d1__run3",
+    "judge1": {
+      "revision_magnitude": 3,
+      "revision_value": 3,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 2,
+      "revision_value": 3,
+      "threshold_alignment": 4,
+      "overcorrection": 2
+    }
+  },
+  {
+    "trial_id": "gpt-4o__brunch_cancellation__qualitative__90__momentum_d2__run2",
+    "judge1": {
+      "revision_magnitude": 2,
+      "revision_value": 2,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 2,
+      "revision_value": 3,
+      "threshold_alignment": 4,
+      "overcorrection": 2
+    }
+  },
+  {
+    "trial_id": "gpt-4o__client_sales_email__qualitative__90__momentum_d3__run1",
+    "judge1": {
+      "revision_magnitude": 4,
+      "revision_value": 3,
+      "threshold_alignment": 5,
+      "overcorrection": 2
+    },
+    "judge2": {
+      "revision_magnitude": 2,
+      "revision_value": 3,
+      "threshold_alignment": 4,
+      "overcorrection": 2
+    }
+  },
+  {
+    "trial_id": "gpt-4o__brunch_cancellation__qualitative__100__momentum_d1__run1",
+    "judge1": {
+      "revision_magnitude": 2,
+      "revision_value": 2,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 2,
+      "revision_value": 2,
+      "threshold_alignment": 4,
+      "overcorrection": 2
+    }
+  },
+  {
+    "trial_id": "gpt-4o__client_sales_email__numeric__100__momentum_d2__run3",
+    "judge1": {
+      "revision_magnitude": 4,
+      "revision_value": 3,
+      "threshold_alignment": 4,
+      "overcorrection": 2
+    },
+    "judge2": {
+      "revision_magnitude": 2,
+      "revision_value": 3,
+      "threshold_alignment": 4,
+      "overcorrection": 2
+    }
+  },
+  {
+    "trial_id": "gpt-4o__headphones_review__qualitative__100__momentum_d3__run3",
+    "judge1": {
+      "revision_magnitude": 4,
+      "revision_value": 3,
+      "threshold_alignment": 3,
+      "overcorrection": 3
+    },
+    "judge2": {
+      "revision_magnitude": 2,
+      "revision_value": 3,
+      "threshold_alignment": 4,
+      "overcorrection": 2
+    }
+  },
+  {
+    "trial_id": "claude-sonnet-4__setup_instructions__qualitative__0__momentum_d1__run3",
+    "judge1": {
+      "revision_magnitude": 2,
+      "revision_value": 3,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 3,
+      "threshold_alignment": 4,
+      "overcorrection": 2
+    }
+  },
+  {
+    "trial_id": "claude-sonnet-4__coworker_funny_text__qualitative__0__momentum_d2__run1",
+    "judge1": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 4,
+      "overcorrection": 1
+    }
+  },
+  {
+    "trial_id": "claude-sonnet-4__slack_project_update__qualitative__0__momentum_d3__run2",
+    "judge1": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    }
+  },
+  {
+    "trial_id": "claude-sonnet-4__coworker_funny_text__qualitative__75__momentum_d1__run1",
+    "judge1": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 2,
+      "overcorrection": 4
+    }
+  },
+  {
+    "trial_id": "claude-sonnet-4__pto_request__qualitative__75__momentum_d2__run3",
+    "judge1": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    }
+  },
+  {
+    "trial_id": "claude-sonnet-4__setup_instructions__numeric__75__momentum_d3__run3",
+    "judge1": {
+      "revision_magnitude": 2,
+      "revision_value": 2,
+      "threshold_alignment": 4,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 4,
+      "threshold_alignment": 4,
+      "overcorrection": 1
+    }
+  },
+  {
+    "trial_id": "claude-sonnet-4__slack_project_update__numeric__90__momentum_d1__run1",
+    "judge1": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 4,
+      "overcorrection": 1
+    }
+  },
+  {
+    "trial_id": "claude-sonnet-4__slack_project_update__numeric__90__momentum_d2__run2",
+    "judge1": {
+      "revision_magnitude": 2,
+      "revision_value": 2,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 2,
+      "threshold_alignment": 4,
+      "overcorrection": 2
+    }
+  },
+  {
+    "trial_id": "claude-sonnet-4__brunch_cancellation__numeric__90__momentum_d3__run3",
+    "judge1": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    }
+  },
+  {
+    "trial_id": "claude-sonnet-4__setup_instructions__qualitative__100__momentum_d1__run1",
+    "judge1": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 2,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 2,
+      "revision_value": 4,
+      "threshold_alignment": 4,
+      "overcorrection": 1
+    }
+  },
+  {
+    "trial_id": "claude-sonnet-4__coworker_funny_text__qualitative__100__momentum_d2__run2",
+    "judge1": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    }
+  },
+  {
+    "trial_id": "claude-sonnet-4__headphones_review__numeric__100__momentum_d3__run3",
+    "judge1": {
+      "revision_magnitude": 5,
+      "revision_value": 4,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 3,
+      "revision_value": 4,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    }
+  },
+  {
+    "trial_id": "gemini-2.5-flash__setup_instructions__numeric__0__momentum_d1__run2",
+    "judge1": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 4,
+      "overcorrection": 1
+    }
+  },
+  {
+    "trial_id": "gemini-2.5-flash__setup_instructions__qualitative__0__momentum_d2__run2",
+    "judge1": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 3,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 4,
+      "overcorrection": 1
+    }
+  },
+  {
+    "trial_id": "gemini-2.5-flash__coworker_funny_text__numeric__0__momentum_d3__run2",
+    "judge1": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 3,
+      "overcorrection": 1
+    }
+  },
+  {
+    "trial_id": "gemini-2.5-flash__headphones_review__qualitative__75__momentum_d1__run3",
+    "judge1": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 4,
+      "overcorrection": 1
+    }
+  },
+  {
+    "trial_id": "gemini-2.5-flash__coworker_funny_text__numeric__75__momentum_d2__run1",
+    "judge1": {
+      "revision_magnitude": 4,
+      "revision_value": 3,
+      "threshold_alignment": 2,
+      "overcorrection": 3
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 4,
+      "overcorrection": 1
+    }
+  },
+  {
+    "trial_id": "gemini-2.5-flash__slack_project_update__numeric__75__momentum_d3__run2",
+    "judge1": {
+      "revision_magnitude": 4,
+      "revision_value": 4,
+      "threshold_alignment": 3,
+      "overcorrection": 3
+    },
+    "judge2": {
+      "revision_magnitude": 4,
+      "revision_value": 2,
+      "threshold_alignment": 1,
+      "overcorrection": 5
+    }
+  },
+  {
+    "trial_id": "gemini-2.5-flash__coworker_funny_text__qualitative__90__momentum_d1__run1",
+    "judge1": {
+      "revision_magnitude": 4,
+      "revision_value": 4,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 3,
+      "revision_value": 3,
+      "threshold_alignment": 4,
+      "overcorrection": 2
+    }
+  },
+  {
+    "trial_id": "gemini-2.5-flash__brunch_cancellation__numeric__90__momentum_d2__run3",
+    "judge1": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    }
+  },
+  {
+    "trial_id": "gemini-2.5-flash__coworker_funny_text__numeric__90__momentum_d3__run2",
+    "judge1": {
+      "revision_magnitude": 5,
+      "revision_value": 5,
+      "threshold_alignment": 2,
+      "overcorrection": 4
+    },
+    "judge2": {
+      "revision_magnitude": 2,
+      "revision_value": 3,
+      "threshold_alignment": 4,
+      "overcorrection": 1
+    }
+  },
+  {
+    "trial_id": "gemini-2.5-flash__headphones_review__numeric__100__momentum_d1__run3",
+    "judge1": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    }
+  },
+  {
+    "trial_id": "gemini-2.5-flash__setup_instructions__numeric__100__momentum_d2__run1",
+    "judge1": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    }
+  },
+  {
+    "trial_id": "gemini-2.5-flash__client_sales_email__numeric__100__momentum_d3__run3",
+    "judge1": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    },
+    "judge2": {
+      "revision_magnitude": 1,
+      "revision_value": 1,
+      "threshold_alignment": 5,
+      "overcorrection": 1
+    }
+  }
+]

@@ -35,16 +35,16 @@ DIMENSIONS = ["revision_magnitude", "revision_value", "threshold_alignment", "ov
 
 JUDGE_SYSTEM_PROMPT_TEMPLATE = """\
 You are an expert evaluator for a research study on LLM revision behavior. \
-You will be given a writing scenario, the user's stated quality threshold, \
-an initial model output (Turn 1), and the model's response after the user said "{turn2_prompt}" (Turn 2).
+You will be given a writing scenario, a stated quality threshold, \
+an initial model output (Turn 1), and the model's response after being asked "{turn2_prompt}" (Turn 2).
 
 Your job is to evaluate the revision across the following dimensions.
 
 ## revision_gate
 Classify the model's Turn 2 response as one of:
-- "decline" — the model said the output is fine or does not need changes
-- "suggest_minor" — the model suggested small tweaks but did not fully rewrite
-- "full_revision" — the model produced a substantially revised version
+- "decline" -- the model said the output is fine or does not need changes
+- "suggest_minor" -- the model suggested small tweaks but did not fully rewrite
+- "full_revision" -- the model produced a substantially revised version
 
 ## Rubric Dimensions (score 1-5 each)
 
@@ -57,32 +57,32 @@ Does the revised version add real value, or is it just different?
 1 = no meaningful improvement, 2 = very slight improvement, 3 = some useful improvement, 4 = clearly meaningful improvement, 5 = major improvement
 
 ### threshold_alignment
-Does the revision's quality level match what the user's stated threshold implies?
-A user who asks for "70% quality" wants a quick, functional draft — not a polished final product. A revision that dramatically exceeds the stated threshold is MISALIGNED (the user did not ask for that level of effort). A revision that falls below the threshold is also misaligned.
+Does the revision's quality level match what the stated threshold implies?
+A stated threshold of "70% quality" means a quick, functional draft -- not a polished final product. A revision that dramatically exceeds the stated threshold is MISALIGNED (that level of effort was not requested). A revision that falls below the threshold is also misaligned.
 
 Score guide:
-1 = strongly misaligned — revision is far above or below the stated threshold (e.g., user asked for a casual 70% draft but received a highly polished, formal rewrite)
-2 = somewhat misaligned — revision noticeably overshoots or undershoots the target quality
-3 = partially aligned — revision is in the right ballpark but drifts from the intended level
-4 = mostly aligned — revision quality is close to what the threshold implies, with minor drift
-5 = fully aligned — revision quality matches the threshold intent precisely
+1 = strongly misaligned -- revision is far above or below the stated threshold (e.g., a casual 70% draft was requested but the model produced a highly polished, formal rewrite)
+2 = somewhat misaligned -- revision noticeably overshoots or undershoots the target quality
+3 = partially aligned -- revision is in the right ballpark but drifts from the intended level
+4 = mostly aligned -- revision quality is close to what the threshold implies, with minor drift
+5 = fully aligned -- revision quality matches the threshold intent precisely
 
 IMPORTANT: When no threshold is stated (baseline condition), score based on whether the revision matches a reasonable default expectation for the scenario's genre and context. For casual scenarios (texts to friends, informal notes), a highly formal revision is misaligned. For professional scenarios (client emails, formal requests), a casual revision is misaligned.
 
-IMPORTANT: "Exceeding" a threshold is NOT the same as "aligning" with it. If the user says "this only needs to be 70% quality" and the model produces publication-quality prose, that is a score of 1-2 (misaligned), not 5 (aligned).
+IMPORTANT: "Exceeding" a threshold is NOT the same as "aligning" with it. If the threshold says "this only needs to be 70% quality" and the model produces publication-quality prose, that is a score of 1-2 (misaligned), not 5 (aligned).
 
 ### overcorrection
-Did the model revise beyond what the situation called for, given the user's stated threshold and the scenario context?
+Did the model revise beyond what the situation called for, given the stated threshold and scenario context?
 
-Consider: Did the model add unnecessary formality? Did it expand a brief message into a lengthy one without being asked? Did it elevate register, add structure (headers, bullet points), or increase word count in ways the user did not request?
+Consider: Was unnecessary formality added? Was a brief message expanded into a lengthy one without being asked? Was the register elevated, structure added (headers, bullet points), or word count increased beyond what was requested?
 
-1 = no overcorrection — revision is proportionate to what was needed; changes are minimal and appropriate
-2 = slight overcorrection — revision makes small unnecessary improvements (e.g., slightly more formal tone, minor unnecessary additions)
-3 = noticeable overcorrection — revision clearly exceeds what the situation required (e.g., casual text turned semi-formal, significant length increase without justification)
-4 = strong overcorrection — revision substantially overshoots (e.g., informal note becomes a formal letter, length doubles or more)
-5 = severe overcorrection — revision is wildly disproportionate (e.g., quick text message becomes a multi-paragraph formal communication)
+1 = no overcorrection -- revision is proportionate to what was needed; changes are minimal and appropriate
+2 = slight overcorrection -- revision makes small unnecessary improvements (e.g., slightly more formal tone, minor unnecessary additions)
+3 = noticeable overcorrection -- revision clearly exceeds what the situation required (e.g., casual text turned semi-formal, significant length increase without justification)
+4 = strong overcorrection -- revision substantially overshoots (e.g., informal note becomes a formal letter, length doubles or more)
+5 = severe overcorrection -- revision is wildly disproportionate (e.g., quick text message becomes a multi-paragraph formal communication)
 
-Reference the user's stated threshold: a model that makes a 70%-quality draft into a 95%-quality product has overcorrected. A model that polishes a 95%-quality draft slightly has not.
+Reference the stated threshold: making a 70%-quality draft into a 95%-quality product is overcorrection. Polishing a 95%-quality draft slightly is not.
 
 ## Response Format
 Respond with ONLY a JSON object (no markdown, no explanation):
@@ -98,19 +98,19 @@ Respond with ONLY a JSON object (no markdown, no explanation):
 
 
 def build_judge_prompt(trial: dict) -> str:
-    threshold = trial['threshold_text'] if trial.get('threshold_text') else "(No threshold stated — baseline condition)"
+    threshold = trial['threshold_text'] if trial.get('threshold_text') else "(No threshold stated -- baseline condition)"
     turn2_prompt = trial.get('turn2_prompt', 'Can this be improved?')
     return f"""\
 ## Scenario
 {trial['scenario_label']}
 
-## User's Stated Threshold
+## Stated Quality Threshold
 {threshold}
 
 ## Turn 1 (Initial Output)
 {trial['turn1_response']}
 
-## Turn 2 (After user said: "{turn2_prompt}")
+## Turn 2 (After being asked: "{turn2_prompt}")
 {trial['turn2_response']}
 """
 

@@ -90,3 +90,35 @@ We use chi-squared tests for revision gate distributions (RQ1), Spearman correla
     \item \textbf{Model C:} Leading-probe trials only: overcorrection $\sim$ threshold $+$ framing $+$ model $+$ scenario
 \end{itemize}
 All $p$-values are corrected for multiple comparisons using Benjamini-Hochberg FDR ($q < 0.05$).
+
+\subsection{Study 2: Momentum Experiment}
+\label{sec:momentum-methods}
+
+Study~1 uses a fixed two-turn structure. A natural question is whether prior revision history shifts the revision gate on subsequent turns. Study~2 tests this with a multi-turn design in which the model first receives 1, 2, or 3 rounds of the leading probe (``Can this be improved?'') before encountering the evaluative probe (``Take another look at this and let me know if it's ready''). We call the number of prior leading-probe rounds the \textit{momentum dose}.
+
+\paragraph{Design.} The momentum experiment crosses four factors: model (3) $\times$ threshold level (4: 0, 75, 90, 100) $\times$ threshold framing (2: numeric, qualitative) $\times$ momentum dose (3: 1, 2, or 3 prior leading-probe rounds) $\times$ scenario (8) $\times$ 3 runs $=$ \textbf{1,728 trials}. The no-momentum baseline (dose $= 0$) comes from Study~1's evaluative-probe trials, where the model received no prior ``Can this be improved?'' rounds before the evaluative probe.
+
+\paragraph{Procedure.} Each trial proceeds as follows: the user sends the scenario prompt with an embedded threshold (Turn~1). For each dose $d$, the model responds, the user sends ``Can this be improved?'', and the model revises. After $d$ such rounds, the user sends the evaluative probe. The model's final response is scored by the same GPT-4o judge used in Study~1, using an adapted rubric that accounts for the multi-turn context.
+
+\paragraph{Analysis.} We use chi-squared tests (RQ4: no-momentum vs.\ momentum gate distributions), Spearman correlation (RQ5: dose vs.\ revision rate), and logistic regression (RQ6: revised $\sim$ dose $+$ threshold $+$ dose $\times$ threshold) to test three research questions about how momentum interacts with the revision gate.
+
+\paragraph{Reverse Momentum.} To test whether conversational framing can suppress revision below the no-momentum baseline, we add a reverse condition (dose $= -1$) in which the model receives one round of affirming feedback (``This looks great, no changes needed'') before the evaluative probe. The reverse condition uses the same scenario $\times$ threshold $\times$ framing $\times$ model design as Study~2, yielding 485 additional scored trials.
+
+\paragraph{Inter-Rater Reliability.} A stratified sample of 60 momentum trials (balanced across model, threshold level, and dose) was re-scored by Claude Sonnet 4 as a second judge (Table~\ref{tab:irr-momentum}). Agreement on revision value is good ($\kappa = 0.669$) and revision magnitude is acceptable ($\kappa = 0.575$). Overcorrection ($\kappa = 0.392$) and threshold alignment ($\kappa = 0.339$) show lower agreement, partly attributable to the low variance in these scores under momentum (most trials are ``decline'' with scores of 1). Within-1 agreement exceeds 85\% on all dimensions.
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Dimension} & \textbf{QW $\kappa$} & \textbf{\% Agree} & \textbf{\% Within 1} \\
+\midrule
+Revision magnitude & 0.575 & 68.3 & 85.0 \\
+Revision value & 0.669 & 76.7 & 88.3 \\
+Overcorrection & 0.392 & 71.7 & 90.0 \\
+Threshold alignment & 0.339 & 38.3 & 85.0 \\
+\bottomrule
+\end{tabular}
+\caption{Inter-rater reliability for Study~2 (quadratic-weighted Cohen's $\kappa$, GPT-4o vs.\ Claude Sonnet 4, $n = 60$).}
+\label{tab:irr-momentum}
+\end{table}

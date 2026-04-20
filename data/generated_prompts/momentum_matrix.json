@@ -1,0 +1,2690 @@
+[
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "numeric",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 1,
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "numeric",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 2,
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "numeric",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 3,
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "numeric",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome is around a 75 out of 100.",
+    "dose": 1,
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy. I would consider this done if the outcome is around a 75 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "numeric",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome is around a 75 out of 100.",
+    "dose": 2,
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy. I would consider this done if the outcome is around a 75 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "numeric",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome is around a 75 out of 100.",
+    "dose": 3,
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy. I would consider this done if the outcome is around a 75 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "numeric",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is around a 90 out of 100.",
+    "dose": 1,
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy. I would consider this done if the outcome is around a 90 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "numeric",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is around a 90 out of 100.",
+    "dose": 2,
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy. I would consider this done if the outcome is around a 90 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "numeric",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is around a 90 out of 100.",
+    "dose": 3,
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy. I would consider this done if the outcome is around a 90 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "numeric",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is around a 100 out of 100.",
+    "dose": 1,
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy. I would consider this done if the outcome is around a 100 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "numeric",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is around a 100 out of 100.",
+    "dose": 2,
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy. I would consider this done if the outcome is around a 100 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "numeric",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is around a 100 out of 100.",
+    "dose": 3,
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy. I would consider this done if the outcome is around a 100 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "qualitative",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 1,
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "qualitative",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 2,
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "qualitative",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 3,
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "qualitative",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "dose": 1,
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy. I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "qualitative",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "dose": 2,
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy. I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "qualitative",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "dose": 3,
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy. I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "qualitative",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "dose": 1,
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy. I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "qualitative",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "dose": 2,
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy. I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "qualitative",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "dose": 3,
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy. I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "qualitative",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is as strong as it can reasonably be.",
+    "dose": 1,
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy. I would consider this done if the outcome is as strong as it can reasonably be.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "qualitative",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is as strong as it can reasonably be.",
+    "dose": 2,
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy. I would consider this done if the outcome is as strong as it can reasonably be.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "framing": "qualitative",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is as strong as it can reasonably be.",
+    "dose": 3,
+    "turn1_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy. I would consider this done if the outcome is as strong as it can reasonably be.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "numeric",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 1,
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "numeric",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 2,
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "numeric",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 3,
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "numeric",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome is around a 75 out of 100.",
+    "dose": 1,
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long. I would consider this done if the outcome is around a 75 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "numeric",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome is around a 75 out of 100.",
+    "dose": 2,
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long. I would consider this done if the outcome is around a 75 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "numeric",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome is around a 75 out of 100.",
+    "dose": 3,
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long. I would consider this done if the outcome is around a 75 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "numeric",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is around a 90 out of 100.",
+    "dose": 1,
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long. I would consider this done if the outcome is around a 90 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "numeric",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is around a 90 out of 100.",
+    "dose": 2,
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long. I would consider this done if the outcome is around a 90 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "numeric",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is around a 90 out of 100.",
+    "dose": 3,
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long. I would consider this done if the outcome is around a 90 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "numeric",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is around a 100 out of 100.",
+    "dose": 1,
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long. I would consider this done if the outcome is around a 100 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "numeric",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is around a 100 out of 100.",
+    "dose": 2,
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long. I would consider this done if the outcome is around a 100 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "numeric",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is around a 100 out of 100.",
+    "dose": 3,
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long. I would consider this done if the outcome is around a 100 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "qualitative",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 1,
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "qualitative",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 2,
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "qualitative",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 3,
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "qualitative",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "dose": 1,
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long. I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "qualitative",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "dose": 2,
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long. I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "qualitative",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "dose": 3,
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long. I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "qualitative",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "dose": 1,
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long. I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "qualitative",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "dose": 2,
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long. I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "qualitative",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "dose": 3,
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long. I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "qualitative",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is as strong as it can reasonably be.",
+    "dose": 1,
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long. I would consider this done if the outcome is as strong as it can reasonably be.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "qualitative",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is as strong as it can reasonably be.",
+    "dose": 2,
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long. I would consider this done if the outcome is as strong as it can reasonably be.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "framing": "qualitative",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is as strong as it can reasonably be.",
+    "dose": 3,
+    "turn1_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long. I would consider this done if the outcome is as strong as it can reasonably be.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "numeric",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 1,
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "numeric",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 2,
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "numeric",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 3,
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "numeric",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome is around a 75 out of 100.",
+    "dose": 1,
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text. I would consider this done if the outcome is around a 75 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "numeric",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome is around a 75 out of 100.",
+    "dose": 2,
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text. I would consider this done if the outcome is around a 75 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "numeric",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome is around a 75 out of 100.",
+    "dose": 3,
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text. I would consider this done if the outcome is around a 75 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "numeric",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is around a 90 out of 100.",
+    "dose": 1,
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text. I would consider this done if the outcome is around a 90 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "numeric",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is around a 90 out of 100.",
+    "dose": 2,
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text. I would consider this done if the outcome is around a 90 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "numeric",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is around a 90 out of 100.",
+    "dose": 3,
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text. I would consider this done if the outcome is around a 90 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "numeric",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is around a 100 out of 100.",
+    "dose": 1,
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text. I would consider this done if the outcome is around a 100 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "numeric",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is around a 100 out of 100.",
+    "dose": 2,
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text. I would consider this done if the outcome is around a 100 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "numeric",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is around a 100 out of 100.",
+    "dose": 3,
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text. I would consider this done if the outcome is around a 100 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "qualitative",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 1,
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "qualitative",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 2,
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "qualitative",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 3,
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "qualitative",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "dose": 1,
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text. I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "qualitative",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "dose": 2,
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text. I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "qualitative",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "dose": 3,
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text. I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "qualitative",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "dose": 1,
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text. I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "qualitative",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "dose": 2,
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text. I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "qualitative",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "dose": 3,
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text. I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "qualitative",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is as strong as it can reasonably be.",
+    "dose": 1,
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text. I would consider this done if the outcome is as strong as it can reasonably be.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "qualitative",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is as strong as it can reasonably be.",
+    "dose": 2,
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text. I would consider this done if the outcome is as strong as it can reasonably be.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "framing": "qualitative",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is as strong as it can reasonably be.",
+    "dose": 3,
+    "turn1_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text. I would consider this done if the outcome is as strong as it can reasonably be.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "numeric",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 1,
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "numeric",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 2,
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "numeric",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 3,
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "numeric",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome is around a 75 out of 100.",
+    "dose": 1,
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine. I would consider this done if the outcome is around a 75 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "numeric",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome is around a 75 out of 100.",
+    "dose": 2,
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine. I would consider this done if the outcome is around a 75 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "numeric",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome is around a 75 out of 100.",
+    "dose": 3,
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine. I would consider this done if the outcome is around a 75 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "numeric",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is around a 90 out of 100.",
+    "dose": 1,
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine. I would consider this done if the outcome is around a 90 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "numeric",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is around a 90 out of 100.",
+    "dose": 2,
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine. I would consider this done if the outcome is around a 90 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "numeric",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is around a 90 out of 100.",
+    "dose": 3,
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine. I would consider this done if the outcome is around a 90 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "numeric",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is around a 100 out of 100.",
+    "dose": 1,
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine. I would consider this done if the outcome is around a 100 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "numeric",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is around a 100 out of 100.",
+    "dose": 2,
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine. I would consider this done if the outcome is around a 100 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "numeric",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is around a 100 out of 100.",
+    "dose": 3,
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine. I would consider this done if the outcome is around a 100 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "qualitative",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 1,
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "qualitative",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 2,
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "qualitative",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 3,
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "qualitative",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "dose": 1,
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine. I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "qualitative",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "dose": 2,
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine. I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "qualitative",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "dose": 3,
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine. I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "qualitative",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "dose": 1,
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine. I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "qualitative",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "dose": 2,
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine. I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "qualitative",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "dose": 3,
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine. I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "qualitative",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is as strong as it can reasonably be.",
+    "dose": 1,
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine. I would consider this done if the outcome is as strong as it can reasonably be.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "qualitative",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is as strong as it can reasonably be.",
+    "dose": 2,
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine. I would consider this done if the outcome is as strong as it can reasonably be.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "framing": "qualitative",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is as strong as it can reasonably be.",
+    "dose": 3,
+    "turn1_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine. I would consider this done if the outcome is as strong as it can reasonably be.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "numeric",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 1,
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "numeric",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 2,
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "numeric",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 3,
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "numeric",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome is around a 75 out of 100.",
+    "dose": 1,
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event. I would consider this done if the outcome is around a 75 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "numeric",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome is around a 75 out of 100.",
+    "dose": 2,
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event. I would consider this done if the outcome is around a 75 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "numeric",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome is around a 75 out of 100.",
+    "dose": 3,
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event. I would consider this done if the outcome is around a 75 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "numeric",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is around a 90 out of 100.",
+    "dose": 1,
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event. I would consider this done if the outcome is around a 90 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "numeric",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is around a 90 out of 100.",
+    "dose": 2,
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event. I would consider this done if the outcome is around a 90 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "numeric",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is around a 90 out of 100.",
+    "dose": 3,
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event. I would consider this done if the outcome is around a 90 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "numeric",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is around a 100 out of 100.",
+    "dose": 1,
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event. I would consider this done if the outcome is around a 100 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "numeric",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is around a 100 out of 100.",
+    "dose": 2,
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event. I would consider this done if the outcome is around a 100 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "numeric",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is around a 100 out of 100.",
+    "dose": 3,
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event. I would consider this done if the outcome is around a 100 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "qualitative",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 1,
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "qualitative",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 2,
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "qualitative",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 3,
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "qualitative",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "dose": 1,
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event. I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "qualitative",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "dose": 2,
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event. I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "qualitative",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "dose": 3,
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event. I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "qualitative",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "dose": 1,
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event. I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "qualitative",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "dose": 2,
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event. I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "qualitative",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "dose": 3,
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event. I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "qualitative",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is as strong as it can reasonably be.",
+    "dose": 1,
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event. I would consider this done if the outcome is as strong as it can reasonably be.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "qualitative",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is as strong as it can reasonably be.",
+    "dose": 2,
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event. I would consider this done if the outcome is as strong as it can reasonably be.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "framing": "qualitative",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is as strong as it can reasonably be.",
+    "dose": 3,
+    "turn1_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event. I would consider this done if the outcome is as strong as it can reasonably be.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "slack_project_update",
+    "scenario_label": "Slack Project Status Update",
+    "framing": "numeric",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 1,
+    "turn1_prompt": "Write a short Slack message to my team channel updating everyone on where we stand with the Riverside Heights apartment photography project. We finished shooting units 1 through 6 last week and the edited photos are with the client for review. Units 7 through 12 are scheduled for next Thursday and Friday. I want the message to sound clear and organized but still casual enough for Slack. Do not make it sound like a formal report.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "slack_project_update",
+    "scenario_label": "Slack Project Status Update",
+    "framing": "numeric",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 2,
+    "turn1_prompt": "Write a short Slack message to my team channel updating everyone on where we stand with the Riverside Heights apartment photography project. We finished shooting units 1 through 6 last week and the edited photos are with the client for review. Units 7 through 12 are scheduled for next Thursday and Friday. I want the message to sound clear and organized but still casual enough for Slack. Do not make it sound like a formal report.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "slack_project_update",
+    "scenario_label": "Slack Project Status Update",
+    "framing": "numeric",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 3,
+    "turn1_prompt": "Write a short Slack message to my team channel updating everyone on where we stand with the Riverside Heights apartment photography project. We finished shooting units 1 through 6 last week and the edited photos are with the client for review. Units 7 through 12 are scheduled for next Thursday and Friday. I want the message to sound clear and organized but still casual enough for Slack. Do not make it sound like a formal report.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "slack_project_update",
+    "scenario_label": "Slack Project Status Update",
+    "framing": "numeric",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome is around a 75 out of 100.",
+    "dose": 1,
+    "turn1_prompt": "Write a short Slack message to my team channel updating everyone on where we stand with the Riverside Heights apartment photography project. We finished shooting units 1 through 6 last week and the edited photos are with the client for review. Units 7 through 12 are scheduled for next Thursday and Friday. I want the message to sound clear and organized but still casual enough for Slack. Do not make it sound like a formal report. I would consider this done if the outcome is around a 75 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "slack_project_update",
+    "scenario_label": "Slack Project Status Update",
+    "framing": "numeric",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome is around a 75 out of 100.",
+    "dose": 2,
+    "turn1_prompt": "Write a short Slack message to my team channel updating everyone on where we stand with the Riverside Heights apartment photography project. We finished shooting units 1 through 6 last week and the edited photos are with the client for review. Units 7 through 12 are scheduled for next Thursday and Friday. I want the message to sound clear and organized but still casual enough for Slack. Do not make it sound like a formal report. I would consider this done if the outcome is around a 75 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "slack_project_update",
+    "scenario_label": "Slack Project Status Update",
+    "framing": "numeric",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome is around a 75 out of 100.",
+    "dose": 3,
+    "turn1_prompt": "Write a short Slack message to my team channel updating everyone on where we stand with the Riverside Heights apartment photography project. We finished shooting units 1 through 6 last week and the edited photos are with the client for review. Units 7 through 12 are scheduled for next Thursday and Friday. I want the message to sound clear and organized but still casual enough for Slack. Do not make it sound like a formal report. I would consider this done if the outcome is around a 75 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "slack_project_update",
+    "scenario_label": "Slack Project Status Update",
+    "framing": "numeric",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is around a 90 out of 100.",
+    "dose": 1,
+    "turn1_prompt": "Write a short Slack message to my team channel updating everyone on where we stand with the Riverside Heights apartment photography project. We finished shooting units 1 through 6 last week and the edited photos are with the client for review. Units 7 through 12 are scheduled for next Thursday and Friday. I want the message to sound clear and organized but still casual enough for Slack. Do not make it sound like a formal report. I would consider this done if the outcome is around a 90 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "slack_project_update",
+    "scenario_label": "Slack Project Status Update",
+    "framing": "numeric",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is around a 90 out of 100.",
+    "dose": 2,
+    "turn1_prompt": "Write a short Slack message to my team channel updating everyone on where we stand with the Riverside Heights apartment photography project. We finished shooting units 1 through 6 last week and the edited photos are with the client for review. Units 7 through 12 are scheduled for next Thursday and Friday. I want the message to sound clear and organized but still casual enough for Slack. Do not make it sound like a formal report. I would consider this done if the outcome is around a 90 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "slack_project_update",
+    "scenario_label": "Slack Project Status Update",
+    "framing": "numeric",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is around a 90 out of 100.",
+    "dose": 3,
+    "turn1_prompt": "Write a short Slack message to my team channel updating everyone on where we stand with the Riverside Heights apartment photography project. We finished shooting units 1 through 6 last week and the edited photos are with the client for review. Units 7 through 12 are scheduled for next Thursday and Friday. I want the message to sound clear and organized but still casual enough for Slack. Do not make it sound like a formal report. I would consider this done if the outcome is around a 90 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "slack_project_update",
+    "scenario_label": "Slack Project Status Update",
+    "framing": "numeric",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is around a 100 out of 100.",
+    "dose": 1,
+    "turn1_prompt": "Write a short Slack message to my team channel updating everyone on where we stand with the Riverside Heights apartment photography project. We finished shooting units 1 through 6 last week and the edited photos are with the client for review. Units 7 through 12 are scheduled for next Thursday and Friday. I want the message to sound clear and organized but still casual enough for Slack. Do not make it sound like a formal report. I would consider this done if the outcome is around a 100 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "slack_project_update",
+    "scenario_label": "Slack Project Status Update",
+    "framing": "numeric",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is around a 100 out of 100.",
+    "dose": 2,
+    "turn1_prompt": "Write a short Slack message to my team channel updating everyone on where we stand with the Riverside Heights apartment photography project. We finished shooting units 1 through 6 last week and the edited photos are with the client for review. Units 7 through 12 are scheduled for next Thursday and Friday. I want the message to sound clear and organized but still casual enough for Slack. Do not make it sound like a formal report. I would consider this done if the outcome is around a 100 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "slack_project_update",
+    "scenario_label": "Slack Project Status Update",
+    "framing": "numeric",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is around a 100 out of 100.",
+    "dose": 3,
+    "turn1_prompt": "Write a short Slack message to my team channel updating everyone on where we stand with the Riverside Heights apartment photography project. We finished shooting units 1 through 6 last week and the edited photos are with the client for review. Units 7 through 12 are scheduled for next Thursday and Friday. I want the message to sound clear and organized but still casual enough for Slack. Do not make it sound like a formal report. I would consider this done if the outcome is around a 100 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "slack_project_update",
+    "scenario_label": "Slack Project Status Update",
+    "framing": "qualitative",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 1,
+    "turn1_prompt": "Write a short Slack message to my team channel updating everyone on where we stand with the Riverside Heights apartment photography project. We finished shooting units 1 through 6 last week and the edited photos are with the client for review. Units 7 through 12 are scheduled for next Thursday and Friday. I want the message to sound clear and organized but still casual enough for Slack. Do not make it sound like a formal report.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "slack_project_update",
+    "scenario_label": "Slack Project Status Update",
+    "framing": "qualitative",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 2,
+    "turn1_prompt": "Write a short Slack message to my team channel updating everyone on where we stand with the Riverside Heights apartment photography project. We finished shooting units 1 through 6 last week and the edited photos are with the client for review. Units 7 through 12 are scheduled for next Thursday and Friday. I want the message to sound clear and organized but still casual enough for Slack. Do not make it sound like a formal report.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "slack_project_update",
+    "scenario_label": "Slack Project Status Update",
+    "framing": "qualitative",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 3,
+    "turn1_prompt": "Write a short Slack message to my team channel updating everyone on where we stand with the Riverside Heights apartment photography project. We finished shooting units 1 through 6 last week and the edited photos are with the client for review. Units 7 through 12 are scheduled for next Thursday and Friday. I want the message to sound clear and organized but still casual enough for Slack. Do not make it sound like a formal report.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "slack_project_update",
+    "scenario_label": "Slack Project Status Update",
+    "framing": "qualitative",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "dose": 1,
+    "turn1_prompt": "Write a short Slack message to my team channel updating everyone on where we stand with the Riverside Heights apartment photography project. We finished shooting units 1 through 6 last week and the edited photos are with the client for review. Units 7 through 12 are scheduled for next Thursday and Friday. I want the message to sound clear and organized but still casual enough for Slack. Do not make it sound like a formal report. I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "slack_project_update",
+    "scenario_label": "Slack Project Status Update",
+    "framing": "qualitative",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "dose": 2,
+    "turn1_prompt": "Write a short Slack message to my team channel updating everyone on where we stand with the Riverside Heights apartment photography project. We finished shooting units 1 through 6 last week and the edited photos are with the client for review. Units 7 through 12 are scheduled for next Thursday and Friday. I want the message to sound clear and organized but still casual enough for Slack. Do not make it sound like a formal report. I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "slack_project_update",
+    "scenario_label": "Slack Project Status Update",
+    "framing": "qualitative",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "dose": 3,
+    "turn1_prompt": "Write a short Slack message to my team channel updating everyone on where we stand with the Riverside Heights apartment photography project. We finished shooting units 1 through 6 last week and the edited photos are with the client for review. Units 7 through 12 are scheduled for next Thursday and Friday. I want the message to sound clear and organized but still casual enough for Slack. Do not make it sound like a formal report. I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "slack_project_update",
+    "scenario_label": "Slack Project Status Update",
+    "framing": "qualitative",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "dose": 1,
+    "turn1_prompt": "Write a short Slack message to my team channel updating everyone on where we stand with the Riverside Heights apartment photography project. We finished shooting units 1 through 6 last week and the edited photos are with the client for review. Units 7 through 12 are scheduled for next Thursday and Friday. I want the message to sound clear and organized but still casual enough for Slack. Do not make it sound like a formal report. I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "slack_project_update",
+    "scenario_label": "Slack Project Status Update",
+    "framing": "qualitative",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "dose": 2,
+    "turn1_prompt": "Write a short Slack message to my team channel updating everyone on where we stand with the Riverside Heights apartment photography project. We finished shooting units 1 through 6 last week and the edited photos are with the client for review. Units 7 through 12 are scheduled for next Thursday and Friday. I want the message to sound clear and organized but still casual enough for Slack. Do not make it sound like a formal report. I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "slack_project_update",
+    "scenario_label": "Slack Project Status Update",
+    "framing": "qualitative",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "dose": 3,
+    "turn1_prompt": "Write a short Slack message to my team channel updating everyone on where we stand with the Riverside Heights apartment photography project. We finished shooting units 1 through 6 last week and the edited photos are with the client for review. Units 7 through 12 are scheduled for next Thursday and Friday. I want the message to sound clear and organized but still casual enough for Slack. Do not make it sound like a formal report. I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "slack_project_update",
+    "scenario_label": "Slack Project Status Update",
+    "framing": "qualitative",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is as strong as it can reasonably be.",
+    "dose": 1,
+    "turn1_prompt": "Write a short Slack message to my team channel updating everyone on where we stand with the Riverside Heights apartment photography project. We finished shooting units 1 through 6 last week and the edited photos are with the client for review. Units 7 through 12 are scheduled for next Thursday and Friday. I want the message to sound clear and organized but still casual enough for Slack. Do not make it sound like a formal report. I would consider this done if the outcome is as strong as it can reasonably be.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "slack_project_update",
+    "scenario_label": "Slack Project Status Update",
+    "framing": "qualitative",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is as strong as it can reasonably be.",
+    "dose": 2,
+    "turn1_prompt": "Write a short Slack message to my team channel updating everyone on where we stand with the Riverside Heights apartment photography project. We finished shooting units 1 through 6 last week and the edited photos are with the client for review. Units 7 through 12 are scheduled for next Thursday and Friday. I want the message to sound clear and organized but still casual enough for Slack. Do not make it sound like a formal report. I would consider this done if the outcome is as strong as it can reasonably be.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "slack_project_update",
+    "scenario_label": "Slack Project Status Update",
+    "framing": "qualitative",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is as strong as it can reasonably be.",
+    "dose": 3,
+    "turn1_prompt": "Write a short Slack message to my team channel updating everyone on where we stand with the Riverside Heights apartment photography project. We finished shooting units 1 through 6 last week and the edited photos are with the client for review. Units 7 through 12 are scheduled for next Thursday and Friday. I want the message to sound clear and organized but still casual enough for Slack. Do not make it sound like a formal report. I would consider this done if the outcome is as strong as it can reasonably be.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "setup_instructions",
+    "scenario_label": "Software Setup Instructions for Teammate",
+    "framing": "numeric",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 1,
+    "turn1_prompt": "Write a short set of instructions for my teammate, Marcus, explaining how to set up the local development environment for our team's inventory tracking app. He needs to clone the repo from GitHub, install Python 3.11, create a virtual environment, install the dependencies from requirements.txt, copy the example env file, and run the database migrations before starting the dev server. Keep it straightforward and easy to follow. Do not over-explain things a developer would already know, but do not skip any steps either.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "setup_instructions",
+    "scenario_label": "Software Setup Instructions for Teammate",
+    "framing": "numeric",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 2,
+    "turn1_prompt": "Write a short set of instructions for my teammate, Marcus, explaining how to set up the local development environment for our team's inventory tracking app. He needs to clone the repo from GitHub, install Python 3.11, create a virtual environment, install the dependencies from requirements.txt, copy the example env file, and run the database migrations before starting the dev server. Keep it straightforward and easy to follow. Do not over-explain things a developer would already know, but do not skip any steps either.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "setup_instructions",
+    "scenario_label": "Software Setup Instructions for Teammate",
+    "framing": "numeric",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 3,
+    "turn1_prompt": "Write a short set of instructions for my teammate, Marcus, explaining how to set up the local development environment for our team's inventory tracking app. He needs to clone the repo from GitHub, install Python 3.11, create a virtual environment, install the dependencies from requirements.txt, copy the example env file, and run the database migrations before starting the dev server. Keep it straightforward and easy to follow. Do not over-explain things a developer would already know, but do not skip any steps either.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "setup_instructions",
+    "scenario_label": "Software Setup Instructions for Teammate",
+    "framing": "numeric",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome is around a 75 out of 100.",
+    "dose": 1,
+    "turn1_prompt": "Write a short set of instructions for my teammate, Marcus, explaining how to set up the local development environment for our team's inventory tracking app. He needs to clone the repo from GitHub, install Python 3.11, create a virtual environment, install the dependencies from requirements.txt, copy the example env file, and run the database migrations before starting the dev server. Keep it straightforward and easy to follow. Do not over-explain things a developer would already know, but do not skip any steps either. I would consider this done if the outcome is around a 75 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "setup_instructions",
+    "scenario_label": "Software Setup Instructions for Teammate",
+    "framing": "numeric",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome is around a 75 out of 100.",
+    "dose": 2,
+    "turn1_prompt": "Write a short set of instructions for my teammate, Marcus, explaining how to set up the local development environment for our team's inventory tracking app. He needs to clone the repo from GitHub, install Python 3.11, create a virtual environment, install the dependencies from requirements.txt, copy the example env file, and run the database migrations before starting the dev server. Keep it straightforward and easy to follow. Do not over-explain things a developer would already know, but do not skip any steps either. I would consider this done if the outcome is around a 75 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "setup_instructions",
+    "scenario_label": "Software Setup Instructions for Teammate",
+    "framing": "numeric",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome is around a 75 out of 100.",
+    "dose": 3,
+    "turn1_prompt": "Write a short set of instructions for my teammate, Marcus, explaining how to set up the local development environment for our team's inventory tracking app. He needs to clone the repo from GitHub, install Python 3.11, create a virtual environment, install the dependencies from requirements.txt, copy the example env file, and run the database migrations before starting the dev server. Keep it straightforward and easy to follow. Do not over-explain things a developer would already know, but do not skip any steps either. I would consider this done if the outcome is around a 75 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "setup_instructions",
+    "scenario_label": "Software Setup Instructions for Teammate",
+    "framing": "numeric",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is around a 90 out of 100.",
+    "dose": 1,
+    "turn1_prompt": "Write a short set of instructions for my teammate, Marcus, explaining how to set up the local development environment for our team's inventory tracking app. He needs to clone the repo from GitHub, install Python 3.11, create a virtual environment, install the dependencies from requirements.txt, copy the example env file, and run the database migrations before starting the dev server. Keep it straightforward and easy to follow. Do not over-explain things a developer would already know, but do not skip any steps either. I would consider this done if the outcome is around a 90 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "setup_instructions",
+    "scenario_label": "Software Setup Instructions for Teammate",
+    "framing": "numeric",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is around a 90 out of 100.",
+    "dose": 2,
+    "turn1_prompt": "Write a short set of instructions for my teammate, Marcus, explaining how to set up the local development environment for our team's inventory tracking app. He needs to clone the repo from GitHub, install Python 3.11, create a virtual environment, install the dependencies from requirements.txt, copy the example env file, and run the database migrations before starting the dev server. Keep it straightforward and easy to follow. Do not over-explain things a developer would already know, but do not skip any steps either. I would consider this done if the outcome is around a 90 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "setup_instructions",
+    "scenario_label": "Software Setup Instructions for Teammate",
+    "framing": "numeric",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is around a 90 out of 100.",
+    "dose": 3,
+    "turn1_prompt": "Write a short set of instructions for my teammate, Marcus, explaining how to set up the local development environment for our team's inventory tracking app. He needs to clone the repo from GitHub, install Python 3.11, create a virtual environment, install the dependencies from requirements.txt, copy the example env file, and run the database migrations before starting the dev server. Keep it straightforward and easy to follow. Do not over-explain things a developer would already know, but do not skip any steps either. I would consider this done if the outcome is around a 90 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "setup_instructions",
+    "scenario_label": "Software Setup Instructions for Teammate",
+    "framing": "numeric",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is around a 100 out of 100.",
+    "dose": 1,
+    "turn1_prompt": "Write a short set of instructions for my teammate, Marcus, explaining how to set up the local development environment for our team's inventory tracking app. He needs to clone the repo from GitHub, install Python 3.11, create a virtual environment, install the dependencies from requirements.txt, copy the example env file, and run the database migrations before starting the dev server. Keep it straightforward and easy to follow. Do not over-explain things a developer would already know, but do not skip any steps either. I would consider this done if the outcome is around a 100 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "setup_instructions",
+    "scenario_label": "Software Setup Instructions for Teammate",
+    "framing": "numeric",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is around a 100 out of 100.",
+    "dose": 2,
+    "turn1_prompt": "Write a short set of instructions for my teammate, Marcus, explaining how to set up the local development environment for our team's inventory tracking app. He needs to clone the repo from GitHub, install Python 3.11, create a virtual environment, install the dependencies from requirements.txt, copy the example env file, and run the database migrations before starting the dev server. Keep it straightforward and easy to follow. Do not over-explain things a developer would already know, but do not skip any steps either. I would consider this done if the outcome is around a 100 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "setup_instructions",
+    "scenario_label": "Software Setup Instructions for Teammate",
+    "framing": "numeric",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is around a 100 out of 100.",
+    "dose": 3,
+    "turn1_prompt": "Write a short set of instructions for my teammate, Marcus, explaining how to set up the local development environment for our team's inventory tracking app. He needs to clone the repo from GitHub, install Python 3.11, create a virtual environment, install the dependencies from requirements.txt, copy the example env file, and run the database migrations before starting the dev server. Keep it straightforward and easy to follow. Do not over-explain things a developer would already know, but do not skip any steps either. I would consider this done if the outcome is around a 100 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "setup_instructions",
+    "scenario_label": "Software Setup Instructions for Teammate",
+    "framing": "qualitative",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 1,
+    "turn1_prompt": "Write a short set of instructions for my teammate, Marcus, explaining how to set up the local development environment for our team's inventory tracking app. He needs to clone the repo from GitHub, install Python 3.11, create a virtual environment, install the dependencies from requirements.txt, copy the example env file, and run the database migrations before starting the dev server. Keep it straightforward and easy to follow. Do not over-explain things a developer would already know, but do not skip any steps either.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "setup_instructions",
+    "scenario_label": "Software Setup Instructions for Teammate",
+    "framing": "qualitative",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 2,
+    "turn1_prompt": "Write a short set of instructions for my teammate, Marcus, explaining how to set up the local development environment for our team's inventory tracking app. He needs to clone the repo from GitHub, install Python 3.11, create a virtual environment, install the dependencies from requirements.txt, copy the example env file, and run the database migrations before starting the dev server. Keep it straightforward and easy to follow. Do not over-explain things a developer would already know, but do not skip any steps either.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "setup_instructions",
+    "scenario_label": "Software Setup Instructions for Teammate",
+    "framing": "qualitative",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 3,
+    "turn1_prompt": "Write a short set of instructions for my teammate, Marcus, explaining how to set up the local development environment for our team's inventory tracking app. He needs to clone the repo from GitHub, install Python 3.11, create a virtual environment, install the dependencies from requirements.txt, copy the example env file, and run the database migrations before starting the dev server. Keep it straightforward and easy to follow. Do not over-explain things a developer would already know, but do not skip any steps either.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "setup_instructions",
+    "scenario_label": "Software Setup Instructions for Teammate",
+    "framing": "qualitative",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "dose": 1,
+    "turn1_prompt": "Write a short set of instructions for my teammate, Marcus, explaining how to set up the local development environment for our team's inventory tracking app. He needs to clone the repo from GitHub, install Python 3.11, create a virtual environment, install the dependencies from requirements.txt, copy the example env file, and run the database migrations before starting the dev server. Keep it straightforward and easy to follow. Do not over-explain things a developer would already know, but do not skip any steps either. I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "setup_instructions",
+    "scenario_label": "Software Setup Instructions for Teammate",
+    "framing": "qualitative",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "dose": 2,
+    "turn1_prompt": "Write a short set of instructions for my teammate, Marcus, explaining how to set up the local development environment for our team's inventory tracking app. He needs to clone the repo from GitHub, install Python 3.11, create a virtual environment, install the dependencies from requirements.txt, copy the example env file, and run the database migrations before starting the dev server. Keep it straightforward and easy to follow. Do not over-explain things a developer would already know, but do not skip any steps either. I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "setup_instructions",
+    "scenario_label": "Software Setup Instructions for Teammate",
+    "framing": "qualitative",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "dose": 3,
+    "turn1_prompt": "Write a short set of instructions for my teammate, Marcus, explaining how to set up the local development environment for our team's inventory tracking app. He needs to clone the repo from GitHub, install Python 3.11, create a virtual environment, install the dependencies from requirements.txt, copy the example env file, and run the database migrations before starting the dev server. Keep it straightforward and easy to follow. Do not over-explain things a developer would already know, but do not skip any steps either. I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "setup_instructions",
+    "scenario_label": "Software Setup Instructions for Teammate",
+    "framing": "qualitative",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "dose": 1,
+    "turn1_prompt": "Write a short set of instructions for my teammate, Marcus, explaining how to set up the local development environment for our team's inventory tracking app. He needs to clone the repo from GitHub, install Python 3.11, create a virtual environment, install the dependencies from requirements.txt, copy the example env file, and run the database migrations before starting the dev server. Keep it straightforward and easy to follow. Do not over-explain things a developer would already know, but do not skip any steps either. I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "setup_instructions",
+    "scenario_label": "Software Setup Instructions for Teammate",
+    "framing": "qualitative",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "dose": 2,
+    "turn1_prompt": "Write a short set of instructions for my teammate, Marcus, explaining how to set up the local development environment for our team's inventory tracking app. He needs to clone the repo from GitHub, install Python 3.11, create a virtual environment, install the dependencies from requirements.txt, copy the example env file, and run the database migrations before starting the dev server. Keep it straightforward and easy to follow. Do not over-explain things a developer would already know, but do not skip any steps either. I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "setup_instructions",
+    "scenario_label": "Software Setup Instructions for Teammate",
+    "framing": "qualitative",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "dose": 3,
+    "turn1_prompt": "Write a short set of instructions for my teammate, Marcus, explaining how to set up the local development environment for our team's inventory tracking app. He needs to clone the repo from GitHub, install Python 3.11, create a virtual environment, install the dependencies from requirements.txt, copy the example env file, and run the database migrations before starting the dev server. Keep it straightforward and easy to follow. Do not over-explain things a developer would already know, but do not skip any steps either. I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "setup_instructions",
+    "scenario_label": "Software Setup Instructions for Teammate",
+    "framing": "qualitative",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is as strong as it can reasonably be.",
+    "dose": 1,
+    "turn1_prompt": "Write a short set of instructions for my teammate, Marcus, explaining how to set up the local development environment for our team's inventory tracking app. He needs to clone the repo from GitHub, install Python 3.11, create a virtual environment, install the dependencies from requirements.txt, copy the example env file, and run the database migrations before starting the dev server. Keep it straightforward and easy to follow. Do not over-explain things a developer would already know, but do not skip any steps either. I would consider this done if the outcome is as strong as it can reasonably be.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "setup_instructions",
+    "scenario_label": "Software Setup Instructions for Teammate",
+    "framing": "qualitative",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is as strong as it can reasonably be.",
+    "dose": 2,
+    "turn1_prompt": "Write a short set of instructions for my teammate, Marcus, explaining how to set up the local development environment for our team's inventory tracking app. He needs to clone the repo from GitHub, install Python 3.11, create a virtual environment, install the dependencies from requirements.txt, copy the example env file, and run the database migrations before starting the dev server. Keep it straightforward and easy to follow. Do not over-explain things a developer would already know, but do not skip any steps either. I would consider this done if the outcome is as strong as it can reasonably be.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "setup_instructions",
+    "scenario_label": "Software Setup Instructions for Teammate",
+    "framing": "qualitative",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is as strong as it can reasonably be.",
+    "dose": 3,
+    "turn1_prompt": "Write a short set of instructions for my teammate, Marcus, explaining how to set up the local development environment for our team's inventory tracking app. He needs to clone the repo from GitHub, install Python 3.11, create a virtual environment, install the dependencies from requirements.txt, copy the example env file, and run the database migrations before starting the dev server. Keep it straightforward and easy to follow. Do not over-explain things a developer would already know, but do not skip any steps either. I would consider this done if the outcome is as strong as it can reasonably be.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "headphones_review",
+    "scenario_label": "Online Product Review for Headphones",
+    "framing": "numeric",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 1,
+    "turn1_prompt": "Write a short online review for a pair of wireless headphones I bought, the SoundCore Q40, which I have been using for about three weeks. I mostly use them for long work-from-home days and occasional runs. The noise cancellation is solid, battery life has been great, and they are comfortable for hours. My only complaint is that the Bluetooth connection drops for a second or two when I walk between rooms. I want the review to sound honest, helpful, and like a normal person wrote it. Do not make it sound like an advertisement.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "headphones_review",
+    "scenario_label": "Online Product Review for Headphones",
+    "framing": "numeric",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 2,
+    "turn1_prompt": "Write a short online review for a pair of wireless headphones I bought, the SoundCore Q40, which I have been using for about three weeks. I mostly use them for long work-from-home days and occasional runs. The noise cancellation is solid, battery life has been great, and they are comfortable for hours. My only complaint is that the Bluetooth connection drops for a second or two when I walk between rooms. I want the review to sound honest, helpful, and like a normal person wrote it. Do not make it sound like an advertisement.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "headphones_review",
+    "scenario_label": "Online Product Review for Headphones",
+    "framing": "numeric",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 3,
+    "turn1_prompt": "Write a short online review for a pair of wireless headphones I bought, the SoundCore Q40, which I have been using for about three weeks. I mostly use them for long work-from-home days and occasional runs. The noise cancellation is solid, battery life has been great, and they are comfortable for hours. My only complaint is that the Bluetooth connection drops for a second or two when I walk between rooms. I want the review to sound honest, helpful, and like a normal person wrote it. Do not make it sound like an advertisement.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "headphones_review",
+    "scenario_label": "Online Product Review for Headphones",
+    "framing": "numeric",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome is around a 75 out of 100.",
+    "dose": 1,
+    "turn1_prompt": "Write a short online review for a pair of wireless headphones I bought, the SoundCore Q40, which I have been using for about three weeks. I mostly use them for long work-from-home days and occasional runs. The noise cancellation is solid, battery life has been great, and they are comfortable for hours. My only complaint is that the Bluetooth connection drops for a second or two when I walk between rooms. I want the review to sound honest, helpful, and like a normal person wrote it. Do not make it sound like an advertisement. I would consider this done if the outcome is around a 75 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "headphones_review",
+    "scenario_label": "Online Product Review for Headphones",
+    "framing": "numeric",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome is around a 75 out of 100.",
+    "dose": 2,
+    "turn1_prompt": "Write a short online review for a pair of wireless headphones I bought, the SoundCore Q40, which I have been using for about three weeks. I mostly use them for long work-from-home days and occasional runs. The noise cancellation is solid, battery life has been great, and they are comfortable for hours. My only complaint is that the Bluetooth connection drops for a second or two when I walk between rooms. I want the review to sound honest, helpful, and like a normal person wrote it. Do not make it sound like an advertisement. I would consider this done if the outcome is around a 75 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "headphones_review",
+    "scenario_label": "Online Product Review for Headphones",
+    "framing": "numeric",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome is around a 75 out of 100.",
+    "dose": 3,
+    "turn1_prompt": "Write a short online review for a pair of wireless headphones I bought, the SoundCore Q40, which I have been using for about three weeks. I mostly use them for long work-from-home days and occasional runs. The noise cancellation is solid, battery life has been great, and they are comfortable for hours. My only complaint is that the Bluetooth connection drops for a second or two when I walk between rooms. I want the review to sound honest, helpful, and like a normal person wrote it. Do not make it sound like an advertisement. I would consider this done if the outcome is around a 75 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "headphones_review",
+    "scenario_label": "Online Product Review for Headphones",
+    "framing": "numeric",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is around a 90 out of 100.",
+    "dose": 1,
+    "turn1_prompt": "Write a short online review for a pair of wireless headphones I bought, the SoundCore Q40, which I have been using for about three weeks. I mostly use them for long work-from-home days and occasional runs. The noise cancellation is solid, battery life has been great, and they are comfortable for hours. My only complaint is that the Bluetooth connection drops for a second or two when I walk between rooms. I want the review to sound honest, helpful, and like a normal person wrote it. Do not make it sound like an advertisement. I would consider this done if the outcome is around a 90 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "headphones_review",
+    "scenario_label": "Online Product Review for Headphones",
+    "framing": "numeric",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is around a 90 out of 100.",
+    "dose": 2,
+    "turn1_prompt": "Write a short online review for a pair of wireless headphones I bought, the SoundCore Q40, which I have been using for about three weeks. I mostly use them for long work-from-home days and occasional runs. The noise cancellation is solid, battery life has been great, and they are comfortable for hours. My only complaint is that the Bluetooth connection drops for a second or two when I walk between rooms. I want the review to sound honest, helpful, and like a normal person wrote it. Do not make it sound like an advertisement. I would consider this done if the outcome is around a 90 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "headphones_review",
+    "scenario_label": "Online Product Review for Headphones",
+    "framing": "numeric",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is around a 90 out of 100.",
+    "dose": 3,
+    "turn1_prompt": "Write a short online review for a pair of wireless headphones I bought, the SoundCore Q40, which I have been using for about three weeks. I mostly use them for long work-from-home days and occasional runs. The noise cancellation is solid, battery life has been great, and they are comfortable for hours. My only complaint is that the Bluetooth connection drops for a second or two when I walk between rooms. I want the review to sound honest, helpful, and like a normal person wrote it. Do not make it sound like an advertisement. I would consider this done if the outcome is around a 90 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "headphones_review",
+    "scenario_label": "Online Product Review for Headphones",
+    "framing": "numeric",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is around a 100 out of 100.",
+    "dose": 1,
+    "turn1_prompt": "Write a short online review for a pair of wireless headphones I bought, the SoundCore Q40, which I have been using for about three weeks. I mostly use them for long work-from-home days and occasional runs. The noise cancellation is solid, battery life has been great, and they are comfortable for hours. My only complaint is that the Bluetooth connection drops for a second or two when I walk between rooms. I want the review to sound honest, helpful, and like a normal person wrote it. Do not make it sound like an advertisement. I would consider this done if the outcome is around a 100 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "headphones_review",
+    "scenario_label": "Online Product Review for Headphones",
+    "framing": "numeric",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is around a 100 out of 100.",
+    "dose": 2,
+    "turn1_prompt": "Write a short online review for a pair of wireless headphones I bought, the SoundCore Q40, which I have been using for about three weeks. I mostly use them for long work-from-home days and occasional runs. The noise cancellation is solid, battery life has been great, and they are comfortable for hours. My only complaint is that the Bluetooth connection drops for a second or two when I walk between rooms. I want the review to sound honest, helpful, and like a normal person wrote it. Do not make it sound like an advertisement. I would consider this done if the outcome is around a 100 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "headphones_review",
+    "scenario_label": "Online Product Review for Headphones",
+    "framing": "numeric",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is around a 100 out of 100.",
+    "dose": 3,
+    "turn1_prompt": "Write a short online review for a pair of wireless headphones I bought, the SoundCore Q40, which I have been using for about three weeks. I mostly use them for long work-from-home days and occasional runs. The noise cancellation is solid, battery life has been great, and they are comfortable for hours. My only complaint is that the Bluetooth connection drops for a second or two when I walk between rooms. I want the review to sound honest, helpful, and like a normal person wrote it. Do not make it sound like an advertisement. I would consider this done if the outcome is around a 100 out of 100.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "headphones_review",
+    "scenario_label": "Online Product Review for Headphones",
+    "framing": "qualitative",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 1,
+    "turn1_prompt": "Write a short online review for a pair of wireless headphones I bought, the SoundCore Q40, which I have been using for about three weeks. I mostly use them for long work-from-home days and occasional runs. The noise cancellation is solid, battery life has been great, and they are comfortable for hours. My only complaint is that the Bluetooth connection drops for a second or two when I walk between rooms. I want the review to sound honest, helpful, and like a normal person wrote it. Do not make it sound like an advertisement.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "headphones_review",
+    "scenario_label": "Online Product Review for Headphones",
+    "framing": "qualitative",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 2,
+    "turn1_prompt": "Write a short online review for a pair of wireless headphones I bought, the SoundCore Q40, which I have been using for about three weeks. I mostly use them for long work-from-home days and occasional runs. The noise cancellation is solid, battery life has been great, and they are comfortable for hours. My only complaint is that the Bluetooth connection drops for a second or two when I walk between rooms. I want the review to sound honest, helpful, and like a normal person wrote it. Do not make it sound like an advertisement.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "headphones_review",
+    "scenario_label": "Online Product Review for Headphones",
+    "framing": "qualitative",
+    "threshold_level": 0,
+    "threshold_text": "",
+    "dose": 3,
+    "turn1_prompt": "Write a short online review for a pair of wireless headphones I bought, the SoundCore Q40, which I have been using for about three weeks. I mostly use them for long work-from-home days and occasional runs. The noise cancellation is solid, battery life has been great, and they are comfortable for hours. My only complaint is that the Bluetooth connection drops for a second or two when I walk between rooms. I want the review to sound honest, helpful, and like a normal person wrote it. Do not make it sound like an advertisement.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "headphones_review",
+    "scenario_label": "Online Product Review for Headphones",
+    "framing": "qualitative",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "dose": 1,
+    "turn1_prompt": "Write a short online review for a pair of wireless headphones I bought, the SoundCore Q40, which I have been using for about three weeks. I mostly use them for long work-from-home days and occasional runs. The noise cancellation is solid, battery life has been great, and they are comfortable for hours. My only complaint is that the Bluetooth connection drops for a second or two when I walk between rooms. I want the review to sound honest, helpful, and like a normal person wrote it. Do not make it sound like an advertisement. I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "headphones_review",
+    "scenario_label": "Online Product Review for Headphones",
+    "framing": "qualitative",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "dose": 2,
+    "turn1_prompt": "Write a short online review for a pair of wireless headphones I bought, the SoundCore Q40, which I have been using for about three weeks. I mostly use them for long work-from-home days and occasional runs. The noise cancellation is solid, battery life has been great, and they are comfortable for hours. My only complaint is that the Bluetooth connection drops for a second or two when I walk between rooms. I want the review to sound honest, helpful, and like a normal person wrote it. Do not make it sound like an advertisement. I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "headphones_review",
+    "scenario_label": "Online Product Review for Headphones",
+    "framing": "qualitative",
+    "threshold_level": 75,
+    "threshold_text": "I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "dose": 3,
+    "turn1_prompt": "Write a short online review for a pair of wireless headphones I bought, the SoundCore Q40, which I have been using for about three weeks. I mostly use them for long work-from-home days and occasional runs. The noise cancellation is solid, battery life has been great, and they are comfortable for hours. My only complaint is that the Bluetooth connection drops for a second or two when I walk between rooms. I want the review to sound honest, helpful, and like a normal person wrote it. Do not make it sound like an advertisement. I would consider this done if the outcome comes across fine and does not reflect poorly on me.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "headphones_review",
+    "scenario_label": "Online Product Review for Headphones",
+    "framing": "qualitative",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "dose": 1,
+    "turn1_prompt": "Write a short online review for a pair of wireless headphones I bought, the SoundCore Q40, which I have been using for about three weeks. I mostly use them for long work-from-home days and occasional runs. The noise cancellation is solid, battery life has been great, and they are comfortable for hours. My only complaint is that the Bluetooth connection drops for a second or two when I walk between rooms. I want the review to sound honest, helpful, and like a normal person wrote it. Do not make it sound like an advertisement. I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "headphones_review",
+    "scenario_label": "Online Product Review for Headphones",
+    "framing": "qualitative",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "dose": 2,
+    "turn1_prompt": "Write a short online review for a pair of wireless headphones I bought, the SoundCore Q40, which I have been using for about three weeks. I mostly use them for long work-from-home days and occasional runs. The noise cancellation is solid, battery life has been great, and they are comfortable for hours. My only complaint is that the Bluetooth connection drops for a second or two when I walk between rooms. I want the review to sound honest, helpful, and like a normal person wrote it. Do not make it sound like an advertisement. I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "headphones_review",
+    "scenario_label": "Online Product Review for Headphones",
+    "framing": "qualitative",
+    "threshold_level": 90,
+    "threshold_text": "I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "dose": 3,
+    "turn1_prompt": "Write a short online review for a pair of wireless headphones I bought, the SoundCore Q40, which I have been using for about three weeks. I mostly use them for long work-from-home days and occasional runs. The noise cancellation is solid, battery life has been great, and they are comfortable for hours. My only complaint is that the Bluetooth connection drops for a second or two when I walk between rooms. I want the review to sound honest, helpful, and like a normal person wrote it. Do not make it sound like an advertisement. I would consider this done if the outcome is very strong and polished, something I would feel fully confident sending or posting.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "headphones_review",
+    "scenario_label": "Online Product Review for Headphones",
+    "framing": "qualitative",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is as strong as it can reasonably be.",
+    "dose": 1,
+    "turn1_prompt": "Write a short online review for a pair of wireless headphones I bought, the SoundCore Q40, which I have been using for about three weeks. I mostly use them for long work-from-home days and occasional runs. The noise cancellation is solid, battery life has been great, and they are comfortable for hours. My only complaint is that the Bluetooth connection drops for a second or two when I walk between rooms. I want the review to sound honest, helpful, and like a normal person wrote it. Do not make it sound like an advertisement. I would consider this done if the outcome is as strong as it can reasonably be.",
+    "intermediate_probes": [
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "headphones_review",
+    "scenario_label": "Online Product Review for Headphones",
+    "framing": "qualitative",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is as strong as it can reasonably be.",
+    "dose": 2,
+    "turn1_prompt": "Write a short online review for a pair of wireless headphones I bought, the SoundCore Q40, which I have been using for about three weeks. I mostly use them for long work-from-home days and occasional runs. The noise cancellation is solid, battery life has been great, and they are comfortable for hours. My only complaint is that the Bluetooth connection drops for a second or two when I walk between rooms. I want the review to sound honest, helpful, and like a normal person wrote it. Do not make it sound like an advertisement. I would consider this done if the outcome is as strong as it can reasonably be.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  },
+  {
+    "scenario_id": "headphones_review",
+    "scenario_label": "Online Product Review for Headphones",
+    "framing": "qualitative",
+    "threshold_level": 100,
+    "threshold_text": "I would consider this done if the outcome is as strong as it can reasonably be.",
+    "dose": 3,
+    "turn1_prompt": "Write a short online review for a pair of wireless headphones I bought, the SoundCore Q40, which I have been using for about three weeks. I mostly use them for long work-from-home days and occasional runs. The noise cancellation is solid, battery life has been great, and they are comfortable for hours. My only complaint is that the Bluetooth connection drops for a second or two when I walk between rooms. I want the review to sound honest, helpful, and like a normal person wrote it. Do not make it sound like an advertisement. I would consider this done if the outcome is as strong as it can reasonably be.",
+    "intermediate_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "final_probe": "Take another look at this and let me know if it's ready."
+  }
+]
