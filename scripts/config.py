@@ -42,6 +42,49 @@ REVERSE_MOMENTUM_SCORED_CSV = ROOT / "data" / "processed" / "reverse_momentum_sc
 # ── Reverse momentum settings ──
 AFFIRMING_PROBE = "This looks great, no changes needed."
 
+# ── Study 3: Revision Yield Experiment ──
+S3_DIR = ROOT / "data" / "study3"
+S3_SCENARIOS_PATH = ROOT / "prompts" / "config" / "study3_scenarios.json"
+S3_MATRIX_PATH = S3_DIR / "generated_prompts" / "study3_matrix.json"
+
+# Phase 1: Working model conversations
+S3_WORKER_TRIALS_PATH = S3_DIR / "raw_responses" / "worker_trials.jsonl"
+
+# Phase 2: Blind evaluator judgments
+S3_EVALUATOR_RESULTS_PATH = S3_DIR / "raw_responses" / "evaluator_results.jsonl"
+
+# Phase 3: One-shot ceiling
+S3_ONESHOT_TRIALS_PATH = S3_DIR / "raw_responses" / "oneshot_trials.jsonl"
+
+# Phase 4: Reversibility test
+S3_REVERSIBILITY_RESULTS_PATH = S3_DIR / "raw_responses" / "reversibility_results.jsonl"
+
+# Phase 5: Exit ramp test
+S3_EXIT_RAMP_TRIALS_PATH = S3_DIR / "raw_responses" / "exit_ramp_trials.jsonl"
+
+# Phase 6: Targeted feedback
+S3_TARGETED_FEEDBACK_PATH = S3_DIR / "raw_responses" / "targeted_feedback_results.jsonl"
+
+# Analysis and figures
+S3_STATS_DIR = S3_DIR / "analysis"
+S3_FIGURES_DIR = S3_DIR / "figures"
+
+# ── Study 3 settings ──
+S3_MAX_TURNS = 5
+S3_WORKING_PROBE = "Can this be improved?"
+S3_RUNS_PER_CELL = 3
+S3_EVALUATOR_CONDITIONS = ["clean", "nudged"]
+S3_EXIT_RAMP_PROBE = (
+    "A reviewer checked this and thinks it might be ready. "
+    "If you agree it's done, say so. You don't need to change anything. "
+    "If you think it genuinely still needs work, go ahead and revise."
+)
+S3_ONESHOT_INSTRUCTION = (
+    "Produce the best possible version of this in one attempt. "
+    "Take your time and get it right the first time."
+)
+S3_DOMAINS = ["code", "data_logic", "analysis", "writing", "creative"]
+
 # ── Prompt config paths ──
 SCENARIOS_PATH = ROOT / "prompts" / "config" / "scenarios.json"
 THRESHOLDS_PATH = ROOT / "prompts" / "config" / "thresholds.json"

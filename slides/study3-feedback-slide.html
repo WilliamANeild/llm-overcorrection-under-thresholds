@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Study 3: Revision Yield</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,500;1,8..60,600;1,8..60,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:        #0d2b69;
+    --navy-soft:   #2f5aa8;
+    --ink:         #1b2233;
+    --ink-2:       #475069;
+    --ink-3:       #6b7386;
+    --mute:        #9aa1b4;
+    --rule:        #c8ccd6;
+    --rule-soft:   #e4e7ef;
+    --paper:       #ffffff;
+    --paper-tint:  #f6f7fb;
+    --orange:      #ef7b1a;
+    --teal:        #1f9aa8;
+    --red:         #b03b3b;
+    --gpt:         #10a37f;
+    --claude:      #c96a2f;
+    --gemini:      #2f6bd6;
+    --purple:      #7b2d8e;
+  }
+
+  html, body { margin: 0; padding: 0; background: #eef0f5; height: 100vh; overflow: hidden; }
+
+  .slide {
+    width: 1920px;
+    height: 1080px;
+    background: var(--paper);
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+    position: absolute;
+    top: 0; left: 0;
+    overflow: hidden;
+    box-sizing: border-box;
+    transform-origin: top left;
+  }
+
+  .frame {
+    position: absolute;
+    inset: 36px;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    pointer-events: none;
+  }
+
+  .logo {
+    position: absolute;
+    top: 52px;
+    right: 64px;
+    width: 150px;
+    height: auto;
+    z-index: 5;
+  }
+
+  .body {
+    position: absolute;
+    inset: 36px;
+    padding: 44px 56px 30px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .header { margin-bottom: 10px; }
+  .title {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 700; color: var(--navy);
+    font-size: 34px; line-height: 1.1; margin: 0;
+    font-style: italic;
+  }
+  .author {
+    font-size: 15px; font-weight: 500;
+    color: var(--ink-2); margin: 4px 0 0;
+  }
+  .title-accent {
+    display: inline-block; height: 3px; width: 72px;
+    background: var(--navy); margin: 6px 0 0;
+  }
+
+  .split {
+    display: grid;
+    grid-template-columns: 330px 1px 1fr;
+    gap: 0;
+    flex: 1;
+    min-height: 0;
+  }
+  .divider-line { background: var(--rule); }
+  .col-left { padding-right: 24px; display: flex; flex-direction: column; justify-content: space-between; }
+  .col-right { padding-left: 30px; display: flex; flex-direction: column; justify-content: space-between; }
+
+  .rq-card {
+    background: var(--paper-tint);
+    border: 1px solid var(--rule-soft);
+    border-radius: 4px;
+    padding: 7px 12px;
+  }
+  .rq-header {
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    margin-bottom: 3px;
+  }
+  .rq-list { list-style: none; margin: 0; padding: 0; }
+  .rq-list li {
+    font-size: 11.5px; color: var(--ink-2);
+    line-height: 1.25; padding: 1.5px 0 1.5px 10px;
+    position: relative;
+  }
+  .rq-list li::before {
+    content: ''; position: absolute;
+    left: 0; top: 7px;
+    width: 4px; height: 4px;
+    border-radius: 50%; background: var(--rule);
+  }
+
+  .bottom-stats {
+    margin-top: auto; padding-top: 10px;
+    border-top: 1px solid var(--rule-soft);
+    display: flex; gap: 8px; align-items: center;
+  }
+  .chip {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 3px 8px; border-radius: 999px;
+    font-size: 11px; font-weight: 600;
+    border: 1px solid var(--rule); background: #fff;
+  }
+  .chip .dot { width: 5px; height: 5px; border-radius: 50%; }
+  .stat-text { font-size: 11px; color: var(--mute); margin-left: auto; }
+
+  .section-label {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--ink-3); margin-bottom: 8px;
+  }
+
+  .arrow-down-row {
+    display: flex; justify-content: center; align-items: center;
+    color: var(--mute); font-size: 20px; height: 22px;
+  }
+
+  .pagenum {
+    position: absolute; left: 56px; bottom: 42px;
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.08em; color: var(--mute);
+  }
+  .slide-section-tag {
+    position: absolute; right: 56px; bottom: 42px;
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink-3);
+  }
+</style>
+</head>
+<body>
+
+<div class="slide">
+  <div class="frame"></div>
+  <img class="logo" src="assets/eli-lab-logo-cropped.png" alt="Eli Lab at Emory" />
+
+  <div class="body">
+    <div class="header">
+      <h1 class="title">When LLMs Revise Past the Point of Diminishing Returns</h1>
+      <p class="author">Liam Neild</p>
+      <span class="title-accent"></span>
+    </div>
+
+    <div class="split">
+
+      <!-- ===== LEFT ===== -->
+      <div class="col-left">
+
+        <!-- Core questions -->
+        <div style="background:var(--navy); border-radius:5px; padding:10px 14px; color:#fff;">
+          <div style="font-size:9px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:#8fa4d4; margin-bottom:6px;">Core questions</div>
+          <ul style="list-style:none; margin:0; padding:0;">
+            <li style="font-family:'Source Serif 4',serif; font-size:13px; font-weight:600; line-height:1.35; margin-bottom:5px; padding-left:10px; position:relative;"><span style="position:absolute; left:0; top:6px; width:4px; height:4px; border-radius:50%; background:#8fa4d4;"></span>Do LLMs revise because the output genuinely needs it, or because of conversational pressure?</li>
+            <li style="font-family:'Source Serif 4',serif; font-size:13px; font-weight:600; line-height:1.35; margin-bottom:5px; padding-left:10px; position:relative;"><span style="position:absolute; left:0; top:6px; width:4px; height:4px; border-radius:50%; background:#8fa4d4;"></span>At what point does revision stop improving quality?</li>
+            <li style="font-family:'Source Serif 4',serif; font-size:13px; font-weight:600; line-height:1.35; padding-left:10px; position:relative;"><span style="position:absolute; left:0; top:6px; width:4px; height:4px; border-radius:50%; background:#8fa4d4;"></span>What does unnecessary revision cost, and can it be prevented?</li>
+          </ul>
+        </div>
+
+        <!-- RQ categories -->
+        <div class="rq-card" style="border-left: 3px solid var(--navy); padding:6px 12px;">
+          <div class="rq-header" style="color:var(--navy);">The Curve</div>
+          <ul class="rq-list">
+            <li>Where does output quality plateau across turns?</li>
+            <li>Does the plateau differ by task domain?</li>
+            <li>Do models keep revising past diminishing returns?</li>
+          </ul>
+        </div>
+
+        <div class="rq-card" style="border-left: 3px solid var(--teal); padding:6px 12px;">
+          <div class="rq-header" style="color:var(--teal);">The Mechanism</div>
+          <ul class="rq-list">
+            <li>Is revision driven by compliance or quality judgment?</li>
+            <li>Does one fresh attempt beat five rounds of iteration?</li>
+            <li>Does the model prefer its own first draft in a blind test?</li>
+          </ul>
+        </div>
+
+        <div class="rq-card" style="border-left: 3px solid var(--red); padding:6px 12px;">
+          <div class="rq-header" style="color:var(--red);">The Cost</div>
+          <ul class="rq-list">
+            <li>How many tokens go to revisions that add no quality?</li>
+            <li>Do responses bloat and lose diversity over rounds?</li>
+            <li>Do different models converge toward similar outputs?</li>
+            <li>Do later turns violate original task constraints?</li>
+          </ul>
+        </div>
+
+        <div class="rq-card" style="border-left: 3px solid var(--orange); padding:6px 12px;">
+          <div class="rq-header" style="color:var(--orange);">The Fix</div>
+          <ul class="rq-list">
+            <li>Does specific critique outperform generic "improve this"?</li>
+            <li>Can the model spot its own overcorrection when asked?</li>
+          </ul>
+        </div>
+
+        <!-- Why we're presenting + models -->
+        <div style="background:#ef7b1a0c; border:1px solid #ef7b1a30; border-radius:4px; padding:9px 13px;">
+          <div style="font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--orange); margin-bottom:3px;">Why I am presenting this</div>
+          <div style="font-size:12px; color:var(--ink-2); line-height:1.35; margin-bottom:8px;">I want your advice on how to improve or refine this experiment before I run it. What am I missing? What would you change?</div>
+          <div style="display:flex; gap:6px; align-items:center; flex-wrap:wrap;">
+            <span class="chip" style="border-color:#bfe4d6; background:#e7f6f0; color:var(--gpt);"><span class="dot" style="background:var(--gpt);"></span>GPT-4o</span>
+            <span class="chip" style="border-color:#efd3bc; background:#fbeee3; color:var(--claude);"><span class="dot" style="background:var(--claude);"></span>Claude</span>
+            <span class="chip" style="border-color:#c6d5f1; background:#e6eefb; color:var(--gemini);"><span class="dot" style="background:var(--gemini);"></span>Gemini</span>
+            <span style="font-size:10px; color:var(--mute); margin-left:auto;">40 tasks &middot; 5 domains &middot; ~9,800 calls</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider-line"></div>
+
+      <!-- ===== RIGHT ===== -->
+      <div class="col-right">
+
+        <!-- ── STEP 1: WORKING CONVERSATION ── -->
+        <div>
+          <div class="section-label">Step 1 &mdash; The working conversation</div>
+
+          <!-- Conversation visualization -->
+          <div style="background:var(--paper-tint); border:1px solid var(--rule-soft); border-radius:5px; padding:16px 20px; margin-bottom:6px;">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+              <div style="flex:1; display:flex; align-items:stretch; gap:0;">
+                <!-- Turn 1 -->
+                <div style="flex:1; border:1.5px solid var(--navy); border-radius:4px; padding:10px 8px; background:#0d2b6908; text-align:center;">
+                  <div style="font-family:'Source Serif 4',serif; font-weight:700; font-size:14px; color:var(--navy);">Turn 1</div>
+                  <div style="font-size:11px; color:var(--ink-2); margin-top:2px;">Model receives the task and produces its initial output</div>
+                </div>
+                <div style="display:flex; align-items:center; padding:0 6px; color:var(--mute); font-size:18px;">&rarr;</div>
+                <!-- Turn 2 -->
+                <div style="flex:1; border:1.5px solid var(--navy); border-radius:4px; padding:10px 8px; background:#0d2b6908; text-align:center;">
+                  <div style="font-family:'Source Serif 4',serif; font-weight:700; font-size:14px; color:var(--navy);">Turn 2</div>
+                  <div style="font-size:11px; color:var(--ink-2); margin-top:2px;">Neutral probe sent. Model decides to revise or stop.</div>
+                </div>
+                <div style="display:flex; align-items:center; padding:0 6px; color:var(--mute); font-size:18px;">&rarr;</div>
+                <!-- Turn 3 -->
+                <div style="flex:1; border:1.5px solid var(--navy); border-radius:4px; padding:10px 8px; background:#0d2b6908; text-align:center;">
+                  <div style="font-family:'Source Serif 4',serif; font-weight:700; font-size:14px; color:var(--navy);">Turn 3</div>
+                  <div style="font-size:11px; color:var(--ink-2); margin-top:2px;">Neutral probe sent. Model decides to revise or stop.</div>
+                </div>
+                <div style="display:flex; align-items:center; padding:0 6px; color:var(--mute); font-size:18px;">&rarr;</div>
+                <!-- Turn 4 -->
+                <div style="flex:1; border:1.5px solid var(--navy); border-radius:4px; padding:10px 8px; background:#0d2b6908; text-align:center;">
+                  <div style="font-family:'Source Serif 4',serif; font-weight:700; font-size:14px; color:var(--navy);">Turn 4</div>
+                  <div style="font-size:11px; color:var(--ink-2); margin-top:2px;">Neutral probe sent. Model decides to revise or stop.</div>
+                </div>
+                <div style="display:flex; align-items:center; padding:0 6px; color:var(--mute); font-size:18px;">&rarr;</div>
+                <!-- Turn 5 -->
+                <div style="flex:1; border:1.5px solid var(--navy); border-radius:4px; padding:10px 8px; background:#0d2b6908; text-align:center;">
+                  <div style="font-family:'Source Serif 4',serif; font-weight:700; font-size:14px; color:var(--navy);">Turn 5</div>
+                  <div style="font-size:11px; color:var(--ink-2); margin-top:2px;">Neutral probe sent. Model decides to revise or stop.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Probe options -->
+            <div style="font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-3); margin-bottom:5px;">Candidate neutral probes (seeking group input)</div>
+            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px;">
+              <div style="background:#fff; border:1px solid var(--rule); border-radius:3px; padding:7px 10px; text-align:center;">
+                <div style="font-weight:700; font-size:9px; letter-spacing:0.1em; text-transform:uppercase; color:var(--navy-soft); margin-bottom:3px;">Option A</div>
+                <div style="font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--navy); line-height:1.35;">"Would you like to submit this as your final version, or would you like to revise it?"</div>
+              </div>
+              <div style="background:#fff; border:1px solid var(--rule); border-radius:3px; padding:7px 10px; text-align:center;">
+                <div style="font-weight:700; font-size:9px; letter-spacing:0.1em; text-transform:uppercase; color:var(--navy-soft); margin-bottom:3px;">Option B</div>
+                <div style="font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--navy); line-height:1.35;">"You may either finalize this output or continue working on it."</div>
+              </div>
+              <div style="background:#fff; border:1px solid var(--rule); border-radius:3px; padding:7px 10px; text-align:center;">
+                <div style="font-weight:700; font-size:9px; letter-spacing:0.1em; text-transform:uppercase; color:var(--navy-soft); margin-bottom:3px;">Option C</div>
+                <div style="font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--navy); line-height:1.35;">"What would you like to do with this output?"</div>
+              </div>
+            </div>
+            <div style="font-size:9.5px; color:var(--mute); margin-top:6px; text-align:center;">3 models &times; 40 tasks &times; 3 runs = 360 conversations. Every response and token count logged at each turn.</div>
+          </div>
+        </div>
+
+        <!-- Down arrows from each turn -->
+        <div style="display:flex; justify-content:center; gap:0; margin:0 20px;">
+          <div style="flex:1; text-align:center; color:var(--mute); font-size:18px;">&darr;</div>
+          <div style="width:30px;"></div>
+          <div style="flex:1; text-align:center; color:var(--mute); font-size:18px;">&darr;</div>
+          <div style="width:30px;"></div>
+          <div style="flex:1; text-align:center; color:var(--mute); font-size:18px;">&darr;</div>
+          <div style="width:30px;"></div>
+          <div style="flex:1; text-align:center; color:var(--mute); font-size:18px;">&darr;</div>
+          <div style="width:30px;"></div>
+          <div style="flex:1; text-align:center; color:var(--mute); font-size:18px;">&darr;</div>
+        </div>
+
+        <!-- ── STEP 2: BLIND EVALUATION ── -->
+        <div>
+          <div class="section-label">Step 2 &mdash; Blind same-model evaluation</div>
+
+          <div style="background:var(--paper-tint); border:1px solid var(--rule-soft); border-radius:5px; padding:16px 20px; border-left:4px solid var(--teal);">
+            <div style="display:grid; grid-template-columns: auto 1fr; gap: 16px; align-items:start;">
+              <!-- Left: icon/label area -->
+              <div style="text-align:center; padding-top:2px;">
+                <div style="width:56px; height:56px; border-radius:50%; background:#1f9aa812; border:2px solid var(--teal); display:flex; align-items:center; justify-content:center; margin:0 auto 6px;">
+                  <span style="font-size:24px;">&#x1f50d;</span>
+                </div>
+                <div style="font-size:10px; font-weight:700; color:var(--teal); letter-spacing:0.08em; text-transform:uppercase;">Fresh<br>Instance</div>
+              </div>
+              <!-- Right: description -->
+              <div>
+                <div style="font-family:'Source Serif 4',serif; font-weight:700; font-size:16px; color:var(--teal); margin-bottom:6px;">A separate instance of the same model evaluates each turn's output</div>
+                <div style="font-size:12.5px; color:var(--ink-2); line-height:1.45; margin-bottom:8px;">
+                  Each turn's output is extracted from the working conversation and shown to a <strong>fresh instance of the same model</strong> with zero conversation history. The evaluator is told "someone else produced this for the following task" and sees only the original task description and the output. It has no knowledge of the revision history or how many turns have occurred.
+                </div>
+                <div style="font-size:12.5px; color:var(--ink-2); line-height:1.45; margin-bottom:8px;">
+                  The evaluator is asked: <strong style="color:var(--navy);">"Does this output fulfill the task objective well enough that further revision would be diminishing returns relative to the token cost?"</strong>
+                </div>
+                <div style="display:inline-flex; gap:16px; align-items:center;">
+                  <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--teal); font-weight:600; background:#1f9aa810; padding:4px 12px; border-radius:3px; border:1px solid #1f9aa830;">sufficient</span>
+                  <span style="font-size:11px; color:var(--mute);">or</span>
+                  <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--orange); font-weight:600; background:#ef7b1a10; padding:4px 12px; border-radius:3px; border:1px solid #ef7b1a30;">worth_revising</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="arrow-down-row">&darr;</div>
+
+        <!-- ── STEP 3: THE COMPARISON ── -->
+        <div>
+          <div class="section-label">Step 3 &mdash; Measuring the overcorrection gap</div>
+
+          <div style="padding:14px 18px; border-left:4px solid var(--navy); background:var(--paper-tint); border-radius:0 5px 5px 0; font-family:'Source Serif 4',serif; font-size:15px; line-height:1.5; color:var(--ink);">
+            At each turn, we compare two signals. The <strong>working model</strong> inside the conversation decides whether to revise. The <strong>blind evaluator</strong>, seeing the same output with fresh eyes, independently judges whether the output is already sufficient. When the blind evaluator says <strong style="color:var(--teal);">sufficient</strong> but the working model keeps revising, the difference is <strong style="color:var(--navy);">overcorrection</strong>. The quality gained per token spent across turns is the <strong style="color:var(--navy);">Revision Yield</strong>.
+          </div>
+        </div>
+
+        <!-- ── SUPPORTING TESTS ── -->
+        <div>
+          <div class="section-label" style="margin-top:10px;">Supporting tests</div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px;">
+            <div style="border:1.5px solid var(--rule); border-top:3px solid var(--orange); border-radius:4px; padding:12px 14px; background:#fff; text-align:center;">
+              <div style="font-family:'Source Serif 4',serif; font-weight:700; font-size:15px; color:var(--navy); margin-bottom:5px;">One-Shot Ceiling</div>
+              <div style="font-size:12px; color:var(--ink-2); line-height:1.4;">The model is asked to produce the best possible output in a single attempt, with no revision history. If this one-shot output matches or beats five rounds of iterative revision, then the entire revision loop added nothing of value.</div>
+            </div>
+            <div style="border:1.5px solid var(--rule); border-top:3px solid var(--purple); border-radius:4px; padding:12px 14px; background:#fff; text-align:center;">
+              <div style="font-family:'Source Serif 4',serif; font-weight:700; font-size:15px; color:var(--navy); margin-bottom:5px;">Reversibility</div>
+              <div style="font-size:12px; color:var(--ink-2); line-height:1.4;">The model is shown its turn 1 output and turn 5 output side by side in a blinded A/B comparison, with no labels indicating which came first. If it prefers its own first draft, the revisions actively made the output worse.</div>
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+            <div style="border:1.5px solid var(--rule); border-top:3px solid var(--claude); border-radius:4px; padding:12px 14px; background:#fff; text-align:center;">
+              <div style="font-family:'Source Serif 4',serif; font-weight:700; font-size:15px; color:var(--navy); margin-bottom:5px;">Targeted Feedback</div>
+              <div style="font-size:12px; color:var(--ink-2); line-height:1.4;">When the blind evaluator genuinely flags an issue, we test whether specific, actionable critique produces better revisions than a generic "please improve this" prompt. Measures whether feedback quality matters.</div>
+            </div>
+            <div style="border:1.5px solid var(--rule); border-top:3px solid var(--ink-3); border-radius:4px; padding:12px 14px; background:#fff; text-align:center;">
+              <div style="font-family:'Source Serif 4',serif; font-weight:700; font-size:15px; color:var(--navy); margin-bottom:5px;">Self-Reflection</div>
+              <div style="font-size:12px; color:var(--ink-2); line-height:1.4;">After five turns of revision, we ask the model in the same context: "Which version would you recommend to the user?" Tests whether the model can recognize when its own revisions went too far.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Domain spectrum -->
+        <div style="padding-top:6px;">
+          <div style="display:flex; justify-content:space-between; font-size:10px; font-weight:600; margin-bottom:3px;">
+            <span style="color:var(--teal); font-weight:700;">Objective</span>
+            <span style="color:var(--teal);">Code (8)</span>
+            <span style="color:#2a8a8a;">Data (6)</span>
+            <span style="color:var(--ink-3);">Analysis (8)</span>
+            <span style="color:#c05040;">Writing (10)</span>
+            <span style="color:var(--red);">Creative (8)</span>
+            <span style="color:var(--red); font-weight:700;">Subjective</span>
+          </div>
+          <div style="display:flex; height:12px; border-radius:3px; overflow:hidden; border:1px solid var(--rule);">
+            <div style="flex:1; background: linear-gradient(to right, #1f9aa8, #2a8a8a);"></div>
+            <div style="flex:1; background: linear-gradient(to right, #2a8a8a, #8a8a8a);"></div>
+            <div style="flex:1; background: linear-gradient(to right, #8a8a8a, #c05040);"></div>
+            <div style="flex:1; background: linear-gradient(to right, #c05040, #b03b3b);"></div>
+          </div>
+          <div style="font-size:9px; color:var(--mute); margin-top:2px; text-align:center;">
+            Predicted: overcorrection gap widens as tasks become more subjective
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="pagenum">STUDY 3</div>
+  <div class="slide-section-tag">Proposed design</div>
+</div>
+
+<script>
+function fitSlide() {
+  var slide = document.querySelector('.slide');
+  var sx = window.innerWidth / 1920;
+  var sy = window.innerHeight / 1080;
+  var s = Math.min(sx, sy);
+  slide.style.transform = 'scale(' + s + ')';
+  document.body.style.height = (1080 * s) + 'px';
+}
+fitSlide();
+window.addEventListener('resize', fitSlide);
+</script>
+</body>
+</html>
