@@ -1,0 +1,522 @@
+[
+  {
+    "scenario_id": "email_validator",
+    "scenario_label": "Python Email Validator",
+    "domain": "code",
+    "task_prompt": "Hey, I need a Python function called validate_email that takes a string and returns True if it's a valid email, False otherwise. It should check for the basics: one @ symbol, something before it, a domain with at least one dot, no spaces. Don't use any external libraries, just keep it simple. Throw in a few inline comments so I can follow the logic.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "debounce_function",
+    "scenario_label": "JavaScript Debounce Function",
+    "domain": "code",
+    "task_prompt": "Can you write me a JavaScript debounce function? It should take a callback and a delay in milliseconds, and return a new function that only fires the callback after the delay has passed since the last call. If it gets called again before the timer's up, reset the timer. A quick usage example in a comment would be great too.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "sql_top_customers",
+    "scenario_label": "SQL Top Customers with Ties",
+    "domain": "code",
+    "task_prompt": "I need a SQL query that gives me the top 5 customers by total order amount. The table is called orders and has customer_id, customer_name, and order_amount columns. Here's the tricky part: if there's a tie at position 5, I want to include all the tied customers too. This is for PostgreSQL. Can you add a comment explaining how the tie-handling works?",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "lru_cache",
+    "scenario_label": "Python LRU Cache Class",
+    "domain": "code",
+    "task_prompt": "I'm trying to build an LRU cache in Python from scratch. Can you write me a class called LRUCache with a configurable max size? I need get(key) and put(key, value) methods, both O(1) average time. When it's full and you add something new, evict the least recently used item. Don't use functools.lru_cache, I want to understand the actual implementation. Include docstrings please.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "backup_script",
+    "scenario_label": "Bash Backup Script",
+    "domain": "code",
+    "task_prompt": "I need a bash script that backs up a directory to another location with a timestamp in the filename. It should take the source directory and backup destination as arguments, make a compressed tar.gz with the date and time in the name, and print a confirmation with the archive path and size. Add some basic error handling for missing arguments or if the source doesn't exist.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "csv_parser",
+    "scenario_label": "Python CSV Parser with Stats",
+    "domain": "code",
+    "task_prompt": "Can you write me a Python script that reads a CSV file (path from command line argument) and prints summary stats? I want: number of rows, number of columns, column names, and for any numeric columns give me the min, max, and mean. Only use csv and sys from the standard library. Handle it gracefully if the file doesn't exist.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "debug_sort",
+    "scenario_label": "Debug a Broken Sort Function",
+    "domain": "code",
+    "task_prompt": "Hey, my merge sort implementation has bugs and I can't figure out what's wrong. Can you find and fix them? Here's the code:\n\ndef merge_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    mid = len(arr) / 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    return merge(left, right)\n\ndef merge(left, right):\n    result = []\n    i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] < right[j]:\n            result.append(left[i])\n            i += 1\n        else:\n            result.append(right[j])\n    result.extend(left[i:])\n    result.extend(right[j:])\n    return result\n\nJust fix the bugs and tell me briefly what was wrong.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "unit_tests",
+    "scenario_label": "Write Unit Tests for a Function",
+    "domain": "code",
+    "task_prompt": "I need to write pytest tests for this shipping calculator function. Can you give me a solid set of tests that cover normal cases, edge cases, and boundary conditions? Here's the function:\n\ndef calculate_shipping(weight_kg, destination, express=False):\n    base_rate = 5.00\n    per_kg = 2.50 if destination == 'domestic' else 7.00\n    cost = base_rate + (weight_kg * per_kg)\n    if express:\n        cost *= 1.5\n    if weight_kg > 20:\n        cost += 15.00  # oversize surcharge\n    return round(cost, 2)\n\nUse descriptive test names so I can tell what each one is checking.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "probability_puzzle",
+    "scenario_label": "Birthday Probability Calculation",
+    "domain": "data_logic",
+    "task_prompt": "Okay so there's 30 people in a room. What's the probability that at least two of them share a birthday? Walk me through the math step by step, state whatever assumptions you're making, and give me the final answer as both a fraction and a percentage rounded to one decimal place.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "logic_puzzle",
+    "scenario_label": "Logic Grid Puzzle",
+    "domain": "data_logic",
+    "task_prompt": "I'm stuck on this logic puzzle, can you solve it for me? Three friends (Alex, Blake, Casey) each have a different pet (cat, dog, fish) and a different favorite color (red, blue, green). Here are the clues: 1) Alex doesn't have the cat. 2) The person with the dog likes blue. 3) Casey likes green. 4) Blake doesn't have the fish. Figure out who has which pet and which color, and show me your reasoning for each step.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "data_interpretation",
+    "scenario_label": "Interpret Survey Results",
+    "domain": "data_logic",
+    "task_prompt": "My company just ran a survey on remote work and I need help interpreting the results. 500 employees responded. 62% prefer hybrid (3 days office, 2 remote), 24% prefer fully remote, 14% prefer fully in-office. Of the hybrid people, 78% say it's about collaboration; of the fully remote people, 85% say it's about eliminating the commute. Satisfaction scores (1-10): hybrid group mean 7.8, remote group mean 8.1, in-office group mean 6.2. Can you give me a 200-300 word interpretation? I want to know what conclusions are actually supported vs what would need more data.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "statistical_error",
+    "scenario_label": "Find the Statistical Error",
+    "domain": "data_logic",
+    "task_prompt": "I read this in a news article and something feels off: 'Our study of 50 patients found that Drug X reduces headache duration by 15% (p=0.03). Since p < 0.05, we can say there is a 97% chance the drug works.' Can you tell me what's wrong with this? I know p-values don't work like that but I want a clear explanation of all the errors, what the p-value actually means, and what other info you'd need to properly evaluate the claim.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "spreadsheet_formula",
+    "scenario_label": "Excel Formula Problem",
+    "domain": "data_logic",
+    "task_prompt": "I need help with some Excel formulas. I have a sales spreadsheet where Column A is dates (MM/DD/YYYY), Column B is salesperson names, Column C is sale amounts, and Column D is regions (North, South, East, West). I need formulas to: 1) Get total sales for the North region in Q1 2025 (Jan through March), 2) Find the salesperson with the highest single sale, 3) Count how many sales over $1000 happened in the South region. Can you explain each formula briefly so I understand what it's doing?",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "algorithm_complexity",
+    "scenario_label": "Algorithm Complexity Analysis",
+    "domain": "data_logic",
+    "task_prompt": "Can you analyze the time and space complexity of this function for me? I think I know the answer but I want to make sure I'm thinking about it right:\n\ndef find_pairs(arr, target):\n    seen = {}\n    pairs = []\n    for i, num in enumerate(arr):\n        complement = target - num\n        if complement in seen:\n            pairs.append((seen[complement], i))\n        seen[num] = i\n    return pairs\n\nGive me the Big-O for time and space, explain your reasoning, and tell me what it would look like if I used the naive nested-loop approach instead and why the hash map is better.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "remote_vs_hybrid",
+    "scenario_label": "Remote vs Hybrid Work Policy",
+    "domain": "analysis",
+    "task_prompt": "I'm putting together a recommendation for my VP about our work policy. We're a mid-sized tech company, about 200 people. Can you write me a short analysis comparing fully remote vs hybrid? I need to cover productivity, employee satisfaction, collaboration, and overhead costs. Keep it balanced and practical, not preachy. Around 400 words max.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "quarterly_sales",
+    "scenario_label": "Quarterly Sales Trend Summary",
+    "domain": "analysis",
+    "task_prompt": "I need to write up our quarterly sales for a management meeting. Here are the numbers: Q1 revenue was $2.1M, Q2 was $2.4M, Q3 was $1.9M, Q4 was $3.1M. Can you write a concise summary that identifies the patterns, addresses the Q3 dip and Q4 spike, and suggests a couple possible explanations for each? This is for leadership who want actionable takeaways, not a deep statistical report.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "agile_vs_waterfall",
+    "scenario_label": "Agile vs Waterfall Comparison",
+    "domain": "analysis",
+    "task_prompt": "My team is starting a new software project and we're debating whether to go Agile or Waterfall. Can you write me a short comparison I can share with the team? Cover when each works best, the main trade-offs, and whether a hybrid approach makes sense. Keep it practical, under 400 words, and write it as an actual analytical piece, not just bullet points.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "business_expansion",
+    "scenario_label": "Small Business Expansion Assessment",
+    "domain": "analysis",
+    "task_prompt": "I own a bakery in Austin, Texas and I'm thinking about opening a second location in a suburb nearby. We've been profitable for three years with steady growth. Can you write me a short assessment of what I should be thinking about? I need to consider financial readiness, market demand, staffing, supply chain, and keeping the brand consistent across locations. Keep it practical and specific to my situation, not generic business advice. Around 300-400 words.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "crm_adoption",
+    "scenario_label": "CRM Adoption Risk/Benefit Analysis",
+    "domain": "analysis",
+    "task_prompt": "My sales team (about 50 people) is currently using spreadsheets to track everything and it's a mess. We're looking at switching to HubSpot or Salesforce. Can you write a short risk/benefit analysis? I want to cover what we'd gain (pipeline visibility, follow-up tracking, reporting) but also the real risks: people resisting the change, data migration nightmares, ongoing costs. Keep it realistic, about 300 words.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "competitive_analysis",
+    "scenario_label": "Competitive Analysis of Three Businesses",
+    "domain": "analysis",
+    "task_prompt": "I'm opening a coffee shop in a college town and I need to understand my competition. There are three main players: BeanThere (established local favorite, loyal customers, but the decor is pretty dated), BrewLab (trendy newcomer with specialty drinks and a big social media following), and CampusGrind (budget chain inside the student center). Can you write a short competitive analysis comparing them on pricing, atmosphere, product quality, convenience, and target market? About 350 words.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "meeting_summary",
+    "scenario_label": "Meeting Notes to Action Items",
+    "domain": "analysis",
+    "task_prompt": "Can you turn these messy meeting notes into clear action items with owners and deadlines?\n\nMarketing sync, April 15. Attendees: Sarah (lead), Dev, Priya, Marcus. Sarah said Q2 campaign needs to launch by May 1, creative assets still pending from the design team. Dev volunteered to follow up with design by EOD Thursday. Priya raised concern about budget - we only have $12K left for paid channels and the original plan assumed $18K. Marcus suggested cutting the LinkedIn spend and reallocating to Instagram Reels which performed 3x better last quarter. Sarah agreed but wants to see the numbers first. Priya will pull the Q1 channel performance report by Monday. Everyone agreed next check-in is April 22.\n\nJust give me a clean list with who, what, and when.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "survey_recommendations",
+    "scenario_label": "Survey Results with Recommendations",
+    "domain": "analysis",
+    "task_prompt": "I work in university dining services and we just surveyed 800 students. Here are the key findings: 45% rated food quality as 'poor' or 'fair', 72% want more plant-based options, 58% skip breakfast because we don't open until 8am, wait times over 15 minutes during peak lunch (11:30-12:30) for 64% of students, and 81% said they'd use mobile ordering if we had it. Can you write me a brief analysis (250-350 words) interpreting these findings and giving me 3-4 specific, actionable recommendations I can bring to my director?",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "domain": "writing",
+    "task_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "domain": "writing",
+    "task_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "domain": "writing",
+    "task_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "domain": "writing",
+    "task_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "domain": "writing",
+    "task_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "slack_project_update",
+    "scenario_label": "Slack Project Status Update",
+    "domain": "writing",
+    "task_prompt": "Write a short Slack message to my team channel updating everyone on where we stand with the Riverside Heights apartment photography project. We finished shooting units 1 through 6 last week and the edited photos are with the client for review. Units 7 through 12 are scheduled for next Thursday and Friday. I want the message to sound clear and organized but still casual enough for Slack. Do not make it sound like a formal report.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "setup_instructions",
+    "scenario_label": "Software Setup Instructions for Teammate",
+    "domain": "writing",
+    "task_prompt": "Write a short set of instructions for my teammate, Marcus, explaining how to set up the local development environment for our team's inventory tracking app. He needs to clone the repo from GitHub, install Python 3.11, create a virtual environment, install the dependencies from requirements.txt, copy the example env file, and run the database migrations before starting the dev server. Keep it straightforward and easy to follow. Do not over-explain things a developer would already know, but do not skip any steps either.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "headphones_review",
+    "scenario_label": "Online Product Review for Headphones",
+    "domain": "writing",
+    "task_prompt": "Write a short online review for a pair of wireless headphones I bought, the SoundCore Q40, which I have been using for about three weeks. I mostly use them for long work-from-home days and occasional runs. The noise cancellation is solid, battery life has been great, and they are comfortable for hours. My only complaint is that the Bluetooth connection drops for a second or two when I walk between rooms. I want the review to sound honest, helpful, and like a normal person wrote it. Do not make it sound like an advertisement.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "cover_letter",
+    "scenario_label": "Cover Letter for Job Application",
+    "domain": "writing",
+    "task_prompt": "Write a short cover letter for a Marketing Coordinator position at a mid-sized outdoor apparel company called TrailBound. I have two years of experience in social media management at a small agency, a degree in communications from University of Oregon, and I am particularly excited about this role because I am an avid hiker and trail runner. I want the letter to sound genuine and specific, not like a generic template. Keep it to about 250 words and do not be overly formal.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "social_media_caption",
+    "scenario_label": "Small Business Social Media Caption",
+    "domain": "writing",
+    "task_prompt": "Write an Instagram caption for a small plant shop called Leaf & Stem that is announcing a weekend sale: 20% off all indoor plants Saturday and Sunday. The shop is in Portland, Oregon and has a warm, community-focused vibe. The caption should sound friendly and on-brand, include a call to action, and be appropriate length for Instagram (not too long). Do not use more than three hashtags.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "story_opening",
+    "scenario_label": "Short Story Opening",
+    "domain": "creative",
+    "task_prompt": "I'm working on a short story and I need help with the opening paragraph, about 150 words. It's set in a small coastal town where a lighthouse keeper discovers something unusual washed ashore after a storm. I want it to feel atmospheric and slightly mysterious, but not horror. I want to feel the salt air and hear the waves. Don't reveal what the object is yet, just build the scene.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "tone_rewrite",
+    "scenario_label": "Rewrite Paragraph in Different Tone",
+    "domain": "creative",
+    "task_prompt": "Can you rewrite this paragraph in a casual, conversational tone like I'm explaining it to a friend over coffee?\n\n'The quarterly financial report indicates a 12% year-over-year increase in operating revenue, primarily attributable to expanded market penetration in the Southeast region and the successful integration of the acquired CloudSync platform. However, operating margins contracted by 2.3 percentage points due to elevated customer acquisition costs and infrastructure investments undertaken in Q2 and Q3.'\n\nKeep all the key information but make it sound natural and approachable.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "birthday_toast",
+    "scenario_label": "Birthday Toast for a Close Friend",
+    "domain": "creative",
+    "task_prompt": "I need to give a toast at my friend Marcus's 30th birthday party this weekend. We've been friends since college and he just started his own landscaping business after years of talking about it. Can you write me something short, about 100 words? I want it to be warm, a little funny, and genuinely celebratory. It should sound like something I'd actually say while holding a drink, not like a greeting card.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "product_description",
+    "scenario_label": "Etsy Product Description",
+    "domain": "creative",
+    "task_prompt": "I sell handmade ceramics on Etsy and I need a product description for one of my mugs. It's wheel-thrown, holds about 12oz, has a speckled blue-gray glaze with a raw clay bottom, and it's dishwasher and microwave safe. My studio is in Asheville, NC. I want the description to feel artisanal and warm without being pretentious. Keep it under 150 words.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "meal_plan",
+    "scenario_label": "Weekly Meal Plan",
+    "domain": "creative",
+    "task_prompt": "Can you make me a 5-day weeknight dinner plan? I'm vegetarian, I love Mediterranean and Asian flavors, I have about 30-45 minutes to cook on weeknights, and I hate food waste so I'd love it if ingredients got reused across meals. For each night just give me the dish name and a one-sentence description. Include a grocery list at the end organized by section (produce, pantry, dairy/refrigerated).",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "explain_like_ten",
+    "scenario_label": "Explain Complex Topic Simply",
+    "domain": "creative",
+    "task_prompt": "My 10-year-old keeps asking me how the internet works and I don't know how to explain it simply. Can you help? Cover the basic idea of how a website gets from a server to their screen, what a browser does, and why it feels instant even though the info is traveling so far. Use analogies a kid would get. Keep it under 200 words and make it fun to read.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "podcast_intro",
+    "scenario_label": "Podcast Episode Introduction",
+    "domain": "creative",
+    "task_prompt": "I'm recording a podcast episode about decision fatigue and I need a 60-second intro script. My podcast is called 'Wired Different' and it covers behavioral science for a general audience. My style is conversational and I like using everyday examples. Open with a relatable hook about making too many choices in a day, then briefly preview what the episode covers. Write it as a spoken script, not an essay.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "rejection_reframe",
+    "scenario_label": "Reframe a Rejection Positively",
+    "domain": "creative",
+    "task_prompt": "I just got rejected from a graduate program I really wanted, the Master's in Urban Planning at UC Berkeley. I'm feeling pretty down about it. Can you write me a short paragraph I could put in my journal to help me process this? I want it to acknowledge the disappointment without minimizing it, but also help me see what comes next. Don't make it sound like toxic positivity or a motivational poster. Make it sound like something a thoughtful friend would say.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  }
+]

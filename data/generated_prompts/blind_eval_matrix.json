@@ -1,0 +1,262 @@
+[
+  {
+    "scenario_id": "linkedin_job_announcement",
+    "scenario_label": "LinkedIn Job Announcement",
+    "domain": "writing",
+    "task_prompt": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "pto_request",
+    "scenario_label": "PTO Request to Manager",
+    "domain": "writing",
+    "task_prompt": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "brunch_cancellation",
+    "scenario_label": "Sister-in-Law Brunch Cancellation",
+    "domain": "writing",
+    "task_prompt": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "coworker_funny_text",
+    "scenario_label": "Funny Text to Coworker",
+    "domain": "writing",
+    "task_prompt": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "client_sales_email",
+    "scenario_label": "Sales Email to Outside Client",
+    "domain": "writing",
+    "task_prompt": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "slack_project_update",
+    "scenario_label": "Slack Project Status Update",
+    "domain": "writing",
+    "task_prompt": "Write a short Slack message to my team channel updating everyone on where we stand with the Riverside Heights apartment photography project. We finished shooting units 1 through 6 last week and the edited photos are with the client for review. Units 7 through 12 are scheduled for next Thursday and Friday. I want the message to sound clear and organized but still casual enough for Slack. Do not make it sound like a formal report.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "setup_instructions",
+    "scenario_label": "Software Setup Instructions for Teammate",
+    "domain": "writing",
+    "task_prompt": "Write a short set of instructions for my teammate, Marcus, explaining how to set up the local development environment for our team's inventory tracking app. He needs to clone the repo from GitHub, install Python 3.11, create a virtual environment, install the dependencies from requirements.txt, copy the example env file, and run the database migrations before starting the dev server. Keep it straightforward and easy to follow. Do not over-explain things a developer would already know, but do not skip any steps either.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "headphones_review",
+    "scenario_label": "Online Product Review for Headphones",
+    "domain": "writing",
+    "task_prompt": "Write a short online review for a pair of wireless headphones I bought, the SoundCore Q40, which I have been using for about three weeks. I mostly use them for long work-from-home days and occasional runs. The noise cancellation is solid, battery life has been great, and they are comfortable for hours. My only complaint is that the Bluetooth connection drops for a second or two when I walk between rooms. I want the review to sound honest, helpful, and like a normal person wrote it. Do not make it sound like an advertisement.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "email_validator",
+    "scenario_label": "Python Email Validator",
+    "domain": "code",
+    "task_prompt": "Write a Python function called validate_email that takes a string and returns True if it is a valid email address, False otherwise. It should check for basic structural requirements: exactly one @ symbol, a non-empty local part, a domain with at least one dot, and no spaces. Do not use any external libraries. Include a few inline comments explaining your logic.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "debounce_function",
+    "scenario_label": "JavaScript Debounce Function",
+    "domain": "code",
+    "task_prompt": "Write a JavaScript debounce function that takes a callback function and a delay in milliseconds, and returns a new function that only executes the callback after the specified delay has passed since the last invocation. If the debounced function is called again before the delay expires, the timer should reset. Include a brief usage example in a comment.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "sql_top_customers",
+    "scenario_label": "SQL Top Customers with Ties",
+    "domain": "code",
+    "task_prompt": "Write a SQL query that returns the top 5 customers by total order amount from an orders table with columns customer_id, customer_name, and order_amount. If there are ties at the fifth position, include all tied customers. Use standard SQL that would work in PostgreSQL. Add a brief comment explaining how the tie-handling works.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "lru_cache",
+    "scenario_label": "Python LRU Cache Class",
+    "domain": "code",
+    "task_prompt": "Write a Python class called LRUCache that implements a least-recently-used cache with a configurable max size. It should support get(key) and put(key, value) operations, both in O(1) average time. When the cache is full and a new item is added, evict the least recently used item. Do not use functools.lru_cache. Include docstrings for the class and its methods.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "backup_script",
+    "scenario_label": "Bash Backup Script",
+    "domain": "code",
+    "task_prompt": "Write a Bash script that backs up a specified directory to a target location with a timestamp in the filename. The script should accept the source directory and backup destination as command-line arguments, create a compressed tar.gz archive named with the current date and time, and print a confirmation message with the archive path and size. Include basic error handling for missing arguments and nonexistent source directories.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "csv_parser",
+    "scenario_label": "Python CSV Parser with Stats",
+    "domain": "code",
+    "task_prompt": "Write a Python script that reads a CSV file from a path provided as a command-line argument, then prints summary statistics: the number of rows, the number of columns, the column names, and for any numeric columns, the min, max, and mean values. Use only the csv and sys modules from the standard library. Handle the case where the file does not exist gracefully.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "remote_vs_hybrid",
+    "scenario_label": "Remote vs Hybrid Work Policy",
+    "domain": "analysis",
+    "task_prompt": "Write a short analysis comparing remote work and hybrid work policies for a mid-sized tech company with about 200 employees. Cover the main pros and cons of each approach, including effects on productivity, employee satisfaction, collaboration, and overhead costs. Keep the analysis balanced and practical. Do not write more than about 400 words.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "quarterly_sales",
+    "scenario_label": "Quarterly Sales Trend Summary",
+    "domain": "analysis",
+    "task_prompt": "Write a short summary of quarterly sales trends for a fictional retail company. Q1 revenue was $2.1M, Q2 was $2.4M, Q3 was $1.9M, and Q4 was $3.1M. Identify patterns, note the Q3 dip and Q4 spike, and suggest two or three possible explanations for each. Keep it concise and written for a management audience that wants actionable takeaways, not a deep statistical report.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "agile_vs_waterfall",
+    "scenario_label": "Agile vs Waterfall Comparison",
+    "domain": "analysis",
+    "task_prompt": "Write a short comparison of Agile and Waterfall project management methodologies for someone deciding which to use for a new software project. Cover when each approach works best, the main trade-offs, and any hybrid considerations. Keep it practical and under 400 words. Do not just list bullet points; write it as a short analytical piece that someone could share with their team.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "business_expansion",
+    "scenario_label": "Small Business Expansion Assessment",
+    "domain": "analysis",
+    "task_prompt": "Write a short assessment for a small bakery owner in Austin, Texas who is considering opening a second location in a nearby suburb. The first location has been profitable for three years with steady growth. Cover the key factors she should consider: financial readiness, market demand, staffing, supply chain, and brand consistency. Keep it practical and grounded, not generic business advice. About 300 to 400 words.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "crm_adoption",
+    "scenario_label": "CRM Adoption Risk/Benefit Analysis",
+    "domain": "analysis",
+    "task_prompt": "Write a short risk and benefit analysis for a 50-person sales team that is considering switching from spreadsheets to a CRM platform like HubSpot or Salesforce. Cover the expected benefits in terms of pipeline visibility, follow-up tracking, and reporting, but also address the risks: adoption resistance, data migration challenges, and ongoing costs. Keep it realistic and practical, about 300 words.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  },
+  {
+    "scenario_id": "competitive_analysis",
+    "scenario_label": "Competitive Analysis of Three Businesses",
+    "domain": "analysis",
+    "task_prompt": "Write a short competitive analysis comparing three fictional coffee shops in a college town: BeanThere (established local favorite with loyal customers but outdated decor), BrewLab (trendy newcomer with specialty drinks and strong social media), and CampusGrind (budget-friendly chain location inside the student center). Compare them on pricing, atmosphere, product quality, convenience, and target market. Keep it analytical and concise, about 350 words.",
+    "working_probes": [
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?",
+      "Can this be improved?"
+    ],
+    "max_turns": 5
+  }
+]
