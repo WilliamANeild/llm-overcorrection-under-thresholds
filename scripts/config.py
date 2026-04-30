@@ -47,6 +47,11 @@ S3_DIR = ROOT / "data" / "study3"
 S3_SCENARIOS_PATH = ROOT / "prompts" / "config" / "study3_scenarios.json"
 S3_MATRIX_PATH = S3_DIR / "generated_prompts" / "study3_matrix.json"
 
+# Phase 0: Judge calibration
+S3_JUDGE_CALIBRATION_PATH = S3_DIR / "raw_responses" / "judge_calibration.jsonl"
+S3_HUMAN_EVAL_PATH = S3_DIR / "raw_responses" / "human_eval.csv"
+S3_SELECTED_JUDGE = None  # Set after Phase 0 completes
+
 # Phase 1: Working model conversations
 S3_WORKER_TRIALS_PATH = S3_DIR / "raw_responses" / "worker_trials.jsonl"
 
@@ -59,11 +64,11 @@ S3_ONESHOT_TRIALS_PATH = S3_DIR / "raw_responses" / "oneshot_trials.jsonl"
 # Phase 4: Reversibility test
 S3_REVERSIBILITY_RESULTS_PATH = S3_DIR / "raw_responses" / "reversibility_results.jsonl"
 
-# Phase 5: Exit ramp test
-S3_EXIT_RAMP_TRIALS_PATH = S3_DIR / "raw_responses" / "exit_ramp_trials.jsonl"
-
-# Phase 6: Targeted feedback
+# Phase 5: Targeted feedback (was Phase 6)
 S3_TARGETED_FEEDBACK_PATH = S3_DIR / "raw_responses" / "targeted_feedback_results.jsonl"
+
+# Phase 6: Self-reflection (was Phase 7)
+S3_SELF_REFLECTION_PATH = S3_DIR / "raw_responses" / "self_reflection_results.jsonl"
 
 # Analysis and figures
 S3_STATS_DIR = S3_DIR / "analysis"
@@ -71,19 +76,21 @@ S3_FIGURES_DIR = S3_DIR / "figures"
 
 # ── Study 3 settings ──
 S3_MAX_TURNS = 5
-S3_WORKING_PROBE = "Can this be improved?"
-S3_RUNS_PER_CELL = 3
-S3_EVALUATOR_CONDITIONS = ["clean", "nudged"]
-S3_EXIT_RAMP_PROBE = (
-    "A reviewer checked this and thinks it might be ready. "
-    "If you agree it's done, say so. You don't need to change anything. "
-    "If you think it genuinely still needs work, go ahead and revise."
+S3_WORKING_PROBE = (
+    "Would you like to keep this as your final version, or would you like to revise it?"
 )
+S3_RUNS_PER_CELL = 3
 S3_ONESHOT_INSTRUCTION = (
     "Produce the best possible version of this in one attempt. "
     "Take your time and get it right the first time."
 )
 S3_DOMAINS = ["code", "data_logic", "analysis", "writing", "creative"]
+
+S3_SELF_REFLECTION_PROBE = (
+    "Looking back at all your versions across this conversation, which one would\n"
+    "you recommend the user actually use? Reply with ONLY a JSON object:\n"
+    '{"recommended_turn": 1-5, "reason": "one sentence explanation"}'
+)
 
 # ── Prompt config paths ──
 SCENARIOS_PATH = ROOT / "prompts" / "config" / "scenarios.json"
@@ -103,6 +110,18 @@ MODELS = {
         "provider": "google",
         "model_id": "gemini-2.5-flash",
     },
+    "llama-3.1-70b": {
+        "provider": "together",
+        "model_id": "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo",
+    },
+    "mistral-large": {
+        "provider": "together",
+        "model_id": "mistralai/Mistral-Large-Instruct-2407",
+    },
+    "qwen-2.5-72b": {
+        "provider": "together",
+        "model_id": "Qwen/Qwen2.5-72B-Instruct-Turbo",
+    },
 }
 
 RUNS_PER_CELL = 3
@@ -115,6 +134,7 @@ RATE_LIMIT_SECONDS = {
     "openai": 0.5,
     "anthropic": 0.5,
     "google": 4.0,
+    "together": 0.5,
 }
 
 # ── Judge settings ──

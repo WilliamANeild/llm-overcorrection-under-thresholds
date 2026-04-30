@@ -24,6 +24,7 @@ from scripts.utils import (
     get_anthropic_client,
     get_google_client,
     get_openai_client,
+    get_together_client,
     load_json,
     load_jsonl,
     log_experiment_metadata,
@@ -82,6 +83,17 @@ def call_oneshot(provider: str, model_id: str, prompt: str) -> dict:
             "input": r.usage_metadata.prompt_token_count if hasattr(r, 'usage_metadata') and r.usage_metadata else None,
             "output": r.usage_metadata.candidates_token_count if hasattr(r, 'usage_metadata') and r.usage_metadata else None,
         }
+
+    elif provider == "together":
+        client = get_together_client()
+        r = retry_with_backoff(
+            client.chat.completions.create,
+            model=model_id,
+            messages=[{"role": "user", "content": prompt}],
+            temperature=1.0,
+        )
+        text = r.choices[0].message.content
+        tokens = {"input": r.usage.prompt_tokens, "output": r.usage.completion_tokens}
 
     else:
         raise ValueError(f"Unknown provider: {provider}")

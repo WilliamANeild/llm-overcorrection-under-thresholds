@@ -1,23 +1,29 @@
 """Analyze Study 3 (Revision Yield) results across all research questions.
 
-RQ1:  Revision Yield Curve
+RQ1:  Revision Yield Curve (quality trajectory by turn)
 RQ2:  Diminishing Return Point by domain
 RQ3:  Do models respect the DRP?
 RQ4:  Quality judgment vs conversational compliance
-RQ5:  Evaluator robustness (nudge test)
-RQ6:  Stylistic drift beyond DRP
-RQ7:  Token cost of ignoring DRP
-RQ8:  Targeted feedback vs generic prompting
-RQ9:  Cross-model patterns
-RQ10: One-shot ceiling test
-RQ11: Reversibility test
-RQ12: Exit ramp effectiveness
-RQ13: Cross-model convergence
+RQ5:  Token cost of zero-value revisions
+RQ6:  Stylistic drift and bloat over turns
+RQ7:  Targeted feedback vs generic prompting
+RQ8:  Cross-model patterns (do all 6 models show overcorrection?)
+RQ9:  One-shot ceiling vs iterative
+RQ10: Reversibility test (does model prefer its first draft?)
+RQ11: Cross-model output convergence
+RQ12: Instruction adherence decay
+RQ13: Performative revision (cosmetic-only changes)
+RQ14: Can the model spot its own overcorrection? (self-reflection)
+RQ15: Revision Yield equation and optimal stopping turn (CARY)
+RQ16: Unit economics (practical cost at budget tiers)
+RQ17: Overcorrection magnitude (continuous OCS, not binary)
 """
 
 import json
+import math
 import re
 import sys
+from collections import defaultdict
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
@@ -28,10 +34,10 @@ from scipy import stats as sp_stats
 
 from scripts.config import (
     S3_EVALUATOR_RESULTS_PATH,
-    S3_EXIT_RAMP_TRIALS_PATH,
     S3_FIGURES_DIR,
     S3_ONESHOT_TRIALS_PATH,
     S3_REVERSIBILITY_RESULTS_PATH,
+    S3_SELF_REFLECTION_PATH,
     S3_STATS_DIR,
     S3_TARGETED_FEEDBACK_PATH,
     S3_WORKER_TRIALS_PATH,
@@ -57,6 +63,13 @@ def classify_revision(response: str) -> bool:
         "no revisions needed", "the output is complete", "this is complete",
         "looks good", "is ready", "is done", "i agree", "well done",
         "complete as is", "no need",
+        # New decline phrases for neutral probe
+        "keep this as my final", "this is my final version",
+        "i'm satisfied", "no revisions needed", "i'd like to keep this",
+        "i would like to keep this", "keep this as the final",
+        "happy with this version", "this version is ready",
+        "final version", "no changes", "i'll keep this",
+        "i will keep this",
     ]
     for phrase in decline_phrases:
         if phrase in response_lower:
@@ -89,8 +102,9 @@ def load_worker_turns() -> pd.DataFrame:
 
 
 def load_evaluator() -> pd.DataFrame:
+    """Load evaluator results with 6-level scale."""
     results = load_jsonl(S3_EVALUATOR_RESULTS_PATH)
-    valid = [r for r in results if r.get("status") in ("done", "needs_work")]
+    valid = [r for r in results if r.get("level") is not None]
     return pd.DataFrame(valid)
 
 
@@ -98,46 +112,44 @@ def load_evaluator() -> pd.DataFrame:
 
 def rq1_revision_yield_curve(worker_df: pd.DataFrame, eval_df: pd.DataFrame) -> dict:
     print("\n== RQ1: Revision Yield Curve ==")
-    clean = eval_df[eval_df["condition"] == "clean"]
 
-    quality_by_turn = clean.groupby("turn")["quality"].mean()
+    level_by_turn = eval_df.groupby("turn")["level"].mean()
+    turns = sorted(level_by_turn.index)
+
     # MRY = quality delta between consecutive turns
-    turns = sorted(quality_by_turn.index)
     mry = {}
     for i in range(1, len(turns)):
-        mry[turns[i]] = float(quality_by_turn[turns[i]] - quality_by_turn[turns[i-1]])
+        mry[turns[i]] = float(level_by_turn[turns[i]] - level_by_turn[turns[i-1]])
 
-    print(f"\nMean quality by turn: {dict(zip(turns, [f'{quality_by_turn[t]:.2f}' for t in turns]))}")
+    print(f"\nMean level by turn: {dict(zip(turns, [f'{level_by_turn[t]:.2f}' for t in turns]))}")
     print(f"Marginal Revision Yield: {mry}")
 
-    return {"quality_by_turn": {int(t): float(quality_by_turn[t]) for t in turns}, "mry": mry}
+    return {"level_by_turn": {int(t): float(level_by_turn[t]) for t in turns}, "mry": mry}
 
 
 # ── RQ2: DRP by domain ──
 
 def rq2_drp_by_domain(eval_df: pd.DataFrame) -> dict:
     print("\n== RQ2: Diminishing Return Point by Domain ==")
-    clean = eval_df[eval_df["condition"] == "clean"]
     results = {}
 
-    for domain in sorted(clean["domain"].unique()):
-        subset = clean[clean["domain"] == domain]
-        quality_by_turn = subset.groupby("turn")["quality"].mean()
-        turns = sorted(quality_by_turn.index)
+    for domain in sorted(eval_df["domain"].unique()):
+        subset = eval_df[eval_df["domain"] == domain]
+        level_by_turn = subset.groupby("turn")["level"].mean()
+        turns = sorted(level_by_turn.index)
 
-        # DRP = first turn where MRY <= 0
+        # DRP = first turn where evaluator level >= 4 (Sufficient)
         drp = None
-        for i in range(1, len(turns)):
-            delta = quality_by_turn[turns[i]] - quality_by_turn[turns[i-1]]
-            if delta <= 0:
-                drp = turns[i]
+        for t in turns:
+            if level_by_turn[t] >= 4.0:
+                drp = t
                 break
 
         results[domain] = {
-            "quality_by_turn": {int(t): float(quality_by_turn[t]) for t in turns},
+            "level_by_turn": {int(t): float(level_by_turn[t]) for t in turns},
             "drp": drp,
         }
-        print(f"  {domain}: DRP at turn {drp}, quality trajectory: {[f'{quality_by_turn[t]:.2f}' for t in turns]}")
+        print(f"  {domain}: DRP at turn {drp}, level trajectory: {[f'{level_by_turn[t]:.2f}' for t in turns]}")
 
     return results
 
@@ -146,10 +158,9 @@ def rq2_drp_by_domain(eval_df: pd.DataFrame) -> dict:
 
 def rq3_overcorrection_rate(worker_df: pd.DataFrame, eval_df: pd.DataFrame) -> dict:
     print("\n== RQ3: Do Models Respect the DRP? ==")
-    clean = eval_df[eval_df["condition"] == "clean"]
 
-    # At each turn: evaluator "done" rate vs worker revision rate
-    eval_done = clean.groupby("turn").apply(lambda g: (g["status"] == "done").mean())
+    # At each turn: evaluator "done" rate (level >= 4) vs worker revision rate
+    eval_done = eval_df.groupby("turn").apply(lambda g: (g["level"] >= 3).mean())
     worker_t2plus = worker_df[worker_df["turn"] >= 2]
     worker_rev = worker_t2plus.groupby("turn")["revised"].mean()
 
@@ -169,14 +180,9 @@ def rq3_overcorrection_rate(worker_df: pd.DataFrame, eval_df: pd.DataFrame) -> d
 
 def rq4_compliance_mechanism(worker_df: pd.DataFrame, eval_df: pd.DataFrame) -> dict:
     print("\n== RQ4: Compliance vs Quality Judgment ==")
-    # Core logic: if evaluator says "done" at turn N but worker still revises at turn N,
-    # the revision is compliance-driven, not quality-driven.
-    clean = eval_df[eval_df["condition"] == "clean"]
 
-    # Merge evaluator judgments with worker behavior per trial+turn
     worker_t2 = worker_df[worker_df["turn"] >= 2][["trial_id", "turn", "revised"]].copy()
-    # Match eval to worker via worker_trial_id
-    eval_match = clean[["worker_trial_id", "turn", "status"]].copy()
+    eval_match = eval_df[["worker_trial_id", "turn", "level"]].copy()
     eval_match = eval_match.rename(columns={"worker_trial_id": "trial_id"})
 
     merged = worker_t2.merge(eval_match, on=["trial_id", "turn"], how="inner")
@@ -185,12 +191,12 @@ def rq4_compliance_mechanism(worker_df: pd.DataFrame, eval_df: pd.DataFrame) -> 
         print("  No matched data.")
         return {}
 
-    # Cases where evaluator says done but worker revises = compliance
-    compliance_cases = merged[(merged["status"] == "done") & (merged["revised"] == True)]
-    total_done_evals = merged[merged["status"] == "done"]
+    # Cases where evaluator says done (level >= 4) but worker revises = compliance
+    compliance_cases = merged[(merged["level"] >= 3) & (merged["revised"] == True)]
+    total_done_evals = merged[merged["level"] >= 3]
 
     compliance_rate = len(compliance_cases) / len(total_done_evals) if len(total_done_evals) > 0 else 0
-    print(f"  Evaluator says 'done': {len(total_done_evals)} cases")
+    print(f"  Evaluator says 'done' (level >= 4): {len(total_done_evals)} cases")
     print(f"  Worker revises anyway: {len(compliance_cases)} ({compliance_rate:.1%})")
     print(f"  -> Compliance-driven revision rate: {compliance_rate:.1%}")
 
@@ -201,50 +207,45 @@ def rq4_compliance_mechanism(worker_df: pd.DataFrame, eval_df: pd.DataFrame) -> 
     }
 
 
-# ── RQ5: Evaluator sycophancy (nudge test) ──
+# ── RQ5: Token cost ──
 
-def rq5_nudge_test(eval_df: pd.DataFrame) -> dict:
-    print("\n== RQ5: Evaluator Sycophancy (Nudge Test) ==")
-    clean = eval_df[eval_df["condition"] == "clean"][["worker_trial_id", "turn", "status", "quality"]].copy()
-    nudged = eval_df[eval_df["condition"] == "nudged"][["worker_trial_id", "turn", "status", "quality"]].copy()
+def rq5_token_cost(worker_df: pd.DataFrame, eval_df: pd.DataFrame) -> dict:
+    print("\n== RQ5: Token Cost of Zero-Value Revisions ==")
 
-    merged = clean.merge(nudged, on=["worker_trial_id", "turn"], suffixes=("_clean", "_nudged"))
+    # For each trial, find the first turn where evaluator level >= 4
+    drp_per_trial = eval_df[eval_df["level"] >= 3].groupby("worker_trial_id")["turn"].min()
 
-    if merged.empty:
-        print("  No paired data.")
-        return {}
+    trials = load_jsonl(S3_WORKER_TRIALS_PATH)
+    trial_tokens = {}
+    for trial in [t for t in trials if t.get("status") == "success"]:
+        total_output = sum((tc.get("output", 0) or 0) for tc in (trial.get("token_counts") or []))
+        tokens_by_turn = [(tc.get("output", 0) or 0) for tc in (trial.get("token_counts") or [])]
+        trial_tokens[trial["trial_id"]] = {
+            "total_output": total_output,
+            "by_turn": tokens_by_turn,
+        }
 
-    # Flip rate: % of "done" that become "needs_work" under nudge
-    done_clean = merged[merged["status_clean"] == "done"]
-    flipped = (done_clean["status_nudged"] == "needs_work").sum() if len(done_clean) > 0 else 0
-    flip_rate = flipped / len(done_clean) if len(done_clean) > 0 else 0
+    wasted_tokens = []
+    for trial_id, drp_turn in drp_per_trial.items():
+        if trial_id in trial_tokens:
+            tokens = trial_tokens[trial_id]["by_turn"]
+            wasted = sum(tokens[drp_turn:])  # tokens after DRP
+            total = sum(tokens)
+            wasted_pct = wasted / total if total > 0 else 0
+            wasted_tokens.append({"wasted": wasted, "total": total, "pct": wasted_pct})
 
-    print(f"  Paired judgments: {len(merged)}")
-    print(f"  Clean 'done': {len(done_clean)}")
-    print(f"  Flipped to 'needs_work' under nudge: {flipped} ({flip_rate:.1%})")
+    if wasted_tokens:
+        mean_pct = np.mean([w["pct"] for w in wasted_tokens])
+        mean_wasted = np.mean([w["wasted"] for w in wasted_tokens])
+        total_wasted = sum(w["wasted"] for w in wasted_tokens)
+        print(f"  Trials with DRP identified: {len(wasted_tokens)}")
+        print(f"  Mean wasted token %: {mean_pct:.1%}")
+        print(f"  Mean wasted tokens per trial: {mean_wasted:.0f}")
+        print(f"  Total wasted output tokens: {total_wasted:,}")
+        return {"mean_wasted_pct": float(mean_pct), "mean_wasted_tokens": float(mean_wasted), "n_trials": len(wasted_tokens)}
 
-    # McNemar's test
-    a = ((merged["status_clean"] == "done") & (merged["status_nudged"] == "done")).sum()
-    b = ((merged["status_clean"] == "done") & (merged["status_nudged"] == "needs_work")).sum()
-    c = ((merged["status_clean"] == "needs_work") & (merged["status_nudged"] == "done")).sum()
-    d = ((merged["status_clean"] == "needs_work") & (merged["status_nudged"] == "needs_work")).sum()
-
-    mcnemar_p = None
-    if b + c > 0:
-        chi2 = (abs(b - c) - 1) ** 2 / (b + c)
-        mcnemar_p = float(sp_stats.chi2.sf(chi2, 1))
-        print(f"  McNemar chi2={chi2:.2f}, p={mcnemar_p:.4f}")
-
-    # Wilcoxon on quality
-    quality_diff = merged["quality_clean"] - merged["quality_nudged"]
-    non_zero = quality_diff[quality_diff != 0]
-    wilcoxon_p = None
-    if len(non_zero) > 0:
-        stat, wilcoxon_p = sp_stats.wilcoxon(non_zero)
-        wilcoxon_p = float(wilcoxon_p)
-        print(f"  Wilcoxon (quality diff): stat={stat:.1f}, p={wilcoxon_p:.4f}, mean diff={quality_diff.mean():.3f}")
-
-    return {"flip_rate": float(flip_rate), "mcnemar_p": mcnemar_p, "wilcoxon_p": wilcoxon_p}
+    print("  No DRP data available.")
+    return {}
 
 
 # ── RQ6: Stylistic drift ──
@@ -282,7 +283,6 @@ def rq6_stylistic_drift(worker_df: pd.DataFrame) -> dict:
     for turn, row in drift.iterrows():
         print(f"  {turn}   | {row['word_count']:.0f}       | {row['type_token_ratio']:.3f}   | {row['char_count']:.0f}")
 
-    # Spearman: turn vs word count (expecting positive = gets longer)
     rho_len, p_len = sp_stats.spearmanr(df["turn"], df["word_count"])
     rho_ttr, p_ttr = sp_stats.spearmanr(df["turn"], df["type_token_ratio"])
     print(f"\n  Turn vs word_count: rho={rho_len:.3f}, p={p_len:.4f}")
@@ -295,77 +295,34 @@ def rq6_stylistic_drift(worker_df: pd.DataFrame) -> dict:
     }
 
 
-# ── RQ7: Token cost ──
+# ── RQ7: Targeted feedback ──
 
-def rq7_token_cost(worker_df: pd.DataFrame, eval_df: pd.DataFrame) -> dict:
-    print("\n== RQ7: Token Cost of Ignoring the DRP ==")
-    clean = eval_df[eval_df["condition"] == "clean"]
-
-    # For each trial, find the first turn where evaluator says "done"
-    drp_per_trial = clean[clean["status"] == "done"].groupby("worker_trial_id")["turn"].min()
-
-    # Merge with token data
-    trials = load_jsonl(S3_WORKER_TRIALS_PATH)
-    trial_tokens = {}
-    for trial in [t for t in trials if t.get("status") == "success"]:
-        total_output = sum((tc.get("output", 0) or 0) for tc in (trial.get("token_counts") or []))
-        tokens_by_turn = [(tc.get("output", 0) or 0) for tc in (trial.get("token_counts") or [])]
-        trial_tokens[trial["trial_id"]] = {
-            "total_output": total_output,
-            "by_turn": tokens_by_turn,
-        }
-
-    wasted_tokens = []
-    for trial_id, drp_turn in drp_per_trial.items():
-        if trial_id in trial_tokens:
-            tokens = trial_tokens[trial_id]["by_turn"]
-            # Tokens beyond the DRP
-            wasted = sum(tokens[drp_turn:])  # drp_turn is 1-indexed, list is 0-indexed, so [drp_turn:] = after DRP
-            total = sum(tokens)
-            wasted_pct = wasted / total if total > 0 else 0
-            wasted_tokens.append({"wasted": wasted, "total": total, "pct": wasted_pct})
-
-    if wasted_tokens:
-        mean_pct = np.mean([w["pct"] for w in wasted_tokens])
-        mean_wasted = np.mean([w["wasted"] for w in wasted_tokens])
-        total_wasted = sum(w["wasted"] for w in wasted_tokens)
-        print(f"  Trials with DRP identified: {len(wasted_tokens)}")
-        print(f"  Mean wasted token %: {mean_pct:.1%}")
-        print(f"  Mean wasted tokens per trial: {mean_wasted:.0f}")
-        print(f"  Total wasted output tokens: {total_wasted:,}")
-        return {"mean_wasted_pct": float(mean_pct), "mean_wasted_tokens": float(mean_wasted), "n_trials": len(wasted_tokens)}
-
-    print("  No DRP data available.")
-    return {}
-
-
-# ── RQ8: Targeted feedback ──
-
-def rq8_targeted_feedback() -> dict:
-    print("\n== RQ8: Targeted Feedback vs Generic Prompting ==")
+def rq7_targeted_feedback() -> dict:
+    print("\n== RQ7: Targeted Feedback vs Generic Prompting ==")
     results = load_jsonl(S3_TARGETED_FEEDBACK_PATH)
     if not results:
         print("  No targeted feedback data.")
         return {}
 
-    valid = [r for r in results if r.get("targeted_quality") and r.get("generic_next_quality")]
+    valid = [r for r in results if r.get("targeted_level") and r.get("generic_next_level")]
     if not valid:
         print("  No valid paired comparisons.")
         return {}
 
-    targeted = [r["targeted_quality"] for r in valid]
-    generic = [r["generic_next_quality"] for r in valid]
-    deltas = [r["quality_delta"] for r in valid]
+    targeted = [r["targeted_level"] for r in valid]
+    generic = [r["generic_next_level"] for r in valid]
+    deltas = [r["level_delta"] for r in valid]
 
     mean_targeted = np.mean(targeted)
     mean_generic = np.mean(generic)
     mean_delta = np.mean(deltas)
 
-    stat, p = sp_stats.wilcoxon([t - g for t, g in zip(targeted, generic) if t != g]) if any(t != g for t, g in zip(targeted, generic)) else (0, 1.0)
+    diffs = [t - g for t, g in zip(targeted, generic) if t != g]
+    stat, p = sp_stats.wilcoxon(diffs) if diffs else (0, 1.0)
 
     print(f"  N pairs: {len(valid)}")
-    print(f"  Mean targeted quality: {mean_targeted:.2f}")
-    print(f"  Mean generic quality: {mean_generic:.2f}")
+    print(f"  Mean targeted level: {mean_targeted:.2f}")
+    print(f"  Mean generic level: {mean_generic:.2f}")
     print(f"  Mean delta (targeted - generic): {mean_delta:+.2f}")
     print(f"  Wilcoxon: stat={stat:.1f}, p={float(p):.4f}")
 
@@ -373,22 +330,20 @@ def rq8_targeted_feedback() -> dict:
             "mean_delta": float(mean_delta), "wilcoxon_p": float(p)}
 
 
-# ── RQ9: Cross-model ──
+# ── RQ8: Cross-model ──
 
-def rq9_cross_model(worker_df: pd.DataFrame, eval_df: pd.DataFrame) -> dict:
-    print("\n== RQ9: Cross-Model Comparison ==")
-    clean = eval_df[eval_df["condition"] == "clean"]
+def rq8_cross_model(worker_df: pd.DataFrame, eval_df: pd.DataFrame) -> dict:
+    print("\n== RQ8: Cross-Model Comparison ==")
     results = {}
 
     for model in sorted(worker_df["model"].unique()):
-        m_eval = clean[clean["model"] == model]
+        m_eval = eval_df[eval_df["model"] == model]
         m_worker = worker_df[(worker_df["model"] == model) & (worker_df["turn"] >= 2)]
 
-        eval_done = m_eval.groupby("turn").apply(lambda g: (g["status"] == "done").mean())
+        eval_done = m_eval.groupby("turn").apply(lambda g: (g["level"] >= 3).mean())
         worker_rev = m_worker.groupby("turn")["revised"].mean()
-        quality = m_eval.groupby("turn")["quality"].mean()
+        level = m_eval.groupby("turn")["level"].mean()
 
-        # Compute mean overcorrection gap
         shared_turns = sorted(set(eval_done.index) & set(worker_rev.index))
         gaps = [worker_rev[t] - (1 - eval_done[t]) for t in shared_turns]
         mean_gap = np.mean(gaps) if gaps else 0
@@ -396,7 +351,7 @@ def rq9_cross_model(worker_df: pd.DataFrame, eval_df: pd.DataFrame) -> dict:
         results[model] = {
             "eval_done_rate": {int(k): float(v) for k, v in eval_done.items()},
             "worker_revision_rate": {int(k): float(v) for k, v in worker_rev.items()},
-            "quality_by_turn": {int(k): float(v) for k, v in quality.items()},
+            "level_by_turn": {int(k): float(v) for k, v in level.items()},
             "mean_overcorrection_gap": float(mean_gap),
         }
         print(f"  {model}: mean overcorrection gap = {mean_gap:+.1%}")
@@ -404,21 +359,18 @@ def rq9_cross_model(worker_df: pd.DataFrame, eval_df: pd.DataFrame) -> dict:
     return results
 
 
-# ── RQ10: One-shot ceiling ──
+# ── RQ9: One-shot ceiling ──
 
-def rq10_oneshot_ceiling(eval_df: pd.DataFrame) -> dict:
-    print("\n== RQ10: One-Shot Ceiling Test ==")
+def rq9_oneshot_ceiling(eval_df: pd.DataFrame) -> dict:
+    print("\n== RQ9: One-Shot Ceiling Test ==")
     oneshot_trials = load_jsonl(S3_ONESHOT_TRIALS_PATH)
     if not oneshot_trials:
         print("  No one-shot data.")
         return {}
 
-    # We need to evaluate one-shot outputs with the same blind evaluator
-    # For now, compare token cost: one-shot tokens vs iterative total tokens
     successful = [t for t in oneshot_trials if t.get("status") == "success"]
     print(f"  One-shot trials: {len(successful)}")
 
-    # Compare one-shot output tokens to iterative total output tokens
     worker_trials = load_jsonl(S3_WORKER_TRIALS_PATH)
     worker_map = {}
     for t in worker_trials:
@@ -447,10 +399,10 @@ def rq10_oneshot_ceiling(eval_df: pd.DataFrame) -> dict:
     return {}
 
 
-# ── RQ11: Reversibility ──
+# ── RQ10: Reversibility ──
 
-def rq11_reversibility() -> dict:
-    print("\n== RQ11: Reversibility Test ==")
+def rq10_reversibility() -> dict:
+    print("\n== RQ10: Reversibility Test ==")
     results = load_jsonl(S3_REVERSIBILITY_RESULTS_PATH)
     if not results:
         print("  No reversibility data.")
@@ -468,14 +420,12 @@ def rq11_reversibility() -> dict:
     print(f"  Prefers Turn 1: {prefers_t1} ({t1_rate:.1%})")
     print(f"  Prefers Turn 5: {prefers_t5} ({1-t1_rate:.1%})")
 
-    # Binomial test: is preference for T1 significantly above chance (50%)?
     if total > 0:
         binom_p = float(sp_stats.binomtest(prefers_t1, total, 0.5).pvalue)
         print(f"  Binomial test (vs 50%): p={binom_p:.4f}")
     else:
         binom_p = None
 
-    # By domain
     domain_results = {}
     for r in valid:
         d = r.get("domain", "unknown")
@@ -495,81 +445,19 @@ def rq11_reversibility() -> dict:
     return {"prefers_t1_rate": float(t1_rate), "n": total, "binom_p": binom_p, "by_domain": domain_results}
 
 
-# ── RQ12: Exit ramp ──
+# ── RQ11: Cross-model convergence ──
 
-def rq12_exit_ramp() -> dict:
-    print("\n== RQ12: Exit Ramp Effectiveness ==")
-    trials = load_jsonl(S3_EXIT_RAMP_TRIALS_PATH)
-    successful = [t for t in trials if t.get("status") == "success"]
-    if not successful:
-        print("  No exit ramp data.")
-        return {}
-
-    # Turn 3 is the exit ramp. Did the model accept (decline to revise)?
-    accepted = 0
-    total = 0
-    by_model = {}
-
-    for trial in successful:
-        if len(trial.get("responses", [])) >= 3:
-            total += 1
-            t3 = trial["responses"][2]
-            is_rev = classify_revision(t3)
-            if not is_rev:
-                accepted += 1
-            model = trial["model"]
-            if model not in by_model:
-                by_model[model] = {"accepted": 0, "total": 0}
-            by_model[model]["total"] += 1
-            if not is_rev:
-                by_model[model]["accepted"] += 1
-
-    accept_rate = accepted / total if total > 0 else 0
-    print(f"  Total trials: {total}")
-    print(f"  Exit ramp accepted: {accepted} ({accept_rate:.1%})")
-    print(f"  Exit ramp ignored (revised anyway): {total - accepted} ({1-accept_rate:.1%})")
-
-    print("\n  By model:")
-    for model, counts in sorted(by_model.items()):
-        rate = counts["accepted"] / counts["total"] if counts["total"] > 0 else 0
-        print(f"    {model}: accepted {counts['accepted']}/{counts['total']} ({rate:.1%})")
-
-    # Compare to Phase 1 turn 3 revision rate (all "Can this be improved?")
-    worker_trials = load_jsonl(S3_WORKER_TRIALS_PATH)
-    worker_t3_revisions = 0
-    worker_t3_total = 0
-    for trial in [t for t in worker_trials if t.get("status") == "success"]:
-        if len(trial.get("responses", [])) >= 3:
-            worker_t3_total += 1
-            if classify_revision(trial["responses"][2]):
-                worker_t3_revisions += 1
-
-    baseline_rate = worker_t3_revisions / worker_t3_total if worker_t3_total > 0 else 0
-    reduction = baseline_rate - (1 - accept_rate)
-    print(f"\n  Baseline turn-3 revision rate (Phase 1): {baseline_rate:.1%}")
-    print(f"  Exit ramp turn-3 revision rate: {1-accept_rate:.1%}")
-    print(f"  Reduction: {reduction:+.1%}")
-
-    return {"accept_rate": float(accept_rate), "baseline_revision_rate": float(baseline_rate),
-            "by_model": {m: c["accepted"]/c["total"] for m, c in by_model.items() if c["total"] > 0}}
-
-
-# ── RQ13: Cross-model convergence ──
-
-def rq13_convergence() -> dict:
-    print("\n== RQ13: Cross-Model Convergence ==")
+def rq11_convergence() -> dict:
+    print("\n== RQ11: Cross-Model Convergence ==")
     trials = load_jsonl(S3_WORKER_TRIALS_PATH)
     successful = [t for t in trials if t.get("status") == "success"]
 
-    # Group by scenario+run, compute pairwise length similarity across models per turn
-    from collections import defaultdict
     grouped = defaultdict(lambda: defaultdict(dict))
     for trial in successful:
         key = (trial["scenario_id"], trial["run"])
         for turn_idx, response in enumerate(trial["responses"]):
             grouped[key][turn_idx + 1][trial["model"]] = len(response)
 
-    # For each turn, compute coefficient of variation of response lengths across models
     cv_by_turn = defaultdict(list)
     for key, turns in grouped.items():
         for turn, model_lengths in turns.items():
@@ -581,7 +469,6 @@ def rq13_convergence() -> dict:
                 cv_by_turn[turn].append(cv)
 
     print("\nCoefficient of variation in response length across models by turn:")
-    print("(Lower CV = more convergence)")
     results = {}
     for turn in sorted(cv_by_turn.keys()):
         mean_cv = np.mean(cv_by_turn[turn])
@@ -596,6 +483,441 @@ def rq13_convergence() -> dict:
         print(f"  {'Converging' if rho < 0 else 'Diverging'} across turns")
 
     return {"cv_by_turn": results}
+
+
+# ── RQ12: Instruction adherence decay ──
+
+def rq12_instruction_adherence(worker_df: pd.DataFrame) -> dict:
+    print("\n== RQ12: Instruction Adherence Decay ==")
+    trials = load_jsonl(S3_WORKER_TRIALS_PATH)
+    successful = [t for t in trials if t.get("status") == "success"]
+
+    # Measure adherence proxies: response still addresses the original task
+    # Use word overlap with task prompt as a simple adherence signal
+    rows = []
+    for trial in successful:
+        task_words = set(trial["task_prompt"].lower().split())
+        for turn_idx, response in enumerate(trial["responses"]):
+            resp_words = set(response.lower().split())
+            overlap = len(task_words & resp_words) / len(task_words) if task_words else 0
+            rows.append({
+                "trial_id": trial["trial_id"],
+                "model": trial["model"],
+                "domain": trial["domain"],
+                "turn": turn_idx + 1,
+                "task_overlap": overlap,
+            })
+
+    df = pd.DataFrame(rows)
+    if df.empty:
+        print("  No data.")
+        return {}
+
+    overlap_by_turn = df.groupby("turn")["task_overlap"].mean()
+    print("\nTurn | Mean task-word overlap")
+    print("-" * 35)
+    for turn, overlap in overlap_by_turn.items():
+        print(f"  {turn}   | {overlap:.3f}")
+
+    rho, p = sp_stats.spearmanr(df["turn"], df["task_overlap"])
+    print(f"\n  Spearman (turn vs overlap): rho={rho:.3f}, p={p:.4f}")
+
+    return {
+        "overlap_by_turn": {int(k): float(v) for k, v in overlap_by_turn.items()},
+        "correlation": {"rho": float(rho), "p": float(p)},
+    }
+
+
+# ── RQ13: Performative revision (cosmetic-only changes) ──
+
+def rq13_performative_revision() -> dict:
+    print("\n== RQ13: Performative Revision (Cosmetic-Only Changes) ==")
+    trials = load_jsonl(S3_WORKER_TRIALS_PATH)
+    successful = [t for t in trials if t.get("status") == "success"]
+
+    cosmetic_count = 0
+    total_revisions = 0
+
+    for trial in successful:
+        for turn_idx in range(1, len(trial["responses"])):
+            prev = trial["responses"][turn_idx - 1]
+            curr = trial["responses"][turn_idx]
+
+            if not classify_revision(curr):
+                continue
+
+            total_revisions += 1
+
+            # Cosmetic = only whitespace, punctuation, or case changes
+            prev_words = re.sub(r'[^\w\s]', '', prev.lower()).split()
+            curr_words = re.sub(r'[^\w\s]', '', curr.lower()).split()
+
+            # If the normalized word lists are identical, it's cosmetic
+            if prev_words == curr_words:
+                cosmetic_count += 1
+
+    cosmetic_rate = cosmetic_count / total_revisions if total_revisions > 0 else 0
+    print(f"  Total revisions analyzed: {total_revisions}")
+    print(f"  Cosmetic-only changes: {cosmetic_count} ({cosmetic_rate:.1%})")
+
+    return {"total_revisions": total_revisions, "cosmetic_count": cosmetic_count, "cosmetic_rate": float(cosmetic_rate)}
+
+
+# ── RQ14: Self-reflection ──
+
+def rq14_self_reflection() -> dict:
+    print("\n== RQ14: Self-Reflection ==")
+    results = load_jsonl(S3_SELF_REFLECTION_PATH)
+    if not results:
+        print("  No self-reflection data.")
+        return {}
+
+    valid = [r for r in results if r.get("recommended_turn") is not None]
+    if not valid:
+        print("  No valid responses.")
+        return {}
+
+    rec_turns = [r["recommended_turn"] for r in valid]
+    mean_rec = np.mean(rec_turns)
+    rec_dist = defaultdict(int)
+    for t in rec_turns:
+        rec_dist[t] += 1
+
+    print(f"  Valid responses: {len(valid)}")
+    print(f"  Mean recommended turn: {mean_rec:.2f}")
+    print(f"  Distribution: {dict(sorted(rec_dist.items()))}")
+
+    # How often does model recommend something other than the last turn?
+    not_last = sum(1 for t in rec_turns if t < 5)
+    not_last_rate = not_last / len(rec_turns)
+    print(f"  Recommends not-last turn: {not_last} ({not_last_rate:.1%})")
+
+    # By model
+    by_model = defaultdict(list)
+    for r in valid:
+        by_model[r["model"]].append(r["recommended_turn"])
+    print("\n  By model:")
+    for model in sorted(by_model.keys()):
+        turns = by_model[model]
+        print(f"    {model}: mean={np.mean(turns):.2f}, not-last={sum(1 for t in turns if t < 5)}/{len(turns)}")
+
+    return {
+        "mean_recommended_turn": float(mean_rec),
+        "distribution": dict(rec_dist),
+        "not_last_rate": float(not_last_rate),
+        "by_model": {m: {"mean": float(np.mean(t)), "n": len(t)} for m, t in by_model.items()},
+    }
+
+
+# ── RQ15: Revision Yield Equations (MRY, CRY, CARY) ──
+
+def compute_mry(quality_by_turn: dict, tokens_by_turn: dict) -> dict:
+    """Marginal Revision Yield: MRY(t) = [Q(t) - Q(t-1)] / T(t)"""
+    turns = sorted(quality_by_turn.keys())
+    mry = {}
+    for i in range(1, len(turns)):
+        t = turns[i]
+        t_prev = turns[i-1]
+        token_t = tokens_by_turn.get(t, 1)
+        mry[t] = (quality_by_turn[t] - quality_by_turn[t_prev]) / max(token_t, 1)
+    return mry
+
+
+def compute_cry(quality_by_turn: dict, tokens_by_turn: dict) -> dict:
+    """Cumulative Revision Yield: CRY(n) = [Q(n) - Q(1)] / sum T(2..n)"""
+    turns = sorted(quality_by_turn.keys())
+    if len(turns) < 2:
+        return {}
+    q1 = quality_by_turn[turns[0]]
+    cry = {}
+    cum_tokens = 0
+    for i in range(1, len(turns)):
+        t = turns[i]
+        cum_tokens += tokens_by_turn.get(t, 0)
+        if cum_tokens > 0:
+            cry[t] = (quality_by_turn[t] - q1) / cum_tokens
+        else:
+            cry[t] = 0.0
+    return cry
+
+
+def compute_cary(quality_by_turn: dict, tokens_by_turn: dict, C: float) -> dict:
+    """Cost-Adjusted Revision Yield: CARY(t) = [Q(t)/4] * e^(-C * T_cum(t))"""
+    turns = sorted(quality_by_turn.keys())
+    cary = {}
+    t_cum = 0
+    for t in turns:
+        t_cum += tokens_by_turn.get(t, 0)
+        cary[t] = (quality_by_turn[t] / 6.0) * math.exp(-C * t_cum)
+    return cary
+
+
+def rq15_revision_yield_equations(eval_df: pd.DataFrame, worker_df: pd.DataFrame) -> dict:
+    print("\n== RQ15: Revision Yield Equations ==")
+
+    # Aggregate quality and tokens by turn
+    level_by_turn = eval_df.groupby("turn")["level"].mean().to_dict()
+    tokens_by_turn = worker_df.groupby("turn")["output_tokens"].mean().to_dict()
+
+    mry = compute_mry(level_by_turn, tokens_by_turn)
+    cry = compute_cry(level_by_turn, tokens_by_turn)
+
+    # CARY at multiple C values
+    c_values = {
+        "unlimited": 0,
+        "api_heavy": 2e-8,
+        "api_light": 2e-7,
+        "pro": 5e-7,
+        "max": 1e-6,
+        "plus": 2e-6,
+        "free": 1e-5,
+    }
+
+    cary_results = {}
+    optimal_stops = {}
+    for label, c_val in c_values.items():
+        cary = compute_cary(level_by_turn, tokens_by_turn, c_val)
+        cary_results[label] = {int(k): float(v) for k, v in cary.items()}
+        if cary:
+            t_star = max(cary.keys(), key=lambda t: cary[t])
+            optimal_stops[label] = int(t_star)
+
+    print(f"\nMRY: {mry}")
+    print(f"CRY: {cry}")
+    print(f"Optimal stopping turns by budget tier: {optimal_stops}")
+
+    # DRP using MRY definition
+    drp = None
+    for t in sorted(mry.keys()):
+        if mry[t] <= 0:
+            drp = t
+            break
+
+    print(f"DRP (first turn with MRY <= 0): {drp}")
+
+    return {
+        "mry": {int(k): float(v) for k, v in mry.items()},
+        "cry": {int(k): float(v) for k, v in cry.items()},
+        "cary": cary_results,
+        "optimal_stops": optimal_stops,
+        "drp": drp,
+    }
+
+
+# ── RQ16: Unit economics ──
+
+# Real 2025 API pricing (per output token)
+API_PRICING = {
+    "gpt-4o": 10.0 / 1_000_000,       # $10/1M output tokens
+    "claude-sonnet-4": 15.0 / 1_000_000,  # $15/1M output tokens
+    "gemini-2.5-flash": 0.40 / 1_000_000,  # $0.40/1M output tokens
+    "llama-3.1-70b": 0.88 / 1_000_000,   # $0.88/1M output tokens
+    "mistral-large": 2.00 / 1_000_000,   # $2.00/1M output tokens
+    "qwen-2.5-72b": 0.90 / 1_000_000,    # $0.90/1M output tokens
+}
+
+BUDGET_TIERS = {
+    "free": 100_000,
+    "plus": 500_000,
+    "pro": 2_000_000,
+    "max": 2_000_000,
+    "api_light": 5_000_000,
+    "api_heavy": 50_000_000,
+}
+
+
+def rq16_unit_economics(eval_df: pd.DataFrame, worker_df: pd.DataFrame) -> dict:
+    print("\n== RQ16: Unit Economics ==")
+    results = {}
+
+    for model in sorted(worker_df["model"].unique()):
+        m_eval = eval_df[eval_df["model"] == model]
+        m_worker = worker_df[worker_df["model"] == model]
+
+        level_by_turn = m_eval.groupby("turn")["level"].mean().to_dict()
+        tokens_by_turn = m_worker.groupby("turn")["output_tokens"].mean().to_dict()
+        turns = sorted(level_by_turn.keys())
+
+        if not turns:
+            continue
+
+        # Tokens for each stopping strategy
+        t1_tokens = tokens_by_turn.get(1, 0)
+        full_tokens = sum(tokens_by_turn.get(t, 0) for t in turns)
+
+        # Find optimal stop using CARY at C=5e-7 (Pro tier)
+        cary = compute_cary(level_by_turn, tokens_by_turn, 5e-7)
+        t_star = max(cary.keys(), key=lambda t: cary[t]) if cary else 1
+        opt_tokens = sum(tokens_by_turn.get(t, 0) for t in turns if t <= t_star)
+
+        # Quality at each strategy
+        q1 = level_by_turn.get(1, 0)
+        q_opt = level_by_turn.get(t_star, 0)
+        q_full = level_by_turn.get(max(turns), 0)
+
+        # Revision tax
+        revision_tax = ((full_tokens - opt_tokens) / opt_tokens * 100) if opt_tokens > 0 else 0
+
+        # Token waste rate
+        token_waste = ((full_tokens - opt_tokens) / full_tokens * 100) if full_tokens > 0 else 0
+
+        # Dollar cost of overcorrection
+        price = API_PRICING.get(model, 0)
+        waste_dollars = (full_tokens - opt_tokens) * price
+
+        model_result = {
+            "t_star": int(t_star),
+            "t1_tokens": float(t1_tokens),
+            "opt_tokens": float(opt_tokens),
+            "full_tokens": float(full_tokens),
+            "q1": float(q1),
+            "q_opt": float(q_opt),
+            "q_full": float(q_full),
+            "revision_tax_pct": float(revision_tax),
+            "token_waste_pct": float(token_waste),
+            "waste_dollars_per_task": float(waste_dollars),
+        }
+
+        # Per-domain breakdown
+        domain_results = {}
+        for domain in sorted(m_worker["domain"].unique()):
+            d_eval = m_eval[m_eval["domain"] == domain]
+            d_worker = m_worker[m_worker["domain"] == domain]
+            d_level = d_eval.groupby("turn")["level"].mean().to_dict()
+            d_tokens = d_worker.groupby("turn")["output_tokens"].mean().to_dict()
+            d_turns = sorted(d_level.keys())
+            if not d_turns:
+                continue
+            d_cary = compute_cary(d_level, d_tokens, 5e-7)
+            d_tstar = max(d_cary.keys(), key=lambda t: d_cary[t]) if d_cary else 1
+            d_full = sum(d_tokens.get(t, 0) for t in d_turns)
+            d_opt = sum(d_tokens.get(t, 0) for t in d_turns if t <= d_tstar)
+            d_tax = ((d_full - d_opt) / d_opt * 100) if d_opt > 0 else 0
+            domain_results[domain] = {
+                "t_star": int(d_tstar),
+                "revision_tax_pct": float(d_tax),
+                "q_opt": float(d_level.get(d_tstar, 0)),
+                "q_full": float(d_level.get(max(d_turns), 0)),
+            }
+
+        model_result["by_domain"] = domain_results
+        results[model] = model_result
+
+        print(f"\n  {model}:")
+        print(f"    Optimal stop: turn {t_star}")
+        print(f"    Quality: T1={q1:.2f}, Optimal={q_opt:.2f}, Full={q_full:.2f}")
+        print(f"    Tokens: T1={t1_tokens:.0f}, Optimal={opt_tokens:.0f}, Full={full_tokens:.0f}")
+        print(f"    Revision Tax: {revision_tax:.0f}%")
+        print(f"    Waste per task: ${waste_dollars:.4f}")
+
+    return results
+
+
+# ── RQ17: Overcorrection Magnitude (continuous OCS) ──
+
+def rq17_overcorrection_magnitude(eval_df: pd.DataFrame, worker_df: pd.DataFrame) -> dict:
+    print("\n== RQ17: Overcorrection Magnitude (OCS) ==")
+
+    # For each trial, find t_done (first turn with level >= 4)
+    drp_per_trial = eval_df[eval_df["level"] >= 3].groupby("worker_trial_id")["turn"].min()
+
+    trials = load_jsonl(S3_WORKER_TRIALS_PATH)
+    trial_data = {}
+    for t in trials:
+        if t.get("status") == "success":
+            total_tokens = sum((tc.get("output", 0) or 0) for tc in (t.get("token_counts") or []))
+            tokens_by_turn = [(tc.get("output", 0) or 0) for tc in (t.get("token_counts") or [])]
+            trial_data[t["trial_id"]] = {
+                "total_tokens": total_tokens,
+                "tokens_by_turn": tokens_by_turn,
+                "n_turns": len(t["responses"]),
+                "model": t["model"],
+                "domain": t["domain"],
+            }
+
+    # Get quality at t_done and final turn
+    eval_by_trial_turn = {}
+    for _, row in eval_df.iterrows():
+        eval_by_trial_turn[(row["worker_trial_id"], row["turn"])] = row["level"]
+
+    ocs_scores = []
+    for trial_id, t_done in drp_per_trial.items():
+        if trial_id not in trial_data:
+            continue
+        td = trial_data[trial_id]
+        n_turns = td["n_turns"]
+        max_er = n_turns - t_done
+
+        if max_er <= 0:
+            continue
+
+        # Component 1: Excess Rounds
+        er = n_turns - t_done
+
+        # Component 2: Wasted Token Fraction
+        tokens_after = sum(td["tokens_by_turn"][t_done:])
+        total_tokens = td["total_tokens"]
+        wtf = tokens_after / total_tokens if total_tokens > 0 else 0
+
+        # Component 3: Quality Regression
+        q_done = eval_by_trial_turn.get((trial_id, t_done), None)
+        q_final = eval_by_trial_turn.get((trial_id, n_turns), None)
+        if q_done is not None and q_final is not None:
+            qr = max(0, q_done - q_final)
+        else:
+            qr = 0
+
+        # Composite OCS
+        ocs = 0.25 * (er / max_er) + 0.25 * wtf + 0.50 * (qr / 5.0)
+
+        ocs_scores.append({
+            "trial_id": trial_id,
+            "model": td["model"],
+            "domain": td["domain"],
+            "t_done": int(t_done),
+            "excess_rounds": er,
+            "wasted_token_fraction": float(wtf),
+            "quality_regression": float(qr),
+            "ocs": float(ocs),
+        })
+
+    if not ocs_scores:
+        print("  No OCS data available.")
+        return {}
+
+    ocs_df = pd.DataFrame(ocs_scores)
+    mean_ocs = ocs_df["ocs"].mean()
+    print(f"  Trials with OCS computed: {len(ocs_df)}")
+    print(f"  Mean OCS: {mean_ocs:.3f}")
+    print(f"  Mean components:")
+    print(f"    Excess Rounds (norm): {ocs_df['excess_rounds'].mean() / ocs_df['excess_rounds'].apply(lambda x: max(x, 1)).mean():.3f}")
+    print(f"    Wasted Token Fraction: {ocs_df['wasted_token_fraction'].mean():.3f}")
+    print(f"    Quality Regression: {ocs_df['quality_regression'].mean():.3f}")
+
+    # By model
+    by_model = {}
+    print("\n  By model:")
+    for model in sorted(ocs_df["model"].unique()):
+        m_df = ocs_df[ocs_df["model"] == model]
+        m_mean = m_df["ocs"].mean()
+        by_model[model] = float(m_mean)
+        print(f"    {model}: mean OCS = {m_mean:.3f} (n={len(m_df)})")
+
+    # By domain
+    by_domain = {}
+    print("\n  By domain:")
+    for domain in sorted(ocs_df["domain"].unique()):
+        d_df = ocs_df[ocs_df["domain"] == domain]
+        d_mean = d_df["ocs"].mean()
+        by_domain[domain] = float(d_mean)
+        print(f"    {domain}: mean OCS = {d_mean:.3f} (n={len(d_df)})")
+
+    return {
+        "mean_ocs": float(mean_ocs),
+        "n_trials": len(ocs_df),
+        "by_model": by_model,
+        "by_domain": by_domain,
+    }
 
 
 # ── Main ──
@@ -622,15 +944,19 @@ def main():
     results["rq2"] = rq2_drp_by_domain(eval_df)
     results["rq3"] = rq3_overcorrection_rate(worker_df, eval_df)
     results["rq4"] = rq4_compliance_mechanism(worker_df, eval_df)
-    results["rq5"] = rq5_nudge_test(eval_df)
+    results["rq5"] = rq5_token_cost(worker_df, eval_df)
     results["rq6"] = rq6_stylistic_drift(worker_df)
-    results["rq7"] = rq7_token_cost(worker_df, eval_df)
-    results["rq8"] = rq8_targeted_feedback()
-    results["rq9"] = rq9_cross_model(worker_df, eval_df)
-    results["rq10"] = rq10_oneshot_ceiling(eval_df)
-    results["rq11"] = rq11_reversibility()
-    results["rq12"] = rq12_exit_ramp()
-    results["rq13"] = rq13_convergence()
+    results["rq7"] = rq7_targeted_feedback()
+    results["rq8"] = rq8_cross_model(worker_df, eval_df)
+    results["rq9"] = rq9_oneshot_ceiling(eval_df)
+    results["rq10"] = rq10_reversibility()
+    results["rq11"] = rq11_convergence()
+    results["rq12"] = rq12_instruction_adherence(worker_df)
+    results["rq13"] = rq13_performative_revision()
+    results["rq14"] = rq14_self_reflection()
+    results["rq15"] = rq15_revision_yield_equations(eval_df, worker_df)
+    results["rq16"] = rq16_unit_economics(eval_df, worker_df)
+    results["rq17"] = rq17_overcorrection_magnitude(eval_df, worker_df)
 
     results_path = S3_STATS_DIR / "study3_results.json"
     with open(results_path, "w") as f:
