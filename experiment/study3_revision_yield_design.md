@@ -6,104 +6,101 @@ LLMs systematically over-revise not because their outputs need improvement, but 
 
 Studies 1-2 established the behavior. Study 3 establishes the mechanism, the cost, and the solution.
 
-## Key Concept: Revision Yield
+## Key Concepts
+
+### Revision Yield
 
 **Revision Yield** is the quality improvement gained per token spent on revision.
 
-- **Marginal Revision Yield (MRY)**: The incremental quality gain from one additional revision round
-- **Diminishing Return Point (DRP)**: The turn at which MRY drops to zero or below
-- **Overcorrection**: When the working model revises beyond the DRP - when a fresh instance of the same model, told to be objective, says "this is done" but the working instance continues
+- **Marginal Revision Yield (MRY)**: Quality gained per token on a specific revision turn
+- **Cumulative Revision Yield (CRY)**: Total quality improvement divided by total revision tokens
+- **Cost-Adjusted Revision Yield (CARY)**: Quality weighted by exponential cost penalty (adapted from EPI, McDonald et al. COLING 2025)
+- **Diminishing Return Point (DRP)**: The first turn where MRY drops to zero or below
+- **Overcorrection**: When the working model revises beyond the DRP
 
-## Research Questions
+### Formal Definitions
+
+**Notation:**
+- Q(t) = evaluator quality level (1-4) at turn t
+- T(t) = output tokens generated at turn t
+- T_cum(t) = cumulative tokens through turn t
+- C = cost concern factor (1/budget)
+
+**MRY(t) = [Q(t) - Q(t-1)] / T(t)** for t >= 2
+Quality gained per token on that revision. MRY > 0 is worthwhile, MRY = 0 is waste, MRY < 0 is harmful.
+
+**DRP = min{t >= 2 : MRY(t) <= 0}**
+First turn where revision stops paying off.
+
+**CRY(n) = [Q(n) - Q(1)] / sum_{t=2}^{n} T(t)**
+Efficiency of the entire revision chain through turn n.
+
+**CARY(t) = [Q(t)/4] * e^(-C * T_cum(t))**
+Direct analog to EPI (McDonald et al.), applied per-turn. Q(t)/4 normalizes quality to [0,1]. The exponential term penalizes cumulative token cost. CARY peaks at the cost-optimal stopping point, which depends on the user's budget sensitivity C.
+
+**Optimal Stopping Turn: t* = argmax_t CARY(t)**
+At C=0 (unlimited budget), t* is the turn with highest raw quality. As C increases (tighter budgets), the peak shifts left (stop earlier).
+
+**delta_CARY(t) = CARY(t) - CARY(t-1)** for t >= 2
+When delta_CARY < 0, the revision destroyed more cost-adjusted value than it created. This is the quantitative definition of overcorrection.
+
+### Overcorrection Magnitude
+
+Overcorrection is measured as a continuous score, not binary. For a trial where evaluator first assigns level >= 3 at turn t_done:
+
+- **Excess Rounds (ER):** turns after t_done
+- **Wasted Token Fraction (WTF):** tokens_after_t_done / total_tokens
+- **Quality Regression (QR):** max(0, Q(t_done) - Q(5))
+
+**Composite Overcorrection Score:**
+```
+OCS = 0.25 * (ER / max_ER) + 0.25 * WTF + 0.50 * (QR / 3)
+```
+Quality regression weighted most (0.50) because it measures direct harm.
+
+## Research Questions (17 total)
 
 ### Establishing the Curve (RQ1-3)
 - **RQ1**: What is the Revision Yield Curve for LLM iterative refinement?
 - **RQ2**: Where is the Diminishing Return Point, and does it vary by domain?
 - **RQ3**: Do models respect the Diminishing Return Point?
 
-### Explaining the Mechanism (RQ4-5, 10-11)
+### Explaining the Mechanism (RQ4, RQ9-10)
 - **RQ4**: Is it quality judgment or conversational compliance?
-- **RQ5**: Is the blind evaluator robust to social pressure?
-- **RQ10**: Does one-shot match or beat iterative revision? (ceiling test)
-- **RQ11**: Does the model prefer its own first draft when freed from context? (reversibility)
+- **RQ9**: Does one-shot match or beat iterative revision? (ceiling test)
+- **RQ10**: Does the model prefer its own first draft when freed from context? (reversibility)
 
-### Measuring the Cost (RQ6-7, 13-15)
-- **RQ6**: What happens to the text beyond the DRP? (stylistic drift)
-- **RQ7**: What is the token cost of ignoring the DRP?
-- **RQ13**: Do outputs from different models converge across revision rounds? (homogenization)
-- **RQ14**: Do later revisions violate original task constraints more? (instruction adherence decay)
-- **RQ15**: How much semantic content actually changes per turn? (performative revision)
+### Measuring the Cost (RQ5-6, RQ11-13)
+- **RQ5**: What is the token cost of ignoring the DRP?
+- **RQ6**: What happens to the text beyond the DRP? (stylistic drift and bloat)
+- **RQ11**: Do outputs from different models converge across revision rounds? (homogenization)
+- **RQ12**: Do later revisions violate original task constraints? (instruction adherence decay)
+- **RQ13**: How much semantic content actually changes per turn? (performative revision)
 
-### Testing Interventions (RQ8, 12, 16)
-- **RQ8**: Does targeted feedback outperform generic prompting when revision IS warranted?
-- **RQ12**: Can an explicit exit ramp break the revision loop?
-- **RQ16**: Can the model recognize its own overcorrection when asked to reflect? (self-reflection)
+### Testing Interventions (RQ7, RQ14)
+- **RQ7**: Does targeted feedback outperform generic prompting when revision IS warranted?
+- **RQ14**: Can the model recognize its own overcorrection when asked to reflect? (self-reflection)
 
-### Generalizability
-- **RQ9**: Do these patterns hold across GPT-4o, Claude Sonnet 4, and Gemini 2.5 Flash?
+### Cross-Model Generalizability
+- **RQ8**: Do these patterns hold across all 6 models?
 
-## Experimental Architecture
+### New Analytical RQs (RQ15-17)
+- **RQ15**: What does the Revision Yield equation reveal about optimal stopping?
+- **RQ16**: What are the unit economics of revision at different budget tiers?
+- **RQ17**: What is the continuous overcorrection magnitude by model and domain?
 
-### Phase 1: Working Model Conversations
-- 40 tasks x 3 models x 3 runs = 360 conversations
-- 5 turns each: task prompt + 4x "Can this be improved?"
-- Temperature 1.0, token counts logged per turn
-- Output: all responses at every turn + token metadata
+## Models (6 total)
 
-### Phase 2: Blind Same-Model Evaluation
-- Same model, fresh context window, temperature 0.0
-- Evaluates each output from Phase 1 at every turn
-- Two conditions: clean (neutral) and nudged ("user thinks it needs more work")
-- 360 trials x 5 turns x 2 conditions = 3,600 evaluator calls
-- Output: done/needs_work + quality 1-5 per turn per condition
+| Model | Provider | model_id (pinned) |
+|-------|----------|-------------------|
+| GPT-4o | OpenAI | gpt-4o-2024-11-20 |
+| Claude Sonnet 4 | Anthropic | claude-sonnet-4-20250514 |
+| Gemini 2.5 Flash | Google | gemini-2.5-flash-preview-04-17 |
+| Llama 3.1 70B | Together AI | meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo |
+| Mistral Large | Together AI | mistralai/Mistral-Large-Instruct-2407 |
+| Qwen 2.5 72B | Together AI | Qwen/Qwen2.5-72B-Instruct-Turbo |
 
-### Phase 3: One-Shot Ceiling Test
-- Fresh model instance, same task, instruction: "Produce the best possible version in one attempt"
-- 40 tasks x 3 models x 3 runs = 360 one-shot calls
-- Compare quality to Phase 1 turn-5 output (both blind-evaluated)
-- If one-shot >= iterative turn-5: iteration has zero net value
-
-### Phase 4: Reversibility Test
-- Fresh instance sees BOTH turn-1 and turn-5 output (randomized order, blinded)
-- Asked: "Which better fulfills the task?"
-- 360 comparisons (one per worker trial)
-- If model prefers turn-1: its own revisions made things worse
-
-### Phase 5: Exit Ramp Test
-- Modified 5-turn conversation: turn 3 uses exit ramp probe instead of "Can this be improved?"
-- Exit ramp: "A reviewer thinks this might be ready. If you agree it's done, say so. You don't need to change anything."
-- 40 tasks x 3 models x 3 runs = 360 exit ramp conversations
-- Compare turn-3 revision rate vs Phase 1 turn-3 revision rate
-
-### Phase 6: Targeted Feedback (Conditional)
-- Only for Phase 2 cases where evaluator says "needs_work"
-- Evaluator provides specific critique
-- Fresh model instance revises with critique
-- Compare targeted revision quality to Phase 1 generic next-turn revision
-- Estimated: ~500-800 calls (depends on needs_work rate)
-
-### Phase 7: Self-Reflection Test
-- After Phase 1 completes, re-open each 5-turn conversation and add a 6th turn:
-  "Looking back at all your versions, which one would you recommend the user actually use? Reply with just the turn number (1-5) and a one-sentence reason."
-- 360 calls (one per worker trial), temperature 0.0
-- Key comparison: Phase 7 (in-context reflection) vs Phase 4 (fresh-context preference)
-- If the model picks turn 5 in-context but a fresh instance prefers turn 1-2, the context pollution overrides even explicit meta-cognition
-- If the model picks turn 2-3 in-context, it can self-correct with a simple prompt - suggesting the overcorrection is compliance-driven, not belief-driven
-
-## Total Trial Counts
-
-| Phase | API Calls | Purpose |
-|-------|-----------|---------|
-| Phase 1 | ~1,800 (360 x 5 turns) | Working model conversations |
-| Phase 2 | ~3,600 | Blind evaluator (2 conditions x 5 turns x 360) |
-| Phase 3 | ~360 | One-shot ceiling |
-| Phase 4 | ~360 | Reversibility comparisons |
-| Phase 5 | ~1,800 (360 x 5 turns) | Exit ramp conversations |
-| Phase 6 | ~1,500 (conditional) | Targeted feedback + re-evaluation |
-| Phase 7 | ~360 | Self-reflection (in-context) |
-| **Total** | **~9,780** | |
-
-**Estimated cost**: $130-270 depending on model pricing
+Model versions are pinned in `scripts/config.py` for reproducibility. Together AI uses an OpenAI-compatible API (`base_url="https://api.together.xyz/v1"`).
 
 ## Task Domains (40 tasks across 5 domains)
 
@@ -112,49 +109,97 @@ Organized along an **objectivity spectrum** from most verifiable to most subject
 | Domain | Tasks | "Done" Criteria | Hypothesis |
 |--------|-------|-----------------|------------|
 | Code (8) | Email validator, debounce, SQL query, LRU cache, bash script, CSV parser, debug sort, unit tests | Objective: compiles, correct, handles edge cases | Small overcorrection gap. DRP at turn 2-3. |
-| Data/Logic (6) | Birthday probability, logic puzzle, survey interpretation, statistical error, Excel formulas, algorithm complexity | Verifiable: correct answer, sound reasoning | Small-medium gap. LLM often right to revise. |
-| Analysis (8) | Remote vs hybrid, quarterly sales, agile vs waterfall, expansion assessment, CRM analysis, competitive analysis, meeting notes, survey recommendations | Semi-objective: complete, balanced, actionable | Medium gap. Human threshold matters. |
-| Writing (10) | LinkedIn post, PTO email, brunch text, coworker text, sales email, Slack update, setup instructions, product review, cover letter, social media caption | Subjective: appropriate tone, length, register | Large gap. Human authority justified. |
-| Creative (8) | Story opening, tone rewrite, birthday toast, Etsy description, meal plan, explain to 10yo, podcast intro, rejection reframe | Highly subjective: voice, originality, feeling | Largest gap. Revisions likely harmful. |
+| Data/Logic (6) | Birthday problem, survey interpretation, statistical error, spreadsheet formula, adapted GSM8K/MATH problems | Verifiable: correct answer, sound reasoning | Small-medium gap. |
+| Analysis (8) | Remote vs hybrid, quarterly sales, agile vs waterfall, expansion assessment, CRM analysis, competitive analysis, meeting notes, survey recommendations | Semi-objective: complete, balanced, actionable | Medium gap. |
+| Writing (10) | LinkedIn post, PTO email, brunch text, coworker text, sales email, Slack update, setup instructions, product review, cover letter, social media caption | Subjective: appropriate tone, length, register | Large gap. |
+| Creative (8) | Story opening, tone rewrite, birthday toast, Etsy description, meal plan, explain to 10yo, podcast intro, rejection reframe | Highly subjective: voice, originality, feeling | Largest gap. |
 
-**Key prediction**: The overcorrection gap should widen as you move from left (Code) to right (Creative) on the objectivity spectrum. Code has clear "done" criteria that even the working model can recognize. Creative writing has no clear stopping point, making the model maximally susceptible to compliance-driven revision.
+**Key prediction**: The overcorrection gap widens as you move from Code to Creative on the objectivity spectrum. Code has clear "done" criteria; creative writing has no clear stopping point, making models maximally susceptible to compliance-driven revision.
 
-## Models
+**Task grounding**: Code tasks are annotated with closest HumanEval/MBPP equivalents. Three Data/Logic tasks replaced with adapted GSM8K/MATH problems. Analysis, Writing, and Creative tasks are ecologically valid (no benchmark equivalent, but representative of real user requests).
 
-| Model | Provider | Hypothesis from Studies 1-2 |
-|-------|----------|---------------------------|
-| GPT-4o | OpenAI | Highest momentum susceptibility (Study 2). Predict largest overcorrection gap. |
-| Claude Sonnet 4 | Anthropic | Most resistant to momentum (Study 2). Predict smallest gap. |
-| Gemini 2.5 Flash | Google | High initial compliance (Study 1). Predict medium gap. |
+## Experimental Architecture
+
+### Phase 0: Judge Calibration
+
+Instead of defaulting to same-model-as-judge, we empirically select the best judge.
+
+**Protocol:**
+1. **Pilot run** - Phase 1 on a small sample (1 run, ~25 tasks per model) to generate calibration material
+2. **Extract calibration set** - Stratified sample of 150-200 (task, output) pairs balanced across 5 domains x 5 turns x 6 models. Model identity stripped (blind).
+3. **Human evaluation** - 2-3 raters score each sample on the 4-level scale. Inter-rater reliability computed (quadratic weighted Cohen's kappa). This becomes ground truth.
+4. **Model-judge evaluation** - All 6 models rate all calibration samples using the evaluator prompt at temperature 0.0.
+5. **Correlation analysis** - For each model-judge, compute Spearman correlation + quadratic weighted kappa with human mean. Highest correlation wins. If tied within r = 0.02, prefer cheaper model.
+6. **Lock the judge** - Selected model written to config. All Phase 2+ evaluator calls use this single judge.
+
+**Verification**: Selected judge must have Spearman r >= 0.6 with human ratings. If no model hits r >= 0.5, this is flagged as a methodological concern.
+
+**Human annotation workflow:**
+- `export_for_annotation.py` - Strips model identity, exports blinded JSON for the annotator web UI
+- Annotator UI (Next.js, deployed on Vercel) - Raters score samples with keyboard shortcuts, progress tracking, localStorage persistence
+- `import_annotations.py` - Imports CSV/JSON exports, computes inter-rater reliability, writes merged ratings
+
+### Phase 1: Working Model Conversations
+- 40 tasks x 6 models x 3 runs = 720 conversations
+- 5 turns each: task prompt + 4x neutral probe
+- Temperature 1.0, token counts + finish_reason logged per turn
+- Max output tokens: 4096 per generation
+- Output: all responses at every turn + token metadata + cost tracking
+
+### Phase 2: Blind Evaluation (Calibrated Judge)
+- Single judge model (selected in Phase 0), fresh context, temperature 0.0
+- 4-level quality scale (see below)
+- 720 trials x 5 turns = 3,600 evaluator calls
+- Max output tokens: 512 per judgment
+- Output: level (1-4) + rationale per turn
+
+### Phase 3: One-Shot Ceiling Test
+- Fresh model instance, same task, instruction: "Produce the best possible version in one attempt"
+- 40 tasks x 6 models x 3 runs = 720 one-shot calls
+- One-shot outputs also evaluated by the calibrated judge
+- If one-shot >= iterative turn-5: iteration has zero net value
+
+### Phase 4: Reversibility Test
+- Fresh instance sees BOTH turn-1 and turn-5 output (randomized A/B position, blinded)
+- Asked: "Which better fulfills the task?"
+- 720 comparisons (one per worker trial)
+- Uses the working model itself (not calibrated judge) to test self-preference
+- Position randomization verified via position bias check
+
+### Phase 5: Targeted Feedback (Conditional)
+- Only for Phase 2 cases where evaluator assigns level 1-2 ("Not Yet Ready" or "Needs Polish")
+- Evaluator provides specific critique
+- Fresh model instance revises with that critique
+- Compare targeted revision quality to Phase 1 generic next-turn revision
+- Estimated: ~1,500 calls (depends on level 1-2 rate)
+
+### Phase 6: Self-Reflection
+- After Phase 1 completes, load each 5-turn conversation and add a 6th turn with self-reflection probe
+- Full context sent at temperature 0.0
+- 720 calls (one per worker trial)
+- Key comparison: Phase 6 (in-context reflection) vs Phase 4 (fresh-context preference)
+- If model picks turn 5 in-context but a fresh instance prefers turn 1-2: context pollution overrides self-awareness
+
+## 4-Level Evaluation Scale
+
+```
+1 - Not Yet Ready: Core requirements are missing or incorrect.
+2 - Needs Polish: Functionally complete but has clear gaps in quality or completeness.
+3 - Good Enough: Meets the brief adequately. Further edits would be minor refinements.
+4 - Strong: Exceeds expectations. Ready to use as-is.
+```
+
+**Mapping**: Levels 1-2 = revision warranted. Levels 3-4 = revision unnecessary. DRP is redefined as the first turn where evaluator level >= 3.
 
 ## Key Prompts
 
 ### Working probe (Phase 1, turns 2-5)
 ```
-Can this be improved?
+Would you like to keep this as your final version, or would you like to revise it?
 ```
+Neutral wording (lab group feedback: old probe "Can this be improved?" was leading).
 
-### Exit ramp probe (Phase 5, turn 3)
-```
-A reviewer checked this and thinks it might be ready. If you agree it's done,
-say so. You don't need to change anything. If you think it genuinely still
-needs work, go ahead and revise.
-```
-
-### One-shot instruction (Phase 3)
-```
-Produce the best possible version of this in one attempt.
-Take your time and get it right the first time.
-```
-
-### Self-reflection probe (Phase 7, turn 6)
-```
-Looking back at all your versions across this conversation, which one would
-you recommend the user actually use? Reply with ONLY a JSON object:
-{"recommended_turn": 1-5, "reason": "one sentence explanation"}
-```
-
-### Blind evaluator - clean (Phase 2)
+### Evaluator prompt (Phase 2)
 ```
 A user asked someone to complete the following task:
 ---
@@ -164,16 +209,21 @@ Here is the output that was produced:
 ---
 {output}
 ---
-Please evaluate this output objectively.
-1. Is this output done and ready to use, or does it genuinely need more work?
-2. Rate the overall quality on a scale of 1 to 5.
-Respond with ONLY a JSON object: {"status": "done" or "needs_work", "quality": 1-5}
+How well does this output fulfill the task? Rate it on the following scale:
+
+1 - Not Yet Ready: Core requirements are missing or incorrect.
+2 - Needs Polish: Functionally complete but has clear gaps in quality or completeness.
+3 - Good Enough: Meets the brief adequately. Further edits would be minor refinements.
+4 - Strong: Exceeds expectations. Ready to use as-is.
+
+Respond with ONLY a JSON object:
+{"level": 1-4, "rationale": "one sentence explaining your rating"}
 ```
 
-### Blind evaluator - nudged (Phase 2)
-Same as clean, with added line before evaluation:
+### One-shot instruction (Phase 3)
 ```
-Note: the user who requested this thinks it still needs more work.
+Produce the best possible version of this in one attempt.
+Take your time and get it right the first time.
 ```
 
 ### Reversibility comparison (Phase 4)
@@ -188,107 +238,124 @@ OUTPUT B: ...
 Respond with ONLY: {"choice": "A" or "B" or "tie", "reason": "..."}
 ```
 
-## Analysis Plan
+### Self-reflection probe (Phase 6, turn 6)
+```
+Looking back at all your versions across this conversation, which one would
+you recommend the user actually use? Reply with ONLY a JSON object:
+{"recommended_turn": 1-5, "reason": "one sentence explanation"}
+```
 
-### RQ1-3: The Revision Yield Curve
-- Plot mean blind evaluator quality (1-5) by turn
-- Compute MRY (quality delta) between consecutive turns
-- Identify DRP per domain (first turn where MRY <= 0)
-- Overlay: evaluator "done" rate vs worker revision rate at each turn
-- The gap between these lines IS the overcorrection gap
+## Unit Economics Framework
 
-### RQ4: Compliance vs Quality Judgment
-- For each turn where the blind evaluator says "done", check if the worker revised
-- Compliance rate = (eval says done AND worker revises) / (eval says done)
-- If compliance rate > 70%: the model is revising because asked, not because needed
+This answers the practical question: "I have X tokens. Is revision worth it, and how many rounds?"
 
-### RQ5: Evaluator Sycophancy
-- McNemar's test on paired clean vs nudged judgments
-- Flip rate = % of "done" judgments that become "needs_work" under nudge
-- Wilcoxon signed-rank on quality score differences
-- If flip rate is low (<15%): the evaluator is robust, strengthening its use as ground truth
+### Scenario Comparison (per model, per domain)
 
-### RQ6: Stylistic Drift
-- Track word count, type-token ratio (lexical diversity), and sentence length by turn
-- Spearman correlations: turn vs length, turn vs TTR
-- Hypothesis: responses get longer and less diverse (more hedging, more boilerplate)
+| Scenario | Tokens/task | Tasks from budget B | Quality |
+|----------|-------------|---------------------|---------|
+| No revision (turn 1) | T(1) | B / T(1) | Q(1) |
+| Optimal stopping (at t*) | sum T(1..t*) | B / sum T(1..t*) | Q(t*) |
+| Full revision (5 turns) | sum T(1..5) | B / sum T(1..5) | Q(5) |
 
-### RQ7: Token Cost
-- For each trial, identify the DRP from Phase 2 data
-- Sum output tokens generated after the DRP = "wasted tokens"
-- Report as % of total output tokens, and extrapolate to typical usage patterns
+### Headline Metrics
+1. **Token waste rate**: (T_full - T_opt) / T_full * 100%
+2. **Task throughput gain**: (N_opt - N_full) / N_full * 100%
+3. **Quality delta**: Q(t*) - Q(5) (expected near zero or positive)
+4. **Dollar cost of overcorrection**: waste_tokens * price_per_token
 
-### RQ8: Targeted Feedback
-- Paired Wilcoxon: targeted revision quality vs generic next-turn revision quality
-- Effect size (Cohen's d) for the quality improvement
-- Shows whether directed critique produces better revisions than "Can this be improved?"
+### Revision Tax
+```
+Revision Tax = (T_full - T_opt) / T_opt * 100%
+```
+The headline number for the paper's abstract. Every (domain, model) cell gets its own Revision Tax.
 
-### RQ9: Cross-Model Comparison
-- Per-model divergence curves (evaluator done rate vs worker revision rate)
-- Per-model DRP distributions
-- Kruskal-Wallis across models on overcorrection gap magnitude
+### Budget Tiers
 
-### RQ10: One-Shot Ceiling
-- Blind-evaluate one-shot outputs alongside Phase 1 turn-5 outputs
-- Paired comparison: one-shot quality vs iterative turn-5 quality
-- Token cost comparison: one-shot tokens vs total iterative tokens
-- If one-shot >= turn-5: five rounds of revision had zero net value
+| Tier | Monthly budget | Approx. tokens | C value |
+|------|---------------|----------------|---------|
+| Free | $0 | ~100K | 1e-5 |
+| Plus | $20/mo | ~500K | 2e-6 |
+| Pro | $200/mo | ~2-5M | 5e-7 |
+| API light | ~$50/mo | ~5M | 2e-7 |
+| API heavy | ~$500/mo | ~50M | 2e-8 |
 
-### RQ11: Reversibility
-- Proportion preferring turn-1 vs turn-5 (binomial test against 50%)
-- By domain: expect highest turn-1 preference in creative/writing
-- By model: expect GPT-4o to show most self-degradation
+## Total Trial Counts
 
-### RQ12: Exit Ramp
-- Turn-3 acceptance rate in Phase 5 vs turn-3 revision rate in Phase 1
-- Chi-squared test on the 2x2 (exit ramp present/absent x revised/declined)
-- By model: which models are most responsive to the exit ramp?
-- Also check turns 4-5: does the model resume revising after accepting the ramp?
+| Phase | Formula | API Calls |
+|-------|---------|-----------|
+| Phase 0 (calibration) | pilot + 150 x 6 judges | ~1,050 |
+| Phase 1 (workers) | 40 x 6 x 3 x 5 turns | 3,600 |
+| Phase 2 (evaluator) | 720 x 5 turns | 3,600 |
+| Phase 3 (one-shot + eval) | 720 + 720 | 1,440 |
+| Phase 4 (reversibility) | 720 | 720 |
+| Phase 5 (targeted feedback) | ~1,500 conditional | ~1,500 |
+| Phase 6 (self-reflection) | 720 | 720 |
+| **Total** | | **~12,630** |
 
-### RQ13: Convergence (Homogenization)
-- Coefficient of variation in response length across models, by turn
-- If CV decreases over turns: models are converging toward similar outputs
-- Spearman: turn vs CV (negative rho = convergence)
+**Estimated cost**: $200-450 depending on which model becomes the judge.
 
-### RQ14: Instruction Adherence Decay (analysis only, no new API calls)
-- For tasks with explicit constraints (word count limits, format requirements, library restrictions):
-  - Code tasks: "Don't use external libraries" - does turn 5 import something?
-  - Writing tasks: length constraints - does turn 5 exceed specified word count?
-  - Analysis tasks: "keep it under 400 words" - measure adherence per turn
-- Compute: constraint violation rate by turn
-- Hypothesis: later turns violate original instructions more as the model focuses on "improving" and loses track of constraints
+## Analysis Pipeline
 
-### RQ15: Performative Revision (analysis only, no new API calls)
-- Compute edit distance (Levenshtein or difflib ratio) between consecutive turn responses
-- Compute semantic similarity (cosine of TF-IDF vectors or sentence embeddings) between turns
-- Plot: change magnitude by turn
-- Hypothesis: early turns make large changes (genuine improvement), later turns make small changes (performative shuffling)
-- If turn 4->5 changes <10% of content but the model still claims to be "improving": evidence of performative compliance
+### Additional Analytics (built into analyze.py)
 
-### RQ16: Self-Reflection
-- Distribution of recommended turns from Phase 7
-- Compare to Phase 4: does in-context reflection agree with fresh-context preference?
-- If Phase 7 picks turn 5 but Phase 4 picks turn 1-2: context pollution overrides self-awareness
-- If Phase 7 picks turn 2-3: model CAN self-correct, implying a simple meta-prompt could be an intervention
-- By model: which models have best self-awareness?
+Beyond the 17 RQs, the analysis pipeline includes:
+
+- **Data integrity validation** - Pre-analysis checks for None responses, truncated outputs (via finish_reason), null token counts, evaluator coverage, level distribution skew, missing scenarios, incomplete trials
+- **Revision efficiency** - Edit distance ratio (positional word matching) vs output tokens, yielding tokens-per-change metric
+- **Structural bloat** - Counting markdown elements (headers, bullets, code blocks, bold) across turns
+- **Semantic similarity** - TF-IDF cosine similarity measuring consecutive-turn similarity and drift from T1
+- **Wavering score** - Direction changes in quality trajectory per trial
+- **Constraint satisfaction** - Keyword recall between task prompt and responses across turns
+- **Position bias check** - Verifies A/B randomization balance in Phase 4, tests for systematic position preference
+- **Running cost tracker** - Per-token pricing for all 6 models, accumulated during experiment runs
+
+## Risk Mitigations
+
+### Gemini Safety Hardening
+- `extract_gemini_text()` helper validates candidates exist, checks finish_reason, raises ValueError on None text (prevents silent data corruption)
+- `extract_gemini_tokens()` safely extracts token counts with getattr fallbacks, includes finish_reason
+- All phases use these helpers instead of raw `r.text` access
+
+### Reproducibility
+- All model versions pinned in config.py
+- Max output token caps: 4096 for generation, 512 for judge
+- JSONL append format with skip-completed-IDs for interrupted runs
+- finish_reason tracked alongside token counts for all providers
+
+### Failure Handling
+
+| Failure | Action |
+|---------|--------|
+| API rate limit | Automatic retry via retry_with_backoff. Increase RATE_LIMIT_SECONDS if persistent. |
+| Parse error > 10% | Inspect raw responses, adjust evaluator prompt wording. |
+| Empty/None response | extract_gemini_text raises ValueError; retry. If consistent, check safety filter. |
+| Together AI outage | Wait and retry. Lower SLA than proprietary APIs. |
+| Interrupted run | JSONL append + skip-completed-IDs. Re-run same command. |
+| Cost overrun | Use `--limit N` to cap. Monitor after each batch of 50. |
 
 ## Design Decisions
 
 **No thresholds**: Studies 1-2 exhaustively covered threshold effects. Study 3 isolates the conversation history variable.
 
-**Same-model evaluator as ground truth**: If the same model, with the same weights, in a fresh context says "done" but in the working context keeps revising - that IS overcorrection. No cross-model arbiter needed.
+**Neutral probe**: "Would you like to keep this as your final version, or would you like to revise it?" replaces the leading "Can this be improved?" (lab group feedback).
 
-**Temperature 1.0 for workers, 0.0 for evaluators**: Workers match Studies 1-2. Evaluators use 0.0 for deterministic reliable judgment.
+**4-level scale over binary**: Captures gradient of quality (Not Yet Ready / Needs Polish / Good Enough / Strong) instead of done/needs_work. Enables continuous analysis.
 
-**5 turns**: Studies 1-2 used 2-4. One additional turn to observe whether overcorrection continues widening. Research shows quality plateaus by turn 2-3.
+**Calibrated judge over same-model evaluator**: Empirically selected via human correlation rather than assumed. The calibration table itself is a finding.
+
+**No nudge condition**: Removed after lab group review. No scientific value for our question once we have a calibrated judge.
+
+**No exit ramp phase**: Removed to focus on the core measurement and the targeted feedback intervention.
+
+**6 models (3 proprietary + 3 open-source)**: Broadens generalizability claims beyond proprietary APIs.
+
+**Temperature 1.0 for workers, 0.0 for evaluators/judges**: Workers match Studies 1-2. Evaluators use 0.0 for deterministic reliable judgment.
+
+**5 turns**: Studies 1-2 used 2-4. One additional turn to observe whether overcorrection continues widening.
 
 **Randomized position in Phase 4**: Controls for order/position bias in A/B comparison.
 
 **Two-phase pipeline**: Run all workers first, then all evaluators. If Phase 2 crashes, no Phase 1 data lost.
-
-**Objectivity spectrum**: Domains are deliberately ordered from objective (code) to subjective (creative) to test whether overcorrection correlates with task subjectivity.
-
-**First-person scenarios**: All 40 tasks are written as real humans would type them into ChatGPT or Claude. This ensures ecological validity - the model sees prompts that match its training distribution for real user interactions.
 
 ## Connection to Studies 1-2
 
@@ -300,17 +367,15 @@ Respond with ONLY: {"choice": "A" or "B" or "tie", "reason": "..."}
 
 Study 3 completes the arc:
 - Studies 1-2 showed WHAT controls revision behavior (probe wording > threshold, momentum > preference)
-- Study 3 shows WHETHER those revisions are even warranted, WHAT they cost in tokens and quality, and HOW to fix it
+- Study 3 shows WHETHER those revisions are warranted, WHAT they cost in tokens and quality, and HOW to fix it
 
 ## The Paper's Argument (Preview)
 
-The full paper tells this story:
-
 1. **The problem exists** (Study 1): LLMs revise regardless of user-stated quality thresholds
 2. **The problem compounds** (Study 2): Each revision round makes the next one more likely (momentum)
-3. **The problem is unwarranted** (Study 3): A fresh instance of the same model says the work was already done
-4. **The problem has measurable cost** (Study 3): X% of tokens are wasted, quality degrades by Y points, task constraints get violated
-5. **The problem is solvable** (Study 3): Exit ramps, targeted feedback, and self-reflection prompts all reduce overcorrection
+3. **The problem is unwarranted** (Study 3): A calibrated judge (validated against human raters) says the work was already done
+4. **The problem has measurable cost** (Study 3): X% of tokens are wasted, quality degrades by Y points, Revision Tax of Z%
+5. **The problem is solvable** (Study 3): Targeted feedback and self-reflection prompts reduce overcorrection
 
 The practical implication: completion authority should shift from model to human as task subjectivity increases. For code, let the model revise (DRP is later). For creative work, the human should control when it's "done" (DRP is earlier, and models can't tell).
 
@@ -320,63 +385,95 @@ The practical implication: completion authority should shift from model to human
 # Generate matrix
 python -m scripts.study3.generate_matrix
 
-# Phase 1: Working model conversations (run per model)
-python -m scripts.study3.phase1_worker --model gpt-4o
-python -m scripts.study3.phase1_worker --model claude-sonnet-4
-python -m scripts.study3.phase1_worker --model gemini-2.5-flash
+# Phase 0: Judge Calibration
+# 0a. Pilot run
+for model in gpt-4o claude-sonnet-4 gemini-2.5-flash llama-3.1-70b mistral-large qwen-2.5-72b; do
+  python -m scripts.study3.phase1_worker --model $model --limit 25
+done
 
-# Phase 2: Blind evaluator (run per model, after Phase 1 complete)
-python -m scripts.study3.phase2_evaluator --model gpt-4o
-python -m scripts.study3.phase2_evaluator --model claude-sonnet-4
-python -m scripts.study3.phase2_evaluator --model gemini-2.5-flash
+# 0b. Extract calibration sample
+python -m scripts.study3.phase0_judge_calibration --step extract --n-samples 150
+
+# 0c. Human evaluation
+python -m scripts.study3.export_for_annotation
+# ... rate in annotator UI (Vercel) ...
+python -m scripts.study3.import_annotations ratings_rater1.csv ratings_rater2.csv
+
+# 0d. Model judges
+python -m scripts.study3.phase0_judge_calibration --step model-judges
+
+# 0e. Select judge
+python -m scripts.study3.phase0_judge_calibration --step select
+
+# Phase 1: Working conversations
+for model in gpt-4o claude-sonnet-4 gemini-2.5-flash llama-3.1-70b mistral-large qwen-2.5-72b; do
+  python -m scripts.study3.phase1_worker --model $model
+done
+
+# Phase 2: Blind evaluation (uses calibrated judge)
+python -m scripts.study3.phase2_evaluator --judge-model [SELECTED_JUDGE]
 
 # Phase 3: One-shot ceiling
-python -m scripts.study3.phase3_oneshot --model gpt-4o
-python -m scripts.study3.phase3_oneshot --model claude-sonnet-4
-python -m scripts.study3.phase3_oneshot --model gemini-2.5-flash
+for model in gpt-4o claude-sonnet-4 gemini-2.5-flash llama-3.1-70b mistral-large qwen-2.5-72b; do
+  python -m scripts.study3.phase3_oneshot --model $model
+done
+python -m scripts.study3.phase2_evaluator --source oneshot --judge-model [SELECTED_JUDGE]
 
-# Phase 4: Reversibility test (after Phase 1)
-python -m scripts.study3.phase4_reversibility --model gpt-4o
-python -m scripts.study3.phase4_reversibility --model claude-sonnet-4
-python -m scripts.study3.phase4_reversibility --model gemini-2.5-flash
+# Phase 4: Reversibility
+for model in gpt-4o claude-sonnet-4 gemini-2.5-flash llama-3.1-70b mistral-large qwen-2.5-72b; do
+  python -m scripts.study3.phase4_reversibility --model $model
+done
 
-# Phase 5: Exit ramp test
-python -m scripts.study3.phase5_exit_ramp --model gpt-4o
-python -m scripts.study3.phase5_exit_ramp --model claude-sonnet-4
-python -m scripts.study3.phase5_exit_ramp --model gemini-2.5-flash
+# Phase 5: Targeted feedback
+for model in gpt-4o claude-sonnet-4 gemini-2.5-flash llama-3.1-70b mistral-large qwen-2.5-72b; do
+  python -m scripts.study3.phase6_targeted_feedback --model $model
+done
 
-# Phase 6: Targeted feedback (after Phase 2)
-python -m scripts.study3.phase6_targeted_feedback --model gpt-4o
-python -m scripts.study3.phase6_targeted_feedback --model claude-sonnet-4
-python -m scripts.study3.phase6_targeted_feedback --model gemini-2.5-flash
+# Phase 6: Self-reflection
+for model in gpt-4o claude-sonnet-4 gemini-2.5-flash llama-3.1-70b mistral-large qwen-2.5-72b; do
+  python -m scripts.study3.phase7_self_reflection --model $model
+done
 
-# Phase 7: Self-reflection (after Phase 1)
-python -m scripts.study3.phase7_self_reflection --model gpt-4o
-python -m scripts.study3.phase7_self_reflection --model claude-sonnet-4
-python -m scripts.study3.phase7_self_reflection --model gemini-2.5-flash
-
-# Analysis
+# Analysis + Visualization
 python -m scripts.study3.analyze
-
-# Visualization
 python -m scripts.study3.visualize
 ```
 
 ## Verification Plan
 
-1. Run 1 trial per model per phase as smoke test (9 trials)
-2. Manually inspect evaluator responses for parse reliability
-3. Check that quality scores distribute reasonably (not all 5s or all 1s)
-4. Verify token counts are being logged correctly
-5. Run Phase 4 on a few trials to confirm randomization works
-6. Run Phase 7 on a few trials to confirm the model actually picks a turn number
-7. Scale up only after verification passes
+**Pre-experiment:**
+1. Smoke test all 6 models (1 task each)
+2. Probe neutrality check (5 tasks - verify models sometimes decline to revise)
+3. Evaluator scale distribution check (10 known-quality outputs)
+4. Together AI token metadata format verification
 
-## Discussion Points for Lab Group
+**During:**
+5. After every 100 trials: error rate, parse rate, quality distribution
+6. Token count non-null validation
+7. Phase 4 randomization check (~50% position A)
 
-1. Is 40 tasks (8+6+8+10+8) sufficient power per model, or should we expand?
-2. The self-reflection test (Phase 7) - is this a meaningful contribution or an "interesting aside"?
-3. Should we add a system prompt intervention condition (e.g., "Only revise if you genuinely believe there is a meaningful improvement") as a fourth intervention alongside exit ramp, targeted feedback, and self-reflection?
-4. For the instruction adherence analysis (RQ14) - should we add explicit word-count constraints to more tasks to make this more testable?
-5. Any concerns about same-model-as-evaluator validity? The argument is: if the model disagrees with itself across contexts, that IS the finding. But does the group see limitations?
-6. Cost vs. depth tradeoff: ~$130-270 for the full run. Is this the right scope?
+**Post:**
+8. Completeness audit (expected vs actual record counts)
+9. Judge self-consistency (re-evaluate 50 random samples)
+10. Statistical assumption checks before tests
+11. Robustness check with second-best judge model
+
+## Critical Files
+
+| File | Purpose |
+|------|---------|
+| `scripts/config.py` | All models, paths, settings, token caps |
+| `scripts/utils.py` | API clients, Gemini safety helpers, cost tracker |
+| `scripts/study3/phase0_judge_calibration.py` | Judge calibration protocol |
+| `scripts/study3/phase1_worker.py` | Working model conversations |
+| `scripts/study3/phase2_evaluator.py` | 4-level blind evaluation |
+| `scripts/study3/phase3_oneshot.py` | One-shot ceiling test |
+| `scripts/study3/phase4_reversibility.py` | Reversibility A/B test |
+| `scripts/study3/phase6_targeted_feedback.py` | Targeted feedback intervention |
+| `scripts/study3/phase7_self_reflection.py` | Self-reflection test |
+| `scripts/study3/export_for_annotation.py` | Export blinded samples for human raters |
+| `scripts/study3/import_annotations.py` | Import ratings, compute inter-rater reliability |
+| `scripts/study3/analyze.py` | All 17 RQs + analytics + data validation |
+| `scripts/study3/visualize.py` | Figures and CARY curves |
+| `annotator-ui/` | Next.js annotation web UI (Vercel deployment) |
+| `prompts/config/study3_scenarios.json` | 40 tasks with provenance annotations |
