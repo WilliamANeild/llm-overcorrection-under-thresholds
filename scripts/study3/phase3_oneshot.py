@@ -13,6 +13,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
 from scripts.config import (
+    MAX_OUTPUT_TOKENS_GENERATION,
     MODELS,
     S3_MATRIX_PATH,
     S3_ONESHOT_INSTRUCTION,
@@ -21,6 +22,8 @@ from scripts.config import (
 )
 from scripts.utils import (
     append_jsonl,
+    extract_gemini_text,
+    extract_gemini_tokens,
     get_anthropic_client,
     get_google_client,
     get_openai_client,
@@ -52,6 +55,7 @@ def call_oneshot(provider: str, model_id: str, prompt: str) -> dict:
             model=model_id,
             messages=[{"role": "user", "content": prompt}],
             temperature=1.0,
+            max_tokens=MAX_OUTPUT_TOKENS_GENERATION,
         )
         text = r.choices[0].message.content
         tokens = {"input": r.usage.prompt_tokens, "output": r.usage.completion_tokens}
@@ -61,7 +65,7 @@ def call_oneshot(provider: str, model_id: str, prompt: str) -> dict:
         r = retry_with_backoff(
             client.messages.create,
             model=model_id,
-            max_tokens=4096,
+            max_tokens=MAX_OUTPUT_TOKENS_GENERATION,
             messages=[{"role": "user", "content": prompt}],
             temperature=1.0,
         )
@@ -71,18 +75,18 @@ def call_oneshot(provider: str, model_id: str, prompt: str) -> dict:
     elif provider == "google":
         from google.genai import types
         client = get_google_client()
-        config = types.GenerateContentConfig(temperature=1.0)
+        config = types.GenerateContentConfig(
+            temperature=1.0,
+            max_output_tokens=MAX_OUTPUT_TOKENS_GENERATION,
+        )
         r = retry_with_backoff(
             client.models.generate_content,
             model=model_id,
             contents=prompt,
             config=config,
         )
-        text = r.text
-        tokens = {
-            "input": r.usage_metadata.prompt_token_count if hasattr(r, 'usage_metadata') and r.usage_metadata else None,
-            "output": r.usage_metadata.candidates_token_count if hasattr(r, 'usage_metadata') and r.usage_metadata else None,
-        }
+        text = extract_gemini_text(r)
+        tokens = extract_gemini_tokens(r)
 
     elif provider == "together":
         client = get_together_client()
@@ -91,6 +95,7 @@ def call_oneshot(provider: str, model_id: str, prompt: str) -> dict:
             model=model_id,
             messages=[{"role": "user", "content": prompt}],
             temperature=1.0,
+            max_tokens=MAX_OUTPUT_TOKENS_GENERATION,
         )
         text = r.choices[0].message.content
         tokens = {"input": r.usage.prompt_tokens, "output": r.usage.completion_tokens}

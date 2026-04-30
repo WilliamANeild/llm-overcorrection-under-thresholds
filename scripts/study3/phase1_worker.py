@@ -16,6 +16,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
 from scripts.config import (
+    MAX_OUTPUT_TOKENS_GENERATION,
     MODELS,
     S3_MATRIX_PATH,
     S3_RUNS_PER_CELL,
@@ -23,15 +24,19 @@ from scripts.config import (
 )
 from scripts.utils import (
     append_jsonl,
+    extract_gemini_text,
+    extract_gemini_tokens,
+    get_anthropic_client,
+    get_google_client,
+    get_openai_client,
+    get_together_client,
     load_json,
     load_jsonl,
     log_experiment_metadata,
+    print_cost_summary,
     rate_limit,
     retry_with_backoff,
-    get_openai_client,
-    get_anthropic_client,
-    get_google_client,
-    get_together_client,
+    track_cost,
 )
 
 
@@ -55,11 +60,13 @@ def chat_n_turns_with_tokens(provider: str, model_id: str, prompts: list[str]) -
                 model=model_id,
                 messages=messages,
                 temperature=1.0,
+                max_tokens=MAX_OUTPUT_TOKENS_GENERATION,
             )
             text = r.choices[0].message.content
             tokens = {
                 "input": r.usage.prompt_tokens if r.usage else None,
                 "output": r.usage.completion_tokens if r.usage else None,
+                "finish_reason": r.choices[0].finish_reason if r.choices else None,
             }
             responses.append(text)
             token_counts.append(tokens)
@@ -74,7 +81,7 @@ def chat_n_turns_with_tokens(provider: str, model_id: str, prompts: list[str]) -
             r = retry_with_backoff(
                 client.messages.create,
                 model=model_id,
-                max_tokens=4096,
+                max_tokens=MAX_OUTPUT_TOKENS_GENERATION,
                 messages=messages,
                 temperature=1.0,
             )
@@ -82,6 +89,7 @@ def chat_n_turns_with_tokens(provider: str, model_id: str, prompts: list[str]) -
             tokens = {
                 "input": r.usage.input_tokens if r.usage else None,
                 "output": r.usage.output_tokens if r.usage else None,
+                "finish_reason": getattr(r, "stop_reason", None),
             }
             responses.append(text)
             token_counts.append(tokens)
@@ -90,7 +98,10 @@ def chat_n_turns_with_tokens(provider: str, model_id: str, prompts: list[str]) -
     elif provider == "google":
         from google.genai import types
         client = get_google_client()
-        config = types.GenerateContentConfig(temperature=1.0)
+        config = types.GenerateContentConfig(
+            temperature=1.0,
+            max_output_tokens=MAX_OUTPUT_TOKENS_GENERATION,
+        )
         contents = []
         for prompt in prompts:
             rate_limit(provider)
@@ -101,11 +112,8 @@ def chat_n_turns_with_tokens(provider: str, model_id: str, prompts: list[str]) -
                 contents=contents,
                 config=config,
             )
-            text = r.text
-            tokens = {
-                "input": r.usage_metadata.prompt_token_count if hasattr(r, 'usage_metadata') and r.usage_metadata else None,
-                "output": r.usage_metadata.candidates_token_count if hasattr(r, 'usage_metadata') and r.usage_metadata else None,
-            }
+            text = extract_gemini_text(r)
+            tokens = extract_gemini_tokens(r)
             responses.append(text)
             token_counts.append(tokens)
             contents.append({"role": "model", "parts": [{"text": text}]})
@@ -121,11 +129,13 @@ def chat_n_turns_with_tokens(provider: str, model_id: str, prompts: list[str]) -
                 model=model_id,
                 messages=messages,
                 temperature=1.0,
+                max_tokens=MAX_OUTPUT_TOKENS_GENERATION,
             )
             text = r.choices[0].message.content
             tokens = {
                 "input": r.usage.prompt_tokens if r.usage else None,
                 "output": r.usage.completion_tokens if r.usage else None,
+                "finish_reason": r.choices[0].finish_reason if r.choices else None,
             }
             responses.append(text)
             token_counts.append(tokens)
@@ -134,6 +144,8 @@ def chat_n_turns_with_tokens(provider: str, model_id: str, prompts: list[str]) -
     else:
         raise ValueError(f"Unknown provider: {provider}")
 
+    for tc in token_counts:
+        track_cost(model_id, tc.get("input"), tc.get("output"))
     return {"responses": responses, "token_counts": token_counts}
 
 
@@ -255,6 +267,7 @@ def main():
             total_out = sum(t.get("output", 0) or 0 for t in result["token_counts"])
             print(f"  OK ({result['n_turns']} turns, {total_out} output tokens)")
 
+    print_cost_summary()
     print("Done.")
 
 

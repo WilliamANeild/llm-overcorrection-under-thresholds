@@ -19,6 +19,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
 from scripts.config import (
+    MAX_OUTPUT_TOKENS_JUDGE,
     MODELS,
     S3_SELF_REFLECTION_PATH,
     S3_SELF_REFLECTION_PROBE,
@@ -26,6 +27,7 @@ from scripts.config import (
 )
 from scripts.utils import (
     append_jsonl,
+    extract_gemini_text,
     get_anthropic_client,
     get_google_client,
     get_openai_client,
@@ -72,6 +74,7 @@ def call_reflection(provider: str, model_id: str, messages: list[dict]) -> dict 
                 model=model_id,
                 messages=messages,
                 temperature=0.0,
+                max_tokens=MAX_OUTPUT_TOKENS_JUDGE,
             )
             text = r.choices[0].message.content
 
@@ -80,7 +83,7 @@ def call_reflection(provider: str, model_id: str, messages: list[dict]) -> dict 
             r = retry_with_backoff(
                 client.messages.create,
                 model=model_id,
-                max_tokens=256,
+                max_tokens=MAX_OUTPUT_TOKENS_JUDGE,
                 messages=messages,
                 temperature=0.0,
             )
@@ -89,7 +92,10 @@ def call_reflection(provider: str, model_id: str, messages: list[dict]) -> dict 
         elif provider == "google":
             from google.genai import types
             client = get_google_client()
-            config = types.GenerateContentConfig(temperature=0.0)
+            config = types.GenerateContentConfig(
+                temperature=0.0,
+                max_output_tokens=MAX_OUTPUT_TOKENS_JUDGE,
+            )
             # Convert messages to Google format
             contents = []
             for msg in messages:
@@ -101,7 +107,7 @@ def call_reflection(provider: str, model_id: str, messages: list[dict]) -> dict 
                 contents=contents,
                 config=config,
             )
-            text = r.text
+            text = extract_gemini_text(r)
 
         elif provider == "together":
             client = get_together_client()
@@ -110,6 +116,7 @@ def call_reflection(provider: str, model_id: str, messages: list[dict]) -> dict 
                 model=model_id,
                 messages=messages,
                 temperature=0.0,
+                max_tokens=MAX_OUTPUT_TOKENS_JUDGE,
             )
             text = r.choices[0].message.content
 

@@ -19,6 +19,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
 from scripts.config import (
+    MAX_OUTPUT_TOKENS_GENERATION,
+    MAX_OUTPUT_TOKENS_JUDGE,
     MODELS,
     S3_EVALUATOR_RESULTS_PATH,
     S3_TARGETED_FEEDBACK_PATH,
@@ -26,6 +28,7 @@ from scripts.config import (
 )
 from scripts.utils import (
     append_jsonl,
+    extract_gemini_text,
     get_anthropic_client,
     get_google_client,
     get_openai_client,
@@ -108,7 +111,8 @@ def parse_json_response(text: str) -> dict | None:
         return None
 
 
-def call_model(provider: str, model_id: str, prompt: str, temperature: float = 0.0) -> str | None:
+def call_model(provider: str, model_id: str, prompt: str, temperature: float = 0.0,
+               max_tokens: int = MAX_OUTPUT_TOKENS_JUDGE) -> str | None:
     rate_limit(provider)
 
     if provider == "openai":
@@ -118,6 +122,7 @@ def call_model(provider: str, model_id: str, prompt: str, temperature: float = 0
             model=model_id,
             messages=[{"role": "user", "content": prompt}],
             temperature=temperature,
+            max_tokens=max_tokens,
         )
         return r.choices[0].message.content
 
@@ -126,7 +131,7 @@ def call_model(provider: str, model_id: str, prompt: str, temperature: float = 0
         r = retry_with_backoff(
             client.messages.create,
             model=model_id,
-            max_tokens=4096,
+            max_tokens=max_tokens,
             messages=[{"role": "user", "content": prompt}],
             temperature=temperature,
         )
@@ -135,14 +140,17 @@ def call_model(provider: str, model_id: str, prompt: str, temperature: float = 0
     elif provider == "google":
         from google.genai import types
         client = get_google_client()
-        config = types.GenerateContentConfig(temperature=temperature)
+        config = types.GenerateContentConfig(
+            temperature=temperature,
+            max_output_tokens=max_tokens,
+        )
         r = retry_with_backoff(
             client.models.generate_content,
             model=model_id,
             contents=prompt,
             config=config,
         )
-        return r.text
+        return extract_gemini_text(r)
 
     elif provider == "together":
         client = get_together_client()
@@ -151,6 +159,7 @@ def call_model(provider: str, model_id: str, prompt: str, temperature: float = 0
             model=model_id,
             messages=[{"role": "user", "content": prompt}],
             temperature=temperature,
+            max_tokens=max_tokens,
         )
         return r.choices[0].message.content
 
@@ -226,7 +235,8 @@ def main():
         revision_prompt = TARGETED_REVISION_PROMPT.format(
             task_prompt=task_prompt, output=output, critique=critique
         )
-        targeted_revision = call_model(provider, model_id, revision_prompt, temperature=1.0)
+        targeted_revision = call_model(provider, model_id, revision_prompt, temperature=1.0,
+                                       max_tokens=MAX_OUTPUT_TOKENS_GENERATION)
         if not targeted_revision:
             print(f"  SKIP: targeted revision call failed")
             continue

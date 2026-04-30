@@ -96,11 +96,11 @@ S3_SELF_REFLECTION_PROBE = (
 SCENARIOS_PATH = ROOT / "prompts" / "config" / "scenarios.json"
 THRESHOLDS_PATH = ROOT / "prompts" / "config" / "thresholds.json"
 
-# ── Models ──
+# ── Models (pinned versions for reproducibility) ──
 MODELS = {
     "gpt-4o": {
         "provider": "openai",
-        "model_id": "gpt-4o",
+        "model_id": "gpt-4o-2024-11-20",
     },
     "claude-sonnet-4": {
         "provider": "anthropic",
@@ -108,7 +108,7 @@ MODELS = {
     },
     "gemini-2.5-flash": {
         "provider": "google",
-        "model_id": "gemini-2.5-flash",
+        "model_id": "gemini-2.5-flash-preview-04-17",
     },
     "llama-3.1-70b": {
         "provider": "together",
@@ -123,6 +123,10 @@ MODELS = {
         "model_id": "Qwen/Qwen2.5-72B-Instruct-Turbo",
     },
 }
+
+# ── Output token caps (prevent runaway generation) ──
+MAX_OUTPUT_TOKENS_GENERATION = 4096
+MAX_OUTPUT_TOKENS_JUDGE = 512
 
 RUNS_PER_CELL = 3
 
