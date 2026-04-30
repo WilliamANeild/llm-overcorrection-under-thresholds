@@ -14,6 +14,45 @@ from scripts.config import MAX_RETRIES, METADATA_PATH, RATE_LIMIT_SECONDS, RETRY
 
 load_dotenv()
 
+# ── Running cost tracker ──
+# Per-token pricing (output tokens, USD) as of 2025
+_TOKEN_PRICES = {
+    "gpt-4o-2024-11-20": {"input": 2.50 / 1_000_000, "output": 10.0 / 1_000_000},
+    "claude-sonnet-4-20250514": {"input": 3.0 / 1_000_000, "output": 15.0 / 1_000_000},
+    "gemini-2.5-flash-preview-04-17": {"input": 0.15 / 1_000_000, "output": 0.60 / 1_000_000},
+    "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo": {"input": 0.88 / 1_000_000, "output": 0.88 / 1_000_000},
+    "mistralai/Mistral-Large-Instruct-2407": {"input": 2.0 / 1_000_000, "output": 6.0 / 1_000_000},
+    "Qwen/Qwen2.5-72B-Instruct-Turbo": {"input": 0.90 / 1_000_000, "output": 0.90 / 1_000_000},
+}
+_cumulative_cost = {"total": 0.0, "by_model": {}}
+
+
+def track_cost(model_id: str, input_tokens: int | None, output_tokens: int | None):
+    """Accumulate running cost for a single API call."""
+    prices = _TOKEN_PRICES.get(model_id)
+    if not prices:
+        return
+    cost = (input_tokens or 0) * prices["input"] + (output_tokens or 0) * prices["output"]
+    _cumulative_cost["total"] += cost
+    _cumulative_cost["by_model"][model_id] = _cumulative_cost["by_model"].get(model_id, 0.0) + cost
+
+
+def get_cumulative_cost() -> dict:
+    """Return running cost summary."""
+    return {
+        "total_usd": round(_cumulative_cost["total"], 4),
+        "by_model": {k: round(v, 4) for k, v in _cumulative_cost["by_model"].items()},
+    }
+
+
+def print_cost_summary():
+    """Print current cumulative cost to stdout."""
+    costs = get_cumulative_cost()
+    print(f"\n  Running cost: ${costs['total_usd']:.4f}")
+    for model, cost in sorted(costs["by_model"].items()):
+        print(f"    {model}: ${cost:.4f}")
+
+
 # ── JSON / JSONL helpers ──
 
 def load_json(path: Path) -> dict | list:
@@ -100,6 +139,35 @@ def get_anthropic_client():
 def get_google_client():
     from google import genai
     return genai.Client(api_key=os.environ["GOOGLE_API_KEY"])
+
+
+def extract_gemini_text(response) -> str:
+    """Safely extract text from a Gemini response, raising on blocked/empty content."""
+    if not hasattr(response, 'candidates') or not response.candidates:
+        raise ValueError("Gemini returned no candidates")
+    candidate = response.candidates[0]
+    finish_reason = getattr(candidate, 'finish_reason', None)
+    if finish_reason and str(finish_reason) not in ('STOP', 'MAX_TOKENS', 'FinishReason.STOP', 'FinishReason.MAX_TOKENS', '1', '2'):
+        raise ValueError(f"Gemini content blocked: finish_reason={finish_reason}")
+    text = response.text
+    if text is None:
+        raise ValueError("Gemini response .text is None (likely safety-filtered)")
+    return text
+
+
+def extract_gemini_tokens(response) -> dict:
+    """Safely extract token counts and finish reason from a Gemini response."""
+    meta = getattr(response, 'usage_metadata', None)
+    finish_reason = None
+    if hasattr(response, 'candidates') and response.candidates:
+        finish_reason = str(getattr(response.candidates[0], 'finish_reason', None))
+    if meta is None:
+        return {"input": None, "output": None, "finish_reason": finish_reason}
+    return {
+        "input": getattr(meta, 'prompt_token_count', None),
+        "output": getattr(meta, 'candidates_token_count', None),
+        "finish_reason": finish_reason,
+    }
 
 
 def get_together_client():
@@ -195,7 +263,7 @@ def chat_two_turns(provider: str, model_id: str, turn1_prompt: str, turn2_prompt
             contents=turn1_prompt,
             config=config,
         )
-        t1 = r1.text
+        t1 = extract_gemini_text(r1)
 
         rate_limit(provider)
         r2 = retry_with_backoff(
@@ -208,7 +276,7 @@ def chat_two_turns(provider: str, model_id: str, turn1_prompt: str, turn2_prompt
             ],
             config=config,
         )
-        t2 = r2.text
+        t2 = extract_gemini_text(r2)
         return {"turn1_response": t1, "turn2_response": t2}
 
     elif provider == "together":
@@ -295,7 +363,7 @@ def chat_n_turns(provider: str, model_id: str, prompts: list[str]) -> dict:
                 contents=contents,
                 config=config,
             )
-            text = r.text
+            text = extract_gemini_text(r)
             responses.append(text)
             contents.append({"role": "model", "parts": [{"text": text}]})
 

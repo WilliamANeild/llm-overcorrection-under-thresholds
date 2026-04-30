@@ -920,6 +920,580 @@ def rq17_overcorrection_magnitude(eval_df: pd.DataFrame, worker_df: pd.DataFrame
     }
 
 
+# ── Data Integrity Validator ──
+
+def validate_data_integrity(worker_df: pd.DataFrame, eval_df: pd.DataFrame) -> dict:
+    """Run pre-analysis checks to catch data quality issues before they corrupt results."""
+    print("\n== Data Integrity Validation ==")
+    issues = []
+
+    # 1. Check for None responses in worker trials
+    trials = load_jsonl(S3_WORKER_TRIALS_PATH)
+    successful = [t for t in trials if t.get("status") == "success"]
+    none_responses = 0
+    truncated = 0
+    for trial in successful:
+        for i, resp in enumerate(trial.get("responses", [])):
+            if resp is None:
+                none_responses += 1
+                issues.append(f"None response: {trial['trial_id']} turn {i+1}")
+        for tc in (trial.get("token_counts") or []):
+            fr = tc.get("finish_reason", "")
+            if fr and str(fr) in ("length", "max_tokens", "MAX_TOKENS", "FinishReason.MAX_TOKENS", "2"):
+                truncated += 1
+
+    print(f"  Worker trials: {len(successful)} successful")
+    print(f"  None responses: {none_responses} {'(PROBLEM)' if none_responses else '(OK)'}")
+    print(f"  Truncated responses (hit max_tokens): {truncated} {'(WARNING)' if truncated else '(OK)'}")
+
+    # 2. Check for null token counts
+    null_tokens = worker_df["output_tokens"].isna().sum() + (worker_df["output_tokens"] == 0).sum()
+    print(f"  Null/zero output token counts: {null_tokens}/{len(worker_df)} rows")
+
+    # 3. Check evaluator coverage
+    expected_evals = len(worker_df)
+    actual_evals = len(eval_df)
+    coverage = actual_evals / expected_evals if expected_evals > 0 else 0
+    print(f"  Evaluator coverage: {actual_evals}/{expected_evals} ({coverage:.1%})")
+
+    # 4. Check for null evaluator levels
+    null_levels = eval_df["level"].isna().sum()
+    print(f"  Null evaluator levels: {null_levels}/{len(eval_df)} {'(WARNING)' if null_levels > 0 else '(OK)'}")
+
+    # 5. Check level distribution (should not cluster at extremes)
+    if not eval_df.empty:
+        level_dist = eval_df["level"].value_counts().sort_index()
+        print(f"  Level distribution: {dict(level_dist)}")
+        most_common_pct = level_dist.max() / len(eval_df)
+        if most_common_pct > 0.6:
+            issues.append(f"Evaluator level distribution heavily skewed: {most_common_pct:.1%} at one level")
+            print(f"  WARNING: {most_common_pct:.1%} of ratings at one level")
+
+    # 6. Check trial completeness (all models x scenarios x runs present)
+    expected_models = set(worker_df["model"].unique())
+    expected_scenarios = set(worker_df["scenario_id"].unique())
+    for model in expected_models:
+        model_scenarios = set(worker_df[worker_df["model"] == model]["scenario_id"].unique())
+        missing = expected_scenarios - model_scenarios
+        if missing:
+            issues.append(f"Model {model} missing scenarios: {missing}")
+            print(f"  WARNING: {model} missing {len(missing)} scenarios")
+
+    # 7. Check turn completeness (each trial should have 5 turns)
+    turns_per_trial = worker_df.groupby("trial_id")["turn"].max()
+    incomplete = (turns_per_trial < 5).sum()
+    if incomplete > 0:
+        print(f"  Incomplete trials (<5 turns): {incomplete}")
+        issues.append(f"{incomplete} trials have fewer than 5 turns")
+
+    status = "PASS" if not issues else f"FAIL ({len(issues)} issues)"
+    print(f"\n  Validation: {status}")
+    if issues:
+        for issue in issues[:10]:
+            print(f"    - {issue}")
+
+    return {
+        "status": status,
+        "none_responses": none_responses,
+        "truncated_responses": truncated,
+        "null_token_rows": int(null_tokens),
+        "evaluator_coverage": float(coverage),
+        "null_levels": int(null_levels),
+        "incomplete_trials": int(incomplete),
+        "issues": issues,
+    }
+
+
+# ── Structural Bloat Detection ──
+
+def structural_bloat_analysis() -> dict:
+    """Track structural elements (headers, bullets, code blocks) across turns.
+
+    If models add more structural formatting over revisions, it's a sign of
+    performative complexity -- making output look more thorough without
+    substantive improvement.
+    """
+    print("\n== Structural Bloat Analysis ==")
+    trials = load_jsonl(S3_WORKER_TRIALS_PATH)
+    successful = [t for t in trials if t.get("status") == "success"]
+
+    rows = []
+    for trial in successful:
+        for turn_idx, response in enumerate(trial["responses"]):
+            if response is None:
+                continue
+            headers = len(re.findall(r'^#{1,6}\s', response, re.MULTILINE))
+            bullets = len(re.findall(r'^[\s]*[-*]\s', response, re.MULTILINE))
+            numbered = len(re.findall(r'^[\s]*\d+[.)]\s', response, re.MULTILINE))
+            code_blocks = len(re.findall(r'```', response)) // 2
+            bold = len(re.findall(r'\*\*[^*]+\*\*', response))
+            paragraphs = len([p for p in response.split('\n\n') if p.strip()])
+
+            rows.append({
+                "trial_id": trial["trial_id"],
+                "model": trial["model"],
+                "domain": trial["domain"],
+                "turn": turn_idx + 1,
+                "headers": headers,
+                "bullets": bullets,
+                "numbered_items": numbered,
+                "code_blocks": code_blocks,
+                "bold_phrases": bold,
+                "paragraphs": paragraphs,
+                "total_structure": headers + bullets + numbered + code_blocks,
+            })
+
+    df = pd.DataFrame(rows)
+    if df.empty:
+        print("  No data.")
+        return {}
+
+    by_turn = df.groupby("turn")[["headers", "bullets", "numbered_items",
+                                    "code_blocks", "bold_phrases", "total_structure"]].mean()
+    print("\nTurn | Headers | Bullets | Numbered | Code blocks | Bold | Total structure")
+    print("-" * 80)
+    for turn, row in by_turn.iterrows():
+        print(f"  {turn}   | {row['headers']:.1f}     | {row['bullets']:.1f}     | "
+              f"{row['numbered_items']:.1f}        | {row['code_blocks']:.1f}          | "
+              f"{row['bold_phrases']:.1f}   | {row['total_structure']:.1f}")
+
+    rho, p = sp_stats.spearmanr(df["turn"], df["total_structure"])
+    print(f"\n  Spearman (turn vs total structure): rho={rho:.3f}, p={p:.4f}")
+    print(f"  {'Structure increases over turns' if rho > 0 else 'Structure stable or decreasing'}")
+
+    by_model = {}
+    for model in sorted(df["model"].unique()):
+        m_df = df[df["model"] == model]
+        t1 = m_df[m_df["turn"] == 1]["total_structure"].mean()
+        t5 = m_df[m_df["turn"] == 5]["total_structure"].mean() if 5 in m_df["turn"].values else t1
+        by_model[model] = {"t1_structure": float(t1), "t5_structure": float(t5),
+                           "growth": float(t5 - t1)}
+    print("\n  Structural growth T1->T5 by model:")
+    for model, data in sorted(by_model.items()):
+        print(f"    {model}: {data['t1_structure']:.1f} -> {data['t5_structure']:.1f} ({data['growth']:+.1f})")
+
+    return {
+        "by_turn": {int(t): {c: float(v) for c, v in row.items()} for t, row in by_turn.iterrows()},
+        "correlation": {"rho": float(rho), "p": float(p)},
+        "by_model": by_model,
+    }
+
+
+# ── Semantic Similarity Between Consecutive Turns ──
+
+def _tfidf_cosine(text_a: str, text_b: str) -> float:
+    """Compute TF-IDF cosine similarity between two texts (no external deps)."""
+    words_a = re.findall(r'\b\w+\b', text_a.lower())
+    words_b = re.findall(r'\b\w+\b', text_b.lower())
+    if not words_a or not words_b:
+        return 0.0
+
+    vocab = set(words_a) | set(words_b)
+    # Term frequency
+    tf_a = defaultdict(int)
+    tf_b = defaultdict(int)
+    for w in words_a:
+        tf_a[w] += 1
+    for w in words_b:
+        tf_b[w] += 1
+
+    # IDF (2 documents)
+    idf = {}
+    for w in vocab:
+        doc_freq = (1 if tf_a[w] > 0 else 0) + (1 if tf_b[w] > 0 else 0)
+        idf[w] = math.log(2.0 / doc_freq) + 1
+
+    # TF-IDF vectors
+    dot = 0.0
+    norm_a = 0.0
+    norm_b = 0.0
+    for w in vocab:
+        va = tf_a[w] * idf[w]
+        vb = tf_b[w] * idf[w]
+        dot += va * vb
+        norm_a += va * va
+        norm_b += vb * vb
+
+    if norm_a == 0 or norm_b == 0:
+        return 0.0
+    return dot / (math.sqrt(norm_a) * math.sqrt(norm_b))
+
+
+def semantic_similarity_analysis() -> dict:
+    """Measure semantic similarity between consecutive turns.
+
+    High similarity + low quality gain = model is paraphrasing, not improving.
+    Declining similarity over turns = semantic drift from the original.
+    """
+    print("\n== Semantic Similarity Between Consecutive Turns ==")
+    trials = load_jsonl(S3_WORKER_TRIALS_PATH)
+    successful = [t for t in trials if t.get("status") == "success"]
+
+    rows = []
+    for trial in successful:
+        resps = trial["responses"]
+        for i in range(1, len(resps)):
+            if resps[i] is None or resps[i-1] is None:
+                continue
+            sim = _tfidf_cosine(resps[i-1], resps[i])
+            rows.append({
+                "trial_id": trial["trial_id"],
+                "model": trial["model"],
+                "domain": trial["domain"],
+                "turn": i + 1,
+                "cosine_sim": sim,
+            })
+        # Also track T1 vs each later turn (drift from original)
+        if resps[0] is not None:
+            for i in range(1, len(resps)):
+                if resps[i] is None:
+                    continue
+                sim = _tfidf_cosine(resps[0], resps[i])
+                rows.append({
+                    "trial_id": trial["trial_id"],
+                    "model": trial["model"],
+                    "domain": trial["domain"],
+                    "turn": -(i + 1),  # Negative turn = vs T1
+                    "cosine_sim": sim,
+                })
+
+    df = pd.DataFrame(rows)
+    if df.empty:
+        print("  No data.")
+        return {}
+
+    # Consecutive similarity
+    consecutive = df[df["turn"] > 0]
+    by_turn = consecutive.groupby("turn")["cosine_sim"].mean()
+    print("\nConsecutive turn similarity:")
+    for turn, sim in by_turn.items():
+        print(f"  T{int(turn)-1}->T{int(turn)}: {sim:.3f}")
+
+    # Drift from T1
+    drift = df[df["turn"] < 0].copy()
+    drift["turn"] = drift["turn"].abs()
+    drift_by_turn = drift.groupby("turn")["cosine_sim"].mean()
+    print("\nSimilarity to original (T1):")
+    for turn, sim in drift_by_turn.items():
+        print(f"  T1 vs T{int(turn)}: {sim:.3f}")
+
+    rho, p = sp_stats.spearmanr(drift["turn"], drift["cosine_sim"])
+    print(f"\n  Spearman (turn vs T1-similarity): rho={rho:.3f}, p={p:.4f}")
+    print(f"  {'Drifting from original' if rho < 0 else 'Staying close to original'}")
+
+    return {
+        "consecutive_similarity": {int(t): float(v) for t, v in by_turn.items()},
+        "drift_from_t1": {int(t): float(v) for t, v in drift_by_turn.items()},
+        "drift_correlation": {"rho": float(rho), "p": float(p)},
+    }
+
+
+# ── Position Bias Check (Reversibility) ──
+
+def position_bias_check() -> dict:
+    """Verify A/B randomization in reversibility test and check for position bias."""
+    print("\n== Position Bias Check (Reversibility) ==")
+    results = load_jsonl(S3_REVERSIBILITY_RESULTS_PATH)
+    if not results:
+        print("  No reversibility data.")
+        return {}
+
+    valid = [r for r in results if r.get("raw_choice") in ("A", "B")]
+    if not valid:
+        print("  No valid A/B choices.")
+        return {}
+
+    # Check randomization balance
+    t1_as_a = sum(1 for r in valid if r.get("turn1_position") == "A")
+    t1_as_b = sum(1 for r in valid if r.get("turn1_position") == "B")
+    total = len(valid)
+    print(f"  Turn 1 in position A: {t1_as_a}/{total} ({t1_as_a/total:.1%})")
+    print(f"  Turn 1 in position B: {t1_as_b}/{total} ({t1_as_b/total:.1%})")
+
+    # Position bias: how often does model choose A regardless of content?
+    chose_a = sum(1 for r in valid if r["raw_choice"] == "A")
+    chose_b = sum(1 for r in valid if r["raw_choice"] == "B")
+    a_rate = chose_a / total
+    print(f"\n  Chose A: {chose_a}/{total} ({a_rate:.1%})")
+    print(f"  Chose B: {chose_b}/{total} ({1-a_rate:.1%})")
+
+    # Binomial test for position bias (should be ~50% if no bias)
+    binom_p = float(sp_stats.binomtest(chose_a, total, 0.5).pvalue)
+    print(f"  Binomial test for position bias: p={binom_p:.4f}")
+    if binom_p < 0.05:
+        print(f"  WARNING: Significant position bias detected (p<0.05)")
+
+    # Check if preference differs by position
+    # When T1 is A, how often is A chosen? vs when T1 is B, how often is B chosen?
+    t1_a_chose_a = sum(1 for r in valid if r.get("turn1_position") == "A" and r["raw_choice"] == "A")
+    t1_b_chose_b = sum(1 for r in valid if r.get("turn1_position") == "B" and r["raw_choice"] == "B")
+    t1_pref_when_a = t1_a_chose_a / t1_as_a if t1_as_a > 0 else 0
+    t1_pref_when_b = t1_b_chose_b / t1_as_b if t1_as_b > 0 else 0
+    print(f"\n  T1 preference when T1 is in position A: {t1_pref_when_a:.1%}")
+    print(f"  T1 preference when T1 is in position B: {t1_pref_when_b:.1%}")
+    consistency_gap = abs(t1_pref_when_a - t1_pref_when_b)
+    print(f"  Consistency gap: {consistency_gap:.1%} {'(OK)' if consistency_gap < 0.15 else '(WARNING: position may confound results)'}")
+
+    return {
+        "randomization_balance": {"t1_as_a": t1_as_a, "t1_as_b": t1_as_b},
+        "position_bias": {"chose_a_rate": float(a_rate), "binom_p": binom_p},
+        "consistency": {
+            "t1_pref_when_a": float(t1_pref_when_a),
+            "t1_pref_when_b": float(t1_pref_when_b),
+            "gap": float(consistency_gap),
+        },
+    }
+
+
+# ── Revision Efficiency (tokens spent vs content actually changed) ──
+
+def compute_edit_distance_ratio(prev: str, curr: str) -> float:
+    """Compute normalized edit distance between two strings (word-level).
+
+    Returns ratio of changed words to total words. 0 = identical, 1 = completely different.
+    """
+    prev_words = prev.split()
+    curr_words = curr.split()
+    if not prev_words and not curr_words:
+        return 0.0
+    # Use simple set-based approximation for speed (exact Levenshtein is O(n*m))
+    prev_set = set(enumerate(prev_words))
+    curr_set = set(enumerate(curr_words))
+    # Count words that changed position or content
+    max_len = max(len(prev_words), len(curr_words))
+    if max_len == 0:
+        return 0.0
+    matching = sum(1 for i, w in enumerate(prev_words)
+                   if i < len(curr_words) and curr_words[i] == w)
+    return 1.0 - (matching / max_len)
+
+
+def revision_efficiency_analysis(worker_df: pd.DataFrame) -> dict:
+    """Measure how much content actually changes per revision vs tokens spent.
+
+    Tokens-per-change ratio: high = model regenerates everything to change little.
+    """
+    print("\n== Revision Efficiency (Tokens Spent vs Content Changed) ==")
+    trials = load_jsonl(S3_WORKER_TRIALS_PATH)
+    successful = [t for t in trials if t.get("status") == "success"]
+
+    rows = []
+    for trial in successful:
+        for turn_idx in range(1, len(trial["responses"])):
+            prev = trial["responses"][turn_idx - 1]
+            curr = trial["responses"][turn_idx]
+            if curr is None or not classify_revision(curr):
+                continue
+
+            edit_ratio = compute_edit_distance_ratio(prev, curr)
+            token_info = trial["token_counts"][turn_idx] if trial.get("token_counts") else {}
+            output_tokens = (token_info.get("output", 0) or 0)
+
+            rows.append({
+                "trial_id": trial["trial_id"],
+                "model": trial["model"],
+                "domain": trial["domain"],
+                "turn": turn_idx + 1,
+                "edit_ratio": edit_ratio,
+                "output_tokens": output_tokens,
+                "tokens_per_change": output_tokens / max(edit_ratio, 0.01),
+            })
+
+    if not rows:
+        print("  No revision data.")
+        return {}
+
+    df = pd.DataFrame(rows)
+    mean_edit = df["edit_ratio"].mean()
+    mean_tpc = df["tokens_per_change"].mean()
+
+    print(f"  Total revisions analyzed: {len(df)}")
+    print(f"  Mean edit ratio: {mean_edit:.3f} (0=identical, 1=completely rewritten)")
+    print(f"  Mean tokens per unit change: {mean_tpc:.0f}")
+
+    by_turn = df.groupby("turn").agg({"edit_ratio": "mean", "output_tokens": "mean", "tokens_per_change": "mean"})
+    print("\nTurn | Edit ratio | Output tokens | Tokens/change")
+    print("-" * 55)
+    for turn, row in by_turn.iterrows():
+        print(f"  {turn}   | {row['edit_ratio']:.3f}      | {row['output_tokens']:.0f}          | {row['tokens_per_change']:.0f}")
+
+    by_model = {}
+    print("\n  By model:")
+    for model in sorted(df["model"].unique()):
+        m_df = df[df["model"] == model]
+        by_model[model] = {
+            "mean_edit_ratio": float(m_df["edit_ratio"].mean()),
+            "mean_tokens_per_change": float(m_df["tokens_per_change"].mean()),
+        }
+        print(f"    {model}: edit_ratio={m_df['edit_ratio'].mean():.3f}, tokens/change={m_df['tokens_per_change'].mean():.0f}")
+
+    by_domain = {}
+    print("\n  By domain:")
+    for domain in sorted(df["domain"].unique()):
+        d_df = df[df["domain"] == domain]
+        by_domain[domain] = {
+            "mean_edit_ratio": float(d_df["edit_ratio"].mean()),
+            "mean_tokens_per_change": float(d_df["tokens_per_change"].mean()),
+        }
+        print(f"    {domain}: edit_ratio={d_df['edit_ratio'].mean():.3f}, tokens/change={d_df['tokens_per_change'].mean():.0f}")
+
+    return {
+        "mean_edit_ratio": float(mean_edit),
+        "mean_tokens_per_change": float(mean_tpc),
+        "n_revisions": len(df),
+        "by_turn": {int(t): {"edit_ratio": float(r["edit_ratio"]), "tokens_per_change": float(r["tokens_per_change"])}
+                    for t, r in by_turn.iterrows()},
+        "by_model": by_model,
+        "by_domain": by_domain,
+    }
+
+
+# ── Wavering Score (Zhang et al., ACL 2025) ──
+
+def compute_wavering_score(quality_trajectory: list[float]) -> int:
+    """Count direction changes in quality trajectory.
+
+    A wavering event occurs when consecutive quality deltas change sign,
+    indicating the model flip-flopped between improving and degrading.
+    Inspired by Zhang et al. (ACL 2025) on answer wavering in self-correction.
+    """
+    if len(quality_trajectory) < 3:
+        return 0
+    deltas = [quality_trajectory[i] - quality_trajectory[i-1]
+              for i in range(1, len(quality_trajectory))]
+    sign_changes = 0
+    for i in range(1, len(deltas)):
+        if deltas[i] * deltas[i-1] < 0:
+            sign_changes += 1
+    return sign_changes
+
+
+def wavering_analysis(eval_df: pd.DataFrame) -> dict:
+    """Compute wavering scores across trials, models, and domains."""
+    print("\n== Wavering Analysis (Quality Trajectory Instability) ==")
+
+    trial_trajectories = {}
+    for _, row in eval_df.iterrows():
+        key = row["worker_trial_id"]
+        if key not in trial_trajectories:
+            trial_trajectories[key] = {"levels": {}, "model": row["model"], "domain": row["domain"]}
+        trial_trajectories[key]["levels"][row["turn"]] = row["level"]
+
+    scores = []
+    for trial_id, data in trial_trajectories.items():
+        turns = sorted(data["levels"].keys())
+        if len(turns) < 3:
+            continue
+        trajectory = [data["levels"][t] for t in turns]
+        ws = compute_wavering_score(trajectory)
+        scores.append({
+            "trial_id": trial_id,
+            "model": data["model"],
+            "domain": data["domain"],
+            "wavering_score": ws,
+            "trajectory": trajectory,
+        })
+
+    if not scores:
+        print("  No data with 3+ turns.")
+        return {}
+
+    ws_df = pd.DataFrame(scores)
+    mean_ws = ws_df["wavering_score"].mean()
+    wavering_trials = (ws_df["wavering_score"] > 0).sum()
+    total = len(ws_df)
+
+    print(f"  Trials analyzed: {total}")
+    print(f"  Mean wavering score: {mean_ws:.2f}")
+    print(f"  Trials with any wavering: {wavering_trials}/{total} ({wavering_trials/total:.1%})")
+
+    by_model = {}
+    print("\n  By model:")
+    for model in sorted(ws_df["model"].unique()):
+        m_df = ws_df[ws_df["model"] == model]
+        m_mean = m_df["wavering_score"].mean()
+        by_model[model] = float(m_mean)
+        print(f"    {model}: mean={m_mean:.2f}, any_wavering={int((m_df['wavering_score'] > 0).sum())}/{len(m_df)}")
+
+    by_domain = {}
+    print("\n  By domain:")
+    for domain in sorted(ws_df["domain"].unique()):
+        d_df = ws_df[ws_df["domain"] == domain]
+        d_mean = d_df["wavering_score"].mean()
+        by_domain[domain] = float(d_mean)
+        print(f"    {domain}: mean={d_mean:.2f}")
+
+    return {
+        "mean_wavering_score": float(mean_ws),
+        "wavering_trial_rate": float(wavering_trials / total),
+        "n_trials": total,
+        "by_model": by_model,
+        "by_domain": by_domain,
+    }
+
+
+# ── Constraint Satisfaction (Laban et al., 2025 inspired) ──
+
+def constraint_satisfaction_analysis(eval_df: pd.DataFrame) -> dict:
+    """Check if task constraints are maintained across turns.
+
+    Uses keyword overlap between the task prompt and each response as a proxy
+    for whether the model is losing track of original requirements over turns.
+    Inspired by Laban et al. (2025) on multi-turn context loss.
+    """
+    print("\n== Constraint Satisfaction (Context Retention) ==")
+    trials = load_jsonl(S3_WORKER_TRIALS_PATH)
+    successful = [t for t in trials if t.get("status") == "success"]
+
+    rows = []
+    for trial in successful:
+        task_words = set(re.findall(r'\b\w{4,}\b', trial["task_prompt"].lower()))
+        if not task_words:
+            continue
+        for turn_idx, response in enumerate(trial["responses"]):
+            resp_words = set(re.findall(r'\b\w{4,}\b', response.lower()))
+            recall = len(task_words & resp_words) / len(task_words)
+            rows.append({
+                "trial_id": trial["trial_id"],
+                "model": trial["model"],
+                "domain": trial["domain"],
+                "turn": turn_idx + 1,
+                "constraint_recall": recall,
+            })
+
+    df = pd.DataFrame(rows)
+    if df.empty:
+        print("  No data.")
+        return {}
+
+    by_turn = df.groupby("turn")["constraint_recall"].mean()
+    print("\nTurn | Mean constraint recall")
+    print("-" * 35)
+    for turn, recall in by_turn.items():
+        print(f"  {turn}   | {recall:.3f}")
+
+    # Test for decline
+    rho, p = sp_stats.spearmanr(df["turn"], df["constraint_recall"])
+    print(f"\n  Spearman (turn vs recall): rho={rho:.3f}, p={p:.4f}")
+
+    # Per-trial: flag trials where recall drops by >10% from T1 to T5
+    t1_recall = df[df["turn"] == 1].set_index("trial_id")["constraint_recall"]
+    t5_recall = df[df["turn"] == 5].set_index("trial_id")["constraint_recall"] if 5 in df["turn"].values else pd.Series(dtype=float)
+    shared = sorted(set(t1_recall.index) & set(t5_recall.index))
+    if shared:
+        drops = [(t1_recall[tid] - t5_recall[tid]) for tid in shared]
+        significant_drops = sum(1 for d in drops if d > 0.10)
+        print(f"\n  Trials with >10% recall drop T1->T5: {significant_drops}/{len(shared)} ({significant_drops/len(shared):.1%})")
+    else:
+        significant_drops = 0
+
+    return {
+        "recall_by_turn": {int(k): float(v) for k, v in by_turn.items()},
+        "correlation": {"rho": float(rho), "p": float(p)},
+        "significant_drop_rate": float(significant_drops / len(shared)) if shared else 0.0,
+    }
+
+
 # ── Main ──
 
 def main():
@@ -940,6 +1514,10 @@ def main():
     print(f"Domains: {sorted(worker_df['domain'].unique())}")
 
     results = {}
+
+    # Data integrity check (run first, before any analysis)
+    results["validation"] = validate_data_integrity(worker_df, eval_df)
+
     results["rq1"] = rq1_revision_yield_curve(worker_df, eval_df)
     results["rq2"] = rq2_drp_by_domain(eval_df)
     results["rq3"] = rq3_overcorrection_rate(worker_df, eval_df)
@@ -957,6 +1535,12 @@ def main():
     results["rq15"] = rq15_revision_yield_equations(eval_df, worker_df)
     results["rq16"] = rq16_unit_economics(eval_df, worker_df)
     results["rq17"] = rq17_overcorrection_magnitude(eval_df, worker_df)
+    results["revision_efficiency"] = revision_efficiency_analysis(worker_df)
+    results["structural_bloat"] = structural_bloat_analysis()
+    results["semantic_similarity"] = semantic_similarity_analysis()
+    results["wavering"] = wavering_analysis(eval_df)
+    results["constraint_satisfaction"] = constraint_satisfaction_analysis(eval_df)
+    results["position_bias"] = position_bias_check()
 
     results_path = S3_STATS_DIR / "study3_results.json"
     with open(results_path, "w") as f:

@@ -22,6 +22,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
 from scripts.config import (
+    MAX_OUTPUT_TOKENS_JUDGE,
     MODELS,
     S3_EVALUATOR_RESULTS_PATH,
     S3_ONESHOT_TRIALS_PATH,
@@ -29,6 +30,7 @@ from scripts.config import (
 )
 from scripts.utils import (
     append_jsonl,
+    extract_gemini_text,
     get_anthropic_client,
     get_google_client,
     get_openai_client,
@@ -99,6 +101,7 @@ def call_evaluator(provider: str, model_id: str, prompt: str) -> dict | None:
                 model=model_id,
                 messages=[{"role": "user", "content": prompt}],
                 temperature=0.0,
+                max_tokens=MAX_OUTPUT_TOKENS_JUDGE,
             )
             text = response.choices[0].message.content
 
@@ -107,7 +110,7 @@ def call_evaluator(provider: str, model_id: str, prompt: str) -> dict | None:
             response = retry_with_backoff(
                 client.messages.create,
                 model=model_id,
-                max_tokens=256,
+                max_tokens=MAX_OUTPUT_TOKENS_JUDGE,
                 messages=[{"role": "user", "content": prompt}],
                 temperature=0.0,
             )
@@ -116,14 +119,17 @@ def call_evaluator(provider: str, model_id: str, prompt: str) -> dict | None:
         elif provider == "google":
             from google.genai import types
             client = get_google_client()
-            config = types.GenerateContentConfig(temperature=0.0)
+            config = types.GenerateContentConfig(
+                temperature=0.0,
+                max_output_tokens=MAX_OUTPUT_TOKENS_JUDGE,
+            )
             response = retry_with_backoff(
                 client.models.generate_content,
                 model=model_id,
                 contents=prompt,
                 config=config,
             )
-            text = response.text
+            text = extract_gemini_text(response)
 
         elif provider == "together":
             client = get_together_client()
@@ -132,6 +138,7 @@ def call_evaluator(provider: str, model_id: str, prompt: str) -> dict | None:
                 model=model_id,
                 messages=[{"role": "user", "content": prompt}],
                 temperature=0.0,
+                max_tokens=MAX_OUTPUT_TOKENS_JUDGE,
             )
             text = response.choices[0].message.content
 
