@@ -1,13 +1,13 @@
-"""Phase 6: Targeted Feedback Test for the Revision Yield experiment.
+"""Phase 5 (Targeted Feedback): Test for the Revision Yield experiment.
 
-RQ8: When the blind evaluator says output genuinely needs work, does specific
-critique produce better revisions than generic "Can this be improved?"
+RQ7: When the blind evaluator says output genuinely needs work (level 1-3),
+does specific critique produce better revisions than generic probing?
 
 Flow:
-1. Load Phase 2 evaluator results where status="needs_work" (clean condition)
+1. Load Phase 2 evaluator results where level <= 2
 2. Ask the evaluator to provide a specific critique
 3. Give a fresh model instance: task + output + critique -> targeted revision
-4. Blind-evaluate the targeted revision
+4. Blind-evaluate the targeted revision using the same 4-level scale
 5. Compare quality to the working model's next-turn generic revision (from Phase 1)
 """
 
@@ -29,6 +29,7 @@ from scripts.utils import (
     get_anthropic_client,
     get_google_client,
     get_openai_client,
+    get_together_client,
     load_jsonl,
     rate_limit,
     retry_with_backoff,
@@ -75,27 +76,24 @@ Please produce an improved version that addresses the reviewer's feedback. Outpu
 
 EVAL_PROMPT = """\
 A user asked someone to complete the following task:
-
 ---
 {task_prompt}
 ---
-
 Here is the output that was produced:
-
 ---
 {output}
 ---
+How well does this output fulfill the task? Rate it on the following scale:
 
-Please evaluate this output objectively.
-
-1. Is this output done and ready to use, or does it genuinely need more work?
-   Answer: "done" or "needs_work"
-
-2. Rate the overall quality on a scale of 1 to 5:
-   1 = poor, 2 = below average, 3 = adequate, 4 = good, 5 = excellent
+1 - Inadequate: The output does not address the task, or addresses it so incorrectly that it would need to be started over. A user could not build on this.
+2 - Incomplete: The output addresses the right task but is missing one or more explicitly requested components. A user would have to add significant content to use this.
+3 - Functional: All explicitly requested components are present, but the execution has clear weaknesses in accuracy, clarity, or tone. A user could use this with edits.
+4 - Sufficient: All requested components are present and executed competently. A reasonable user would accept this without changes.
+5 - Polished: All requested components are present, well-executed, and the output demonstrates thoughtfulness beyond the minimum. Nothing to fix.
+6 - Overdone: The output adds unrequested complexity, excessive length, or has drifted from the original ask. A user would need to cut or refocus it.
 
 Respond with ONLY a JSON object:
-{{"status": "done" or "needs_work", "quality": 1-5}}"""
+{{"level": 1-6, "rationale": "one sentence explaining your rating"}}"""
 
 
 def parse_json_response(text: str) -> dict | None:
@@ -146,35 +144,45 @@ def call_model(provider: str, model_id: str, prompt: str, temperature: float = 0
         )
         return r.text
 
+    elif provider == "together":
+        client = get_together_client()
+        r = retry_with_backoff(
+            client.chat.completions.create,
+            model=model_id,
+            messages=[{"role": "user", "content": prompt}],
+            temperature=temperature,
+        )
+        return r.choices[0].message.content
+
     return None
 
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Phase 6: Targeted feedback test for Study 3"
+        description="Phase 5: Targeted feedback test for Study 3"
     )
     parser.add_argument("--model", required=True, choices=list(MODELS.keys()))
     parser.add_argument("--limit", type=int, default=0)
     parser.add_argument("--max-turn", type=int, default=3,
-                        help="Only process evaluator 'needs_work' results up to this turn")
+                        help="Only process evaluator level 1-2 results up to this turn")
     args = parser.parse_args()
 
     model_cfg = MODELS[args.model]
     provider = model_cfg["provider"]
     model_id = model_cfg["model_id"]
 
-    # Load Phase 2 evaluator results: clean condition, needs_work status
+    # Load Phase 2 evaluator results: level 1-2 (needs work)
     eval_results = load_jsonl(S3_EVALUATOR_RESULTS_PATH)
     needs_work = [
         r for r in eval_results
         if r["model"] == args.model
-        and r["condition"] == "clean"
-        and r["status"] == "needs_work"
+        and r.get("level") is not None
+        and r["level"] <= 3
         and r["turn"] <= args.max_turn
     ]
-    print(f"Found {len(needs_work)} 'needs_work' evaluator results for {args.model} (turns 1-{args.max_turn})")
+    print(f"Found {len(needs_work)} level 1-3 evaluator results for {args.model} (turns 1-{args.max_turn})")
 
-    # Load worker trials for reference (to get the generic next-turn revision)
+    # Load worker trials for reference
     worker_trials = load_jsonl(S3_WORKER_TRIALS_PATH)
     worker_map = {t["trial_id"]: t for t in worker_trials if t.get("status") == "success"}
 
@@ -196,16 +204,15 @@ def main():
 
         print(f"[{i}/{len(pending)}] {source_eval_id}")
 
-        # Get the output that was judged as needing work
         worker_trial = worker_map.get(worker_trial_id)
         if not worker_trial:
             print(f"  SKIP: worker trial not found")
             continue
 
         output = worker_trial["responses"][turn - 1]
-        task_prompt = eval_result["task_prompt"] if "task_prompt" in eval_result else worker_trial["task_prompt"]
+        task_prompt = worker_trial["task_prompt"]
 
-        # Step 1: Get specific critique from evaluator
+        # Step 1: Get specific critique
         critique_prompt = CRITIQUE_PROMPT.format(task_prompt=task_prompt, output=output)
         critique_text = call_model(provider, model_id, critique_prompt, temperature=0.0)
         if not critique_text:
@@ -228,15 +235,16 @@ def main():
         eval_prompt = EVAL_PROMPT.format(task_prompt=task_prompt, output=targeted_revision)
         eval_text = call_model(provider, model_id, eval_prompt, temperature=0.0)
         targeted_eval = parse_json_response(eval_text) if eval_text else None
+        targeted_level = targeted_eval.get("level") if targeted_eval else None
 
         # Get the generic next-turn revision quality for comparison
-        generic_next_quality = None
+        generic_next_level = None
         if turn < len(worker_trial["responses"]):
-            generic_output = worker_trial["responses"][turn]  # next turn's output
+            generic_output = worker_trial["responses"][turn]
             generic_eval_prompt = EVAL_PROMPT.format(task_prompt=task_prompt, output=generic_output)
             generic_eval_text = call_model(provider, model_id, generic_eval_prompt, temperature=0.0)
             generic_eval = parse_json_response(generic_eval_text) if generic_eval_text else None
-            generic_next_quality = generic_eval.get("quality") if generic_eval else None
+            generic_next_level = generic_eval.get("level") if generic_eval else None
 
         record = {
             "source_eval_id": source_eval_id,
@@ -247,20 +255,17 @@ def main():
             "turn": turn,
             "critique": critique,
             "targeted_revision": targeted_revision,
-            "targeted_quality": targeted_eval.get("quality") if targeted_eval else None,
-            "targeted_status": targeted_eval.get("status") if targeted_eval else None,
-            "generic_next_quality": generic_next_quality,
-            "quality_delta": (
-                (targeted_eval["quality"] - generic_next_quality)
-                if targeted_eval and generic_next_quality
+            "targeted_level": targeted_level,
+            "generic_next_level": generic_next_level,
+            "level_delta": (
+                (targeted_level - generic_next_level)
+                if targeted_level is not None and generic_next_level is not None
                 else None
             ),
         }
         append_jsonl(record, S3_TARGETED_FEEDBACK_PATH)
 
-        tq = record["targeted_quality"]
-        gq = generic_next_quality
-        print(f"  Targeted quality: {tq}, Generic next quality: {gq}, Delta: {record['quality_delta']}")
+        print(f"  Targeted level: {targeted_level}, Generic next level: {generic_next_level}, Delta: {record['level_delta']}")
 
     print("Done.")
 

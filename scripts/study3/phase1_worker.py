@@ -31,6 +31,7 @@ from scripts.utils import (
     get_openai_client,
     get_anthropic_client,
     get_google_client,
+    get_together_client,
 )
 
 
@@ -108,6 +109,27 @@ def chat_n_turns_with_tokens(provider: str, model_id: str, prompts: list[str]) -
             responses.append(text)
             token_counts.append(tokens)
             contents.append({"role": "model", "parts": [{"text": text}]})
+
+    elif provider == "together":
+        client = get_together_client()
+        messages = []
+        for prompt in prompts:
+            rate_limit(provider)
+            messages.append({"role": "user", "content": prompt})
+            r = retry_with_backoff(
+                client.chat.completions.create,
+                model=model_id,
+                messages=messages,
+                temperature=1.0,
+            )
+            text = r.choices[0].message.content
+            tokens = {
+                "input": r.usage.prompt_tokens if r.usage else None,
+                "output": r.usage.completion_tokens if r.usage else None,
+            }
+            responses.append(text)
+            token_counts.append(tokens)
+            messages.append({"role": "assistant", "content": text})
 
     else:
         raise ValueError(f"Unknown provider: {provider}")

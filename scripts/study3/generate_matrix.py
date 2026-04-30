@@ -50,7 +50,7 @@ def main():
     print(f"Generated {len(matrix)} cells:")
     for domain, count in sorted(domains.items()):
         print(f"  {domain}: {count} tasks")
-    print(f"\nWith 3 models x 3 runs = {len(matrix) * 3 * 3} total worker trials")
+    print(f"\nWith 6 models x 3 runs = {len(matrix) * 6 * 3} total worker trials")
     print(f"Saved to {S3_MATRIX_PATH}")
 
 

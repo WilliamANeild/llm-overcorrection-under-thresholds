@@ -102,6 +102,14 @@ def get_google_client():
     return genai.Client(api_key=os.environ["GOOGLE_API_KEY"])
 
 
+def get_together_client():
+    from openai import OpenAI
+    return OpenAI(
+        api_key=os.environ["TOGETHER_API_KEY"],
+        base_url="https://api.together.xyz/v1",
+    )
+
+
 # ── Experiment metadata logging ──
 
 def log_experiment_metadata(model_name: str, model_id: str) -> None:
@@ -203,6 +211,29 @@ def chat_two_turns(provider: str, model_id: str, turn1_prompt: str, turn2_prompt
         t2 = r2.text
         return {"turn1_response": t1, "turn2_response": t2}
 
+    elif provider == "together":
+        client = get_together_client()
+        messages = [{"role": "user", "content": turn1_prompt}]
+        r1 = retry_with_backoff(
+            client.chat.completions.create,
+            model=model_id,
+            messages=messages,
+            temperature=1.0,
+        )
+        t1 = r1.choices[0].message.content
+
+        rate_limit(provider)
+        messages.append({"role": "assistant", "content": t1})
+        messages.append({"role": "user", "content": turn2_prompt})
+        r2 = retry_with_backoff(
+            client.chat.completions.create,
+            model=model_id,
+            messages=messages,
+            temperature=1.0,
+        )
+        t2 = r2.choices[0].message.content
+        return {"turn1_response": t1, "turn2_response": t2}
+
     else:
         raise ValueError(f"Unknown provider: {provider}")
 
@@ -267,6 +298,22 @@ def chat_n_turns(provider: str, model_id: str, prompts: list[str]) -> dict:
             text = r.text
             responses.append(text)
             contents.append({"role": "model", "parts": [{"text": text}]})
+
+    elif provider == "together":
+        client = get_together_client()
+        messages = []
+        for prompt in prompts:
+            rate_limit(provider)
+            messages.append({"role": "user", "content": prompt})
+            r = retry_with_backoff(
+                client.chat.completions.create,
+                model=model_id,
+                messages=messages,
+                temperature=1.0,
+            )
+            text = r.choices[0].message.content
+            responses.append(text)
+            messages.append({"role": "assistant", "content": text})
 
     else:
         raise ValueError(f"Unknown provider: {provider}")

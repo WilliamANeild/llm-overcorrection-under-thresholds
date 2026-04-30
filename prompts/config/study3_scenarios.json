@@ -4,87 +4,115 @@
       "id": "email_validator",
       "label": "Python Email Validator",
       "domain": "code",
+      "provenance": "Original task. Domain informed by BigCodeBench (Zhuo et al., 2024) and DS-1000 (Lai et al., 2023) for ecological validity of practical coding tasks.",
       "scenario_text": "Hey, I need a Python function called validate_email that takes a string and returns True if it's a valid email, False otherwise. It should check for the basics: one @ symbol, something before it, a domain with at least one dot, no spaces. Don't use any external libraries, just keep it simple. Throw in a few inline comments so I can follow the logic."
     },
     {
       "id": "debounce_function",
       "label": "JavaScript Debounce Function",
       "domain": "code",
+      "provenance": "Original task. Domain informed by BigCodeBench (Zhuo et al., 2024). Tests closure/timer patterns common in frontend engineering.",
       "scenario_text": "Can you write me a JavaScript debounce function? It should take a callback and a delay in milliseconds, and return a new function that only fires the callback after the delay has passed since the last call. If it gets called again before the timer's up, reset the timer. A quick usage example in a comment would be great too."
     },
     {
       "id": "sql_top_customers",
       "label": "SQL Top Customers with Ties",
       "domain": "code",
+      "provenance": "Original task. Domain informed by BigCodeBench (Zhuo et al., 2024). Tests SQL window functions absent from HumanEval/MBPP.",
       "scenario_text": "I need a SQL query that gives me the top 5 customers by total order amount. The table is called orders and has customer_id, customer_name, and order_amount columns. Here's the tricky part: if there's a tie at position 5, I want to include all the tied customers too. This is for PostgreSQL. Can you add a comment explaining how the tie-handling works?"
     },
     {
       "id": "lru_cache",
       "label": "Python LRU Cache Class",
       "domain": "code",
+      "provenance": "Original task. Domain informed by BigCodeBench (Zhuo et al., 2024). Tests data structure design with O(1) constraint.",
       "scenario_text": "I'm trying to build an LRU cache in Python from scratch. Can you write me a class called LRUCache with a configurable max size? I need get(key) and put(key, value) methods, both O(1) average time. When it's full and you add something new, evict the least recently used item. Don't use functools.lru_cache, I want to understand the actual implementation. Include docstrings please."
     },
     {
       "id": "backup_script",
       "label": "Bash Backup Script",
       "domain": "code",
+      "provenance": "Original task. Domain informed by BigCodeBench (Zhuo et al., 2024). Tests shell scripting absent from Python-only benchmarks.",
       "scenario_text": "I need a bash script that backs up a directory to another location with a timestamp in the filename. It should take the source directory and backup destination as arguments, make a compressed tar.gz with the date and time in the name, and print a confirmation with the archive path and size. Add some basic error handling for missing arguments or if the source doesn't exist."
     },
     {
       "id": "csv_parser",
       "label": "Python CSV Parser with Stats",
       "domain": "code",
+      "provenance": "Original task. Domain informed by DS-1000 (Lai et al., 2023) for practical data processing tasks. Tests end-to-end script with CLI args + file I/O.",
       "scenario_text": "Can you write me a Python script that reads a CSV file (path from command line argument) and prints summary stats? I want: number of rows, number of columns, column names, and for any numeric columns give me the min, max, and mean. Only use csv and sys from the standard library. Handle it gracefully if the file doesn't exist."
     },
     {
       "id": "debug_sort",
       "label": "Debug a Broken Sort Function",
       "domain": "code",
+      "provenance": "Original task. Domain informed by DebugBench (Tian et al., 2024) for debugging task format. Tests bug identification in merge sort.",
       "scenario_text": "Hey, my merge sort implementation has bugs and I can't figure out what's wrong. Can you find and fix them? Here's the code:\n\ndef merge_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    mid = len(arr) / 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    return merge(left, right)\n\ndef merge(left, right):\n    result = []\n    i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] < right[j]:\n            result.append(left[i])\n            i += 1\n        else:\n            result.append(right[j])\n    result.extend(left[i:])\n    result.extend(right[j:])\n    return result\n\nJust fix the bugs and tell me briefly what was wrong."
     },
     {
       "id": "unit_tests",
       "label": "Write Unit Tests for a Function",
       "domain": "code",
+      "provenance": "Original task. Domain informed by BigCodeBench (Zhuo et al., 2024). Tests test-writing ability, a practical skill absent from HumanEval/MBPP.",
       "scenario_text": "I need to write pytest tests for this shipping calculator function. Can you give me a solid set of tests that cover normal cases, edge cases, and boundary conditions? Here's the function:\n\ndef calculate_shipping(weight_kg, destination, express=False):\n    base_rate = 5.00\n    per_kg = 2.50 if destination == 'domestic' else 7.00\n    cost = base_rate + (weight_kg * per_kg)\n    if express:\n        cost *= 1.5\n    if weight_kg > 20:\n        cost += 15.00  # oversize surcharge\n    return round(cost, 2)\n\nUse descriptive test names so I can tell what each one is checking."
     }
   ],
   "data_logic": [
     {
-      "id": "probability_puzzle",
-      "label": "Birthday Probability Calculation",
+      "id": "train_meeting",
+      "label": "Train Meeting Problem",
       "domain": "data_logic",
-      "scenario_text": "Okay so there's 30 people in a room. What's the probability that at least two of them share a birthday? Walk me through the math step by step, state whatever assumptions you're making, and give me the final answer as both a fraction and a percentage rounded to one decimal place."
+      "provenance": "Adapted from GSM8K. Original: two trains on parallel tracks with different speeds meeting. Modified for ecological validity.",
+      "scenario_text": "Two delivery trucks leave from two warehouses that are 180 miles apart, driving toward each other. Truck A leaves at 8:00 AM going 45 mph. Truck B leaves at 8:30 AM going 55 mph. At what time do they meet, and how far from each warehouse? Show your work step by step."
     },
     {
-      "id": "logic_puzzle",
-      "label": "Logic Grid Puzzle",
+      "id": "discount_stacking",
+      "label": "Discount Stacking Calculation",
       "domain": "data_logic",
-      "scenario_text": "I'm stuck on this logic puzzle, can you solve it for me? Three friends (Alex, Blake, Casey) each have a different pet (cat, dog, fish) and a different favorite color (red, blue, green). Here are the clues: 1) Alex doesn't have the cat. 2) The person with the dog likes blue. 3) Casey likes green. 4) Blake doesn't have the fish. Figure out who has which pet and which color, and show me your reasoning for each step."
+      "provenance": "Adapted from GSM8K percentage problems. Tests sequential percentage application, a common real-world math error.",
+      "scenario_text": "A store is having a sale. First, all items are marked 25% off. Then, loyalty members get an additional 15% off the already-reduced price. Finally, there's a $10 coupon applied after all percentage discounts. If the original price of a jacket is $120, what does a loyalty member actually pay? Also, what is the total effective discount percentage? Show each step clearly."
     },
     {
       "id": "data_interpretation",
       "label": "Interpret Survey Results",
       "domain": "data_logic",
+      "provenance": "Original task. Informed by QRData (Liu et al., 2024) for statistical reasoning over real data. Tests expository data interpretation where overcorrection manifests as over-hedging.",
       "scenario_text": "My company just ran a survey on remote work and I need help interpreting the results. 500 employees responded. 62% prefer hybrid (3 days office, 2 remote), 24% prefer fully remote, 14% prefer fully in-office. Of the hybrid people, 78% say it's about collaboration; of the fully remote people, 85% say it's about eliminating the commute. Satisfaction scores (1-10): hybrid group mean 7.8, remote group mean 8.1, in-office group mean 6.2. Can you give me a 200-300 word interpretation? I want to know what conclusions are actually supported vs what would need more data."
     },
     {
       "id": "statistical_error",
       "label": "Find the Statistical Error",
       "domain": "data_logic",
+      "provenance": "Original task. Informed by MMLU high_school_statistics for applied stats concepts. Tests p-value misconception correction.",
       "scenario_text": "I read this in a news article and something feels off: 'Our study of 50 patients found that Drug X reduces headache duration by 15% (p=0.03). Since p < 0.05, we can say there is a 97% chance the drug works.' Can you tell me what's wrong with this? I know p-values don't work like that but I want a clear explanation of all the errors, what the p-value actually means, and what other info you'd need to properly evaluate the claim."
     },
     {
       "id": "spreadsheet_formula",
       "label": "Excel Formula Problem",
       "domain": "data_logic",
+      "provenance": "Original task. Informed by TabMWP (Lu et al., 2023) for tabular reasoning tasks. Tests multi-formula construction with explanation.",
       "scenario_text": "I need help with some Excel formulas. I have a sales spreadsheet where Column A is dates (MM/DD/YYYY), Column B is salesperson names, Column C is sale amounts, and Column D is regions (North, South, East, West). I need formulas to: 1) Get total sales for the North region in Q1 2025 (Jan through March), 2) Find the salesperson with the highest single sale, 3) Count how many sales over $1000 happened in the South region. Can you explain each formula briefly so I understand what it's doing?"
     },
     {
-      "id": "algorithm_complexity",
-      "label": "Algorithm Complexity Analysis",
+      "id": "mixture_problem",
+      "label": "Solution Mixture Problem",
       "domain": "data_logic",
-      "scenario_text": "Can you analyze the time and space complexity of this function for me? I think I know the answer but I want to make sure I'm thinking about it right:\n\ndef find_pairs(arr, target):\n    seen = {}\n    pairs = []\n    for i, num in enumerate(arr):\n        complement = target - num\n        if complement in seen:\n            pairs.append((seen[complement], i))\n        seen[num] = i\n    return pairs\n\nGive me the Big-O for time and space, explain your reasoning, and tell me what it would look like if I used the naive nested-loop approach instead and why the hash map is better."
+      "provenance": "Adapted from MATH (Algebra). Tests system-of-equations reasoning in a practical chemistry context.",
+      "scenario_text": "A lab technician needs to create 500 mL of a 30% saline solution. She has two stock solutions available: one at 10% concentration and one at 50% concentration. How many milliliters of each stock solution should she mix? Set up the equations, solve them step by step, and verify your answer by checking that the final mixture has the correct concentration and volume."
+    },
+    {
+      "id": "budget_allocation",
+      "label": "Marketing Budget Reallocation",
+      "domain": "data_logic",
+      "provenance": "Original task. Informed by QRData (Liu et al., 2024) statistical reasoning format and FinQA (Chen et al., 2021) financial interpretation tasks. Combines quantitative cost-per-lead calculation with subjective strategic recommendation.",
+      "scenario_text": "I have $5,000 per month for marketing across four channels and I need help figuring out where to put it. Here are last month's results: social media ads spent $1,200 and brought in 48 leads, email campaigns spent $800 and brought in 36 leads, content marketing spent $1,500 and brought in 30 leads, and networking events spent $1,500 and brought in 12 leads. Can you calculate the cost per lead for each channel, rank them by efficiency, and recommend how I should reallocate the $5,000 budget next month? Show your math and explain your reasoning. I want to understand the trade-offs, not just get a number."
+    },
+    {
+      "id": "sample_size_justification",
+      "label": "A/B Test Sample Size Explanation",
+      "domain": "data_logic",
+      "provenance": "Original task. Informed by QRData (Liu et al., 2024) for statistical reasoning over real data and MMLU high_school_statistics for applied stats concepts. Tests expository statistical writing where overcorrection manifests as over-qualifying and over-hedging.",
+      "scenario_text": "I am planning an A/B test for a website redesign at my company. Our current conversion rate is about 3.2 percent and we want to detect at least a 0.5 percentage point improvement. We get roughly 10,000 visitors per week. Can you walk me through how to figure out the right sample size and how long we need to run the test? I need to explain this to my non-technical manager, so be clear about what the numbers mean and what assumptions we are making. Keep it around 300 words."
     }
   ],
   "analysis": [
@@ -92,48 +120,56 @@
       "id": "remote_vs_hybrid",
       "label": "Remote vs Hybrid Work Policy",
       "domain": "analysis",
+      "provenance": "Original task. Domain informed by WritingBench (Wu et al., 2025) Finance/Business domain and WildBench (Lin et al., 2024) real user analysis requests.",
       "scenario_text": "I'm putting together a recommendation for my VP about our work policy. We're a mid-sized tech company, about 200 people. Can you write me a short analysis comparing fully remote vs hybrid? I need to cover productivity, employee satisfaction, collaboration, and overhead costs. Keep it balanced and practical, not preachy. Around 400 words max."
     },
     {
       "id": "quarterly_sales",
       "label": "Quarterly Sales Trend Summary",
       "domain": "analysis",
+      "provenance": "Original task. Informed by WritingBench (Wu et al., 2025) Financial Reports subdomain and FinBen (Xie et al., 2024) financial analysis tasks.",
       "scenario_text": "I need to write up our quarterly sales for a management meeting. Here are the numbers: Q1 revenue was $2.1M, Q2 was $2.4M, Q3 was $1.9M, Q4 was $3.1M. Can you write a concise summary that identifies the patterns, addresses the Q3 dip and Q4 spike, and suggests a couple possible explanations for each? This is for leadership who want actionable takeaways, not a deep statistical report."
     },
     {
       "id": "agile_vs_waterfall",
       "label": "Agile vs Waterfall Comparison",
       "domain": "analysis",
+      "provenance": "Original task. Domain informed by WritingBench (Wu et al., 2025) Strategic Planning subdomain.",
       "scenario_text": "My team is starting a new software project and we're debating whether to go Agile or Waterfall. Can you write me a short comparison I can share with the team? Cover when each works best, the main trade-offs, and whether a hybrid approach makes sense. Keep it practical, under 400 words, and write it as an actual analytical piece, not just bullet points."
     },
     {
       "id": "business_expansion",
       "label": "Small Business Expansion Assessment",
       "domain": "analysis",
+      "provenance": "Original task. Domain informed by WritingBench (Wu et al., 2025) Business Correspondence subdomain and WildBench (Lin et al., 2024) Planning category.",
       "scenario_text": "I own a bakery in Austin, Texas and I'm thinking about opening a second location in a suburb nearby. We've been profitable for three years with steady growth. Can you write me a short assessment of what I should be thinking about? I need to consider financial readiness, market demand, staffing, supply chain, and keeping the brand consistent across locations. Keep it practical and specific to my situation, not generic business advice. Around 300-400 words."
     },
     {
       "id": "crm_adoption",
       "label": "CRM Adoption Risk/Benefit Analysis",
       "domain": "analysis",
+      "provenance": "Original task. Domain informed by WritingBench (Wu et al., 2025) Product Proposal subdomain.",
       "scenario_text": "My sales team (about 50 people) is currently using spreadsheets to track everything and it's a mess. We're looking at switching to HubSpot or Salesforce. Can you write a short risk/benefit analysis? I want to cover what we'd gain (pipeline visibility, follow-up tracking, reporting) but also the real risks: people resisting the change, data migration nightmares, ongoing costs. Keep it realistic, about 300 words."
     },
     {
       "id": "competitive_analysis",
       "label": "Competitive Analysis of Three Businesses",
       "domain": "analysis",
+      "provenance": "Original task. Domain informed by WritingBench (Wu et al., 2025) Market Analysis subdomain.",
       "scenario_text": "I'm opening a coffee shop in a college town and I need to understand my competition. There are three main players: BeanThere (established local favorite, loyal customers, but the decor is pretty dated), BrewLab (trendy newcomer with specialty drinks and a big social media following), and CampusGrind (budget chain inside the student center). Can you write a short competitive analysis comparing them on pricing, atmosphere, product quality, convenience, and target market? About 350 words."
     },
     {
       "id": "meeting_summary",
       "label": "Meeting Notes to Action Items",
       "domain": "analysis",
+      "provenance": "Original task. Informed by QMSum (Zhong et al., 2021) query-based meeting summarization format.",
       "scenario_text": "Can you turn these messy meeting notes into clear action items with owners and deadlines?\n\nMarketing sync, April 15. Attendees: Sarah (lead), Dev, Priya, Marcus. Sarah said Q2 campaign needs to launch by May 1, creative assets still pending from the design team. Dev volunteered to follow up with design by EOD Thursday. Priya raised concern about budget - we only have $12K left for paid channels and the original plan assumed $18K. Marcus suggested cutting the LinkedIn spend and reallocating to Instagram Reels which performed 3x better last quarter. Sarah agreed but wants to see the numbers first. Priya will pull the Q1 channel performance report by Monday. Everyone agreed next check-in is April 22.\n\nJust give me a clean list with who, what, and when."
     },
     {
       "id": "survey_recommendations",
       "label": "Survey Results with Recommendations",
       "domain": "analysis",
+      "provenance": "Original task. Informed by QRData (Liu et al., 2024) for data-grounded reasoning and ASQA (Stelmakh et al., 2022) for multi-perspective synthesis.",
       "scenario_text": "I work in university dining services and we just surveyed 800 students. Here are the key findings: 45% rated food quality as 'poor' or 'fair', 72% want more plant-based options, 58% skip breakfast because we don't open until 8am, wait times over 15 minutes during peak lunch (11:30-12:30) for 64% of students, and 81% said they'd use mobile ordering if we had it. Can you write me a brief analysis (250-350 words) interpreting these findings and giving me 3-4 specific, actionable recommendations I can bring to my director?"
     }
   ],
@@ -142,61 +178,57 @@
       "id": "linkedin_job_announcement",
       "label": "LinkedIn Job Announcement",
       "domain": "writing",
+      "provenance": "Original task. Domain informed by WritingBench (Wu et al., 2025) Social Media Content subdomain and WildBench (Lin et al., 2024) real user writing requests.",
       "scenario_text": "Write a short LinkedIn post announcing that I have accepted a new role as a Police Officer with the City of Miami Police Department. I recently graduated from Florida International University with a degree in criminal justice and completed academy training earlier this spring. I want the post to sound grateful, professional, and excited for what is ahead. Mention that I am thankful to my family, mentors, and training officers for helping me get to this point. Keep it short enough for a normal LinkedIn post and do not make it sound over-the-top or cheesy."
     },
     {
       "id": "pto_request",
       "label": "PTO Request to Manager",
       "domain": "writing",
+      "provenance": "Original task. Domain informed by WritingBench (Wu et al., 2025) Business Correspondence subdomain and GYAFC (Rao & Tetreault, 2018) for register variation.",
       "scenario_text": "Write a short email to my manager, Dana Mitchell, asking for Friday, April 17, 2026 off because I need to attend a family event out of town. I am sending this request about a month in advance and want to make clear that I will have all of my work covered before then. I also want to sound respectful and responsible, but not overly formal or overly apologetic. The email should be appropriate for a normal office environment and should not be too long."
     },
     {
       "id": "brunch_cancellation",
       "label": "Sister-in-Law Brunch Cancellation",
       "domain": "writing",
+      "provenance": "Original task. Domain informed by GYAFC (Rao & Tetreault, 2018) for informal register and WildBench (Lin et al., 2024) real user requests.",
       "scenario_text": "Write a short text message to my sister-in-law, Emily, letting her know I will not be able to make brunch next Sunday, March 22. I want to sound warm and genuine, and I want to apologize briefly without making it dramatic. Mention that I already had something come up that morning and that I would still love to see everyone soon. Keep it casual and natural, like a real family text."
     },
     {
       "id": "coworker_funny_text",
       "label": "Funny Text to Coworker",
       "domain": "writing",
+      "provenance": "Original task. Domain informed by GYAFC (Rao & Tetreault, 2018) for informal register. Humor is fragile under revision, predicting strong overcorrection signal.",
       "scenario_text": "Write a short funny text to my coworker, Jake, about how chaotic today has been at work. We have already sat through three meetings that easily could have been emails, and now a fourth one just got added for 4:30 PM. I want the message to be witty and relatable, but still something you could realistically text a coworker you get along with. Keep it short and natural, not like a stand-up routine."
     },
     {
       "id": "client_sales_email",
       "label": "Sales Email to Outside Client",
       "domain": "writing",
+      "provenance": "Original task. Domain informed by WritingBench (Wu et al., 2025) Sales Letter subdomain.",
       "scenario_text": "Write a short sales email to an outside client named Rachel Thompson, who helps organize events for schools and neighborhood associations. I want to tell her that our company, SkyHigh Bounce Rentals, is offering 15% off bouncy house rentals booked before April 30 for spring events in the Atlanta area. The email should sound friendly, clear, and professional, with a light sales tone but not pushy. Mention that we have multiple setup options and that we would be happy to help her find something that fits her event."
     },
     {
       "id": "slack_project_update",
       "label": "Slack Project Status Update",
       "domain": "writing",
+      "provenance": "Original task. Domain informed by WritingBench (Wu et al., 2025) Business Correspondence subdomain.",
       "scenario_text": "Write a short Slack message to my team channel updating everyone on where we stand with the Riverside Heights apartment photography project. We finished shooting units 1 through 6 last week and the edited photos are with the client for review. Units 7 through 12 are scheduled for next Thursday and Friday. I want the message to sound clear and organized but still casual enough for Slack. Do not make it sound like a formal report."
-    },
-    {
-      "id": "setup_instructions",
-      "label": "Software Setup Instructions for Teammate",
-      "domain": "writing",
-      "scenario_text": "Write a short set of instructions for my teammate, Marcus, explaining how to set up the local development environment for our team's inventory tracking app. He needs to clone the repo from GitHub, install Python 3.11, create a virtual environment, install the dependencies from requirements.txt, copy the example env file, and run the database migrations before starting the dev server. Keep it straightforward and easy to follow. Do not over-explain things a developer would already know, but do not skip any steps either."
     },
     {
       "id": "headphones_review",
       "label": "Online Product Review for Headphones",
       "domain": "writing",
+      "provenance": "Original task. Domain informed by WritingBench (Wu et al., 2025) Product Description subdomain. Authenticity is key; revision predicts over-polishing into ad-like tone.",
       "scenario_text": "Write a short online review for a pair of wireless headphones I bought, the SoundCore Q40, which I have been using for about three weeks. I mostly use them for long work-from-home days and occasional runs. The noise cancellation is solid, battery life has been great, and they are comfortable for hours. My only complaint is that the Bluetooth connection drops for a second or two when I walk between rooms. I want the review to sound honest, helpful, and like a normal person wrote it. Do not make it sound like an advertisement."
     },
     {
       "id": "cover_letter",
       "label": "Cover Letter for Job Application",
       "domain": "writing",
+      "provenance": "Original task. Domain informed by WritingBench (Wu et al., 2025) Recruitment subdomain and CEFR C1 formal letter task type.",
       "scenario_text": "Write a short cover letter for a Marketing Coordinator position at a mid-sized outdoor apparel company called TrailBound. I have two years of experience in social media management at a small agency, a degree in communications from University of Oregon, and I am particularly excited about this role because I am an avid hiker and trail runner. I want the letter to sound genuine and specific, not like a generic template. Keep it to about 250 words and do not be overly formal."
-    },
-    {
-      "id": "social_media_caption",
-      "label": "Small Business Social Media Caption",
-      "domain": "writing",
-      "scenario_text": "Write an Instagram caption for a small plant shop called Leaf & Stem that is announcing a weekend sale: 20% off all indoor plants Saturday and Sunday. The shop is in Portland, Oregon and has a warm, community-focused vibe. The caption should sound friendly and on-brand, include a call to action, and be appropriate length for Instagram (not too long). Do not use more than three hashtags."
     }
   ],
   "creative": [
@@ -204,48 +236,56 @@
       "id": "story_opening",
       "label": "Short Story Opening",
       "domain": "creative",
+      "provenance": "Original task. Domain informed by TTCW (Chakrabarty et al., CHI 2024) and HANNA (Chhun et al., COLING 2022). Atmospheric writing where revision predicts voice flattening.",
       "scenario_text": "I'm working on a short story and I need help with the opening paragraph, about 150 words. It's set in a small coastal town where a lighthouse keeper discovers something unusual washed ashore after a storm. I want it to feel atmospheric and slightly mysterious, but not horror. I want to feel the salt air and hear the waves. Don't reveal what the object is yet, just build the scene."
     },
     {
       "id": "tone_rewrite",
       "label": "Rewrite Paragraph in Different Tone",
       "domain": "creative",
+      "provenance": "Original task. Domain informed by GYAFC (Rao & Tetreault, 2018) for register transfer and WritingBench (Wu et al., 2025) Literature & Arts domain.",
       "scenario_text": "Can you rewrite this paragraph in a casual, conversational tone like I'm explaining it to a friend over coffee?\n\n'The quarterly financial report indicates a 12% year-over-year increase in operating revenue, primarily attributable to expanded market penetration in the Southeast region and the successful integration of the acquired CloudSync platform. However, operating margins contracted by 2.3 percentage points due to elevated customer acquisition costs and infrastructure investments undertaken in Q2 and Q3.'\n\nKeep all the key information but make it sound natural and approachable."
     },
     {
       "id": "birthday_toast",
       "label": "Birthday Toast for a Close Friend",
       "domain": "creative",
+      "provenance": "Original task. Domain informed by TTCW (Chakrabarty et al., CHI 2024). Short personal writing where revision predicts generic greeting-card drift.",
       "scenario_text": "I need to give a toast at my friend Marcus's 30th birthday party this weekend. We've been friends since college and he just started his own landscaping business after years of talking about it. Can you write me something short, about 100 words? I want it to be warm, a little funny, and genuinely celebratory. It should sound like something I'd actually say while holding a drink, not like a greeting card."
     },
     {
       "id": "product_description",
       "label": "Etsy Product Description",
       "domain": "creative",
+      "provenance": "Original task. Domain informed by WritingBench (Wu et al., 2025) Product Description subdomain and Creativity Benchmark for Marketing (2025).",
       "scenario_text": "I sell handmade ceramics on Etsy and I need a product description for one of my mugs. It's wheel-thrown, holds about 12oz, has a speckled blue-gray glaze with a raw clay bottom, and it's dishwasher and microwave safe. My studio is in Asheville, NC. I want the description to feel artisanal and warm without being pretentious. Keep it under 150 words."
     },
     {
       "id": "meal_plan",
       "label": "Weekly Meal Plan",
       "domain": "creative",
+      "provenance": "Original task. Domain informed by WildBench (Lin et al., 2024) Planning category. Structured creative output with ingredient-reuse constraint.",
       "scenario_text": "Can you make me a 5-day weeknight dinner plan? I'm vegetarian, I love Mediterranean and Asian flavors, I have about 30-45 minutes to cook on weeknights, and I hate food waste so I'd love it if ingredients got reused across meals. For each night just give me the dish name and a one-sentence description. Include a grocery list at the end organized by section (produce, pantry, dairy/refrigerated)."
     },
     {
       "id": "explain_like_ten",
       "label": "Explain Complex Topic Simply",
       "domain": "creative",
+      "provenance": "Original task. Informed by ELI5 (Fan et al., ACL 2019) for audience-adapted explanation and CreativityPrism (2025) divergent thinking tasks.",
       "scenario_text": "My 10-year-old keeps asking me how the internet works and I don't know how to explain it simply. Can you help? Cover the basic idea of how a website gets from a server to their screen, what a browser does, and why it feels instant even though the info is traveling so far. Use analogies a kid would get. Keep it under 200 words and make it fun to read."
     },
     {
       "id": "podcast_intro",
       "label": "Podcast Episode Introduction",
       "domain": "creative",
+      "provenance": "Original task. Domain informed by WritingBench (Wu et al., 2025) Podcast Script subdomain. Spoken-word register where revision predicts essay-like drift.",
       "scenario_text": "I'm recording a podcast episode about decision fatigue and I need a 60-second intro script. My podcast is called 'Wired Different' and it covers behavioral science for a general audience. My style is conversational and I like using everyday examples. Open with a relatable hook about making too many choices in a day, then briefly preview what the episode covers. Write it as a spoken script, not an essay."
     },
     {
       "id": "rejection_reframe",
       "label": "Reframe a Rejection Positively",
       "domain": "creative",
+      "provenance": "Original task. Domain informed by TTCW (Chakrabarty et al., CHI 2024). Emotional register is fragile; revision predicts motivational-poster drift.",
       "scenario_text": "I just got rejected from a graduate program I really wanted, the Master's in Urban Planning at UC Berkeley. I'm feeling pretty down about it. Can you write me a short paragraph I could put in my journal to help me process this? I want it to acknowledge the disappointment without minimizing it, but also help me see what comes next. Don't make it sound like toxic positivity or a motivational poster. Make it sound like something a thoughtful friend would say."
     }
   ]

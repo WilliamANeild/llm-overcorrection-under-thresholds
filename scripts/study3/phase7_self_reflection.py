@@ -1,16 +1,18 @@
-"""Phase 4: Reversibility Test for the Revision Yield experiment.
+"""Phase 6 (Self-Reflection): For the Revision Yield experiment.
 
-For each completed worker trial, a fresh instance of the same model sees BOTH
-the turn-1 output and turn-5 output (randomized order, blinded) and picks which
-one better fulfills the original task.
+RQ14: Can the model identify its own overcorrection?
 
-RQ11: If the model prefers turn-1 over turn-5, it's admitting its own revisions
-made things worse.
+Protocol: Load Phase 1 conversations, append a 6th turn with a self-reflection
+probe, send the full context at temperature 0.0, and parse the recommended turn.
+
+Probe:
+  Looking back at all your versions across this conversation, which one would
+  you recommend the user actually use? Reply with ONLY a JSON object:
+  {"recommended_turn": 1-5, "reason": "one sentence explanation"}
 """
 
 import argparse
 import json
-import random
 import sys
 from pathlib import Path
 
@@ -18,7 +20,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
 from scripts.config import (
     MODELS,
-    S3_REVERSIBILITY_RESULTS_PATH,
+    S3_SELF_REFLECTION_PATH,
+    S3_SELF_REFLECTION_PROBE,
     S3_WORKER_TRIALS_PATH,
 )
 from scripts.utils import (
@@ -32,36 +35,12 @@ from scripts.utils import (
     retry_with_backoff,
 )
 
-COMPARISON_PROMPT = """\
-A user asked for the following task to be completed:
-
----
-{task_prompt}
----
-
-Two different outputs were produced. Please evaluate which one better fulfills the task.
-
-OUTPUT A:
----
-{output_a}
----
-
-OUTPUT B:
----
-{output_b}
----
-
-Which output better fulfills the original task? Consider completeness, appropriateness, tone, and quality.
-
-Respond with ONLY a JSON object:
-{{"choice": "A" or "B" or "tie", "reason": "one sentence explanation"}}"""
-
 
 def make_result_id(worker_trial_id: str) -> str:
-    return f"s3_reverse__{worker_trial_id}"
+    return f"s3_reflect__{worker_trial_id}"
 
 
-def parse_comparison_response(text: str) -> dict | None:
+def parse_reflection_response(text: str) -> dict | None:
     text = text.strip()
     if text.startswith("```"):
         lines = text.split("\n")
@@ -69,17 +48,20 @@ def parse_comparison_response(text: str) -> dict | None:
         text = "\n".join(lines)
     try:
         data = json.loads(text)
-        if "choice" in data:
-            choice = data["choice"].strip().upper()
-            if choice in ("A", "B", "TIE"):
-                data["choice"] = choice
-                return data
+        if "recommended_turn" in data:
+            turn = int(data["recommended_turn"])
+            if 1 <= turn <= 5:
+                return {
+                    "recommended_turn": turn,
+                    "reason": data.get("reason", ""),
+                }
     except (json.JSONDecodeError, ValueError):
         pass
     return None
 
 
-def call_comparison(provider: str, model_id: str, prompt: str) -> dict | None:
+def call_reflection(provider: str, model_id: str, messages: list[dict]) -> dict | None:
+    """Send the full conversation + reflection probe and parse response."""
     for attempt in range(2):
         rate_limit(provider)
 
@@ -88,7 +70,7 @@ def call_comparison(provider: str, model_id: str, prompt: str) -> dict | None:
             r = retry_with_backoff(
                 client.chat.completions.create,
                 model=model_id,
-                messages=[{"role": "user", "content": prompt}],
+                messages=messages,
                 temperature=0.0,
             )
             text = r.choices[0].message.content
@@ -99,7 +81,7 @@ def call_comparison(provider: str, model_id: str, prompt: str) -> dict | None:
                 client.messages.create,
                 model=model_id,
                 max_tokens=256,
-                messages=[{"role": "user", "content": prompt}],
+                messages=messages,
                 temperature=0.0,
             )
             text = r.content[0].text
@@ -108,10 +90,15 @@ def call_comparison(provider: str, model_id: str, prompt: str) -> dict | None:
             from google.genai import types
             client = get_google_client()
             config = types.GenerateContentConfig(temperature=0.0)
+            # Convert messages to Google format
+            contents = []
+            for msg in messages:
+                role = "model" if msg["role"] == "assistant" else "user"
+                contents.append({"role": role, "parts": [{"text": msg["content"]}]})
             r = retry_with_backoff(
                 client.models.generate_content,
                 model=model_id,
-                contents=prompt,
+                contents=contents,
                 config=config,
             )
             text = r.text
@@ -121,7 +108,7 @@ def call_comparison(provider: str, model_id: str, prompt: str) -> dict | None:
             r = retry_with_backoff(
                 client.chat.completions.create,
                 model=model_id,
-                messages=[{"role": "user", "content": prompt}],
+                messages=messages,
                 temperature=0.0,
             )
             text = r.choices[0].message.content
@@ -129,31 +116,45 @@ def call_comparison(provider: str, model_id: str, prompt: str) -> dict | None:
         else:
             raise ValueError(f"Unknown provider: {provider}")
 
-        parsed = parse_comparison_response(text)
+        parsed = parse_reflection_response(text)
         if parsed:
             return {**parsed, "raw_response": text}
 
         if attempt == 0:
             print(f"    Parse failed, retrying...")
 
+    print(f"    Parse failed after retry. Raw: {text[:200]}")
     return None
+
+
+def rebuild_conversation(trial: dict) -> list[dict]:
+    """Rebuild the multi-turn conversation as a message list."""
+    messages = []
+    prompts = trial["prompts"]
+    responses = trial["responses"]
+
+    for i in range(len(responses)):
+        messages.append({"role": "user", "content": prompts[i]})
+        messages.append({"role": "assistant", "content": responses[i]})
+
+    # Append the reflection probe as the final user turn
+    messages.append({"role": "user", "content": S3_SELF_REFLECTION_PROBE})
+    return messages
 
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Phase 4: Reversibility test for Study 3"
+        description="Phase 6: Self-reflection test for Study 3"
     )
     parser.add_argument("--model", required=True, choices=list(MODELS.keys()))
     parser.add_argument("--limit", type=int, default=0)
-    parser.add_argument("--seed", type=int, default=42)
     args = parser.parse_args()
 
-    rng = random.Random(args.seed)
     model_cfg = MODELS[args.model]
     provider = model_cfg["provider"]
     model_id = model_cfg["model_id"]
 
-    # Load worker trials that have 5 turns
+    # Load worker trials with all 5 turns
     all_trials = load_jsonl(S3_WORKER_TRIALS_PATH)
     worker_trials = [
         t for t in all_trials
@@ -164,7 +165,7 @@ def main():
     print(f"Found {len(worker_trials)} completed 5-turn trials for {args.model}")
 
     # Skip completed
-    existing = load_jsonl(S3_REVERSIBILITY_RESULTS_PATH)
+    existing = load_jsonl(S3_SELF_REFLECTION_PATH)
     completed = {r["result_id"] for r in existing}
 
     pending = []
@@ -173,7 +174,7 @@ def main():
         if result_id not in completed:
             pending.append(trial)
 
-    print(f"{len(pending)} pending comparisons ({len(completed)} done)")
+    print(f"{len(pending)} pending reflections ({len(completed)} done)")
 
     if args.limit > 0:
         pending = pending[:args.limit]
@@ -183,34 +184,10 @@ def main():
         result_id = make_result_id(trial["trial_id"])
         print(f"[{i}/{len(pending)}] {result_id}")
 
-        turn1_output = trial["responses"][0]
-        turn5_output = trial["responses"][4]
-
-        # Randomize position to control for order bias
-        if rng.random() < 0.5:
-            output_a, output_b = turn1_output, turn5_output
-            turn1_position = "A"
-        else:
-            output_a, output_b = turn5_output, turn1_output
-            turn1_position = "B"
-
-        prompt = COMPARISON_PROMPT.format(
-            task_prompt=trial["task_prompt"],
-            output_a=output_a,
-            output_b=output_b,
-        )
-
-        result = call_comparison(provider, model_id, prompt)
+        messages = rebuild_conversation(trial)
+        result = call_reflection(provider, model_id, messages)
 
         if result:
-            # Map choice back to turn preference
-            if result["choice"] == "TIE":
-                prefers_turn1 = None
-            elif result["choice"] == turn1_position:
-                prefers_turn1 = True
-            else:
-                prefers_turn1 = False
-
             record = {
                 "result_id": result_id,
                 "worker_trial_id": trial["trial_id"],
@@ -218,15 +195,12 @@ def main():
                 "scenario_id": trial["scenario_id"],
                 "domain": trial["domain"],
                 "run": trial["run"],
-                "turn1_position": turn1_position,
-                "raw_choice": result["choice"],
-                "prefers_turn1": prefers_turn1,
-                "reason": result.get("reason", ""),
+                "recommended_turn": result["recommended_turn"],
+                "reason": result["reason"],
                 "raw_response": result["raw_response"],
             }
-            append_jsonl(record, S3_REVERSIBILITY_RESULTS_PATH)
-            pref = "TURN 1" if prefers_turn1 else ("TURN 5" if prefers_turn1 is False else "TIE")
-            print(f"    Prefers: {pref} ({result.get('reason', '')[:60]})")
+            append_jsonl(record, S3_SELF_REFLECTION_PATH)
+            print(f"    Recommends turn {result['recommended_turn']}: {result['reason'][:60]}")
         else:
             record = {
                 "result_id": result_id,
@@ -235,13 +209,11 @@ def main():
                 "scenario_id": trial["scenario_id"],
                 "domain": trial["domain"],
                 "run": trial["run"],
-                "turn1_position": turn1_position,
-                "raw_choice": None,
-                "prefers_turn1": None,
+                "recommended_turn": None,
                 "reason": None,
                 "raw_response": None,
             }
-            append_jsonl(record, S3_REVERSIBILITY_RESULTS_PATH)
+            append_jsonl(record, S3_SELF_REFLECTION_PATH)
             print(f"    SKIPPED (parse failure)")
 
     print("Done.")
