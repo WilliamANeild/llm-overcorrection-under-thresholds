@@ -34,7 +34,7 @@ from scripts.utils import load_jsonl
 def fig1_revision_yield_curve(worker_df: pd.DataFrame, eval_df: pd.DataFrame):
     """Main figure: Revision Yield Curve with 6-level scale and DRP annotation."""
 
-    eval_done = eval_df.groupby("turn").apply(lambda g: (g["level"] >= 3).mean())
+    eval_done = eval_df.groupby("turn").apply(lambda g: (g["level"] >= 4).mean())
     worker_t2 = worker_df[worker_df["turn"] >= 2]
     worker_rev = worker_t2.groupby("turn")["revised"].mean()
     level = eval_df.groupby("turn")["level"].mean()
@@ -48,7 +48,7 @@ def fig1_revision_yield_curve(worker_df: pd.DataFrame, eval_df: pd.DataFrame):
 
     ax1.plot(turns_e, [eval_done[t] for t in turns_e],
              marker="s", color="#2ecc71", linewidth=2.5, markersize=9,
-             label="Blind evaluator: 'done' rate (level >= 4)")
+             label="Blind evaluator: 'done' rate (level >= 4 Sufficient)")
     ax1.plot(turns_w, [worker_rev[t] for t in turns_w],
              marker="o", color="#e74c3c", linewidth=2.5, markersize=9,
              label="Working model: revision rate")
@@ -81,10 +81,10 @@ def fig1_revision_yield_curve(worker_df: pd.DataFrame, eval_df: pd.DataFrame):
                      fontsize=8, color=color, ha="center", fontweight="bold")
 
     # DRP line
-    ax2.axhline(y=4.0, color="gray", linestyle="--", alpha=0.5, label="'Sufficient' threshold (level 4)")
+    ax2.axhline(y=4.0, color="gray", linestyle="--", alpha=0.5, label="'Sufficient' threshold (level 4+)")
 
     ax2.set_xlabel("Turn", fontsize=11)
-    ax2.set_ylabel("Quality Level (1-6)", fontsize=11)
+    ax2.set_ylabel("Quality Level (1-6 scale)", fontsize=11)
     ax2.set_xticks(range(1, 6))
     ax2.set_ylim(0.5, 6.5)
     ax2.legend(loc="best", fontsize=9)
@@ -116,7 +116,7 @@ def fig2_divergence_by_model(worker_df: pd.DataFrame, eval_df: pd.DataFrame):
         m_eval = eval_df[eval_df["model"] == model]
         m_worker = worker_df[(worker_df["model"] == model) & (worker_df["turn"] >= 2)]
 
-        eval_done = m_eval.groupby("turn").apply(lambda g: (g["level"] >= 3).mean())
+        eval_done = m_eval.groupby("turn").apply(lambda g: (g["level"] >= 4).mean())
         worker_rev = m_worker.groupby("turn")["revised"].mean()
 
         turns_e = sorted(eval_done.index)
@@ -171,7 +171,7 @@ def fig3_drp_by_domain(eval_df: pd.DataFrame):
     ax.axhline(y=4.0, color="gray", linestyle="--", alpha=0.5, label="'Sufficient' threshold")
 
     ax.set_xlabel("Turn", fontsize=11)
-    ax.set_ylabel("Mean Quality Level (1-6)", fontsize=11)
+    ax.set_ylabel("Mean Quality Level (1-6 scale)", fontsize=11)
     ax.set_title("Quality Trajectory by Domain", fontsize=13, fontweight="bold")
     ax.set_xticks(range(1, 6))
     ax.set_ylim(0.5, 6.5)
