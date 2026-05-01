@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 // ---- Types ----
 
@@ -17,6 +17,10 @@ interface Rating {
   level: number;
   rationale: string;
   timestamp: string;
+}
+
+interface Assignments {
+  [raterId: string]: string[]; // rater ID -> list of sample_ids
 }
 
 type View = "login" | "annotate" | "review";
@@ -177,6 +181,8 @@ function RatingButton({
 export default function Home() {
   const [view, setView] = useState<View>("login");
   const [raterId, setRaterId] = useState("");
+  const [allSamples, setAllSamples] = useState<Sample[]>([]);
+  const [assignments, setAssignments] = useState<Assignments | null>(null);
   const [samples, setSamples] = useState<Sample[]>([]);
   const [ratings, setRatings] = useState<Record<string, Rating>>({});
   const [currentIdx, setCurrentIdx] = useState(0);
@@ -184,50 +190,64 @@ export default function Home() {
   const [rationale, setRationale] = useState("");
   const [filterDomain, setFilterDomain] = useState<string>("all");
   const [showOnlyUnrated, setShowOnlyUnrated] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [loading, setLoading] = useState(true);
+  const [loginError, setLoginError] = useState("");
 
-  // Load saved state on login
-  const handleLogin = useCallback(() => {
-    if (!raterId.trim()) return;
-    const saved = loadRatings(raterId.trim());
-    setRatings(saved);
-    if (samples.length > 0) {
-      // Jump to first unrated
-      const firstUnrated = samples.findIndex((s) => !saved[s.sample_id]);
-      setCurrentIdx(firstUnrated >= 0 ? firstUnrated : 0);
-      setView("annotate");
-    } else {
-      setView("annotate");
-    }
-  }, [raterId, samples]);
-
-  // File upload
-  const handleFileUpload = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const file = e.target.files?.[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (ev) => {
-        try {
-          const data = JSON.parse(ev.target?.result as string) as Sample[];
-          setSamples(data);
-          localStorage.setItem("s3_samples", JSON.stringify(data));
-        } catch {
-          alert("Invalid JSON file. Expected an array of calibration samples.");
-        }
-      };
-      reader.readAsText(file);
-    },
-    []
-  );
-
-  // Load samples from localStorage on mount
+  // Auto-fetch samples and assignments on mount
   useEffect(() => {
-    const saved = localStorage.getItem("s3_samples");
-    if (saved) {
-      setSamples(JSON.parse(saved));
-    }
+    Promise.all([
+      fetch("/samples.json").then((r) => (r.ok ? r.json() : [])),
+      fetch("/assignments.json").then((r) => (r.ok ? r.json() : null)),
+    ])
+      .then(([samplesData, assignmentsData]) => {
+        setAllSamples(samplesData as Sample[]);
+        setAssignments(assignmentsData as Assignments | null);
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
   }, []);
+
+  // Handle login: look up rater in assignments and filter samples
+  const handleLogin = useCallback(() => {
+    const id = raterId.trim().toLowerCase();
+    if (!id) return;
+    setLoginError("");
+
+    let assignedSamples: Sample[];
+
+    if (assignments && Object.keys(assignments).length > 0) {
+      // Assignments file exists: match rater to their assigned sample IDs
+      const assignedIds = assignments[id];
+      if (!assignedIds) {
+        setLoginError(`No assignments found for "${id}". Check your rater ID.`);
+        return;
+      }
+      const idSet = new Set(assignedIds);
+      assignedSamples = allSamples.filter((s) => idSet.has(s.sample_id));
+      if (assignedSamples.length === 0) {
+        setLoginError(`Assignments found but no matching samples. Contact the study coordinator.`);
+        return;
+      }
+    } else if (allSamples.length > 0) {
+      // No assignments file: give everyone all samples (fallback)
+      assignedSamples = allSamples;
+    } else {
+      setLoginError("No samples available. The study has not been set up yet.");
+      return;
+    }
+
+    setSamples(assignedSamples);
+    const saved = loadRatings(id);
+    setRatings(saved);
+
+    // Jump to first unrated
+    const firstUnrated = assignedSamples.findIndex((s) => !saved[s.sample_id]);
+    setCurrentIdx(firstUnrated >= 0 ? firstUnrated : 0);
+    setRaterId(id);
+    setView("annotate");
+  }, [raterId, allSamples, assignments]);
 
   // Load existing rating when navigating
   useEffect(() => {
@@ -306,7 +326,6 @@ export default function Home() {
 
   const handleExport = () => {
     const ratingsList = Object.values(ratings);
-    // CSV
     const header = "sample_id,level,rationale,timestamp,rater_id\n";
     const csvRows = ratingsList
       .map(
@@ -349,63 +368,61 @@ export default function Home() {
           Human evaluation for judge calibration (Phase 0)
         </p>
 
-        <div style={{ marginBottom: 24 }}>
-          <label style={{ display: "block", marginBottom: 6, fontSize: 13, color: "var(--text-muted)" }}>
-            Your rater ID
-          </label>
-          <input
-            type="text"
-            value={raterId}
-            onChange={(e) => setRaterId(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && handleLogin()}
-            placeholder="e.g. rater1, liam, alex"
-            style={{ width: "100%" }}
-          />
-        </div>
+        {loading ? (
+          <p style={{ color: "var(--text-muted)" }}>Loading samples...</p>
+        ) : (
+          <>
+            <div style={{ marginBottom: 24 }}>
+              <label style={{ display: "block", marginBottom: 6, fontSize: 13, color: "var(--text-muted)" }}>
+                Enter your rater ID
+              </label>
+              <input
+                type="text"
+                value={raterId}
+                onChange={(e) => {
+                  setRaterId(e.target.value);
+                  setLoginError("");
+                }}
+                onKeyDown={(e) => e.key === "Enter" && handleLogin()}
+                placeholder="e.g. rater1, liam, alex"
+                style={{ width: "100%" }}
+                autoFocus
+              />
+            </div>
 
-        {samples.length === 0 && (
-          <div style={{ marginBottom: 24 }}>
-            <label style={{ display: "block", marginBottom: 6, fontSize: 13, color: "var(--text-muted)" }}>
-              Load calibration samples (JSON)
-            </label>
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept=".json"
-              onChange={handleFileUpload}
-              style={{ width: "100%" }}
-            />
-          </div>
-        )}
+            {loginError && (
+              <p style={{ fontSize: 13, color: "var(--red)", marginBottom: 16 }}>
+                {loginError}
+              </p>
+            )}
 
-        {samples.length > 0 && (
-          <p style={{ fontSize: 13, color: "var(--green)", marginBottom: 24 }}>
-            {samples.length} samples loaded
-          </p>
-        )}
+            {allSamples.length > 0 && (
+              <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 16 }}>
+                {allSamples.length} samples loaded
+                {assignments ? ` across ${Object.keys(assignments).length} raters` : ""}
+              </p>
+            )}
 
-        <button
-          onClick={handleLogin}
-          disabled={!raterId.trim() || samples.length === 0}
-          style={{
-            width: "100%",
-            padding: "12px",
-            background: raterId.trim() && samples.length > 0 ? "var(--accent)" : "var(--border)",
-            color: raterId.trim() && samples.length > 0 ? "#fff" : "var(--text-muted)",
-            fontWeight: 600,
-          }}
-        >
-          Start Annotating
-        </button>
+            {allSamples.length === 0 && (
+              <p style={{ fontSize: 13, color: "var(--amber)", marginBottom: 16 }}>
+                No samples found. The study coordinator needs to generate and deploy samples first.
+              </p>
+            )}
 
-        {samples.length === 0 && (
-          <p style={{ fontSize: 12, color: "var(--text-muted)", marginTop: 16, textAlign: "center" }}>
-            Generate the calibration JSON with:
-            <br />
-            <code style={{ background: "var(--bg-elevated)", padding: "2px 6px", borderRadius: 4 }}>
-              python -m scripts.study3.phase0_judge_calibration --step extract
-            </code>
-          </p>
+            <button
+              onClick={handleLogin}
+              disabled={!raterId.trim() || allSamples.length === 0}
+              style={{
+                width: "100%",
+                padding: "12px",
+                background: raterId.trim() && allSamples.length > 0 ? "var(--accent)" : "var(--border)",
+                color: raterId.trim() && allSamples.length > 0 ? "#fff" : "var(--text-muted)",
+                fontWeight: 600,
+              }}
+            >
+              Start Annotating
+            </button>
+          </>
         )}
       </div>
     );
@@ -552,6 +569,8 @@ export default function Home() {
             onClick={() => {
               setView("login");
               setRaterId("");
+              setSamples([]);
+              setLoginError("");
             }}
             style={{ background: "var(--bg-elevated)", color: "var(--text-muted)", fontSize: 13 }}
           >
