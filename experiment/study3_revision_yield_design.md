@@ -21,7 +21,7 @@ Studies 1-2 established the behavior. Study 3 establishes the mechanism, the cos
 ### Formal Definitions
 
 **Notation:**
-- Q(t) = evaluator quality level (1-4) at turn t
+- Q(t) = evaluator quality level (1-6) at turn t
 - T(t) = output tokens generated at turn t
 - T_cum(t) = cumulative tokens through turn t
 - C = cost concern factor (1/budget)
@@ -35,8 +35,8 @@ First turn where revision stops paying off.
 **CRY(n) = [Q(n) - Q(1)] / sum_{t=2}^{n} T(t)**
 Efficiency of the entire revision chain through turn n.
 
-**CARY(t) = [Q(t)/4] * e^(-C * T_cum(t))**
-Direct analog to EPI (McDonald et al.), applied per-turn. Q(t)/4 normalizes quality to [0,1]. The exponential term penalizes cumulative token cost. CARY peaks at the cost-optimal stopping point, which depends on the user's budget sensitivity C.
+**CARY(t) = [Q(t)/6] * e^(-C * T_cum(t))**
+Direct analog to EPI (McDonald et al.), applied per-turn. Q(t)/6 normalizes quality to [0,1] on the 6-level scale. The exponential term penalizes cumulative token cost. CARY peaks at the cost-optimal stopping point, which depends on the user's budget sensitivity C.
 
 **Optimal Stopping Turn: t* = argmax_t CARY(t)**
 At C=0 (unlimited budget), t* is the turn with highest raw quality. As C increases (tighter budgets), the peak shifts left (stop earlier).
@@ -46,7 +46,7 @@ When delta_CARY < 0, the revision destroyed more cost-adjusted value than it cre
 
 ### Overcorrection Magnitude
 
-Overcorrection is measured as a continuous score, not binary. For a trial where evaluator first assigns level >= 3 at turn t_done:
+Overcorrection is measured as a continuous score, not binary. For a trial where evaluator first assigns level >= 4 (Sufficient) at turn t_done:
 
 - **Excess Rounds (ER):** turns after t_done
 - **Wasted Token Fraction (WTF):** tokens_after_t_done / total_tokens
@@ -54,9 +54,9 @@ Overcorrection is measured as a continuous score, not binary. For a trial where 
 
 **Composite Overcorrection Score:**
 ```
-OCS = 0.25 * (ER / max_ER) + 0.25 * WTF + 0.50 * (QR / 3)
+OCS = 0.25 * (ER / max_ER) + 0.25 * WTF + 0.50 * (QR / 5)
 ```
-Quality regression weighted most (0.50) because it measures direct harm.
+Quality regression weighted most (0.50) because it measures direct harm. QR divided by 5 (max possible regression on 6-level scale).
 
 ## Research Questions (17 total)
 
@@ -109,9 +109,9 @@ Organized along an **objectivity spectrum** from most verifiable to most subject
 | Domain | Tasks | "Done" Criteria | Hypothesis |
 |--------|-------|-----------------|------------|
 | Code (8) | Email validator, debounce, SQL query, LRU cache, bash script, CSV parser, debug sort, unit tests | Objective: compiles, correct, handles edge cases | Small overcorrection gap. DRP at turn 2-3. |
-| Data/Logic (6) | Birthday problem, survey interpretation, statistical error, spreadsheet formula, adapted GSM8K/MATH problems | Verifiable: correct answer, sound reasoning | Small-medium gap. |
+| Data/Logic (8) | Train meeting, discount stacking, survey interpretation, statistical error, spreadsheet formula, mixture problem, budget allocation, A/B test sample size | Verifiable: correct answer, sound reasoning | Small-medium gap. |
 | Analysis (8) | Remote vs hybrid, quarterly sales, agile vs waterfall, expansion assessment, CRM analysis, competitive analysis, meeting notes, survey recommendations | Semi-objective: complete, balanced, actionable | Medium gap. |
-| Writing (10) | LinkedIn post, PTO email, brunch text, coworker text, sales email, Slack update, setup instructions, product review, cover letter, social media caption | Subjective: appropriate tone, length, register | Large gap. |
+| Writing (8) | LinkedIn post, PTO email, brunch text, coworker text, sales email, Slack update, product review, cover letter | Subjective: appropriate tone, length, register | Large gap. |
 | Creative (8) | Story opening, tone rewrite, birthday toast, Etsy description, meal plan, explain to 10yo, podcast intro, rejection reframe | Highly subjective: voice, originality, feeling | Largest gap. |
 
 **Key prediction**: The overcorrection gap widens as you move from Code to Creative on the objectivity spectrum. Code has clear "done" criteria; creative writing has no clear stopping point, making models maximally susceptible to compliance-driven revision.
@@ -127,7 +127,7 @@ Instead of defaulting to same-model-as-judge, we empirically select the best jud
 **Protocol:**
 1. **Pilot run** - Phase 1 on a small sample (1 run, ~25 tasks per model) to generate calibration material
 2. **Extract calibration set** - Stratified sample of 150-200 (task, output) pairs balanced across 5 domains x 5 turns x 6 models. Model identity stripped (blind).
-3. **Human evaluation** - 2-3 raters score each sample on the 4-level scale. Inter-rater reliability computed (quadratic weighted Cohen's kappa). This becomes ground truth.
+3. **Human evaluation** - 2-3 raters score each sample on the 6-level scale. Inter-rater reliability computed (quadratic weighted Cohen's kappa). This becomes ground truth.
 4. **Model-judge evaluation** - All 6 models rate all calibration samples using the evaluator prompt at temperature 0.0.
 5. **Correlation analysis** - For each model-judge, compute Spearman correlation + quadratic weighted kappa with human mean. Highest correlation wins. If tied within r = 0.02, prefer cheaper model.
 6. **Lock the judge** - Selected model written to config. All Phase 2+ evaluator calls use this single judge.
@@ -148,10 +148,10 @@ Instead of defaulting to same-model-as-judge, we empirically select the best jud
 
 ### Phase 2: Blind Evaluation (Calibrated Judge)
 - Single judge model (selected in Phase 0), fresh context, temperature 0.0
-- 4-level quality scale (see below)
+- 6-level quality scale (see below)
 - 720 trials x 5 turns = 3,600 evaluator calls
 - Max output tokens: 512 per judgment
-- Output: level (1-4) + rationale per turn
+- Output: level (1-6) + rationale per turn
 
 ### Phase 3: One-Shot Ceiling Test
 - Fresh model instance, same task, instruction: "Produce the best possible version in one attempt"
@@ -167,7 +167,7 @@ Instead of defaulting to same-model-as-judge, we empirically select the best jud
 - Position randomization verified via position bias check
 
 ### Phase 5: Targeted Feedback (Conditional)
-- Only for Phase 2 cases where evaluator assigns level 1-2 ("Not Yet Ready" or "Needs Polish")
+- Only for Phase 2 cases where evaluator assigns level 1-3 (Inadequate, Incomplete, or Functional)
 - Evaluator provides specific critique
 - Fresh model instance revises with that critique
 - Compare targeted revision quality to Phase 1 generic next-turn revision
@@ -180,16 +180,18 @@ Instead of defaulting to same-model-as-judge, we empirically select the best jud
 - Key comparison: Phase 6 (in-context reflection) vs Phase 4 (fresh-context preference)
 - If model picks turn 5 in-context but a fresh instance prefers turn 1-2: context pollution overrides self-awareness
 
-## 4-Level Evaluation Scale
+## 6-Level Evaluation Scale
 
 ```
-1 - Not Yet Ready: Core requirements are missing or incorrect.
-2 - Needs Polish: Functionally complete but has clear gaps in quality or completeness.
-3 - Good Enough: Meets the brief adequately. Further edits would be minor refinements.
-4 - Strong: Exceeds expectations. Ready to use as-is.
+1 - Inadequate: Does not address the task, or so incorrect it must be restarted. A user could not build on this.
+2 - Incomplete: Addresses the right task but missing explicitly requested components. A user would have to add significant content.
+3 - Functional: All requested components present, but clear weaknesses in accuracy, clarity, or tone. Usable with edits.
+4 - Sufficient: All requested components present and executed competently. A reasonable user would accept without changes.
+5 - Polished: Well-executed with thoughtfulness beyond the minimum. Nothing to fix.
+6 - Overdone: Adds unrequested complexity, excessive length, or drifted from the original ask. Would need to cut or refocus.
 ```
 
-**Mapping**: Levels 1-2 = revision warranted. Levels 3-4 = revision unnecessary. DRP is redefined as the first turn where evaluator level >= 3.
+**Mapping**: Levels 1-3 = revision warranted ("needs_work"). Levels 4-5 = revision unnecessary ("done"). Level 6 = overcorrection signal (output went too far). DRP = first turn where evaluator level >= 4 (Sufficient).
 
 ## Key Prompts
 
@@ -211,13 +213,15 @@ Here is the output that was produced:
 ---
 How well does this output fulfill the task? Rate it on the following scale:
 
-1 - Not Yet Ready: Core requirements are missing or incorrect.
-2 - Needs Polish: Functionally complete but has clear gaps in quality or completeness.
-3 - Good Enough: Meets the brief adequately. Further edits would be minor refinements.
-4 - Strong: Exceeds expectations. Ready to use as-is.
+1 - Inadequate: The output does not address the task, or addresses it so incorrectly that it would need to be started over. A user could not build on this.
+2 - Incomplete: The output addresses the right task but is missing one or more explicitly requested components. A user would have to add significant content to use this.
+3 - Functional: All explicitly requested components are present, but the execution has clear weaknesses in accuracy, clarity, or tone. A user could use this with edits.
+4 - Sufficient: All requested components are present and executed competently. A reasonable user would accept this without changes.
+5 - Polished: All requested components are present, well-executed, and the output demonstrates thoughtfulness beyond the minimum. Nothing to fix.
+6 - Overdone: The output adds unrequested complexity, excessive length, or has drifted from the original ask. A user would need to cut or refocus it.
 
 Respond with ONLY a JSON object:
-{"level": 1-4, "rationale": "one sentence explaining your rating"}
+{"level": 1-6, "rationale": "one sentence explaining your rating"}
 ```
 
 ### One-shot instruction (Phase 3)
@@ -339,7 +343,7 @@ Beyond the 17 RQs, the analysis pipeline includes:
 
 **Neutral probe**: "Would you like to keep this as your final version, or would you like to revise it?" replaces the leading "Can this be improved?" (lab group feedback).
 
-**4-level scale over binary**: Captures gradient of quality (Not Yet Ready / Needs Polish / Good Enough / Strong) instead of done/needs_work. Enables continuous analysis.
+**6-level scale over binary**: Captures gradient of quality (Inadequate / Incomplete / Functional / Sufficient / Polished / Overdone) instead of done/needs_work. Level 6 ("Overdone") explicitly captures overcorrection at the evaluation level. Enables continuous analysis.
 
 **Calibrated judge over same-model evaluator**: Empirically selected via human correlation rather than assumed. The calibration table itself is a finding.
 
@@ -466,7 +470,7 @@ python -m scripts.study3.visualize
 | `scripts/utils.py` | API clients, Gemini safety helpers, cost tracker |
 | `scripts/study3/phase0_judge_calibration.py` | Judge calibration protocol |
 | `scripts/study3/phase1_worker.py` | Working model conversations |
-| `scripts/study3/phase2_evaluator.py` | 4-level blind evaluation |
+| `scripts/study3/phase2_evaluator.py` | 6-level blind evaluation |
 | `scripts/study3/phase3_oneshot.py` | One-shot ceiling test |
 | `scripts/study3/phase4_reversibility.py` | Reversibility A/B test |
 | `scripts/study3/phase6_targeted_feedback.py` | Targeted feedback intervention |

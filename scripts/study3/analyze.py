@@ -160,7 +160,7 @@ def rq3_overcorrection_rate(worker_df: pd.DataFrame, eval_df: pd.DataFrame) -> d
     print("\n== RQ3: Do Models Respect the DRP? ==")
 
     # At each turn: evaluator "done" rate (level >= 4) vs worker revision rate
-    eval_done = eval_df.groupby("turn").apply(lambda g: (g["level"] >= 3).mean())
+    eval_done = eval_df.groupby("turn").apply(lambda g: (g["level"] >= 4).mean())
     worker_t2plus = worker_df[worker_df["turn"] >= 2]
     worker_rev = worker_t2plus.groupby("turn")["revised"].mean()
 
@@ -191,12 +191,12 @@ def rq4_compliance_mechanism(worker_df: pd.DataFrame, eval_df: pd.DataFrame) -> 
         print("  No matched data.")
         return {}
 
-    # Cases where evaluator says done (level >= 4) but worker revises = compliance
-    compliance_cases = merged[(merged["level"] >= 3) & (merged["revised"] == True)]
-    total_done_evals = merged[merged["level"] >= 3]
+    # Cases where evaluator says done (level >= 4 = Sufficient) but worker revises = compliance
+    compliance_cases = merged[(merged["level"] >= 4) & (merged["revised"] == True)]
+    total_done_evals = merged[merged["level"] >= 4]
 
     compliance_rate = len(compliance_cases) / len(total_done_evals) if len(total_done_evals) > 0 else 0
-    print(f"  Evaluator says 'done' (level >= 4): {len(total_done_evals)} cases")
+    print(f"  Evaluator says 'done' (level >= 4 Sufficient): {len(total_done_evals)} cases")
     print(f"  Worker revises anyway: {len(compliance_cases)} ({compliance_rate:.1%})")
     print(f"  -> Compliance-driven revision rate: {compliance_rate:.1%}")
 
@@ -213,7 +213,7 @@ def rq5_token_cost(worker_df: pd.DataFrame, eval_df: pd.DataFrame) -> dict:
     print("\n== RQ5: Token Cost of Zero-Value Revisions ==")
 
     # For each trial, find the first turn where evaluator level >= 4
-    drp_per_trial = eval_df[eval_df["level"] >= 3].groupby("worker_trial_id")["turn"].min()
+    drp_per_trial = eval_df[eval_df["level"] >= 4].groupby("worker_trial_id")["turn"].min()
 
     trials = load_jsonl(S3_WORKER_TRIALS_PATH)
     trial_tokens = {}
@@ -340,7 +340,7 @@ def rq8_cross_model(worker_df: pd.DataFrame, eval_df: pd.DataFrame) -> dict:
         m_eval = eval_df[eval_df["model"] == model]
         m_worker = worker_df[(worker_df["model"] == model) & (worker_df["turn"] >= 2)]
 
-        eval_done = m_eval.groupby("turn").apply(lambda g: (g["level"] >= 3).mean())
+        eval_done = m_eval.groupby("turn").apply(lambda g: (g["level"] >= 4).mean())
         worker_rev = m_worker.groupby("turn")["revised"].mean()
         level = m_eval.groupby("turn")["level"].mean()
 
@@ -819,7 +819,7 @@ def rq17_overcorrection_magnitude(eval_df: pd.DataFrame, worker_df: pd.DataFrame
     print("\n== RQ17: Overcorrection Magnitude (OCS) ==")
 
     # For each trial, find t_done (first turn with level >= 4)
-    drp_per_trial = eval_df[eval_df["level"] >= 3].groupby("worker_trial_id")["turn"].min()
+    drp_per_trial = eval_df[eval_df["level"] >= 4].groupby("worker_trial_id")["turn"].min()
 
     trials = load_jsonl(S3_WORKER_TRIALS_PATH)
     trial_data = {}
