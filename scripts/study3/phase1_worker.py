@@ -27,6 +27,7 @@ from scripts.utils import (
     extract_gemini_text,
     extract_gemini_tokens,
     get_anthropic_client,
+    get_deepseek_client,
     get_google_client,
     get_openai_client,
     get_together_client,
@@ -141,6 +142,29 @@ def chat_n_turns_with_tokens(provider: str, model_id: str, prompts: list[str]) -
             token_counts.append(tokens)
             messages.append({"role": "assistant", "content": text})
 
+    elif provider == "deepseek":
+        client = get_deepseek_client()
+        messages = []
+        for prompt in prompts:
+            rate_limit(provider)
+            messages.append({"role": "user", "content": prompt})
+            r = retry_with_backoff(
+                client.chat.completions.create,
+                model=model_id,
+                messages=messages,
+                temperature=1.0,
+                max_tokens=MAX_OUTPUT_TOKENS_GENERATION,
+            )
+            text = r.choices[0].message.content
+            tokens = {
+                "input": r.usage.prompt_tokens if r.usage else None,
+                "output": r.usage.completion_tokens if r.usage else None,
+                "finish_reason": r.choices[0].finish_reason if r.choices else None,
+            }
+            responses.append(text)
+            token_counts.append(tokens)
+            messages.append({"role": "assistant", "content": text})
+
     else:
         raise ValueError(f"Unknown provider: {provider}")
 
@@ -189,6 +213,23 @@ def run_trial(trial: dict) -> dict:
             model_id=trial["model_id"],
             prompts=trial["prompts"],
         )
+        # Flag empty responses (e.g. DeepSeek thinking model exhausting tokens)
+        empty_turns = [
+            i + 1 for i, r in enumerate(result["responses"])
+            if not r or len(r.strip()) == 0
+        ]
+        warnings = []
+        if empty_turns:
+            warnings.append(f"empty_responses_at_turns={empty_turns}")
+
+        # Flag truncated responses
+        truncated_turns = [
+            i + 1 for i, tc in enumerate(result["token_counts"])
+            if tc and tc.get("finish_reason") == "length"
+        ]
+        if truncated_turns:
+            warnings.append(f"truncated_at_turns={truncated_turns}")
+
         return {
             "trial_id": trial["trial_id"],
             "model": trial["model"],
@@ -204,6 +245,7 @@ def run_trial(trial: dict) -> dict:
             "n_turns": len(result["responses"]),
             "status": "success",
             "error": None,
+            "warnings": warnings if warnings else None,
         }
     except Exception as e:
         return {
@@ -265,7 +307,8 @@ def main():
             print(f"  ERROR: {result['error']}")
         else:
             total_out = sum(t.get("output", 0) or 0 for t in result["token_counts"])
-            print(f"  OK ({result['n_turns']} turns, {total_out} output tokens)")
+            warn_str = f" WARNINGS: {result['warnings']}" if result.get("warnings") else ""
+            print(f"  OK ({result['n_turns']} turns, {total_out} output tokens){warn_str}")
 
     print_cost_summary()
     print("Done.")

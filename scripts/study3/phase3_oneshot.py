@@ -25,6 +25,7 @@ from scripts.utils import (
     extract_gemini_text,
     extract_gemini_tokens,
     get_anthropic_client,
+    get_deepseek_client,
     get_google_client,
     get_openai_client,
     get_together_client,
@@ -90,6 +91,18 @@ def call_oneshot(provider: str, model_id: str, prompt: str) -> dict:
 
     elif provider == "together":
         client = get_together_client()
+        r = retry_with_backoff(
+            client.chat.completions.create,
+            model=model_id,
+            messages=[{"role": "user", "content": prompt}],
+            temperature=1.0,
+            max_tokens=MAX_OUTPUT_TOKENS_GENERATION,
+        )
+        text = r.choices[0].message.content
+        tokens = {"input": r.usage.prompt_tokens, "output": r.usage.completion_tokens}
+
+    elif provider == "deepseek":
+        client = get_deepseek_client()
         r = retry_with_backoff(
             client.chat.completions.create,
             model=model_id,

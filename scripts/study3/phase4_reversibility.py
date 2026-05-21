@@ -26,6 +26,7 @@ from scripts.utils import (
     append_jsonl,
     extract_gemini_text,
     get_anthropic_client,
+    get_deepseek_client,
     get_google_client,
     get_openai_client,
     get_together_client,
@@ -124,6 +125,17 @@ def call_comparison(provider: str, model_id: str, prompt: str) -> dict | None:
 
         elif provider == "together":
             client = get_together_client()
+            r = retry_with_backoff(
+                client.chat.completions.create,
+                model=model_id,
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0.0,
+                max_tokens=MAX_OUTPUT_TOKENS_JUDGE,
+            )
+            text = r.choices[0].message.content
+
+        elif provider == "deepseek":
+            client = get_deepseek_client()
             r = retry_with_backoff(
                 client.chat.completions.create,
                 model=model_id,

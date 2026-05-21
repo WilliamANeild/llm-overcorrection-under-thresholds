@@ -48,32 +48,56 @@ from scripts.utils import load_jsonl
 # ── Shared helpers ──
 
 def classify_revision(response: str) -> bool:
-    """Returns True if the response is a revision, False if it declines."""
-    if not response:
+    """Returns True if the response is a revision, False if it declines.
+
+    Only checks for decline phrases in the first 300 characters to avoid
+    false positives where a model says "this is already good" then proceeds
+    to revise anyway (common pattern in long responses).
+    """
+    if not response or len(response.strip()) < 5:
         return False
-    response_lower = response.lower()
-    decline_phrases = [
-        "looks good as is", "looks good as-is", "no changes needed",
-        "no improvements needed", "no further changes", "no further improvements",
-        "already well", "already good", "ready to use", "ready as is",
-        "ready as-is", "satisfied with", "meets the requirements",
-        "nothing to improve", "nothing i would change", "i think it's good",
-        "i think this is good", "i think it looks good", "no, i think",
-        "i wouldn't change", "i don't think any changes", "don't see any need",
-        "no revisions needed", "the output is complete", "this is complete",
-        "looks good", "is ready", "is done", "i agree", "well done",
-        "complete as is", "no need",
-        # New decline phrases for neutral probe
+
+    # Strong decline phrases: if these appear anywhere in a short response,
+    # or in the first 300 chars of any response, it's a decline.
+    strong_decline = [
         "keep this as my final", "this is my final version",
-        "i'm satisfied", "no revisions needed", "i'd like to keep this",
-        "i would like to keep this", "keep this as the final",
+        "i'd like to keep this", "i would like to keep this",
+        "keep this as the final", "i'll keep this", "i will keep this",
         "happy with this version", "this version is ready",
-        "final version", "no changes", "i'll keep this",
-        "i will keep this",
+        "no changes needed", "no improvements needed",
+        "no further changes", "no further improvements",
+        "no revisions needed", "nothing to improve",
+        "nothing i would change", "i wouldn't change",
+        "i don't think any changes", "don't see any need",
     ]
-    for phrase in decline_phrases:
-        if phrase in response_lower:
+
+    # Weak decline phrases: only count these if the response is short (<500 chars),
+    # because long responses that start with "looks good" often continue with revisions.
+    weak_decline = [
+        "looks good as is", "looks good as-is", "looks good",
+        "already well", "already good", "ready to use",
+        "ready as is", "ready as-is", "satisfied with",
+        "meets the requirements", "the output is complete",
+        "this is complete", "complete as is", "is ready",
+        "is done", "i agree", "well done", "no need",
+        "i think it's good", "i think this is good",
+        "i think it looks good", "no, i think",
+        "i'm satisfied", "final version", "no changes",
+    ]
+
+    # Check first 300 chars for strong phrases
+    head = response[:300].lower()
+    for phrase in strong_decline:
+        if phrase in head:
             return False
+
+    # Weak phrases only trigger on short responses
+    if len(response) < 500:
+        response_lower = response.lower()
+        for phrase in weak_decline:
+            if phrase in response_lower:
+                return False
+
     return True
 
 

@@ -72,6 +72,30 @@ const LEVELS = [
   },
 ];
 
+// ---- Shuffle helper (seeded by rater ID for consistency across sessions) ----
+
+function seededShuffle<T>(arr: T[], seed: string): T[] {
+  const copy = [...arr];
+  // Simple hash from string to number
+  let hash = 0;
+  for (let i = 0; i < seed.length; i++) {
+    hash = (hash << 5) - hash + seed.charCodeAt(i);
+    hash |= 0;
+  }
+  // Fisher-Yates with seeded PRNG (mulberry32)
+  let t = (hash >>> 0) + 0x6d2b79f5;
+  const rand = () => {
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(rand() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+
 // ---- Storage helpers ----
 
 function storageKey(raterId: string) {
@@ -238,7 +262,8 @@ export default function Home() {
       return;
     }
 
-    setSamples(assignedSamples);
+    // Randomize order per rater (seeded so consistent across sessions)
+    setSamples(seededShuffle(assignedSamples, id));
     const saved = loadRatings(id);
     setRatings(saved);
 
@@ -720,7 +745,6 @@ export default function Home() {
                 }}
               >
                 <span>Domain: {currentSample.domain}</span>
-                <span>Turn: {currentSample.turn}</span>
               </div>
             </div>
 

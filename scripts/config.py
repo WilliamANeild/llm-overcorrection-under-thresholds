@@ -58,7 +58,10 @@ S3_WORKER_TRIALS_PATH = S3_DIR / "raw_responses" / "worker_trials.jsonl"
 # Phase 2: Blind evaluator judgments
 S3_EVALUATOR_RESULTS_PATH = S3_DIR / "raw_responses" / "evaluator_results.jsonl"
 
-# Phase 3: One-shot ceiling
+# Phase 3: Model confidence (revision ceiling)
+S3_CONFIDENCE_TRIALS_PATH = S3_DIR / "raw_responses" / "confidence_trials.jsonl"
+
+# Phase 3b: One-shot ceiling (kept for RQ9 comparisons)
 S3_ONESHOT_TRIALS_PATH = S3_DIR / "raw_responses" / "oneshot_trials.jsonl"
 
 # Phase 4: Reversibility test
@@ -92,6 +95,13 @@ S3_SELF_REFLECTION_PROBE = (
     '{"recommended_turn": 1-5, "reason": "one sentence explanation"}'
 )
 
+# Phase 3: Model confidence probes (two conditions)
+S3_CONFIDENCE_PROBES = {
+    "minimal": "Is there anything you'd like to change?",
+    "balanced": S3_WORKING_PROBE,  # Same as Phase 1 for comparability
+}
+S3_CONFIDENCE_MAX_TURNS = 20  # Safety cap to prevent infinite loops
+
 # ── Prompt config paths ──
 SCENARIOS_PATH = ROOT / "prompts" / "config" / "scenarios.json"
 THRESHOLDS_PATH = ROOT / "prompts" / "config" / "thresholds.json"
@@ -108,24 +118,24 @@ MODELS = {
     },
     "gemini-2.5-flash": {
         "provider": "google",
-        "model_id": "gemini-2.5-flash-preview-04-17",
+        "model_id": "gemini-2.5-flash",
     },
-    "llama-3.1-70b": {
+    "llama-3.3-70b": {
         "provider": "together",
-        "model_id": "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo",
+        "model_id": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
     },
-    "mistral-large": {
+    "qwen-3-235b": {
         "provider": "together",
-        "model_id": "mistralai/Mistral-Large-Instruct-2407",
+        "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507-tput",
     },
-    "qwen-2.5-72b": {
-        "provider": "together",
-        "model_id": "Qwen/Qwen2.5-72B-Instruct-Turbo",
+    "deepseek-v4": {
+        "provider": "deepseek",
+        "model_id": "deepseek-v4-flash",
     },
 }
 
 # ── Output token caps (prevent runaway generation) ──
-MAX_OUTPUT_TOKENS_GENERATION = 4096
+MAX_OUTPUT_TOKENS_GENERATION = 8192
 MAX_OUTPUT_TOKENS_JUDGE = 512
 
 RUNS_PER_CELL = 3
@@ -139,6 +149,7 @@ RATE_LIMIT_SECONDS = {
     "anthropic": 0.5,
     "google": 4.0,
     "together": 0.5,
+    "deepseek": 0.5,
 }
 
 # ── Judge settings ──
