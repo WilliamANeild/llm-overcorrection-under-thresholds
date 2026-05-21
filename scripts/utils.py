@@ -15,14 +15,14 @@ from scripts.config import MAX_RETRIES, METADATA_PATH, RATE_LIMIT_SECONDS, RETRY
 load_dotenv()
 
 # ── Running cost tracker ──
-# Per-token pricing (output tokens, USD) as of 2025
+# Per-token pricing (output tokens, USD) as of 2026
 _TOKEN_PRICES = {
     "gpt-4o-2024-11-20": {"input": 2.50 / 1_000_000, "output": 10.0 / 1_000_000},
     "claude-sonnet-4-20250514": {"input": 3.0 / 1_000_000, "output": 15.0 / 1_000_000},
-    "gemini-2.5-flash-preview-04-17": {"input": 0.15 / 1_000_000, "output": 0.60 / 1_000_000},
-    "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo": {"input": 0.88 / 1_000_000, "output": 0.88 / 1_000_000},
-    "mistralai/Mistral-Large-Instruct-2407": {"input": 2.0 / 1_000_000, "output": 6.0 / 1_000_000},
-    "Qwen/Qwen2.5-72B-Instruct-Turbo": {"input": 0.90 / 1_000_000, "output": 0.90 / 1_000_000},
+    "gemini-2.5-flash": {"input": 0.15 / 1_000_000, "output": 0.60 / 1_000_000},
+    "meta-llama/Llama-3.3-70B-Instruct-Turbo": {"input": 0.88 / 1_000_000, "output": 0.88 / 1_000_000},
+    "Qwen/Qwen3-235B-A22B-Instruct-2507-tput": {"input": 1.00 / 1_000_000, "output": 1.00 / 1_000_000},
+    "deepseek-v4-flash": {"input": 0.14 / 1_000_000, "output": 0.28 / 1_000_000},
 }
 _cumulative_cost = {"total": 0.0, "by_model": {}}
 
@@ -175,6 +175,14 @@ def get_together_client():
     return OpenAI(
         api_key=os.environ["TOGETHER_API_KEY"],
         base_url="https://api.together.xyz/v1",
+    )
+
+
+def get_deepseek_client():
+    from openai import OpenAI
+    return OpenAI(
+        api_key=os.environ["DEEPSEEK_API_KEY"],
+        base_url="https://api.deepseek.com",
     )
 
 

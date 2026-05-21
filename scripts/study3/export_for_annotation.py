@@ -77,13 +77,18 @@ def main():
 
     samples = load_json(cal_path)
 
-    # Strip model identity (blind evaluation)
+    # Strip model identity AND turn number (fully blind evaluation)
+    # Use opaque sequential IDs so raters can't infer model, turn, or ordering
+    import hashlib
     export = []
-    for s in samples:
+    id_mapping = {}  # opaque_id -> original sample_id (saved for re-linking)
+    for i, s in enumerate(samples):
+        # Deterministic opaque ID from original sample_id
+        opaque_id = f"S{hashlib.sha256(s['sample_id'].encode()).hexdigest()[:8].upper()}"
+        id_mapping[opaque_id] = s["sample_id"]
         export.append({
-            "sample_id": s["sample_id"],
+            "sample_id": opaque_id,
             "domain": s["domain"],
-            "turn": s["turn"],
             "task_prompt": s["task_prompt"],
             "output": s["output"],
         })
@@ -102,6 +107,13 @@ def main():
     assignments_path = public_dir / "assignments.json"
     with open(assignments_path, "w") as f:
         json.dump(assignments, f, indent=2)
+
+    # Save ID mapping for re-linking (not exposed to raters)
+    mapping_path = public_dir.parent.parent / "data" / "study3" / "raw_responses" / "annotation_id_mapping.json"
+    mapping_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(mapping_path, "w") as f:
+        json.dump(id_mapping, f, indent=2)
+    print(f"Saved ID mapping ({len(id_mapping)} entries) to {mapping_path}")
 
     print(f"Exported {len(export)} blinded samples to {samples_path}")
     print(f"Wrote assignments to {assignments_path}")
