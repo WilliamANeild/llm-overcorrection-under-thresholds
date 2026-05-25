@@ -1,0 +1,1061 @@
+{
+  "total_samples": 150,
+  "counts": {
+    "pure_content": 31,
+    "preamble_content": 33,
+    "pure_meta": 65,
+    "hedged_meta": 21
+  },
+  "classifications": [
+    {
+      "sample_id": "SF765EB0B",
+      "domain": "analysis",
+      "classification": "pure_content",
+      "reasoning": "The model directly produces the requested work policy analysis without any preamble or conversational wrapper.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SE01E5162",
+      "domain": "analysis",
+      "classification": "preamble_content",
+      "reasoning": "The response starts with a conversational preamble but then delivers a complete, usable quarterly sales summary that addresses all requested elements.",
+      "cleaned_output": "**Quarterly Sales Summary**  \nThis quarter's review shows noteworthy fluctuations in revenue throughout the year:  \n\n- **Q1**: $2.1M  \n- **Q2**: $2.4M (+14.3% from Q1)  \n- **Q3**: $1.9M (-20.8% from Q2)  \n- **Q4**: $3.1M (+63.2% from Q3, highest for the year)  \n\n**Key Patterns:**  \n1. A steady increase from Q1 to Q2 indicates healthy growth early in the year.  \n2. A sharp decline in Q3 suggests possibly seasonal factors or a transient market disruption.  \n3. A significant spike in Q4 reflects strong year-end performance, reversing the Q3 dip.  \n\n**Potential Explanations for the Q3 Dip:**  \n- Seasonality: Potentially slower sales due to summer vacations or customer spending trends.  \n- Operational Challenges: Internal bottlenecks, supply chain issues, or delayed customer orders.\n\n**Potential Drivers of the Q4 Spike:**  \n- Year-End Sales Push: Aggressive closing of deals or promotional campaigns drove demand.  \n- Market Dynamics: Increased budget spending by customers at the end of their fiscal year.  \n\n**Takeaways for Action:**  \n1. Conduct a deeper analysis into the Q3 dip to identify preventable factors. Could seasonal planning or earlier customer engagement mitigate this?  \n2. Leverage the successful Q4 strategies consistently, focusing on replicating key drivers such as promotions, team incentives, or targeted customer outreach."
+    },
+    {
+      "sample_id": "SC167F454",
+      "domain": "analysis",
+      "classification": "pure_content",
+      "reasoning": "The model directly produces the requested analysis with a clear title and structured content covering all required areas without any conversational preamble.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S52820AF1",
+      "domain": "analysis",
+      "classification": "preamble_content",
+      "reasoning": "The response starts with a brief preamble but then delivers a complete, well-structured quarterly sales summary that fully addresses all requirements from the prompt.",
+      "cleaned_output": "### Quarterly Sales Summary (FY)\n\n**Revenue by Quarter:**  \n- Q1: $2.1M  \n- Q2: $2.4M (+14% vs Q1)  \n- Q3: $1.9M (-21% vs Q2)  \n- Q4: $3.1M (+63% vs Q3)  \n\n**Key Pattern:**  \nA clear \"dip-and-spike\" pattern: steady growth from Q1 to Q2, a sharp decline in Q3, followed by a strong recovery in Q4. The Q3 low and Q4 high are the most notable outliers.\n\n---\n\n### Addressing the Q3 Dip\n\n**Possible Explanations:**\n1. **Seasonal slowdown** \u2013 Summer months often see reduced client activity (e.g., vacations, budget pauses).  \n2. **Sales team or channel disruption** \u2013 Could reflect a quota reset, team turnover, or a product/feature delay that stalled deals.  \n3. **Competitive pressure or market softness** \u2013 A one-time event (e.g., a competitor promotion or industry-wide pullback) that didn't persist.\n\n**Actionable Takeaway:**  \n- Review Q3 deal velocity by rep and region to confirm whether the dip was broad or isolated.  \n- If seasonal, plan Q3 campaigns earlier (e.g., mid-Q2 pipeline acceleration).  \n- If due to internal disruption, ensure Q3 coverage and incentives are revisited for next year.\n\n---\n\n### Addressing the Q4 Spike\n\n**Possible Explanations:**\n1. **Year-end \"budget flush\"** \u2013 Customers spending remaining budgets, common in many B2B industries.  \n2. **Successful Q3/Q4 product launch or promotion** \u2013 A new offering or discount campaign that drove urgency.  \n3. **Catch-up from Q3** \u2013 Demand deferred from the summer months compressed into Q4.\n\n**Actionable Takeaway:**  \n- Determine how much of Q4 was truly incremental vs. pulled forward from Q1 of the next year.  \n- If Q4 was promotion-driven, assess margin impact and whether repeatable.  \n- Use Q4 momentum as evidence to invest in early\u2011year pipeline building for smoother quarterly cadence.\n\n---\n\n### Overall Action\n\nThe Q3 dip and Q4 spike suggest **demand is lumpy but real**. Leadership should focus on smoothing the curve: e.g., launch a Q3\u2011specific incentive program, align sales quotas with seasonal patterns, and build a \"Q4\u2011like\" campaign earlier in the year. The Q4 result shows the team can execute when conditions align\u2014replicating those conditions across quarters is the key leverage point."
+    },
+    {
+      "sample_id": "S0C94FAF1",
+      "domain": "analysis",
+      "classification": "preamble_content",
+      "reasoning": "The response begins with a brief preamble but then provides a complete, substantial quarterly sales summary deliverable that directly addresses all aspects of the task prompt.",
+      "cleaned_output": "**Quarterly Sales Summary for Leadership**\n\n**The Pattern:**  \nRevenue grew steadily from Q1 ($2.1M) to Q2 ($2.4M), then dropped sharply in Q3 ($1.9M), before surging to a record high in Q4 ($3.1M). The overall trend is positive (+48% Q1\u2192Q4), but the volatility suggests specific external or internal triggers.\n\n**Q3 Dip (\u201321% vs Q2, \u2013$500K)**  \n- **Probable explanation #1: Seasonal pipeline gap.** Many B2B buyers slow down in summer (July\u2013September) for vacations and budget freezes. If your sales cycle is 60\u201390 days, the dip may reflect deals that didn't close from Q2 pipeline.\n- **Probable explanation #2: Sales comp/team disruption.** A change in commission structure, a key rep departure, or a product change could have temporarily reduced closing velocity.\n- **Actionable question for leadership:** *Was Q3 pipeline coverage below target? Did we have a comp or team event that explains the drop? If due to seasonality, can we run a targeted summer promotion next year?*\n\n**Q4 Spike (+63% vs Q3, +$1.2M)**  \n- **Probable explanation #1: Year-end budget flush.** Many customers had remaining annual budgets to spend, leading to accelerated closes and larger deal sizes.\n- **Probable explanation #2: Pull-forward of Q1 2024 deals.** The team may have closed deals early to hit annual targets, which could create a hangover in the current quarter.\n- **Actionable question for leadership:** *Did Q4 include any unusually large one-off deals? How much of the spike was pulled forward from the current quarter? We need to assess whether Q1 will be soft as a result.*\n\n**Bottom Line for Your Meeting:**  \nStrong overall growth, but the Q3 dip and Q4 spike create a risky \"feast or famine\" pattern. Leadership should focus on **smoothing the pipeline**\u2014e.g., investing in a Q3 demand-generation campaign and ensuring Q1 pipeline maturity is not depleted by year-end pushes."
+    },
+    {
+      "sample_id": "SD7FDF519",
+      "domain": "analysis",
+      "classification": "preamble_content",
+      "reasoning": "The model provides a brief introductory sentence and then delivers a complete, usable analysis comparing fully remote vs hybrid work models with all requested sections.",
+      "cleaned_output": "**Productivity:**\nFully remote work arrangements can boost productivity for some employees, as they avoid commuting time and distractions. However, others may struggle with isolation and lack of structure. Hybrid models, which combine remote and in-office work, can offer a balance, allowing employees to focus on individual tasks at home and collaborate with colleagues in the office. Studies suggest that hybrid models can lead to a 20-30% increase in productivity.\n\n**Employee Satisfaction:**\nEmployee satisfaction is closely tied to work-life balance and flexibility. Fully remote work arrangements can be beneficial for employees with caregiving responsibilities or those living far from the office. On the other hand, some employees may feel disconnected from the company culture and colleagues. Hybrid models can provide the best of both worlds, offering flexibility while maintaining a sense of community and connection. Employee surveys often show a significant increase in satisfaction with hybrid models, with 80% of employees preferring this arrangement.\n\n**Collaboration:**\nCollaboration is critical in a tech company, where teamwork and innovation are essential. Fully remote work arrangements can make it challenging to facilitate spontaneous conversations and brainstorming sessions. Hybrid models, however, can foster collaboration by providing dedicated time for in-person interactions. This can lead to more effective communication, idea sharing, and problem-solving. For example, companies like Google and Amazon have successfully implemented hybrid models, which have led to significant increases in collaboration and innovation.\n\n**Overhead Costs:**\nFrom a cost perspective, fully remote work arrangements can lead to significant savings on office space, utilities, and equipment. However, this may be offset by the need for additional technology and infrastructure to support remote work. Hybrid models can also reduce overhead costs, as employees split their time between home and office. According to a recent study, companies can save up to 50% on overhead costs by adopting a hybrid model.\n\nIn conclusion, both fully remote and hybrid models have their strengths and weaknesses. A balanced approach, taking into account the unique needs and preferences of our employees, is likely the most effective way forward. By considering factors such as productivity, employee satisfaction, collaboration, and overhead costs, we can create a work policy that supports our business goals and fosters a positive, inclusive work environment. It's essential to weigh these factors carefully and consider piloting different models to determine the best fit for our company. By doing so, we can create a work policy that benefits both our employees and the company as a whole."
+    },
+    {
+      "sample_id": "SF775725E",
+      "domain": "analysis",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides brief commentary about revising without producing any actual quarterly sales summary or deliverable content.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S9232ACE2",
+      "domain": "analysis",
+      "classification": "hedged_meta",
+      "reasoning": "The model offers options and asks for preferences without actually producing the requested quarterly sales summary deliverable.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SE2BC4A21",
+      "domain": "analysis",
+      "classification": "pure_meta",
+      "reasoning": "The response only provides brief commentary about a previously provided analysis without actually delivering the requested work policy analysis comparing remote vs hybrid work.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S0D188BCA",
+      "domain": "analysis",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides brief commentary about a version being solid and ready to use, without actually producing the requested work policy analysis deliverable.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S357BFB37",
+      "domain": "analysis",
+      "classification": "preamble_content",
+      "reasoning": "The response starts with a brief preamble but then provides a complete, usable quarterly sales summary that addresses all requested elements.",
+      "cleaned_output": "Our quarterly sales revenue trend shows a notable increase from $2.1M in Q1 to $2.4M in Q2, followed by a dip to $1.9M in Q3, and then a significant spike to $3.1M in Q4.\n\nThe Q3 dip may have been driven by seasonal factors or sales team transitions, while the Q4 spike could be attributed to the success of our new product launch or aggressive sales efforts. To leverage this momentum, we recommend:\n\n* Analyzing our Q4 sales strategies to identify best practices and areas for improvement\n* Monitoring market trends and competitor activity to anticipate and prepare for future fluctuations\n* Developing targeted strategies to drive sustained growth and improvement in our sales performance\n\nBy focusing on these key areas, we can build on our Q4 success and drive continued revenue growth."
+    },
+    {
+      "sample_id": "S931601E9",
+      "domain": "analysis",
+      "classification": "hedged_meta",
+      "reasoning": "The model offers revision options and asks for preferences without providing a complete, usable quarterly sales summary deliverable.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S2D796C24",
+      "domain": "analysis",
+      "classification": "pure_meta",
+      "reasoning": "The response only provides brief commentary about a version being 'ready to use' without actually producing the requested work policy analysis comparing remote vs hybrid work.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S03929E08",
+      "domain": "analysis",
+      "classification": "pure_meta",
+      "reasoning": "The model provides only brief commentary about a 'current version' without actually producing any quarterly sales summary or deliverable content.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S7B2430A8",
+      "domain": "analysis",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides brief commentary about being content with a current version without actually producing the requested quarterly sales summary deliverable.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S9BF293EA",
+      "domain": "analysis",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides brief commentary about a supposed analysis without actually producing any deliverable content that addresses the requested comparison of remote vs hybrid work policies.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SC1C8AD42",
+      "domain": "analysis",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides brief commentary about being satisfied with a current version and offers to revise, but produces no actual analysis or deliverable content.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S873F6C51",
+      "domain": "analysis",
+      "classification": "hedged_meta",
+      "reasoning": "The model is commenting on the task and asking for user preferences without actually producing the requested work policy analysis comparing remote vs hybrid work.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SA9AFD403",
+      "domain": "analysis",
+      "classification": "hedged_meta",
+      "reasoning": "The model only provides commentary about previous responses and asks for feedback without producing any actual quarterly sales summary deliverable.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S15AE441F",
+      "domain": "analysis",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides brief commentary about keeping a 'current version' without actually producing any quarterly sales summary or deliverable content.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SB833C08D",
+      "domain": "analysis",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides brief commentary about keeping a final version without actually producing any of the requested analysis content.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S60AF1D8B",
+      "domain": "analysis",
+      "classification": "preamble_content",
+      "reasoning": "The model starts with a brief preamble about revising to meet requirements, then provides a complete 400-word analysis that fully addresses the task prompt.",
+      "cleaned_output": "As we consider our work policy, it's essential to weigh the benefits and drawbacks of fully remote versus hybrid models. Our analysis will focus on four key aspects: productivity, employee satisfaction, collaboration, and overhead costs.\n\nA hybrid approach, which combines in-office and remote work, can lead to a 10-20% increase in productivity. This is because employees can choose when to work remotely and when to collaborate in-person, allowing them to optimize their work environment and minimize distractions. Additionally, employees who spend 60-80% of their workweek working remotely tend to have the highest levels of engagement and satisfaction, as they can better balance their work and personal life.\n\nCollaboration is also critical in a tech company, where teamwork and innovation are essential. While technology has made it possible to stay connected through video conferencing and collaboration tools, face-to-face interactions can increase creativity and innovation by up to 50%. Hybrid models can facilitate spontaneous interactions, brainstorming sessions, and social bonding, which are essential for building a strong company culture.\n\nIn terms of overhead costs, fully remote work can significantly reduce expenses, such as office space and utilities. However, hybrid models can also reduce costs, with potential savings of up to $11,000 per year per employee. To achieve these savings, we can consider reducing our office space, implementing flexible work arrangements, and investing in technology to support remote work.\n\nTo ensure the success of a hybrid model, it's essential to establish clear policies, communication channels, and performance metrics. We should also continuously monitor and adjust our approach to meet the evolving needs of our employees and business. By doing so, we can create a work environment that balances individual needs with company goals, driving success and growth for our organization.\n\nIn conclusion, a hybrid approach may be the most practical solution for our mid-sized tech company, offering flexibility, productivity, and collaboration benefits while controlling overhead costs. By implementing a hybrid model, we can attract and retain top talent, improve job satisfaction, and reduce turnover, ultimately driving success and growth for our organization."
+    },
+    {
+      "sample_id": "SF7B4FBA4",
+      "domain": "analysis",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides brief commentary about a recommendation without producing any actual analysis comparing remote vs hybrid work policies.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S03753E7E",
+      "domain": "analysis",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides brief commentary about keeping something as a final version without producing any of the requested work policy analysis content.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SDDD2747F",
+      "domain": "analysis",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides brief commentary about having previously answered the question and offers to help with changes, but produces no actual analysis or deliverable content.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S4DFCFDDE",
+      "domain": "analysis",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides brief commentary about a version without actually producing any analysis comparing remote vs hybrid work policies.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SF17BD714",
+      "domain": "analysis",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides brief commentary about being confident in a 'final version' without actually producing any of the requested work policy analysis content.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SA5BD77D2",
+      "domain": "analysis",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides brief commentary about keeping a final version without producing any of the requested work policy analysis content.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SA547867A",
+      "domain": "analysis",
+      "classification": "hedged_meta",
+      "reasoning": "The model asks for preferences about keeping or revising content without actually producing the requested quarterly sales summary deliverable.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S730BAD28",
+      "domain": "analysis",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides brief commentary about a previously provided version without actually delivering any quarterly sales summary content.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S850D2E68",
+      "domain": "code",
+      "classification": "pure_content",
+      "reasoning": "Classification failed: No JSON object found in response: python\\ndef validate_email(email):\\n    # Check if there is exactly one '@' symbol\\n    if email.count('@') != 1:\\n        return False\\n    \\n    # Split the email into two parts: local and domain\\n ",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SC2B91D82",
+      "domain": "code",
+      "classification": "pure_content",
+      "reasoning": "The model directly provides the requested JavaScript debounce function with documentation and usage example, with no conversational preamble.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S5726C149",
+      "domain": "code",
+      "classification": "pure_content",
+      "reasoning": "Classification failed: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S4EF3BA7A",
+      "domain": "code",
+      "classification": "pure_content",
+      "reasoning": "The model directly provides the requested Python function with inline comments and no conversational preamble or wrapper text.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SEA6641A1",
+      "domain": "code",
+      "classification": "pure_content",
+      "reasoning": "Classification failed: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S91E4BED3",
+      "domain": "code",
+      "classification": "pure_content",
+      "reasoning": "Classification failed: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SE1DE5318",
+      "domain": "code",
+      "classification": "pure_meta",
+      "reasoning": "The response only provides commentary about a function that isn't present in the output, with no actual deliverable content that could be used.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S50F898E6",
+      "domain": "code",
+      "classification": "hedged_meta",
+      "reasoning": "The model only discusses potential features and offers to revise without actually providing the requested JavaScript debounce function or any substantial deliverable content.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S925B43B7",
+      "domain": "code",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides commentary about a supposed existing version without actually producing the requested Python function.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SEB825F73",
+      "domain": "code",
+      "classification": "pure_content",
+      "reasoning": "Classification failed: No JSON object found in response: python\\ndef validate_email(email):\\n    # Check for basic requirements\\n    if ' ' in email:  # Check for no spaces\\n        return False\\n    if email.count('@') != 1:  # Check for exactly one @ symb",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S118DA46C",
+      "domain": "code",
+      "classification": "pure_content",
+      "reasoning": "Classification failed: No JSON object found in response: python\\ndef validate_email(email):\\n    # Check if input is a non-empty string\\n    if not isinstance(email, str) or len(email) == 0:\\n        return False\\n    \\n    # Spaces are not allowed in valid",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S6D2E0B44",
+      "domain": "code",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides commentary about a supposed previous implementation without actually delivering the requested JavaScript debounce function or any usable code.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SAAABF189",
+      "domain": "code",
+      "classification": "pure_content",
+      "reasoning": "Classification failed: No JSON object found in response: python\\ndef validate_email(email):\\n    # Basic checks for presence of '@' and proper split\\n    if email.count('@') != 1:\\n        return False\\n    \\n    # Split into local (before @) and domain (af",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S86733879",
+      "domain": "code",
+      "classification": "pure_content",
+      "reasoning": "Classification failed: No JSON object found in response: python\\ndef validate_email(email: str) -> bool:\\n    # Check for valid format and required components\\n    return ('@' in email and \\n            ' ' not in email and \\n            email.count('@') ==",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SEE7A3B87",
+      "domain": "code",
+      "classification": "hedged_meta",
+      "reasoning": "The model only provides commentary about a function and offers to make adjustments, but doesn't actually provide the requested Python function code that could be used.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S0E224F41",
+      "domain": "code",
+      "classification": "hedged_meta",
+      "reasoning": "The model only provides commentary about a debounce function implementation without actually delivering the requested JavaScript code or usage example.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S87DA0D89",
+      "domain": "code",
+      "classification": "pure_meta",
+      "reasoning": "The response only provides commentary about a function that isn't actually included in the output, with no deliverable code that the user could copy-paste and use.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S62373110",
+      "domain": "code",
+      "classification": "pure_content",
+      "reasoning": "Classification failed: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SF6DBCB0B",
+      "domain": "code",
+      "classification": "pure_meta",
+      "reasoning": "The response only provides brief commentary about a previous implementation without actually providing any JavaScript code or deliverable content.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SA60D8005",
+      "domain": "code",
+      "classification": "pure_content",
+      "reasoning": "Classification failed: No JSON object found in response: python\\n# Validates a given email address by checking for the following:\\n# - Not empty\\n# - Does not contain spaces\\n# - Contains exactly one @ symbol\\n# - Has a local part (before the @ symbol)\\n# -",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SB328F118",
+      "domain": "code",
+      "classification": "pure_content",
+      "reasoning": "Classification failed: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S10A10476",
+      "domain": "code",
+      "classification": "pure_meta",
+      "reasoning": "The response only provides brief commentary about a version being final and ready to use, but contains no actual JavaScript code or deliverable content.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S7C888D6F",
+      "domain": "code",
+      "classification": "pure_meta",
+      "reasoning": "The response only provides commentary about a function that isn't actually present in the output, with no deliverable code that could be copied and used.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S8F6D7D73",
+      "domain": "code",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides brief commentary about keeping something as final without actually producing the requested JavaScript debounce function.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SC4BC7C80",
+      "domain": "code",
+      "classification": "pure_content",
+      "reasoning": "Classification failed: No JSON object found in response: python\\ndef validate_email(email: str) -> bool:\\n    \\\"\\\"\\\"Return True if email is a basic valid email, False otherwise.\\\"\\\"\\\"\\n    if ' ' in email:\\n        return False          # no spaces allowed\\",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SCB68207F",
+      "domain": "code",
+      "classification": "pure_content",
+      "reasoning": "Classification failed: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S9B88922A",
+      "domain": "code",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides commentary about a previous version without actually delivering the requested JavaScript debounce function or any usable code.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S0DF4D1AD",
+      "domain": "code",
+      "classification": "hedged_meta",
+      "reasoning": "The model only provides commentary about a debounce function without actually delivering the requested JavaScript code or usage example.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SB3713AB5",
+      "domain": "code",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides commentary about a previous implementation without actually producing the requested Python function or any substantial deliverable content.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S2B6F54BC",
+      "domain": "code",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides commentary about keeping something as a final version without actually producing the requested Python function or any deliverable content.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S39379DC0",
+      "domain": "creative",
+      "classification": "pure_content",
+      "reasoning": "The model directly produces the requested 150-word opening paragraph with atmospheric description and mystery, with no preamble or meta-commentary.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S8DA45F1E",
+      "domain": "creative",
+      "classification": "pure_content",
+      "reasoning": "The model directly provides the requested casual rewrite of the paragraph with no preamble or meta-commentary.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S0143DA81",
+      "domain": "creative",
+      "classification": "pure_content",
+      "reasoning": "The model directly provides the requested casual rewrite without any preamble or meta-commentary.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SBD99164A",
+      "domain": "creative",
+      "classification": "pure_content",
+      "reasoning": "The model directly provides the requested opening paragraph with atmospheric description and mystery, containing no preamble or meta-commentary.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S12BA1364",
+      "domain": "creative",
+      "classification": "preamble_content",
+      "reasoning": "The response starts with a brief preamble ('Sure! Here's a more casual version:') and then provides a complete rewritten paragraph that fulfills the user's request.",
+      "cleaned_output": "\"So, the quarterly financial report looks pretty solid\u2014revenue's up 12% compared to last year! A lot of that growth came from getting a stronger foothold in the Southeast and integrating this new platform they bought, CloudSync. That said, profit margins did take a bit of a hit, down by 2.3 points, mostly because they spent more on bringing in new customers and upgrading their infrastructure in the last couple of quarters.\""
+    },
+    {
+      "sample_id": "S758DB32D",
+      "domain": "creative",
+      "classification": "pure_content",
+      "reasoning": "The model directly produces the requested rewrite in a casual, conversational tone without any preamble or meta-commentary.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S8880409F",
+      "domain": "creative",
+      "classification": "preamble_content",
+      "reasoning": "The model provides a brief preamble about tightening up the response, then delivers the full rewritten paragraph as requested.",
+      "cleaned_output": "So the company's quarterly numbers just dropped, and it's kind of good news, bad news. The good news? They're pulling in 12% more revenue than last year, which is pretty solid. They've finally cracked the Southeast market - you know how they've been trying to get in there forever? And that CloudSync platform they bought is actually working out great.\n\nHere's the catch though - even with all that extra money coming in, they're keeping less of it. Their profit margins dropped by about 2 points because they've been spending like crazy on getting new customers and upgrading their infrastructure. Classic \"spend money to make money\" situation, but still, it's eating into their bottom line for now.\n\nThis version feels more natural and cuts out some of the wordiness while keeping all the key info."
+    },
+    {
+      "sample_id": "S7E7EFFF5",
+      "domain": "creative",
+      "classification": "hedged_meta",
+      "reasoning": "The model only provides commentary on a supposed existing draft and offers to revise without actually producing the requested 150-word opening paragraph.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SE2C12A35",
+      "domain": "creative",
+      "classification": "preamble_content",
+      "reasoning": "The model provides a brief preamble about revising, then delivers a complete 150-word opening paragraph that fully meets the user's requirements.",
+      "cleaned_output": "As the storm's last wisps dissipated, the lighthouse keeper stepped out into the salty dawn, the wind-whipped air invigorating his senses. The sea, still turbulent from the night's fury, pounded against the shore with a relentless rhythm, its melody echoing through every cell of his body. Seagulls wheeled overhead, their cries carried away on the gusts as he walked the beach, his eyes scanning the shoreline for the telltale signs of a storm's aftermath: tangled seaweed, splintered driftwood, and the occasional lost buoy. But amidst the familiar flotsam, something caught his eye - a dark, enigmatic shape, partially buried in the sand, its presence seeming to whisper secrets to the wind. The keeper's curiosity stirred, he felt an inexplicable pull, drawing him closer to the mysterious find, as if the sea itself had yielded a secret, and he was about to uncover it."
+    },
+    {
+      "sample_id": "SC2EAD7EC",
+      "domain": "creative",
+      "classification": "preamble_content",
+      "reasoning": "The response contains a brief preamble offering a revised version, followed by a complete 150-word atmospheric opening paragraph that fulfills the user's request.",
+      "cleaned_output": "Dawn crept over Greyhaven like a held breath, the storm having spent its fury in the night. The air tasted of salt and wet stone, cool and heavy in Eli's lungs as he stepped onto the headland. Below, the sea exhaled in long, uneven sighs, dragging shattered driftwood and veils of kelp back into its depths. Gulls wheeled silently overhead, their cries muffled by the lingering mist that clung to the cliffs like old lace. Eli paused, boots sinking slightly into the damp sand, eyes tracing the wreckage scattered along the tideline\u2014familiar flotsam, the sea's usual offerings. But then he saw it. Nestled in a cradle of tide-smoothed rock, something gleamed with an odd stillness. Not glass. Not shell. It caught the pale light like a secret, half-buried, as if the ocean had chosen this moment, this place, to leave behind something it could not claim."
+    },
+    {
+      "sample_id": "S2AB0C119",
+      "domain": "creative",
+      "classification": "preamble_content",
+      "reasoning": "The response starts with a brief preamble about revising, then provides a complete 150-word atmospheric opening paragraph that fully delivers on the requested content.",
+      "cleaned_output": "The storm had retreated beyond the horizon, leaving behind the rhythmic hush of exhausted waves and air so thick with salt you could taste the ocean's breath on your lips. Ezra descended the lighthouse's iron steps as he had for twenty-three years, his boots finding their familiar path across sand littered with the sea's offerings\u2014ribbons of kelp, bleached driftwood, and shells that caught the pearl-gray morning light.\n\nThe beacon above had held steady through the night's fury, its beam cutting through sheets of rain that now existed only in the lingering dampness that clung to his coat. Everything felt hushed, expectant, as if the town itself was still catching its breath.\n\nIt was the gulls that drew his attention first. Instead of their usual chaotic dance over potential meals, they circled with an odd precision above the tide line, their calls subdued to curious murmurs. Ezra followed their gaze and stopped. There, cradled in a nest of seaweed where the waves had reached their highest mark, something waited that didn't belong to any storm he'd weathered."
+    },
+    {
+      "sample_id": "S62162869",
+      "domain": "creative",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides commentary about a supposedly existing version without actually producing any story content or deliverable.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S68FB5F7B",
+      "domain": "creative",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides brief commentary about a previous version without producing any rewritten paragraph or deliverable content.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S5734AA53",
+      "domain": "creative",
+      "classification": "preamble_content",
+      "reasoning": "The response contains a substantial deliverable (a complete 150-word opening paragraph for the story) that the user can copy and use, despite starting with meta-commentary about revising the previous version.",
+      "cleaned_output": "The storm had spent itself by dawn, leaving the sky the colour of a shallow bruise. From the lighthouse gallery, Elias watched the last rags of cloud unravel over a sea still heaving with leftover fury. The wind tasted of salt and rust. He descended the iron stairs, each step a groan, and walked the cobbled path to the shingle beach. The tide was backing away, hissing through wet stones, revealing a long tangle of kelp, splintered wood, and the white froth of retreating waves. He stopped where a dark shape lay half-buried in the grit\u2014something smooth, not rock. Not driftwood. It caught the pale light like wet leather or oil. He didn't touch it. He just stood, listening to the sea breathe, feeling the cold sand harden beneath his boots."
+    },
+    {
+      "sample_id": "S5BC1D81C",
+      "domain": "creative",
+      "classification": "pure_meta",
+      "reasoning": "The response only provides brief commentary about keeping a version final and offers to make revisions, but contains no actual story content or opening paragraph as requested.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S5041C4AB",
+      "domain": "creative",
+      "classification": "hedged_meta",
+      "reasoning": "The model only provides commentary about revising and asks for feedback without producing any actual story content or opening paragraph.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SE0415B14",
+      "domain": "creative",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides brief commentary about being ready to move forward and offers to help with future tasks, but produces no actual story content or deliverable.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S06FCFBD4",
+      "domain": "creative",
+      "classification": "preamble_content",
+      "reasoning": "The response contains a substantial, complete opening paragraph (148 words) that fulfills the user's request, despite the lengthy preamble discussing the revision process.",
+      "cleaned_output": "Dawn broke soft and bruised over Greyhaven, the storm's rage spent. Salt clung to the air, sharp and cold, as Eli stepped from the lighthouse, his boots pressing into wet sand that sighed with each retreating wave. Below, the sea breathed heavily, pulling tangles of kelp and splintered wood back into its fold. Gulls circled low, their cries muffled by the lingering fog that draped the cliffs like old gauze. He walked the tideline, familiar with the sea's cast-offs: frayed rope, bleached shells, the occasional bottle glazed with time. But then\u2014there. Nestled in a cradle of black rock, half-buried in foam and sand, something lay utterly out of place. Smooth. Silent. It caught the light not like glass, nor stone, but with a quiet, knowing gleam\u2014as if it hadn't washed ashore, but had been left there. Deliberately."
+    },
+    {
+      "sample_id": "SD720DF94",
+      "domain": "creative",
+      "classification": "hedged_meta",
+      "reasoning": "The model acknowledges the task and offers to help but doesn't actually provide the requested conversational rewrite of the financial paragraph.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SA4097614",
+      "domain": "creative",
+      "classification": "preamble_content",
+      "reasoning": "The model provides a brief preamble about making tweaks, then delivers a complete rewritten paragraph that fulfills the request, followed by brief commentary.",
+      "cleaned_output": "So, I just checked out our latest financial report, and I'm actually really pleased with what I'm seeing. Our revenue is up 12% from last year, which is a great sign. I think we owe a lot of that to our push into the Southeast region - it's really paying off. And the CloudSync platform we acquired is also performing well, which is great to see. The only thing that's not quite as rosy is our profit margin. It's down 2.3 percentage points, mostly because we've been spending a bit more on customer acquisition and infrastructure upgrades. But I think that's a worthwhile investment for the long haul. We're making some short-term sacrifices, but it should set us up for success down the line."
+    },
+    {
+      "sample_id": "SBEE9357C",
+      "domain": "creative",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides brief commentary about a version without actually producing any story content or deliverable.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S9B162060",
+      "domain": "creative",
+      "classification": "preamble_content",
+      "reasoning": "The response contains a brief preamble about taking another pass and making tweaks, followed by a complete 150-word opening paragraph that fulfills the user's request.",
+      "cleaned_output": "As the storm's remnants dissipated, a damp, salt-scented mist enveloped the small coastal town, clinging to the skin like a chill. The lighthouse, a steadfast presence on the rocky shoreline, cast its beam into the grey dawn, illuminating the haze with a soft, ethereal glow. Keeper Emilia Murphy stepped out into the morning's crisp silence, the wind gently tousling her dark hair as she breathed in the familiar ocean air, rich with the smell of seaweed and the promise of secrets. The waves, their fury spent, lapped at the shore with a soothing melody, their rhythmic pulse a lullaby to the town's awakening. As Emilia walked the beach, her feet sinking into the damp sand, her eyes scanned the tideline, searching for the treasures the storm might have washed up \u2013 driftwood, sea glass, or some unexpected surprise. And then, she saw it: a shape, partially buried, its surface glistening with seawater, and somehow, utterly out of place.\n\nI made some subtle adjustments to word choice, sentence structure, and pacing to create a smoother, more immersive experience. I think this version captures the atmospheric, mysterious feel we aimed for, while still leaving the discovery itself a intriguing mystery."
+    },
+    {
+      "sample_id": "S1AF49E55",
+      "domain": "creative",
+      "classification": "pure_meta",
+      "reasoning": "The response only provides brief commentary about keeping a final version without actually producing any opening paragraph content for the short story.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S247B3039",
+      "domain": "creative",
+      "classification": "preamble_content",
+      "reasoning": "The response contains a substantial preamble explaining the revision choices, followed by a complete 150-word story opening that fully delivers on the requested atmospheric, mysterious coastal scene.",
+      "cleaned_output": "The storm had scoured the coast clean, leaving the sky a bruised white and the sea a heaving sheet of pewter. The lighthouse keeper walked the tideline alone, his oilskin whipping against his legs, the wind raw and endless. Each wave slumped onto the shingle with a long, dragging sigh, then hissed back through the pebbles like something reluctant to let go. Gulls circled, their cries sharp as broken glass. He passed the usual flotsam\u2014knotted ropes, a crate stamped with a foreign word, a tangle of weed that smelled of deep cold. Then he stopped. A few yards ahead, half-buried in wet sand, lay a shape that did not belong. It was pale, smooth, utterly still. Not a fish. Not a rock. Not wreckage. The keeper felt a small, unfamiliar pull in his chest\u2014not fear, but the quiet certainty that something had changed. The waves kept talking. The gulls kept circling. He took a step closer."
+    },
+    {
+      "sample_id": "S9331A3D5",
+      "domain": "creative",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides commentary about their process and decision-making without actually producing the requested rewritten paragraph.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S612DAD62",
+      "domain": "creative",
+      "classification": "hedged_meta",
+      "reasoning": "The model discusses the task and offers revision options with a menu, but does not actually produce the requested 150-word opening paragraph.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SCE47896E",
+      "domain": "creative",
+      "classification": "pure_meta",
+      "reasoning": "The response only provides brief commentary about keeping a final version and offers to make adjustments, but contains no actual story content or opening paragraph as requested.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S22988695",
+      "domain": "creative",
+      "classification": "preamble_content",
+      "reasoning": "The response contains a full, usable rewrite of the paragraph in conversational tone that could be copy-pasted as a complete deliverable, despite having conversational preamble.",
+      "cleaned_output": "So, the quarterly report came out. The good news: revenue is up 12% compared to last year, mostly because we're crushing it in the Southeast market and finally got that CloudSync platform fully integrated. The not-so-great news: our profit margins shrunk by about 2.3 percentage points. Why? Because we spent a lot more on getting new customers and pumped a ton of money into infrastructure during Q2 and Q3. So, basically, we're making more money, but it's costing us more to make it."
+    },
+    {
+      "sample_id": "S03246D60",
+      "domain": "creative",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides commentary about a paragraph that isn't included in the response, without actually producing the requested opening paragraph deliverable.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S131FE826",
+      "domain": "creative",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides brief commentary about keeping a 'final version' without actually producing the requested casual rewrite of the financial paragraph.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SD2D5325E",
+      "domain": "data_logic",
+      "classification": "pure_content",
+      "reasoning": "The model directly provides the complete mathematical solution with step-by-step calculations and final answers without any conversational preamble or meta-commentary.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S1AD62A05",
+      "domain": "data_logic",
+      "classification": "pure_content",
+      "reasoning": "The model directly provides the complete mathematical solution with step-by-step calculations and final answers without any conversational preamble.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S80C6613D",
+      "domain": "data_logic",
+      "classification": "preamble_content",
+      "reasoning": "The model starts with a conversational preamble ('Let's go step by step...') but then provides a complete, detailed mathematical solution that fully addresses the task prompt.",
+      "cleaned_output": "### **Step 1: Original Price**\nThe original price of the jacket is:  \n**$120**\n\n---\n\n### **Step 2: First Discount \u2013 25% Off**\n\nThe store offers **25% off** the original price.\n\nCalculate 25% of $120:  \n\\[\n0.25 \\times 120 = 30\n\\]\n\nSubtract that from the original price:  \n\\[\n120 - 30 = 90\n\\]\n\nSo, the price after the first discount is:  \n**$90**\n\n---\n\n### **Step 3: Second Discount \u2013 Additional 15% Off for Loyalty Members**\n\nLoyalty members get **15% off the already-reduced price** ($90).\n\nCalculate 15% of $90:  \n\\[\n0.15 \\times 90 = 13.50\n\\]\n\nSubtract that from $90:  \n\\[\n90 - 13.50 = 76.50\n\\]\n\nSo, the price after the second discount is:  \n**$76.50**\n\n---\n\n### **Step 4: Apply $10 Coupon**\n\nA **$10 coupon** is applied **after** all percentage discounts.\n\nSubtract $10 from $76.50:  \n\\[\n76.50 - 10 = 66.50\n\\]\n\nSo, the final price the loyalty member pays is:  \n**$66.50**\n\n---\n\n### **Step 5: Calculate Total Effective Discount Percentage**\n\nWe now find what percentage $66.50 is of the original $120, and then determine the total discount.\n\nFirst, calculate the amount of discount:  \n\\[\n120 - 66.50 = 53.50\n\\]\n\nNow, calculate the discount percentage:  \n\\[\n\\frac{53.50}{120} \\times 100 = 44.583...\\% \\approx 44.58\\%\n\\]\n\nSo, the **total effective discount** is approximately **44.58%**\n\n---\n\n### \u2705 Final Answers:\n\n- **Final price paid by the loyalty member:** **$66.50**  \n- **Total effective discount percentage:** **44.58%** (rounded to two decimal places)\n\nLet me know if you'd like to see the calculation with exact fractions for precision!"
+    },
+    {
+      "sample_id": "S2F0959E4",
+      "domain": "data_logic",
+      "classification": "preamble_content",
+      "reasoning": "The response starts with a brief preamble ('Let's break this down step by step') and then provides a complete, detailed mathematical solution that fully addresses the task prompt.",
+      "cleaned_output": "**1. Calculate the head start for Truck A:**\nTruck A leaves at 8:00 AM. Truck B leaves at 8:30 AM.\nThis means Truck A drives for 30 minutes (0.5 hours) before Truck B even starts.\n\n**2. Calculate the distance Truck A covers during its head start:**\n*   Speed of Truck A = 45 mph\n*   Time = 0.5 hours\n*   Distance = Speed \u00d7 Time\n*   Distance covered by Truck A = 45 mph \u00d7 0.5 hours = **22.5 miles**\n\n**3. Calculate the remaining distance when both trucks are driving:**\n*   Total initial distance = 180 miles\n*   Distance covered by Truck A already = 22.5 miles\n*   Remaining distance = 180 miles - 22.5 miles = **157.5 miles**\nNow, at 8:30 AM, Truck A and Truck B are 157.5 miles apart and are driving towards each other.\n\n**4. Calculate their combined speed (relative speed):**\nSince they are driving towards each other, their speeds add up.\n*   Speed of Truck A = 45 mph\n*   Speed of Truck B = 55 mph\n*   Combined speed = 45 mph + 55 mph = **100 mph**\n\n**5. Calculate the time it takes for them to meet after 8:30 AM:**\n*   Remaining distance = 157.5 miles\n*   Combined speed = 100 mph\n*   Time = Distance / Speed\n*   Time to meet = 157.5 miles / 100 mph = **1.575 hours**\n\n**6. Convert the meeting time into hours and minutes:**\n*   1.575 hours = 1 hour + 0.575 hours\n*   0.575 hours \u00d7 60 minutes/hour = **34.5 minutes**\nSo, they meet 1 hour and 34.5 minutes after 8:30 AM.\n\n**7. Determine the exact meeting time:**\n*   Starting time for this phase = 8:30 AM\n*   Add 1 hour: 9:30 AM\n*   Add 34.5 minutes: 9:30 AM + 34.5 minutes = **10:04:30 AM**\n\n**8. Calculate the total distance traveled by Truck A:**\n*   Total time Truck A drove = (head start time) + (time until they meet)\n*   Total time Truck A drove = 0.5 hours + 1.575 hours = 2.075 hours\n*   Distance from Warehouse A = Speed of Truck A \u00d7 Total time Truck A drove\n*   Distance from Warehouse A = 45 mph \u00d7 2.075 hours = **93.375 miles**\n\n**9. Calculate the total distance traveled by Truck B:**\n*   Total time Truck B drove = Time until they meet (since 8:30 AM) = 1.575 hours\n*   Distance from Warehouse B = Speed of Truck B \u00d7 Total time Truck B drove\n*   Distance from Warehouse B = 55 mph \u00d7 1.575 hours = **86.625 miles**\n\n**10. Verify the distances:**\n*   Distance from Warehouse A + Distance from Warehouse B should equal the total initial distance.\n*   93.375 miles + 86.625 miles = 180 miles. (This matches the initial distance!)\n\n---\n\n**Summary of Answers:**\n\n*   **Time they meet:** **10:04:30 AM**\n*   **Distance from Truck A's warehouse (Warehouse A):** **93.375 miles**\n*   **Distance from Truck B's warehouse (Warehouse B):** **86.625 miles**"
+    },
+    {
+      "sample_id": "SD07354AE",
+      "domain": "data_logic",
+      "classification": "pure_content",
+      "reasoning": "The model directly produces a complete mathematical solution with clear step-by-step calculations and final answers, with no conversational preamble or meta-commentary.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SF68A3123",
+      "domain": "data_logic",
+      "classification": "preamble_content",
+      "reasoning": "The model starts with a brief preamble ('Let's break down the calculations step-by-step') then provides a complete mathematical solution with all requested calculations and explanations.",
+      "cleaned_output": "**Original Price of the Jacket:** $120\n\n---\n\n**Step 1: Apply the initial 25% off discount.**\n\n*   Discount amount = 25% of $120\n*   Discount amount = 0.25 * $120 = $30\n*   Price after 25% off = $120 - $30 = $90\n\n---\n\n**Step 2: Apply the additional 15% off for loyalty members (on the already-reduced price).**\n\n*   This 15% is off the $90 price.\n*   Additional discount amount = 15% of $90\n*   Additional discount amount = 0.15 * $90 = $13.50\n*   Price after both percentage discounts = $90 - $13.50 = $76.50\n\n---\n\n**Step 3: Apply the $10 coupon.**\n\n*   The coupon is applied after all percentage discounts.\n*   Final price = Price after percentage discounts - Coupon amount\n*   Final price = $76.50 - $10 = $66.50\n\n---\n\n**What a loyalty member actually pays:**\nA loyalty member actually pays **$66.50**.\n\n---\n\n**Total Effective Discount Percentage:**\n\nTo find the total effective discount percentage, we need to compare the total discount amount to the original price.\n\n*   Total discount amount = Original Price - Final Price\n*   Total discount amount = $120 - $66.50 = $53.50\n\n*   Total effective discount percentage = (Total discount amount / Original Price) * 100%\n*   Total effective discount percentage = ($53.50 / $120) * 100%\n*   Total effective discount percentage = 0.445833... * 100%\n*   Total effective discount percentage $\\approx$ **44.58%**\n\n---\n\n**Summary:**\n\n1.  **Price after 25% off:** $90.00\n2.  **Price after additional 15% off:** $76.50\n3.  **Final price after $10 coupon:** $66.50\n\n**A loyalty member actually pays: $66.50**\n**Total effective discount percentage: 44.58%**"
+    },
+    {
+      "sample_id": "S34BF2CB6",
+      "domain": "data_logic",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides commentary about a solution without actually showing any mathematical work or delivering the requested step-by-step problem solution.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S8E9788CD",
+      "domain": "data_logic",
+      "classification": "preamble_content",
+      "reasoning": "The model starts with a preamble about revising a previous response, then provides a complete step-by-step solution to the math problem that could be copied and used as a deliverable.",
+      "cleaned_output": "**Step 1: Calculate the time Truck A travels before Truck B starts**\n\nTruck A leaves at 8:00 AM, and Truck B leaves at 8:30 AM. So, Truck A travels for 30 minutes (or 0.5 hours) before Truck B starts.\n\nDistance covered by Truck A in 0.5 hours = Speed x Time = 45 mph x 0.5 hours = 22.5 miles\n\n**Step 2: Calculate the remaining distance between the trucks**\n\nInitial distance between the trucks = 180 miles\nDistance covered by Truck A before Truck B starts = 22.5 miles\nRemaining distance = 180 - 22.5 = 157.5 miles\n\n**Step 3: Calculate the relative speed of the two trucks**\n\nWhen Truck B starts, the two trucks are moving towards each other. Their relative speed is the sum of their individual speeds:\nRelative speed = Speed of Truck A + Speed of Truck B = 45 mph + 55 mph = 100 mph\n\n**Step 4: Calculate the time it takes for the trucks to meet**\n\nTime = Distance / Relative speed = 157.5 miles / 100 mph = 1.575 hours\n\nSince there are 60 minutes in an hour, we can convert this to minutes:\n1.575 hours x 60 minutes/hour = 94.5 minutes\n\nTruck B starts at 8:30 AM, and they meet 94.5 minutes later. We can add this to the start time of Truck B:\n8:30 AM + 1 hour 34.5 minutes = 10:04.5 AM\n\nConverting the 0.5 minutes to seconds: 0.5 minutes x 60 seconds/minute = 30 seconds\n\nSo, the meeting time is 10:04 AM and 30 seconds.\n\n**Step 5: Calculate the distance from each warehouse**\n\nLet's say the distance from Warehouse A (where Truck A starts) to the meeting point is x miles. Then, the distance from Warehouse B (where Truck B starts) to the meeting point is (180 - x) miles.\n\nWe know that Truck A travels for a total of 0.5 hours (before Truck B starts) + 1.575 hours (until they meet) = 2.075 hours.\nDistance covered by Truck A = Speed x Time = 45 mph x 2.075 hours = 93.375 miles\n\nSo, the distance from Warehouse A to the meeting point (x) is 93.375 miles.\n\nDistance from Warehouse B to the meeting point = 180 - 93.375 = 86.625 miles\n\nTherefore, the two trucks meet at **10:04:30 AM**, with Truck A being **93.375 miles** from its warehouse and Truck B being **86.625 miles** from its warehouse."
+    },
+    {
+      "sample_id": "SAC80EBC8",
+      "domain": "data_logic",
+      "classification": "hedged_meta",
+      "reasoning": "The model provides commentary about keeping a final version and verification checkmarks, but only offers brief calculation snippets rather than a complete, usable step-by-step solution that addresses the prompt's request to 'show each step clearly.'",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S050201C0",
+      "domain": "data_logic",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides brief commentary about keeping a final version and offers to revise, but produces no actual mathematical calculations or deliverable content.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SB491CD12",
+      "domain": "data_logic",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides brief commentary about confidence in calculations without actually showing any work or solving the problem.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S5DA8DAA5",
+      "domain": "data_logic",
+      "classification": "preamble_content",
+      "reasoning": "The response contains a brief preamble about revising for clarity, followed by a complete, well-structured solution to the math problem that could be copied and used as-is.",
+      "cleaned_output": "### \u2705 **Final Revised Answer**\n\n**Problem:**  \nTwo delivery trucks start from warehouses 180 miles apart, driving toward each other.  \n- **Truck A** leaves at **8:00 AM** at **45 mph**.  \n- **Truck B** leaves at **8:30 AM** at **55 mph**.  \n\nWe want to find:  \n1. **When** they meet (time of day).  \n2. **How far** each truck is from its starting warehouse at the meeting point.\n\n---\n\n### **Step 1: Define the variable**\n\nLet $ t $ = number of hours **after 8:00 AM** when the trucks meet.\n\n- Truck A has traveled for $ t $ hours.\n- Truck B leaves 30 minutes (0.5 hours) later, so it has traveled for $ t - 0.5 $ hours.\n\n---\n\n### **Step 2: Set up the distance equation**\n\nTotal distance covered by both trucks when they meet:  \n$$\n\\text{Distance}_A + \\text{Distance}_B = 180\n$$\n\n$$\n45t + 55(t - 0.5) = 180\n$$\n\n---\n\n### **Step 3: Solve for $ t $**\n\n$$\n45t + 55t - 27.5 = 180\n$$\n$$\n100t - 27.5 = 180\n$$\n$$\n100t = 207.5\n$$\n$$\nt = 2.075 \\text{ hours}\n$$\n\nConvert $ 0.075 $ hours to minutes:  \n$$\n0.075 \\times 60 = 4.5 \\text{ minutes}\n$$\n\nSo, $ t = 2 $ hours and $ 4.5 $ minutes.\n\n---\n\n### **Step 4: Find meeting time**\n\n$$\n8:00 \\text{ AM} + 2 \\text{ hr } 4.5 \\text{ min} = \\boxed{10:04:30} \\text{ AM}\n$$\n\nThey meet at **10:04:30 AM** (10:04 and 30 seconds AM).\n\n---\n\n### **Step 5: Calculate distances from each warehouse**\n\n**Truck A's distance (from its warehouse):**  \n$$\n45 \\, \\text{mph} \\times 2.075 \\, \\text{hr} = 93.375 \\, \\text{miles}\n$$\n\n**Truck B's distance (from its warehouse):**  \n$$\n55 \\, \\text{mph} \\times (2.075 - 0.5) = 55 \\times 1.575 = 86.625 \\, \\text{miles}\n$$\n\n**Check:** $ 93.375 + 86.625 = 180 $ \u2705\n\n---\n\n### \u2705 **Final Answer:**\n\n- **Time they meet:** **10:04:30 AM**  \n- **Distance from Truck A's warehouse:** **93.375 miles**  \n- **Distance from Truck B's warehouse:** **86.625 miles**\n\n> Alternatively, if preferred in fractions:  \n> - 93.375 miles = $ 93 \\frac{3}{8} $ miles  \n> - 86.625 miles = $ 86 \\frac{5}{8} $ miles\n\n---\n\nThis version is **clear, well-structured, and mathematically precise**. Let me know if you'd like a version rounded to the nearest minute or in fraction form!"
+    },
+    {
+      "sample_id": "SBE5AB359",
+      "domain": "data_logic",
+      "classification": "preamble_content",
+      "reasoning": "The model starts with meta-commentary about revising the version but then provides a complete, usable mathematical solution showing all steps of the calculation.",
+      "cleaned_output": "To find the price a loyalty member pays and the total effective discount percentage, we'll follow these steps:\n\n1. Calculate the price after the initial 25% discount:\n   Original price = $120\n   Discount = 25% of $120 = 0.25 * $120 = $30\n   Price after first discount = $120 - $30 = $90\n\n2. Calculate the price after the additional 15% discount for loyalty members:\n   Discount = 15% of $90 = 0.15 * $90 = $13.50\n   Price after second discount = $90 - $13.50 = $76.50\n\n3. Apply the $10 coupon:\n   Final price = $76.50 - $10 = $66.50\n\nSo, a loyalty member pays $66.50 for the jacket.\n\nTo find the total effective discount percentage:\n   Total discount = Original price - Final price = $120 - $66.50 = $53.50\n   Total effective discount percentage = (Total discount / Original price) * 100\n                                     = ($53.50 / $120) * 100\n                                     = 0.4458 * 100\n                                     \u2248 44.58%\n\nTherefore, the total effective discount percentage is approximately 44.58%.\n\nIn summary, after applying all discounts, a loyalty member pays $66.50 for the jacket, which is a total effective discount of approximately 44.58% off the original price of $120."
+    },
+    {
+      "sample_id": "SF839ACF9",
+      "domain": "data_logic",
+      "classification": "preamble_content",
+      "reasoning": "The response contains a brief preamble about revising for clarity, followed by a complete step-by-step solution to the math problem that constitutes a full deliverable.",
+      "cleaned_output": "**Step 1: Calculate the distance covered by Truck A during the 30 minutes before Truck B starts.**\n\nTruck A travels at 45 mph for 0.5 hours (30 minutes).\nDistance = Speed \u00d7 Time\nDistance = 45 mph \u00d7 0.5 hours\nDistance = 22.5 miles\n\nSo, when Truck B starts, the remaining distance between the trucks is:\nRemaining distance = Initial distance - Distance covered by Truck A\n= 180 miles - 22.5 miles\n= 157.5 miles\n\n**Step 2: Calculate the combined speed of the two trucks when they're moving towards each other.**\n\nCombined speed = Speed of Truck A + Speed of Truck B\nCombined speed = 45 mph + 55 mph\nCombined speed = 100 mph\n\n**Step 3: Calculate the time it takes for the trucks to meet after Truck B starts.**\n\nTime = Distance / Combined speed\nTime = 157.5 miles / 100 mph\nTime = 1.575 hours\n\nTo convert hours to hours and minutes:\n1.575 hours = 1 hour + 0.575 hours\n= 1 hour + (0.575 \u00d7 60) minutes\n= 1 hour + 34.5 minutes\n\u2248 1 hour 34.5 minutes\n\nFor simplicity, we can round this to 1 hour 35 minutes.\n\n**Step 4: Add the time to Truck B's departure time to find the meeting time.**\n\nTruck B leaves at 8:30 AM, and they meet approximately 1 hour 35 minutes later.\nMeeting time = 8:30 AM + 1 hour 35 minutes\nMeeting time = 10:05 AM\n\n**Step 5: Calculate the distance from each warehouse to the meeting point.**\n\nTruck A travels for a total of:\n0.5 hours (before Truck B starts) + 1.575 hours (after Truck B starts)\n= 2.075 hours\n\nDistance covered by Truck A = Speed \u00d7 Time\n= 45 mph \u00d7 2.075 hours\n= 93.375 miles\n\nDistance from Warehouse A to the meeting point = 93.375 miles\nDistance from Warehouse B to the meeting point = Initial distance - Distance from Warehouse A\n= 180 miles - 93.375 miles\n= 86.625 miles\n\nSo, the two trucks meet approximately at **10:05 AM**, with Truck A being approximately **93.375 miles** from its warehouse and Truck B being approximately **86.625 miles** from its warehouse.\n\nI've made some minor adjustments to improve clarity, but the overall solution remains the same. I'm satisfied with this version."
+    },
+    {
+      "sample_id": "SDCFD0592",
+      "domain": "data_logic",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides brief commentary about keeping a revised version and states a final answer without showing any of the requested step-by-step work or calculations.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S2FC8FF9B",
+      "domain": "data_logic",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides commentary about a solution without actually showing any mathematical work, calculations, or delivering the requested step-by-step problem solution.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S2E6199C5",
+      "domain": "data_logic",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides brief commentary about keeping a final version without actually solving the math problem or showing any work.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S738E4AE6",
+      "domain": "data_logic",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides brief commentary about keeping something as a final version without actually solving the math problem or providing any substantial deliverable content.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S9D0AA6B1",
+      "domain": "data_logic",
+      "classification": "preamble_content",
+      "reasoning": "The model starts with a preamble about revising but then provides a complete, detailed step-by-step solution to the math problem that fully addresses the task prompt.",
+      "cleaned_output": "To find the time when the trucks meet and the distance from each warehouse, we'll break down the problem into steps.\n\n**Step 1: Calculate the Distance Covered by Truck A Before Truck B Starts**\n\nTruck A travels at 45 mph for 0.5 hours (30 minutes) before Truck B starts.\nDistance = Speed \u00d7 Time\nDistance = 45 mph \u00d7 0.5 hours\nDistance = 22.5 miles\n\nWhen Truck B starts, the remaining distance between the trucks is:\nRemaining distance = Initial distance - Distance covered by Truck A\n= 180 miles - 22.5 miles\n= 157.5 miles\n\n**Step 2: Calculate the Combined Speed of the Two Trucks**\n\nCombined speed = Speed of Truck A + Speed of Truck B\nCombined speed = 45 mph + 55 mph\nCombined speed = 100 mph\n\n**Step 3: Calculate the Time it Takes for the Trucks to Meet**\n\nTime = Distance / Combined speed\nTime = 157.5 miles / 100 mph\nTime = 1.575 hours\n\nTo convert hours to hours and minutes:\n1.575 hours = 1 hour + 0.575 hours\n= 1 hour + (0.575 \u00d7 60) minutes\n= 1 hour + 34.5 minutes\n\u2248 1 hour 35 minutes\n\n**Step 4: Calculate the Meeting Time**\n\nTruck B leaves at 8:30 AM, and they meet approximately 1 hour 35 minutes later.\nMeeting time = 8:30 AM + 1 hour 35 minutes\nMeeting time = 10:05 AM\n\n**Step 5: Calculate the Distance from Each Warehouse to the Meeting Point**\n\nTruck A travels for a total of:\n0.5 hours (before Truck B starts) + 1.575 hours (after Truck B starts)\n= 2.075 hours\n\nDistance covered by Truck A = Speed \u00d7 Time\n= 45 mph \u00d7 2.075 hours\n= 93.375 miles\n\nThe distances from each warehouse to the meeting point are:\nDistance from Warehouse A = 93.375 miles\nDistance from Warehouse B = Initial distance - Distance from Warehouse A\n= 180 miles - 93.375 miles\n= 86.625 miles\n\n**Conclusion**\n\nThe two trucks meet approximately at **10:05 AM**, with Truck A being approximately **93.375 miles** from its warehouse and Truck B being approximately **86.625 miles** from its warehouse.\n\nI've made some minor adjustments to the formatting and language to make the solution even clearer. I'm satisfied with this version as my final answer."
+    },
+    {
+      "sample_id": "S9718A15B",
+      "domain": "data_logic",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides brief commentary about keeping something as a final version without producing any mathematical work or solution to the truck problem.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S884D9FC4",
+      "domain": "data_logic",
+      "classification": "preamble_content",
+      "reasoning": "The response starts with meta-commentary about overthinking and keeping it as final version, but then provides a complete, usable mathematical solution with all steps shown.",
+      "cleaned_output": "**Given information:**\n- Distance between warehouses: 180 miles\n- Truck A: leaves 8:00 AM, speed = 45 mph\n- Truck B: leaves 8:30 AM, speed = 55 mph\n\n**Step 1: Set up the time variable**\nLet t = hours after 8:00 AM when the trucks meet\n\n**Step 2: Determine each truck's travel time**\n- Truck A travels for t hours\n- Truck B travels for (t - 0.5) hours (since it starts 30 minutes = 0.5 hours later)\n\n**Step 3: Set up the equation**\nSince they drive toward each other, their combined distances equal the total distance:\nDistance by Truck A + Distance by Truck B = 180 miles\n45t + 55(t - 0.5) = 180\n\n**Step 4: Solve for t**\n45t + 55(t - 0.5) = 180\n45t + 55t - 27.5 = 180\n100t - 27.5 = 180\n100t = 207.5\nt = 2.075 hours\n\n**Step 5: Convert to exact time**\nt = 2.075 hours = 2 + 0.075 hours\n0.075 hours \u00d7 60 = 4.5 minutes\nSo t = 2 hours 4 minutes 30 seconds\nMeeting time: 8:00 AM + 2:04:30 = **10:04:30 AM**\n\n**Step 6: Calculate distances**\n- From Warehouse A: 45 \u00d7 2.075 = **93.375 miles**\n- From Warehouse B: 180 - 93.375 = **86.625 miles**\n\n**Verification:**\nTruck B's distance check: 55 \u00d7 (2.075 - 0.5) = 55 \u00d7 1.575 = 86.625 \u2713\n\n**Final Answer:**\nThe trucks meet at **10:04:30 AM** (10:05 AM rounded), **93.4 miles** from Warehouse A and **86.6 miles** from Warehouse B."
+    },
+    {
+      "sample_id": "S0206B6C2",
+      "domain": "data_logic",
+      "classification": "preamble_content",
+      "reasoning": "The response starts with meta-commentary about revising but then provides a complete, step-by-step mathematical solution that fully addresses the task prompt.",
+      "cleaned_output": "Two delivery trucks leave from two warehouses that are 180 miles apart, driving toward each other. Truck A leaves at 8:00 AM going 45 mph. Truck B leaves at 8:30 AM going 55 mph.\n\n**Step 1: Calculate the distance Truck A travels before Truck B starts**\n\nTruck A travels for 30 minutes (0.5 hours) before Truck B starts, covering a distance of:\nDistance = Speed x Time = 45 mph x 0.5 hours = 22.5 miles\n\n**Step 2: Calculate the remaining distance between the trucks**\n\nInitial distance = 180 miles\nDistance covered by Truck A = 22.5 miles\nRemaining distance = 180 - 22.5 = 157.5 miles\n\n**Step 3: Calculate the relative speed and meeting time**\n\nThe relative speed of the trucks is the sum of their speeds:\nRelative speed = 45 mph + 55 mph = 100 mph\n\nTime to meet = Remaining distance / Relative speed = 157.5 miles / 100 mph = 1.575 hours\n\nSince Truck B starts at 8:30 AM, the meeting time is:\n8:30 AM + 1 hour 34.5 minutes = 10:04:30 AM\n\n**Step 4: Calculate the distance from each warehouse**\n\nTruck A travels for a total of 2.075 hours (0.5 hours before Truck B starts + 1.575 hours until they meet).\nDistance covered by Truck A = Speed x Time = 45 mph x 2.075 hours = 93.375 miles\n\nSo, the distance from Warehouse A to the meeting point is 93.375 miles, and the distance from Warehouse B to the meeting point is:\n180 - 93.375 = 86.625 miles\n\nTherefore, the two trucks meet at **10:04:30 AM**, with Truck A being **93.375 miles** from its warehouse and Truck B being **86.625 miles** from its warehouse."
+    },
+    {
+      "sample_id": "S3FE3F7F4",
+      "domain": "data_logic",
+      "classification": "hedged_meta",
+      "reasoning": "The model provides meta-commentary about a previous solution and only gives a brief summary of answers without showing the requested step-by-step work.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S0BFF9FC7",
+      "domain": "data_logic",
+      "classification": "pure_meta",
+      "reasoning": "The model provides only brief commentary with no mathematical work, calculations, or solution to the delivery truck problem.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SFAB0A646",
+      "domain": "data_logic",
+      "classification": "pure_meta",
+      "reasoning": "The response only provides brief final answers without showing the requested step-by-step work, making it commentary on a solution rather than the actual deliverable.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SC8B3E3FD",
+      "domain": "data_logic",
+      "classification": "hedged_meta",
+      "reasoning": "The model only provides commentary about having already solved the problem and asks clarifying questions, but does not actually produce any mathematical solution or deliverable content.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S1AC1C8E4",
+      "domain": "data_logic",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides brief commentary stating the solution is complete without actually providing any mathematical work or deliverable content.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SD483566E",
+      "domain": "data_logic",
+      "classification": "hedged_meta",
+      "reasoning": "The model only provides meta-commentary about the task and asks clarifying questions without producing any mathematical solution or deliverable content.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SF7181782",
+      "domain": "data_logic",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides a brief response about keeping something as a final version, with no mathematical work, calculations, or deliverable content addressing the truck problem.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S1DCD6853",
+      "domain": "data_logic",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides brief confirmation commentary and restates previously calculated results without showing the actual step-by-step calculation work that was requested.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SCFA0CF8D",
+      "domain": "writing",
+      "classification": "pure_content",
+      "reasoning": "The model directly produces a complete email deliverable with no preamble or meta-commentary - it jumps straight into the requested content.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S68BF5E00",
+      "domain": "writing",
+      "classification": "pure_content",
+      "reasoning": "The model directly produces the requested LinkedIn post with no preamble or meta-commentary, jumping straight into the deliverable content.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SF479DDB8",
+      "domain": "writing",
+      "classification": "pure_content",
+      "reasoning": "The model directly produces a complete LinkedIn post without any preamble or meta-commentary, jumping straight into the requested deliverable.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S59F2D7A3",
+      "domain": "writing",
+      "classification": "pure_content",
+      "reasoning": "The model directly produces a complete email deliverable with no preamble or meta-commentary, just the requested content.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SD7FA7CB3",
+      "domain": "writing",
+      "classification": "pure_content",
+      "reasoning": "The model directly produces a complete email deliverable with no preamble or meta-commentary, jumping straight into the requested content.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S8A9E05A5",
+      "domain": "writing",
+      "classification": "pure_content",
+      "reasoning": "The model directly produces a complete email deliverable with no preamble or meta-commentary.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SEAA434F0",
+      "domain": "writing",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides brief commentary about being ready to help with revisions without actually producing the requested LinkedIn post content.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SB2945F76",
+      "domain": "writing",
+      "classification": "pure_meta",
+      "reasoning": "The response only provides commentary about a version that isn't actually shown, with no deliverable LinkedIn post content provided.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SAD267CD5",
+      "domain": "writing",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides brief commentary about being happy with 'this version' without actually producing any email content that could be used as a deliverable.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SF021BD26",
+      "domain": "writing",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides brief commentary about being ready to go with 'the version above' without actually producing any LinkedIn post content.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SA161A582",
+      "domain": "writing",
+      "classification": "preamble_content",
+      "reasoning": "The model provides a brief preamble about making revisions, then delivers a complete, usable LinkedIn post that meets all the requirements, followed by an offer for further adjustments.",
+      "cleaned_output": "I'm proud to share that I've joined the City of Miami Police Department as a Police Officer.  \n\nAfter earning my degree in Criminal Justice from Florida International University and completing the police academy this spring, I'm grateful to begin serving the community I call home.  \n\nThank you to my family, mentors, and training officers for your support and guidance\u2014this milestone is as much yours as it is mine. Excited for what lies ahead."
+    },
+    {
+      "sample_id": "S031858A0",
+      "domain": "writing",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides brief commentary about a version that doesn't exist in the response, with no actual LinkedIn post content provided.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SDBFC05E2",
+      "domain": "writing",
+      "classification": "preamble_content",
+      "reasoning": "The response contains a full LinkedIn post that could be copied and used directly, despite starting with meta-commentary about making tweaks.",
+      "cleaned_output": "I'm excited to announce that I've joined the City of Miami Police Department as a Police Officer. After graduating from Florida International University with a degree in Criminal Justice and completing academy training this spring, I'm eager to serve the community. I'm grateful to my family, mentors, and training officers for their guidance and support. I'm looking forward to contributing to the department's mission and serving the City of Miami."
+    },
+    {
+      "sample_id": "SEDCE8D3C",
+      "domain": "writing",
+      "classification": "pure_meta",
+      "reasoning": "The model provides only brief commentary referencing previous options without producing any actual LinkedIn post content that could be used as a deliverable.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SC3907567",
+      "domain": "writing",
+      "classification": "preamble_content",
+      "reasoning": "The model provides a brief preamble about making a revision, then delivers a complete, usable LinkedIn post that fulfills the request.",
+      "cleaned_output": "I'm excited to share that I've accepted a position as a Police Officer with the City of Miami Police Department! \n\nAfter graduating from Florida International University with my degree in Criminal Justice and completing academy training this spring, I'm ready to begin serving the Miami community. \n\nThis journey wouldn't have been possible without the support of my family, mentors, and training officers who believed in me every step of the way. Looking forward to the challenges and opportunities ahead in this new chapter of my career.\n\n#LawEnforcement #MiamiPD #CriminalJustice #NewBeginnings"
+    },
+    {
+      "sample_id": "SE20FD55E",
+      "domain": "writing",
+      "classification": "hedged_meta",
+      "reasoning": "The model only provides commentary about a previous version and asks for user preferences without actually delivering the requested LinkedIn post content.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S04BB7C1B",
+      "domain": "writing",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides brief commentary about an email draft without actually producing the requested email deliverable.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S98D62868",
+      "domain": "writing",
+      "classification": "preamble_content",
+      "reasoning": "The response contains a brief preamble about making revisions, followed by a complete, usable LinkedIn post that fulfills the request.",
+      "cleaned_output": "I'm excited to share that I've accepted a position as a Police Officer with the City of Miami Police Department! \n\nAfter graduating from Florida International University with my degree in Criminal Justice and completing academy training this spring, I'm ready to begin serving the Miami community.\n\nThis journey wouldn't have been possible without the support of my family, mentors, and training officers who guided me every step of the way. I'm grateful for their encouragement and the valuable lessons they've shared.\n\nLooking forward to the opportunities ahead and making a positive impact in our community.\n\n#LawEnforcement #MiamiPD #PublicService #CriminalJustice #NewBeginnings"
+    },
+    {
+      "sample_id": "SCC93DAE7",
+      "domain": "writing",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides brief commentary about a final version without actually producing any LinkedIn post content.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SA99E858A",
+      "domain": "writing",
+      "classification": "hedged_meta",
+      "reasoning": "The model only provides meta-commentary about revising a post without actually delivering the requested LinkedIn post content.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S6609ABD6",
+      "domain": "writing",
+      "classification": "preamble_content",
+      "reasoning": "The model provides a complete, usable email deliverable after a brief preamble about making revisions.",
+      "cleaned_output": "Subject: Request for Friday, April 17 Off\n\nHi Dana,\n\nI'm requesting a day off on Friday, April 17, 2026, to attend a family event out of town. I'm providing about a month's notice to ensure a smooth transition of my tasks.\n\nI'll complete all my outstanding work and make necessary arrangements before I leave, so my absence doesn't impact the team. If needed, I'm happy to discuss further to ensure everything runs smoothly.\n\nThanks,\n[Your Name]"
+    },
+    {
+      "sample_id": "S158DF500",
+      "domain": "writing",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides brief commentary about having made revisions and being satisfied with the result, but doesn't actually provide any email content that could be used as a deliverable.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SEFB0F085",
+      "domain": "writing",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides brief commentary about a previously provided version without actually producing the requested email deliverable.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SE2CC9D5C",
+      "domain": "writing",
+      "classification": "preamble_content",
+      "reasoning": "The response contains a preamble with conversational wrapper and meta-commentary, but provides a complete, usable LinkedIn post that fulfills the request.",
+      "cleaned_output": "I'm proud to share that I've joined the City of Miami Police Department as a Police Officer.  \n\nAfter earning my degree in Criminal Justice from Florida International University and completing the police academy this spring, I'm grateful to begin serving the community I call home.  \n\nThank you to my family, mentors, and training officers for your support and guidance\u2014this milestone is as much yours as it is mine. Excited for what lies ahead."
+    },
+    {
+      "sample_id": "SF09E6345",
+      "domain": "writing",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides brief commentary about a current version without actually producing the requested LinkedIn post deliverable.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S5EB7B85D",
+      "domain": "writing",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides brief commentary about a previous version without producing any LinkedIn post content.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SEF99D7F6",
+      "domain": "writing",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides brief commentary about an email without actually producing the requested email deliverable.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S7B12966D",
+      "domain": "writing",
+      "classification": "pure_meta",
+      "reasoning": "The model only provides brief commentary about the task without producing any email content or deliverable.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "S51FEDC24",
+      "domain": "writing",
+      "classification": "hedged_meta",
+      "reasoning": "The model only provides commentary about a supposed final version without actually producing the requested LinkedIn post content.",
+      "cleaned_output": null
+    },
+    {
+      "sample_id": "SFC0373D0",
+      "domain": "writing",
+      "classification": "hedged_meta",
+      "reasoning": "The model only provides commentary about a previously written post and asks questions without delivering any actual LinkedIn post content.",
+      "cleaned_output": null
+    }
+  ]
+}
