@@ -483,35 +483,26 @@ export default function Home() {
     if (currentIdx < filteredSamples.length - 1) setCurrentIdx(currentIdx + 1);
   };
 
-  const [submitting, setSubmitting] = useState(false);
   const [submitResult, setSubmitResult] = useState<{ ok: boolean; message: string } | null>(null);
 
-  const handleSubmitAll = async () => {
+  const handleDownload = () => {
     const ratingsList = Object.values(ratings).map((r) => ({
       ...r,
       rater_id: raterId,
     }));
     if (ratingsList.length === 0) return;
 
-    setSubmitting(true);
-    setSubmitResult(null);
-    try {
-      const res = await fetch("/api/submit-ratings", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ rater_id: raterId, ratings: ratingsList }),
-      });
-      const data = await res.json();
-      if (data.ok) {
-        setSubmitResult({ ok: true, message: `Submitted ${data.count} ratings successfully!` });
-      } else {
-        setSubmitResult({ ok: false, message: data.error || "Something went wrong." });
-      }
-    } catch {
-      setSubmitResult({ ok: false, message: "Network error. Try again." });
-    } finally {
-      setSubmitting(false);
-    }
+    const blob = new Blob(
+      [JSON.stringify({ rater_id: raterId, ratings: ratingsList, exported_at: new Date().toISOString() }, null, 2)],
+      { type: "application/json" }
+    );
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `ratings_${raterId}_${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    setSubmitResult({ ok: true, message: `Downloaded ${ratingsList.length} ratings as JSON.` });
   };
 
   // ---- LOGIN VIEW ----
@@ -768,15 +759,14 @@ export default function Home() {
               Back
             </button>
             <button
-              onClick={handleSubmitAll}
-              disabled={submitting || Object.keys(ratings).length === 0}
+              onClick={handleDownload}
+              disabled={Object.keys(ratings).length === 0}
               style={{
                 background: submitResult?.ok ? "#22c55e" : "var(--accent)",
                 color: "#fff",
-                opacity: submitting ? 0.6 : 1,
               }}
             >
-              {submitting ? "Submitting..." : submitResult?.ok ? "Submitted!" : "Submit All Ratings"}
+              {submitResult?.ok ? "Downloaded!" : "Download Ratings"}
             </button>
           </div>
         </div>
@@ -838,7 +828,7 @@ export default function Home() {
               </h3>
               <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
                 {domainRatings.map((r) => {
-                  const level = LEVELS.find((l) => l.level === r.level)!;
+                  const level = LEVELS.find((l) => l.level === r.level) || { level: 0, label: "N/A", color: "#f59e0b" };
                   return (
                     <span
                       key={r.sample_id}
@@ -1105,7 +1095,7 @@ export default function Home() {
             onClick={() => setView("review")}
             style={{ background: "var(--bg-elevated)", color: "var(--text)", fontSize: 13 }}
           >
-            Review & Export
+            Review & Download
           </button>
           <button
             onClick={() => {
@@ -1140,8 +1130,8 @@ export default function Home() {
         }}>
           <span>
             <strong>Storage full.</strong> Your ratings are saved in memory for this session but
-            could not be written to local storage. Go to <strong>Review &amp; Export</strong> and
-            submit or export your work before closing this tab.
+            could not be written to local storage. Go to <strong>Review &amp; Download</strong> and
+            download your work before closing this tab.
           </span>
           <button
             onClick={() => setStorageWarning(false)}
@@ -1169,14 +1159,14 @@ export default function Home() {
         }}>
           <span>
             <strong>All {samples.length} samples rated!</strong> Don&apos;t forget to go to{" "}
-            <strong>Review &amp; Export</strong> and submit your work to the server.
+            <strong>Review &amp; Download</strong> and download your ratings.
           </span>
           <div style={{ display: "flex", gap: 8, flexShrink: 0, paddingLeft: 12 }}>
             <button
               onClick={() => setView("review")}
               style={{ background: "#22c55e", color: "#fff", fontWeight: 600, fontSize: 13 }}
             >
-              Review &amp; Submit
+              Review &amp; Download
             </button>
             <button
               onClick={() => setCompletionDismissed(true)}
