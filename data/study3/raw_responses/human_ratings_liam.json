@@ -1,0 +1,475 @@
+{
+  "rater_id": "liam",
+  "ratings": [
+    {
+      "sample_id": "SD720DF94",
+      "level": 0,
+      "rationale": "",
+      "timestamp": "2026-05-22T23:44:54.449Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "SF775725E",
+      "level": 0,
+      "rationale": "",
+      "timestamp": "2026-05-22T23:46:33.449Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "S9BF293EA",
+      "level": 0,
+      "rationale": "",
+      "timestamp": "2026-05-22T23:46:46.840Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "S12BA1364",
+      "level": 3,
+      "rationale": "",
+      "timestamp": "2026-06-01T23:12:03.331Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "S59F2D7A3",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:17:38.999Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "S2F0959E4",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:18:22.378Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "S5726C149",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:19:14.837Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "S9D0AA6B1",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:19:32.889Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "SBD99164A",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:19:45.186Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "S8880409F",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:20:17.356Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "S52820AF1",
+      "level": 5,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:20:43.841Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "SEA6641A1",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:21:03.074Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "S5734AA53",
+      "level": 5,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:21:16.059Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "SC3907567",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:21:26.188Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "S86733879",
+      "level": 3,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:21:49.524Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "S0C94FAF1",
+      "level": 5,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:22:05.464Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "SB328F118",
+      "level": 6,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:22:29.043Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "S22988695",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:22:41.245Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "S1AD62A05",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:22:53.838Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "SEB825F73",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:23:10.725Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "SC2EAD7EC",
+      "level": 5,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:23:29.372Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "SA4097614",
+      "level": 3,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:23:47.675Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "SD2D5325E",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:23:59.100Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "SC2B91D82",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:24:14.561Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "S758DB32D",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:24:29.211Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "S91E4BED3",
+      "level": 5,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:24:46.971Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "S98D62868",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:25:02.775Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "SF765EB0B",
+      "level": 3,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:25:21.340Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "SF839ACF9",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:25:33.196Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "S8E9788CD",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:25:42.556Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "SD7FA7CB3",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:25:51.338Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "S68BF5E00",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:26:04.915Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "S0206B6C2",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:26:13.610Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "S247B3039",
+      "level": 5,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:26:25.377Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "SA161A582",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:26:51.751Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "S06FCFBD4",
+      "level": 5,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:27:01.951Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "SE2C12A35",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:27:15.080Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "S8A9E05A5",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:27:33.227Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "SA60D8005",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:27:48.099Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "S5DA8DAA5",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:27:58.678Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "S39379DC0",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:28:10.539Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "S62373110",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:28:25.920Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "SE2CC9D5C",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:28:37.663Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "S60AF1D8B",
+      "level": 3,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:28:56.221Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "SAAABF189",
+      "level": 6,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:29:11.345Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "S118DA46C",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:29:30.755Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "SF68A3123",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:29:43.673Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "SCFA0CF8D",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:29:58.078Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "SC4BC7C80",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:30:14.917Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "S850D2E68",
+      "level": 3,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:30:31.002Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "SF479DDB8",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:30:46.179Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "SD07354AE",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:30:57.193Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "S80C6613D",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:31:08.833Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "S0143DA81",
+      "level": 3,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:31:22.561Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "SDBFC05E2",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:31:33.202Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "SD7FDF519",
+      "level": 3,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:31:44.668Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "S357BFB37",
+      "level": 3,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:31:56.777Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "S4EF3BA7A",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:32:16.620Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "SE01E5162",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:32:30.943Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "S6609ABD6",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:32:42.967Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "S9B162060",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:32:53.917Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "S8DA45F1E",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:33:09.852Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "SBE5AB359",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:33:21.051Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "S884D9FC4",
+      "level": 5,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:33:34.944Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "SCB68207F",
+      "level": 6,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:33:57.625Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "S2AB0C119",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:34:15.479Z",
+      "rater_id": "liam"
+    },
+    {
+      "sample_id": "SC167F454",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-02T19:34:37.689Z",
+      "rater_id": "liam"
+    }
+  ],
+  "exported_at": "2026-06-02T19:41:06.285Z"
+}
