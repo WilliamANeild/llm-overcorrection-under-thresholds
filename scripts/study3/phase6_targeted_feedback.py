@@ -30,6 +30,7 @@ from scripts.utils import (
     append_jsonl,
     extract_gemini_text,
     get_anthropic_client,
+    get_deepseek_client,
     get_google_client,
     get_openai_client,
     get_together_client,
@@ -100,7 +101,9 @@ Respond with ONLY a JSON object:
 
 
 def parse_json_response(text: str) -> dict | None:
+    import re
     text = text.strip()
+    text = re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL).strip()
     if text.startswith("```"):
         lines = text.split("\n")
         lines = [l for l in lines if not l.startswith("```")]
@@ -142,7 +145,14 @@ def call_model(provider: str, model_id: str, prompt: str, temperature: float = 0
         client = get_google_client()
         config = types.GenerateContentConfig(
             temperature=temperature,
-            max_output_tokens=max_tokens,
+            max_output_tokens=max(max_tokens, 8192),
+            safety_settings=[
+                types.SafetySetting(category="HARM_CATEGORY_HARASSMENT", threshold="BLOCK_NONE"),
+                types.SafetySetting(category="HARM_CATEGORY_HATE_SPEECH", threshold="BLOCK_NONE"),
+                types.SafetySetting(category="HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold="BLOCK_NONE"),
+                types.SafetySetting(category="HARM_CATEGORY_DANGEROUS_CONTENT", threshold="BLOCK_NONE"),
+                types.SafetySetting(category="HARM_CATEGORY_CIVIC_INTEGRITY", threshold="BLOCK_NONE"),
+            ],
         )
         r = retry_with_backoff(
             client.models.generate_content,
@@ -162,6 +172,22 @@ def call_model(provider: str, model_id: str, prompt: str, temperature: float = 0
             max_tokens=max_tokens,
         )
         return r.choices[0].message.content
+
+    elif provider == "deepseek":
+        client = get_deepseek_client()
+        r = retry_with_backoff(
+            client.chat.completions.create,
+            model=model_id,
+            messages=[{"role": "user", "content": prompt}],
+            temperature=temperature,
+            max_tokens=max(max_tokens, 8192),
+        )
+        text = r.choices[0].message.content
+        if not text or not text.strip():
+            reasoning = getattr(r.choices[0].message, "reasoning_content", None)
+            if reasoning:
+                text = reasoning
+        return text
 
     return None
 

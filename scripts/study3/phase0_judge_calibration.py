@@ -263,7 +263,7 @@ def step_export_human():
             writer.writerow([s["sample_id"], s["task_prompt"], s["output"], "", "", ""])
 
     print(f"Exported {len(samples)} samples to {export_path}")
-    print("Have 2-3 raters fill in level columns (1-4 scale), then import with --step import-human")
+    print("Have 2-3 raters fill in level columns (1-6 scale), then import with --step import-human")
 
 
 def step_import_human(file_path: str):
@@ -396,7 +396,7 @@ def step_select():
         return
 
     # Select best judge: highest Spearman r. If tied within 0.02, prefer cheaper (together > google > anthropic > openai)
-    cost_rank = {"together": 0, "google": 1, "anthropic": 2, "openai": 3}
+    cost_rank = {"together": 0, "deepseek": 1, "google": 2, "anthropic": 3, "openai": 4}
     best_model = max(results.keys(), key=lambda m: (results[m]["spearman_r"], -cost_rank.get(MODELS[m]["provider"], 99)))
 
     best_r = results[best_model]["spearman_r"]
