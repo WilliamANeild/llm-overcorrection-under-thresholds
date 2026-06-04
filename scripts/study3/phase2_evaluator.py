@@ -72,7 +72,9 @@ def make_eval_id(worker_trial_id: str, turn: int) -> str:
 
 
 def parse_evaluator_response(text: str) -> dict | None:
+    import re
     text = text.strip()
+    text = re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL).strip()
     if text.startswith("```"):
         lines = text.split("\n")
         lines = [l for l in lines if not l.startswith("```")]
@@ -122,7 +124,14 @@ def call_evaluator(provider: str, model_id: str, prompt: str) -> dict | None:
             client = get_google_client()
             config = types.GenerateContentConfig(
                 temperature=0.0,
-                max_output_tokens=MAX_OUTPUT_TOKENS_JUDGE,
+                max_output_tokens=8192,
+                safety_settings=[
+                    types.SafetySetting(category="HARM_CATEGORY_HARASSMENT", threshold="BLOCK_NONE"),
+                    types.SafetySetting(category="HARM_CATEGORY_HATE_SPEECH", threshold="BLOCK_NONE"),
+                    types.SafetySetting(category="HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold="BLOCK_NONE"),
+                    types.SafetySetting(category="HARM_CATEGORY_DANGEROUS_CONTENT", threshold="BLOCK_NONE"),
+                    types.SafetySetting(category="HARM_CATEGORY_CIVIC_INTEGRITY", threshold="BLOCK_NONE"),
+                ],
             )
             response = retry_with_backoff(
                 client.models.generate_content,
@@ -150,9 +159,13 @@ def call_evaluator(provider: str, model_id: str, prompt: str) -> dict | None:
                 model=model_id,
                 messages=[{"role": "user", "content": prompt}],
                 temperature=0.0,
-                max_tokens=MAX_OUTPUT_TOKENS_JUDGE,
+                max_tokens=8192,
             )
             text = response.choices[0].message.content
+            if not text or not text.strip():
+                reasoning = getattr(response.choices[0].message, "reasoning_content", None)
+                if reasoning:
+                    text = reasoning
 
         else:
             raise ValueError(f"Unknown provider: {provider}")

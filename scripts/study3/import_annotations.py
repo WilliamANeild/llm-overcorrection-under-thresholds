@@ -20,12 +20,28 @@ import numpy as np
 from scripts.config import S3_HUMAN_EVAL_PATH
 
 
+def load_id_mapping() -> dict:
+    """Load opaque -> original sample ID mapping."""
+    mapping_path = (
+        Path(__file__).resolve().parent.parent.parent
+        / "data" / "study3" / "raw_responses" / "annotation_id_mapping.json"
+    )
+    if mapping_path.exists():
+        with open(mapping_path) as f:
+            return json.load(f)
+    return {}
+
+
 def load_ratings_file(path: str) -> list[dict]:
     """Load ratings from CSV or JSON."""
     p = Path(path)
     if p.suffix == ".json":
         with open(p) as f:
-            return json.load(f)
+            data = json.load(f)
+        # Handle wrapper format: {"rater_id": ..., "ratings": [...]}
+        if isinstance(data, dict) and "ratings" in data:
+            return data["ratings"]
+        return data
     elif p.suffix == ".csv":
         rows = []
         with open(p, newline="") as f:
@@ -47,11 +63,30 @@ def main():
         print("Usage: python -m scripts.study3.import_annotations file1.csv file2.csv ...")
         sys.exit(1)
 
+    # Load opaque -> original ID mapping
+    id_mapping = load_id_mapping()
+    if id_mapping:
+        print(f"Loaded ID mapping with {len(id_mapping)} entries")
+
     all_ratings = []
     for path in sys.argv[1:]:
         ratings = load_ratings_file(path)
         print(f"Loaded {len(ratings)} ratings from {path}")
         all_ratings.extend(ratings)
+
+    # Filter out level 0 (legacy N/A ratings from before preprocessing)
+    n_before = len(all_ratings)
+    all_ratings = [r for r in all_ratings if r.get("level", 0) != 0]
+    n_filtered = n_before - len(all_ratings)
+    if n_filtered:
+        print(f"Filtered out {n_filtered} level-0 (N/A) ratings")
+
+    # Translate opaque IDs to original sample IDs
+    if id_mapping:
+        for r in all_ratings:
+            original_id = id_mapping.get(r["sample_id"])
+            if original_id:
+                r["sample_id"] = original_id
 
     # Group by sample_id
     by_sample: dict[str, list[dict]] = defaultdict(list)
