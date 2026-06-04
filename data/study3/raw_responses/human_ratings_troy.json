@@ -1,0 +1,454 @@
+{
+  "rater_id": "troy",
+  "ratings": [
+    {
+      "sample_id": "SCB68207F",
+      "level": 6,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:10:01.491Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "S98D62868",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:10:23.316Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "SE01E5162",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:10:42.786Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "SBE5AB359",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:11:06.105Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "S118DA46C",
+      "level": 6,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:11:44.552Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "S8880409F",
+      "level": 2,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:12:09.348Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "SD7FDF519",
+      "level": 3,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:12:32.160Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "S5726C149",
+      "level": 6,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:13:19.171Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "SD2D5325E",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:13:37.405Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "S357BFB37",
+      "level": 2,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:14:01.412Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "S12BA1364",
+      "level": 5,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:14:26.567Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "SEA6641A1",
+      "level": 6,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:15:08.345Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "S52820AF1",
+      "level": 5,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:15:28.199Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "S59F2D7A3",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:15:52.379Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "SA4097614",
+      "level": 3,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:16:07.654Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "S91E4BED3",
+      "level": 6,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:16:48.672Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "S0143DA81",
+      "level": 3,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:17:10.384Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "SC167F454",
+      "level": 5,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:17:27.129Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "SD07354AE",
+      "level": 3,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:17:53.345Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "S758DB32D",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:18:10.934Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "SF839ACF9",
+      "level": 6,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:18:42.571Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "S06FCFBD4",
+      "level": 5,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:19:35.502Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "SF765EB0B",
+      "level": 3,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:19:53.622Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "SDBFC05E2",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:20:09.939Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "SA60D8005",
+      "level": 6,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:20:40.920Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "S247B3039",
+      "level": 5,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:20:58.067Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "SEB825F73",
+      "level": 6,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:21:24.393Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "S2AB0C119",
+      "level": 5,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:21:40.617Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "S60AF1D8B",
+      "level": 3,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:21:56.080Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "S68BF5E00",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:22:10.617Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "SC2EAD7EC",
+      "level": 5,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:22:23.458Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "SE2CC9D5C",
+      "level": 5,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:22:35.589Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "SAAABF189",
+      "level": 6,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:23:56.559Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "SE2C12A35",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:24:09.633Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "S850D2E68",
+      "level": 6,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:24:33.162Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "S0206B6C2",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:25:08.130Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "S62373110",
+      "level": 6,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:25:22.451Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "S1AD62A05",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:25:36.442Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "SB328F118",
+      "level": 6,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:25:56.169Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "SD7FA7CB3",
+      "level": 5,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:26:12.969Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "S9D0AA6B1",
+      "level": 6,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:26:49.815Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "SBD99164A",
+      "level": 5,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:27:04.390Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "S2F0959E4",
+      "level": 5,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:27:37.843Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "S8DA45F1E",
+      "level": 5,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:27:55.156Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "SCFA0CF8D",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:28:20.770Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "SC4BC7C80",
+      "level": 3,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:29:00.958Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "S6609ABD6",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:29:52.013Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "S4EF3BA7A",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:30:12.123Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "S5DA8DAA5",
+      "level": 6,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:30:41.296Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "SC2B91D82",
+      "level": 5,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:30:55.885Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "SF68A3123",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:31:21.022Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "SF479DDB8",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:31:46.412Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "S884D9FC4",
+      "level": 5,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:32:11.513Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "S80C6613D",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:32:37.876Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "S5734AA53",
+      "level": 5,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:33:08.974Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "SC3907567",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:33:21.339Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "S0C94FAF1",
+      "level": 5,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:33:39.379Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "S86733879",
+      "level": 3,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:33:56.399Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "S8E9788CD",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:34:12.523Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "S22988695",
+      "level": 5,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:34:25.488Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "S39379DC0",
+      "level": 5,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:34:47.120Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "S9B162060",
+      "level": 3,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:35:05.216Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "SA161A582",
+      "level": 5,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:35:20.234Z",
+      "rater_id": "troy"
+    },
+    {
+      "sample_id": "S8A9E05A5",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-04T15:35:38.040Z",
+      "rater_id": "troy"
+    }
+  ],
+  "exported_at": "2026-06-04T16:48:32.993Z"
+}
