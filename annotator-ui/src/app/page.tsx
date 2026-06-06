@@ -146,12 +146,19 @@ function seededShuffle<T>(arr: T[], seed: string): T[] {
 
 // ---- Storage helpers ----
 
+// Raters whose ratings should be cleared get a versioned key.
+// Add a rater ID here to invalidate their saved ratings.
+const RATINGS_VERSION: Record<string, number> = {
+  sophie: 2,
+};
+
 function storageKey(raterId: string) {
-  return `s3_ratings_${raterId}`;
+  const v = RATINGS_VERSION[raterId];
+  return v ? `s3_v${v}_ratings_${raterId}` : `s3_ratings_${raterId}`;
 }
 
 function instructionsSeenKey(raterId: string) {
-  return `s3_instructions_seen_${raterId}`;
+  return `s3_instructions_seen_v2_${raterId}`;
 }
 
 function hasSeenInstructions(raterId: string): boolean {
@@ -331,13 +338,18 @@ export default function Home() {
     if (typeof window !== "undefined") {
       for (let i = 0; i < localStorage.length; i++) {
         const k = localStorage.key(i);
-        if (k && k.startsWith("s3_ratings_")) {
-          const id = k.replace("s3_ratings_", "");
+        if (!k) continue;
+        // Match both s3_ratings_<id> and s3_v<N>_ratings_<id>
+        const m = k.match(/^s3_(?:v\d+_)?ratings_(.+)$/);
+        if (m) {
+          const id = m[1];
+          // Only recover if the key matches the current version for this rater
+          if (k !== storageKey(id)) continue;
           const count = savedRatingCount(id);
           if (count > 0) {
             setRecoveryId(id);
             setRecoveryCount(count);
-            break; // show banner for the most recently stored rater
+            break;
           }
         }
       }
@@ -427,7 +439,9 @@ export default function Home() {
     const handler = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLTextAreaElement || e.target instanceof HTMLInputElement) return;
 
-      if (e.key >= "1" && e.key <= "6") {
+      if (e.key === "0") {
+        setSelectedLevel(0);
+      } else if (e.key >= "1" && e.key <= "6") {
         setSelectedLevel(parseInt(e.key));
       } else if (e.key === "Enter" && selectedLevel !== null) {
         handleSubmit();
@@ -698,7 +712,7 @@ export default function Home() {
                         const keysToDelete: string[] = [];
                         for (let i = 0; i < localStorage.length; i++) {
                           const k = localStorage.key(i);
-                          if (k && k.startsWith("s3_ratings_")) keysToDelete.push(k);
+                          if (k && /^s3_(?:v\d+_)?ratings_/.test(k)) keysToDelete.push(k);
                         }
                         keysToDelete.forEach((k) => localStorage.removeItem(k));
                         setResetDone(true);
@@ -861,12 +875,12 @@ export default function Home() {
   // ---- INSTRUCTIONS VIEW ----
   if (view === "instructions") {
     const scaleRows: { key: string; label: string; color: string; summary: string }[] = [
-      { key: "1", label: "Inadequate", color: "#ef4444", summary: "Content was produced but doesn't do the task: wrong topic, refuses the request, or just asks clarifying questions." },
-      { key: "2", label: "Incomplete", color: "#f97316", summary: "Starts the right task but is missing pieces the prompt explicitly asked for." },
-      { key: "3", label: "Functional", color: "#f59e0b", summary: "Everything's there but it feels generic, slightly off-tone, or vague where it should be specific." },
-      { key: "4", label: "Sufficient", color: "#22c55e", summary: "Competent and complete. You'd accept this without editing it." },
-      { key: "5", label: "Polished", color: "#3b82f6", summary: "Noticeably well-crafted. Shows real insight or elegance beyond just getting the job done." },
-      { key: "6", label: "Overdone", color: "#a855f7", summary: "Over-edited: either bloated with stuff nobody asked for, or trimmed so much it lost required content." },
+      { key: "1", label: "Inadequate", color: "#ef4444", summary: "The AI wrote something, but it's the wrong thing. Wrong topic, refuses to do what was asked, or answers a different question entirely." },
+      { key: "2", label: "Incomplete", color: "#f97316", summary: "It's working on the right task but clearly unfinished. Missing sections, key points, or requirements that the prompt specifically asked for." },
+      { key: "3", label: "Functional", color: "#f59e0b", summary: "Covers what was asked, but you'd want to fix it before using it. Too generic, slightly wrong tone, or vague where it should be specific." },
+      { key: "4", label: "Sufficient", color: "#22c55e", summary: "Good enough to use as-is. Nothing is wrong with it. Not amazing, but you wouldn't feel the need to edit it. This is where most solid AI output lands." },
+      { key: "5", label: "Polished", color: "#3b82f6", summary: "Genuinely impressive. You can point to something specific that makes it better than just \"fine\" -- a smart insight, great phrasing, or clever structure." },
+      { key: "6", label: "Overdone", color: "#a855f7", summary: "The AI went overboard. Added stuff nobody asked for (extra sections, unnecessary detail), OR cut so much that required content is missing. The problem is doing too much or too little vs. what the prompt wanted." },
     ];
 
     return (
@@ -895,7 +909,7 @@ export default function Home() {
               Welcome, {raterId}
             </h1>
             <p style={{ color: "var(--text-muted)", fontSize: 14, lineHeight: 1.6 }}>
-              Quick orientation before you start. Should take about 2 minutes to read.
+              Please read this carefully before you start. It takes about 3 minutes and will save you confusion later.
             </p>
           </div>
 
@@ -911,14 +925,205 @@ export default function Home() {
                 marginBottom: 10,
               }}
             >
-              What you&apos;re doing
+              Your job
             </h2>
             <p style={{ fontSize: 14, lineHeight: 1.7, color: "var(--text)" }}>
-              You&apos;ll see a <strong>task</strong> (a writing, coding, or analysis prompt) and an{" "}
-              <strong>AI-generated response</strong> to it. Your job is to judge how well the AI
-              actually did what the task asked for, using the scale below. There are no trick
-              questions and no right answers beyond your honest read of the output.
+              You&apos;ll see two things side by side: a <strong>task</strong> (like &quot;write a follow-up email&quot; or &quot;fix this code&quot;) and the <strong>AI&apos;s response</strong> to that task. You&apos;re rating how well the response does what the task asked for. Think of it like grading a homework assignment: read the prompt, read the answer, decide how good the answer is.
             </p>
+          </section>
+
+          {/* Step-by-step */}
+          <section style={{ marginBottom: 24 }}>
+            <h2
+              style={{
+                fontSize: 13,
+                fontWeight: 600,
+                textTransform: "uppercase",
+                letterSpacing: "0.08em",
+                color: "var(--text-muted)",
+                marginBottom: 10,
+              }}
+            >
+              Step by step for every sample
+            </h2>
+            <div style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 8,
+            }}>
+              {/* Step 1 */}
+              <div style={{
+                display: "flex",
+                gap: 12,
+                padding: "12px 14px",
+                background: "var(--bg-elevated)",
+                borderRadius: "var(--radius)",
+                border: "1px solid var(--border)",
+                fontSize: 14,
+                lineHeight: 1.6,
+              }}>
+                <span style={{ fontWeight: 700, color: "var(--accent)", fontSize: 16, flexShrink: 0 }}>1.</span>
+                <div>
+                  <strong>Read the task prompt on the left.</strong> This tells you what the AI was asked to do. Keep it in mind while reading the response.
+                </div>
+              </div>
+              {/* Step 2 */}
+              <div style={{
+                display: "flex",
+                gap: 12,
+                padding: "12px 14px",
+                background: "var(--bg-elevated)",
+                borderRadius: "var(--radius)",
+                border: "1px solid var(--border)",
+                fontSize: 14,
+                lineHeight: 1.6,
+              }}>
+                <span style={{ fontWeight: 700, color: "var(--accent)", fontSize: 16, flexShrink: 0 }}>2.</span>
+                <div>
+                  <strong>Read the AI response on the right.</strong> Ask yourself: <em>did the AI actually write the thing it was asked to write?</em>
+                </div>
+              </div>
+              {/* Step 3 */}
+              <div style={{
+                display: "flex",
+                gap: 12,
+                padding: "12px 14px",
+                background: "#1e3b25",
+                borderRadius: "var(--radius)",
+                border: "1px solid #22c55e44",
+                fontSize: 14,
+                lineHeight: 1.6,
+              }}>
+                <span style={{ fontWeight: 700, color: "#22c55e", fontSize: 16, flexShrink: 0 }}>3a.</span>
+                <div>
+                  <strong style={{ color: "#22c55e" }}>If YES, the AI wrote actual content</strong> (an email, summary, code, analysis, etc.), <strong>rate it 1 through 6</strong> using the scale below. It doesn&apos;t matter if the AI says &quot;Sure! Here&apos;s a revised version:&quot; first -- skip that intro and rate the actual work that follows.
+                </div>
+              </div>
+              {/* Step 3b */}
+              <div style={{
+                display: "flex",
+                gap: 12,
+                padding: "12px 14px",
+                background: "#3b3118",
+                borderRadius: "var(--radius)",
+                border: "1px solid #f59e0b44",
+                fontSize: 14,
+                lineHeight: 1.6,
+              }}>
+                <span style={{ fontWeight: 700, color: "#f59e0b", fontSize: 16, flexShrink: 0 }}>3b.</span>
+                <div>
+                  <strong style={{ color: "#f59e0b" }}>If NO, the AI just talked about the task</strong> instead of doing it (e.g., &quot;Looks good!&quot;, &quot;I could revise this if you want...&quot;, &quot;The current version is solid&quot;), <strong>press 0 for N/A</strong>. No content was produced, so there&apos;s nothing to rate.
+                </div>
+              </div>
+            </div>
+            <p style={{ fontSize: 13, color: "var(--accent)", fontWeight: 500, marginTop: 10 }}>
+              Simple test: could you copy-paste something usable out of the response? If yes, rate it. If all you see is the AI talking, press 0.
+            </p>
+          </section>
+
+          {/* Real examples */}
+          <section style={{ marginBottom: 24 }}>
+            <h2
+              style={{
+                fontSize: 13,
+                fontWeight: 600,
+                textTransform: "uppercase",
+                letterSpacing: "0.08em",
+                color: "var(--text-muted)",
+                marginBottom: 10,
+              }}
+            >
+              Examples of what you&apos;ll see
+            </h2>
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              {/* Example 1: content with preamble */}
+              <div style={{
+                padding: "14px 16px",
+                background: "#1a2640",
+                borderRadius: "var(--radius)",
+                border: "1px solid #3b82f644",
+              }}>
+                <div style={{ fontWeight: 600, fontSize: 12, color: "#3b82f6", marginBottom: 8 }}>
+                  MOST COMMON (~87% of samples): AI writes actual content
+                </div>
+                <div style={{
+                  fontSize: 12,
+                  color: "var(--text-muted)",
+                  fontStyle: "italic",
+                  lineHeight: 1.6,
+                  padding: "8px 12px",
+                  background: "var(--bg-card)",
+                  borderRadius: 4,
+                  marginBottom: 8,
+                  borderLeft: "3px solid #3b82f644",
+                }}>
+                  &quot;Sure! Here&apos;s a revised version of your email:
+                  <br /><br />
+                  Hi Sarah, I wanted to follow up on our conversation about the Q3 budget. After reviewing the numbers, I think we should reallocate 15% of the marketing spend toward...&quot;
+                </div>
+                <div style={{ fontSize: 13, color: "var(--text)" }}>
+                  <strong style={{ color: "#3b82f6" }}>What to do:</strong> Skip &quot;Sure! Here&apos;s a revised version&quot; and rate the email itself on the 1-6 scale. The &quot;Sure!&quot; intro doesn&apos;t count for or against it.
+                </div>
+              </div>
+
+              {/* Example 2: hedged meta */}
+              <div style={{
+                padding: "14px 16px",
+                background: "#3b3118",
+                borderRadius: "var(--radius)",
+                border: "1px solid #f59e0b44",
+              }}>
+                <div style={{ fontWeight: 600, fontSize: 12, color: "#f59e0b", marginBottom: 8 }}>
+                  LESS COMMON (~12%): AI just comments without doing the work
+                </div>
+                <div style={{
+                  fontSize: 12,
+                  color: "var(--text-muted)",
+                  fontStyle: "italic",
+                  lineHeight: 1.6,
+                  padding: "8px 12px",
+                  background: "var(--bg-card)",
+                  borderRadius: 4,
+                  marginBottom: 8,
+                  borderLeft: "3px solid #f59e0b44",
+                }}>
+                  &quot;The current version looks solid overall. The tone is professional and the key points are covered. I could make some adjustments if you have specific areas you&apos;d like me to focus on. Would you like me to revise anything in particular?&quot;
+                </div>
+                <div style={{ fontSize: 13, color: "var(--text)" }}>
+                  <strong style={{ color: "#f59e0b" }}>What to do:</strong> Press 0 (N/A). The AI is just commenting on the work, not actually writing or rewriting anything. There&apos;s no email, summary, or code here to rate.
+                </div>
+              </div>
+
+              {/* Tricky case callout */}
+              <div style={{
+                padding: "14px 16px",
+                background: "var(--bg-elevated)",
+                borderRadius: "var(--radius)",
+                border: "1px solid var(--border)",
+              }}>
+                <div style={{ fontWeight: 600, fontSize: 12, color: "var(--text)", marginBottom: 8 }}>
+                  TRICKY CASE: AI comments AND writes content
+                </div>
+                <div style={{
+                  fontSize: 12,
+                  color: "var(--text-muted)",
+                  fontStyle: "italic",
+                  lineHeight: 1.6,
+                  padding: "8px 12px",
+                  background: "var(--bg-card)",
+                  borderRadius: 4,
+                  marginBottom: 8,
+                  borderLeft: "3px solid var(--border)",
+                }}>
+                  &quot;Great start! I made a few tweaks to tighten up the language:
+                  <br /><br />
+                  Dear hiring committee, I am writing to express my strong interest in the research assistant position. My experience in data analysis and experimental design...&quot;
+                </div>
+                <div style={{ fontSize: 13, color: "var(--text)" }}>
+                  <strong>What to do:</strong> There IS actual content here (the letter), so rate it 1-6. Ignore the &quot;Great start!&quot; commentary.
+                </div>
+              </div>
+            </div>
           </section>
 
           {/* Scale */}
@@ -936,6 +1141,44 @@ export default function Home() {
               The rating scale
             </h2>
             <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "flex-start",
+                  gap: 12,
+                  padding: "10px 14px",
+                  background: "var(--bg-elevated)",
+                  borderRadius: "var(--radius)",
+                  border: "1px solid #f59e0b44",
+                }}
+              >
+                <span
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    minWidth: 26,
+                    height: 26,
+                    borderRadius: "50%",
+                    background: "#f59e0b22",
+                    color: "#f59e0b",
+                    fontWeight: 700,
+                    fontSize: 13,
+                    flexShrink: 0,
+                    border: "1px solid #f59e0b44",
+                  }}
+                >
+                  0
+                </span>
+                <div style={{ fontSize: 13, lineHeight: 1.5 }}>
+                  <span style={{ fontWeight: 600, color: "#f59e0b", marginRight: 6 }}>
+                    N/A
+                  </span>
+                  <span style={{ color: "var(--text-muted)" }}>
+                    No content produced. The AI only commented on the task without delivering anything. If there&apos;s a preamble like &quot;Here&apos;s a revised version:&quot; followed by actual content, that IS content -- rate it 1-6.
+                  </span>
+                </div>
+              </div>
               {scaleRows.map((row) => (
                 <div
                   key={row.key}
@@ -978,6 +1221,122 @@ export default function Home() {
             </div>
           </section>
 
+          {/* Calibration guidance */}
+          <section style={{ marginBottom: 24 }}>
+            <h2
+              style={{
+                fontSize: 13,
+                fontWeight: 600,
+                textTransform: "uppercase",
+                letterSpacing: "0.08em",
+                color: "var(--text-muted)",
+                marginBottom: 10,
+              }}
+            >
+              The most important question: &quot;Would I use this?&quot;
+            </h2>
+            <div style={{
+              padding: "16px 20px",
+              background: "var(--bg-elevated)",
+              borderRadius: "var(--radius)",
+              border: "1px solid #22c55e44",
+              fontSize: 14,
+              lineHeight: 1.7,
+              marginBottom: 12,
+            }}>
+              <p style={{ margin: "0 0 8px 0", color: "var(--text)" }}>
+                The <strong>biggest decision</strong> is whether the response is a <strong style={{ color: "#f59e0b" }}>3</strong> or a <strong style={{ color: "#22c55e" }}>4</strong>. Here&apos;s the test:
+              </p>
+              <p style={{ margin: "0 0 6px 0", color: "var(--text)" }}>
+                Imagine the task asked you to write an email to your boss. If you read the AI&apos;s email and think <em>&quot;I&apos;d want to reword a few things before sending this&quot;</em>, that&apos;s a <strong style={{ color: "#f59e0b" }}>3</strong>.
+              </p>
+              <p style={{ margin: 0, color: "var(--text)" }}>
+                If you think <em>&quot;This is fine, I&apos;d just send it&quot;</em>, that&apos;s a <strong style={{ color: "#22c55e" }}>4</strong>.
+              </p>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              <div style={{
+                padding: "12px 14px",
+                background: "var(--bg-elevated)",
+                borderRadius: "var(--radius)",
+                border: "1px solid var(--border)",
+                fontSize: 13,
+                lineHeight: 1.6,
+              }}>
+                <div style={{ fontWeight: 600, color: "var(--text)", marginBottom: 4 }}>
+                  When to give a 5 instead of a 4
+                </div>
+                <div style={{ color: "var(--text-muted)" }}>
+                  A <strong style={{ color: "#22c55e" }}>4</strong> is solid and correct but unremarkable.
+                  A <strong style={{ color: "#3b82f6" }}>5</strong> made you think &quot;wow, that&apos;s actually really well done.&quot; You can point to something specific: a smart insight, a perfect word choice, or a structure that makes the content click.
+                  <strong> If you can&apos;t explain what makes it stand out, it&apos;s a 4.</strong>
+                </div>
+              </div>
+              <div style={{
+                padding: "12px 14px",
+                background: "var(--bg-elevated)",
+                borderRadius: "var(--radius)",
+                border: "1px solid var(--border)",
+                fontSize: 13,
+                lineHeight: 1.6,
+              }}>
+                <div style={{ fontWeight: 600, color: "var(--text)", marginBottom: 4 }}>
+                  When to give a 6 (this is NOT a good score)
+                </div>
+                <div style={{ color: "var(--text-muted)" }}>
+                  <strong style={{ color: "#a855f7" }}>6 = Overdone</strong>, not &quot;excellent.&quot; Use it when the AI went beyond what was asked in a way that hurts the response: added unnecessary sections, made it way too long, included features nobody requested, or trimmed so much that required content is missing. The issue is that the AI didn&apos;t match what the prompt wanted.
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Common mistakes */}
+          <section style={{ marginBottom: 24 }}>
+            <h2
+              style={{
+                fontSize: 13,
+                fontWeight: 600,
+                textTransform: "uppercase",
+                letterSpacing: "0.08em",
+                color: "var(--text-muted)",
+                marginBottom: 10,
+              }}
+            >
+              Common mistakes to avoid
+            </h2>
+            <div style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 6,
+              fontSize: 13,
+              lineHeight: 1.6,
+            }}>
+              {[
+                { wrong: "Giving a high score because the response is long.", right: "Length doesn't matter. A short, focused response that does exactly what was asked is better than a long, rambling one." },
+                { wrong: "Giving N/A because the response starts with \"Sure!\" or \"Here's a revised version.\"", right: "That's just an intro. If actual content follows it, rate the content 1-6." },
+                { wrong: "Giving a 6 because it's the best response you've seen.", right: "6 means OVERDONE, not \"best.\" The highest quality score is 5. Use 6 only when the AI added stuff nobody asked for or trimmed too much." },
+                { wrong: "Rating based on whether YOU could have written it better.", right: "Rate whether the AI did what the TASK asked for. Focus on the prompt's requirements, not your personal style." },
+              ].map((item, i) => (
+                <div
+                  key={i}
+                  style={{
+                    padding: "10px 14px",
+                    background: "var(--bg-elevated)",
+                    borderRadius: "var(--radius)",
+                    border: "1px solid var(--border)",
+                  }}
+                >
+                  <div style={{ color: "#ef4444", marginBottom: 4 }}>
+                    <strong>Don&apos;t:</strong> {item.wrong}
+                  </div>
+                  <div style={{ color: "#22c55e" }}>
+                    <strong>Do:</strong> {item.right}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
           {/* Keyboard shortcuts */}
           <section style={{ marginBottom: 28 }}>
             <h2
@@ -994,6 +1353,7 @@ export default function Home() {
             </h2>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
               {[
+                { keys: "0", action: "Select N/A (no content)" },
                 { keys: "1 – 6", action: "Select a rating level" },
                 { keys: "Enter", action: "Submit the current rating" },
                 { keys: "A / D", action: "Go to previous / next sample" },
@@ -1063,7 +1423,7 @@ export default function Home() {
               marginTop: 10,
             }}
           >
-            This screen won&apos;t appear again for your account.
+            You can reopen this anytime using the &quot;View Instructions&quot; button while rating.
           </p>
         </div>
       </div>
@@ -1091,6 +1451,12 @@ export default function Home() {
           </span>
         </div>
         <div style={{ display: "flex", gap: 8 }}>
+          <button
+            onClick={() => setView("instructions")}
+            style={{ background: "var(--bg-elevated)", color: "var(--text-muted)", fontSize: 13 }}
+          >
+            View Instructions
+          </button>
           <button
             onClick={() => setView("review")}
             style={{ background: "var(--bg-elevated)", color: "var(--text)", fontSize: 13 }}
@@ -1435,6 +1801,17 @@ export default function Home() {
               justifyContent: "space-between",
             }}
           >
+            <span
+              style={{
+                color: selectedLevel === 0 ? "#f59e0b" : "var(--text-muted)",
+                fontWeight: selectedLevel === 0 ? 700 : 400,
+                cursor: "pointer",
+                transition: "all 0.15s",
+              }}
+              onClick={() => setSelectedLevel(0)}
+            >
+              0=N/A
+            </span>
             {LEVELS.map((l) => (
               <span
                 key={l.level}
@@ -1450,6 +1827,26 @@ export default function Home() {
               </span>
             ))}
           </div>
+
+          {/* N/A button */}
+          <button
+            onClick={() => setSelectedLevel(0)}
+            style={{
+              width: "100%",
+              padding: "10px 14px",
+              marginBottom: 8,
+              background: selectedLevel === 0 ? "#f59e0b" : "var(--bg-elevated)",
+              color: selectedLevel === 0 ? "#fff" : "#f59e0b",
+              border: selectedLevel === 0 ? "2px solid #f59e0b" : "1px solid #f59e0b44",
+              borderRadius: "var(--radius)",
+              fontWeight: 600,
+              fontSize: 13,
+              cursor: "pointer",
+              textAlign: "left",
+            }}
+          >
+            0 - N/A: No content produced (only commentary/meta-response)
+          </button>
 
           {/* Rating buttons */}
           <div
@@ -1516,7 +1913,7 @@ export default function Home() {
               marginTop: 10,
             }}
           >
-            1-6 to select level, Enter to submit, A/D or arrows to navigate
+            0 for N/A, 1-6 to select level, Enter to submit, A/D or arrows to navigate
           </p>
         </>
       ) : null}
