@@ -234,11 +234,11 @@ def fig5_cary_curves(eval_df: pd.DataFrame, worker_df: pd.DataFrame):
 
     c_values = {
         "Unlimited (C=0)": 0,
-        "API Heavy (C=2e-8)": 2e-8,
-        "API Light (C=2e-7)": 2e-7,
-        "Pro (C=5e-7)": 5e-7,
-        "Plus (C=2e-6)": 2e-6,
-        "Free (C=1e-5)": 1e-5,
+        "API Heavy (C=1e-5)": 1e-5,
+        "API Light (C=5e-5)": 5e-5,
+        "Pro (C=1e-4)": 1e-4,
+        "Plus (C=5e-4)": 5e-4,
+        "Free (C=1e-3)": 1e-3,
     }
 
     colors = ["#2c3e50", "#2980b9", "#27ae60", "#f39c12", "#e67e22", "#e74c3c"]
@@ -286,7 +286,7 @@ def fig6_unit_economics(eval_df: pd.DataFrame, worker_df: pd.DataFrame):
             revision_taxes.append(0)
             continue
 
-        cary = compute_cary(level_by_turn, tokens_by_turn, 5e-7)
+        cary = compute_cary(level_by_turn, tokens_by_turn, 1e-4)
         t_star = max(cary.keys(), key=lambda t: cary[t]) if cary else 1
         opt_tokens = sum(tokens_by_turn.get(t, 0) for t in turns if t <= t_star)
         full_tokens = sum(tokens_by_turn.get(t, 0) for t in turns)
@@ -302,7 +302,7 @@ def fig6_unit_economics(eval_df: pd.DataFrame, worker_df: pd.DataFrame):
                 f"{tax:.0f}%", ha="center", fontsize=10, fontweight="bold")
 
     ax.set_ylabel("Revision Tax (%)", fontsize=11)
-    ax.set_title("Revision Tax by Model (Pro Tier, C=5e-7)", fontsize=13, fontweight="bold")
+    ax.set_title("Revision Tax by Model (Pro Tier, C=1e-4)", fontsize=13, fontweight="bold")
     ax.grid(True, alpha=0.3, axis="y")
     plt.xticks(rotation=30, ha="right")
     plt.tight_layout()

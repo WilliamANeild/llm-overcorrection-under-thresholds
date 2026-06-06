@@ -3,20 +3,26 @@
 RQ1:  Revision Yield Curve (quality trajectory by turn)
 RQ2:  Diminishing Return Point by domain
 RQ3:  Do models respect the DRP?
-RQ4:  Quality judgment vs conversational compliance
+RQ4:  Revision-despite-sufficiency (quality-blind revision behavior)
 RQ5:  Token cost of zero-value revisions
 RQ6:  Stylistic drift and bloat over turns
 RQ7:  Targeted feedback vs generic prompting
 RQ8:  Cross-model patterns (do all 6 models show overcorrection?)
 RQ9:  One-shot ceiling vs iterative
 RQ10: Reversibility test (does model prefer its first draft?)
-RQ11: Cross-model output convergence
 RQ12: Instruction adherence decay
-RQ13: Performative revision (cosmetic-only changes)
 RQ14: Can the model spot its own overcorrection? (self-reflection)
-RQ15: Revision Yield equation and optimal stopping turn (CARY)
+RQ15: Revision Yield equation and optimal stopping turn (CARY, per-model)
 RQ16: Unit economics (practical cost at budget tiers)
-RQ17: Overcorrection magnitude (continuous OCS, not binary)
+RQ17: Overcorrection magnitude (continuous OCS, t_done >= T2)
+
+Dropped:
+  RQ11: Cross-model convergence (char-length CV is not semantic convergence)
+  RQ13: Performative revision (word-list detector produces degenerate 0.3% rate)
+
+Analysis splits:
+  Quality-estimand RQs (1,2,5,7,8-quality,9,15,17,wavering): revision-only data
+  Experience-estimand RQs (3,4,6-rate,8-decline,10,16): full-conversation data
 """
 
 import json
@@ -158,6 +164,368 @@ def get_revision_only_eval(eval_df: pd.DataFrame) -> pd.DataFrame:
     return df[df["is_revision"]].drop(columns=["is_revision"])
 
 
+# ── Edge Case Framework ──
+# Every aggregate statistic is decomposed to catch compositional artifacts,
+# sign-flip masking, and survivorship-driven results.
+
+MIN_CELL_SIZE = 10  # Minimum n for reporting per-cell statistics
+
+
+def _build_eval_map() -> dict[tuple[str, int], float]:
+    """Build (trial_id, turn) -> level lookup from evaluator data."""
+    results = load_jsonl(S3_EVALUATOR_RESULTS_PATH)
+    return {(r["worker_trial_id"], r["turn"]): r["level"]
+            for r in results if r.get("level") is not None}
+
+
+def _build_trial_metadata() -> dict[str, dict]:
+    """Build trial_id -> {model, domain, t1_quality, survival_depth, t1_stratum} lookup."""
+    trials = load_jsonl(S3_WORKER_TRIALS_PATH)
+    eval_map = _build_eval_map()
+    rev_flags = _build_revision_flags()
+    meta = {}
+    for trial in [t for t in trials if t.get("status") == "success"]:
+        tid = trial["trial_id"]
+        t1_q = eval_map.get((tid, 1))
+        # Survival depth = last turn where the model actually revised
+        depth = 1
+        for t in range(2, 6):
+            if rev_flags.get((tid, t), False):
+                depth = t
+            else:
+                break
+        meta[tid] = {
+            "model": trial["model"],
+            "domain": trial["domain"],
+            "t1_quality": t1_q,
+            "t1_stratum": "needs_work" if (t1_q is not None and t1_q < 4) else "already_good",
+            "survival_depth": depth,
+            "full_survivor": depth >= 5,
+        }
+    return meta
+
+
+def cohort_locked_trajectories(eval_df: pd.DataFrame, trial_meta: dict) -> dict:
+    """Compute quality trajectories locked to specific cohorts.
+
+    Returns trajectories for:
+    - full_panel: all 720 trials (using all-responses eval)
+    - balanced: only trials that revised at all 5 turns
+    - t2_cohort through t5_cohort: trials surviving to at least turn N
+    - needs_work: T1 < 4 stratum (trials where revision was plausibly warranted)
+    - already_good: T1 >= 4 stratum
+    - per_model: cohort-locked per model
+    """
+    rev_flags = _build_revision_flags()
+
+    # Build per-trial trajectory
+    trial_levels = defaultdict(dict)
+    trial_rev_levels = defaultdict(dict)
+    for _, row in eval_df.iterrows():
+        tid = row["worker_trial_id"]
+        t = row["turn"]
+        trial_levels[tid][t] = row["level"]
+        is_rev = rev_flags.get((tid, t), True)
+        if is_rev:
+            trial_rev_levels[tid][t] = row["level"]
+
+    def _cohort_trajectory(trial_ids: set, use_rev_only: bool = True) -> dict:
+        """Mean quality at each turn for a fixed set of trials."""
+        source = trial_rev_levels if use_rev_only else trial_levels
+        by_turn = defaultdict(list)
+        for tid in trial_ids:
+            for t, level in source.get(tid, {}).items():
+                by_turn[t].append(level)
+        return {int(t): {"mean": float(np.mean(vs)), "n": len(vs)}
+                for t, vs in sorted(by_turn.items()) if vs}
+
+    all_tids = set(trial_meta.keys())
+
+    # Cohort-locked: trials surviving to at least turn N
+    cohort_results = {}
+    for max_turn in range(2, 6):
+        cohort_ids = {tid for tid, m in trial_meta.items() if m["survival_depth"] >= max_turn}
+        traj = _cohort_trajectory(cohort_ids)
+        cohort_results[f"t{max_turn}_cohort"] = {
+            "n_trials": len(cohort_ids),
+            "trajectory": traj,
+        }
+
+    # Balanced panel (all 5 turns revised)
+    balanced_ids = {tid for tid, m in trial_meta.items() if m["full_survivor"]}
+    cohort_results["balanced"] = {
+        "n_trials": len(balanced_ids),
+        "trajectory": _cohort_trajectory(balanced_ids),
+    }
+
+    # T1 quality strata
+    for stratum in ["needs_work", "already_good"]:
+        s_ids = {tid for tid, m in trial_meta.items() if m["t1_stratum"] == stratum}
+        if len(s_ids) >= MIN_CELL_SIZE:
+            cohort_results[stratum] = {
+                "n_trials": len(s_ids),
+                "trajectory": _cohort_trajectory(s_ids),
+            }
+            # Also balanced panel within stratum
+            s_balanced = s_ids & balanced_ids
+            if len(s_balanced) >= MIN_CELL_SIZE:
+                cohort_results[f"{stratum}_balanced"] = {
+                    "n_trials": len(s_balanced),
+                    "trajectory": _cohort_trajectory(s_balanced),
+                }
+
+    # Per-model balanced panel
+    per_model = {}
+    models = sorted(set(m["model"] for m in trial_meta.values()))
+    for model in models:
+        m_balanced = {tid for tid, m in trial_meta.items()
+                      if m["model"] == model and m["full_survivor"]}
+        m_all = {tid for tid, m in trial_meta.items() if m["model"] == model}
+        traj = _cohort_trajectory(m_balanced) if len(m_balanced) >= 2 else {}
+        # Per-trial delta for this model's survivors
+        deltas = []
+        for tid in m_balanced:
+            t1_q = trial_rev_levels.get(tid, {}).get(1)
+            t5_q = trial_rev_levels.get(tid, {}).get(5)
+            if t1_q is not None and t5_q is not None:
+                deltas.append(t5_q - t1_q)
+        per_model[model] = {
+            "n_balanced": len(m_balanced),
+            "n_total": len(m_all),
+            "survival_rate": len(m_balanced) / len(m_all) if m_all else 0,
+            "trajectory": traj,
+            "mean_delta_t1_t5": float(np.mean(deltas)) if deltas else None,
+            "pct_improved": float(sum(1 for d in deltas if d > 0) / len(deltas)) if deltas else None,
+            "pct_degraded": float(sum(1 for d in deltas if d < 0) / len(deltas)) if deltas else None,
+        }
+
+    cohort_results["per_model"] = per_model
+    return cohort_results
+
+
+def compositional_audit(eval_df: pd.DataFrame, trial_meta: dict) -> dict:
+    """Check whether the model/quality composition of the revision-only pool
+    shifts across turns in ways that could drive aggregate results."""
+    rev_flags = _build_revision_flags()
+    warnings = []
+
+    # Model composition at each turn in revision-only pool
+    model_comp = {}
+    for turn in range(1, 6):
+        turn_tids = set()
+        for _, row in eval_df.iterrows():
+            tid = row["worker_trial_id"]
+            t = row["turn"]
+            if t == turn and rev_flags.get((tid, t), True):
+                turn_tids.add(tid)
+        model_counts = defaultdict(int)
+        for tid in turn_tids:
+            if tid in trial_meta:
+                model_counts[trial_meta[tid]["model"]] += 1
+        total = sum(model_counts.values())
+        model_comp[turn] = {m: c / total if total > 0 else 0 for m, c in model_counts.items()}
+
+    # Check for large compositional shifts between T1 and T5
+    if 1 in model_comp and 5 in model_comp:
+        for model in model_comp[1]:
+            t1_share = model_comp[1].get(model, 0)
+            t5_share = model_comp[5].get(model, 0)
+            shift = t5_share - t1_share
+            if abs(shift) > 0.05:
+                warnings.append(f"{model}: {t1_share:.1%} at T1 -> {t5_share:.1%} at T5 (shift={shift:+.1%})")
+
+    # T1 quality composition shift
+    stratum_comp = {}
+    for turn in range(1, 6):
+        turn_tids = set()
+        for _, row in eval_df.iterrows():
+            tid = row["worker_trial_id"]
+            t = row["turn"]
+            if t == turn and rev_flags.get((tid, t), True):
+                turn_tids.add(tid)
+        nw = sum(1 for tid in turn_tids if trial_meta.get(tid, {}).get("t1_stratum") == "needs_work")
+        total = len(turn_tids)
+        stratum_comp[turn] = nw / total if total > 0 else 0
+
+    # Sign-flip check: does aggregate direction match majority of per-model directions?
+    rev_eval = get_revision_only_eval(eval_df)
+    models = sorted(rev_eval["model"].unique())
+    model_directions = {}
+    for model in models:
+        m_eval = rev_eval[rev_eval["model"] == model]
+        m_level = m_eval.groupby("turn")["level"].mean()
+        if 1 in m_level.index and len(m_level) >= 2:
+            last_turn = max(m_level.index)
+            delta = m_level[last_turn] - m_level[1]
+            model_directions[model] = "improves" if delta > 0 else "degrades"
+
+    n_improve = sum(1 for d in model_directions.values() if d == "improves")
+    n_degrade = sum(1 for d in model_directions.values() if d == "degrades")
+    if n_improve > 0 and n_degrade > 0:
+        warnings.append(f"Sign flip: {n_improve} models improve, {n_degrade} degrade. Aggregate masks opposing effects.")
+
+    # Dropout quality differential
+    eval_map = _build_eval_map()
+    dropout_t1 = []
+    survivor_t1 = []
+    for tid, m in trial_meta.items():
+        t1_q = m.get("t1_quality")
+        if t1_q is None:
+            continue
+        if m["survival_depth"] >= 2:
+            survivor_t1.append(t1_q)
+        else:
+            dropout_t1.append(t1_q)
+    if dropout_t1 and survivor_t1:
+        diff = np.mean(dropout_t1) - np.mean(survivor_t1)
+        if abs(diff) > 0.1:
+            warnings.append(f"T2 dropout quality bias: dropouts T1={np.mean(dropout_t1):.2f}, survivors T1={np.mean(survivor_t1):.2f} (diff={diff:+.2f})")
+
+    return {
+        "model_composition_by_turn": {int(t): comp for t, comp in model_comp.items()},
+        "needs_work_share_by_turn": {int(t): float(v) for t, v in stratum_comp.items()},
+        "model_directions": model_directions,
+        "warnings": warnings,
+    }
+
+
+def edge_case_framework(worker_df: pd.DataFrame, eval_df: pd.DataFrame) -> dict:
+    """Master edge case analysis that decomposes aggregates and flags artifacts.
+
+    This runs as a standalone analysis block and provides the ground truth
+    for interpreting all quality-trajectory RQs.
+    """
+    print("\n== Edge Case Framework ==")
+
+    trial_meta = _build_trial_metadata()
+    total = len(trial_meta)
+    nw_count = sum(1 for m in trial_meta.values() if m["t1_stratum"] == "needs_work")
+    ag_count = total - nw_count
+
+    print(f"\n  T1 quality strata: needs_work (T1<4) = {nw_count}/{total} ({nw_count/total:.1%}), "
+          f"already_good (T1>=4) = {ag_count}/{total} ({ag_count/total:.1%})")
+
+    # 1. Cohort-locked trajectories
+    print("\n--- Cohort-locked trajectories ---")
+    cohorts = cohort_locked_trajectories(eval_df, trial_meta)
+
+    for label in ["t2_cohort", "t3_cohort", "t4_cohort", "t5_cohort", "balanced"]:
+        c = cohorts.get(label, {})
+        n = c.get("n_trials", 0)
+        traj = c.get("trajectory", {})
+        traj_str = " -> ".join([f"T{t}:{d['mean']:.2f}" for t, d in sorted(traj.items())])
+        print(f"  {label} (n={n}): {traj_str}")
+
+    # T1 strata
+    for label in ["needs_work", "already_good", "needs_work_balanced", "already_good_balanced"]:
+        c = cohorts.get(label, {})
+        if c:
+            n = c.get("n_trials", 0)
+            traj = c.get("trajectory", {})
+            traj_str = " -> ".join([f"T{t}:{d['mean']:.2f}" for t, d in sorted(traj.items())])
+            print(f"  {label} (n={n}): {traj_str}")
+
+    # Per-model cohort-locked
+    print("\n--- Per-model balanced panel (cohort-locked T5 survivors) ---")
+    pm = cohorts.get("per_model", {})
+    for model in sorted(pm.keys()):
+        m = pm[model]
+        traj = m.get("trajectory", {})
+        traj_str = " -> ".join([f"T{t}:{d['mean']:.2f}" for t, d in sorted(traj.items())])
+        delta = m.get("mean_delta_t1_t5")
+        pct_imp = m.get("pct_improved")
+        pct_deg = m.get("pct_degraded")
+        surv = m.get("survival_rate", 0)
+        print(f"  {model} (n={m['n_balanced']}/{m['n_total']}, surv={surv:.0%}): {traj_str}")
+        if delta is not None:
+            print(f"    T1->T5 delta={delta:+.2f}, improved={pct_imp:.0%}, degraded={pct_deg:.0%}")
+
+    # 2. Compositional audit
+    print("\n--- Compositional audit ---")
+    audit = compositional_audit(eval_df, trial_meta)
+
+    # Model composition shift
+    print("  Model share in revision-only pool:")
+    comp = audit["model_composition_by_turn"]
+    models = sorted(set(m for c in comp.values() for m in c))
+    header = f"  {'Model':<22}" + " ".join([f"T{t:>5}" for t in sorted(comp.keys())])
+    print(header)
+    for model in models:
+        shares = [f"{comp.get(t, {}).get(model, 0):5.1%}" for t in sorted(comp.keys())]
+        print(f"  {model:<22}" + " ".join(shares))
+
+    # Needs-work share
+    nw_share = audit["needs_work_share_by_turn"]
+    nw_str = ", ".join([f"T{t}:{v:.1%}" for t, v in sorted(nw_share.items())])
+    print(f"\n  Needs-work (T1<4) share: {nw_str}")
+
+    # Directions
+    print(f"\n  Per-model direction: {audit['model_directions']}")
+
+    # Warnings
+    if audit["warnings"]:
+        print(f"\n  WARNINGS ({len(audit['warnings'])}):")
+        for w in audit["warnings"]:
+            print(f"    - {w}")
+    else:
+        print("\n  No compositional warnings.")
+
+    # 3. Per-trial delta distribution for T5 survivors
+    print("\n--- T5 survivor per-trial quality change by T1 stratum ---")
+    eval_map = _build_eval_map()
+    for stratum_label, stratum_val in [("needs_work", "needs_work"), ("already_good", "already_good")]:
+        deltas = []
+        for tid, m in trial_meta.items():
+            if m["t1_stratum"] != stratum_val or not m["full_survivor"]:
+                continue
+            t1_q = eval_map.get((tid, 1))
+            t5_q = eval_map.get((tid, 5))
+            if t1_q is not None and t5_q is not None:
+                deltas.append(t5_q - t1_q)
+        if deltas:
+            improved = sum(1 for d in deltas if d > 0)
+            degraded = sum(1 for d in deltas if d < 0)
+            print(f"  {stratum_label} (n={len(deltas)}): mean delta={np.mean(deltas):+.2f}, "
+                  f"improved={improved} ({improved/len(deltas):.0%}), "
+                  f"degraded={degraded} ({degraded/len(deltas):.0%})")
+
+    # 4. The "illusion of decline" test: is the revision-only T5 quality drop
+    #    driven by compositional shift or genuine within-trial degradation?
+    print("\n--- Illusion-of-decline test ---")
+    # Compare pooled revision-only trajectory vs balanced panel trajectory
+    rev_eval = get_revision_only_eval(eval_df)
+    pooled = rev_eval.groupby("turn")["level"].mean()
+    balanced_ids = {tid for tid, m in trial_meta.items() if m["full_survivor"]}
+    balanced = rev_eval[rev_eval["worker_trial_id"].isin(balanced_ids)].groupby("turn")["level"].mean()
+
+    print(f"  {'Turn':<6} {'Pooled rev-only':>16} {'Balanced panel':>16} {'Difference':>12}")
+    for t in sorted(pooled.index):
+        p_val = pooled[t]
+        b_val = balanced.get(t, float("nan"))
+        diff = p_val - b_val if not np.isnan(b_val) else float("nan")
+        print(f"  T{t:<5} {p_val:>15.2f} {b_val:>15.2f} {diff:>+11.2f}")
+
+    # If pooled drops faster than balanced, compositional shift is inflating the decline
+    pooled_drop = float(pooled.get(1, 0) - pooled.get(5, 0))
+    balanced_drop = float(balanced.get(1, 0) - balanced.get(5, 0))
+    inflation = pooled_drop - balanced_drop
+    print(f"\n  Pooled T1-T5 drop: {pooled_drop:.2f}")
+    print(f"  Balanced T1-T5 drop: {balanced_drop:.2f}")
+    print(f"  Compositional inflation: {inflation:.2f} ({inflation/pooled_drop:.0%} of pooled drop)" if pooled_drop > 0 else "")
+
+    return {
+        "trial_strata": {"needs_work": nw_count, "already_good": ag_count},
+        "cohort_trajectories": cohorts,
+        "compositional_audit": audit,
+        "illusion_of_decline": {
+            "pooled_drop": pooled_drop,
+            "balanced_drop": balanced_drop,
+            "compositional_inflation": inflation,
+            "inflation_pct": float(inflation / pooled_drop) if pooled_drop > 0 else 0,
+        },
+    }
+
+
 # ── RQ1: Revision Yield Curve ──
 
 def rq1_revision_yield_curve(worker_df: pd.DataFrame, eval_df: pd.DataFrame) -> dict:
@@ -167,12 +535,13 @@ def rq1_revision_yield_curve(worker_df: pd.DataFrame, eval_df: pd.DataFrame) -> 
     level_by_turn = eval_df.groupby("turn")["level"].mean()
     turns = sorted(level_by_turn.index)
 
-    mry = {}
+    # Quality deltas (raw, not token-normalized -- see RQ15 for proper MRY)
+    quality_delta = {}
     for i in range(1, len(turns)):
-        mry[turns[i]] = float(level_by_turn[turns[i]] - level_by_turn[turns[i-1]])
+        quality_delta[turns[i]] = float(level_by_turn[turns[i]] - level_by_turn[turns[i-1]])
 
     print(f"\nAll responses - mean level by turn: {dict(zip(turns, [f'{level_by_turn[t]:.2f}' for t in turns]))}")
-    print(f"Marginal Revision Yield: {mry}")
+    print(f"Quality delta by turn: {quality_delta}")
 
     # Revision-only curve (excludes decline-to-revise meta-responses)
     # Merge evaluator levels with worker revision classification
@@ -194,13 +563,13 @@ def rq1_revision_yield_curve(worker_df: pd.DataFrame, eval_df: pd.DataFrame) -> 
     rev_count_by_turn = rev_only.groupby("turn")["level"].count()
     declined_count = eval_with_rev[~eval_with_rev["is_revision"]].groupby("turn")["level"].count()
 
-    rev_mry = {}
+    rev_quality_delta = {}
     rev_turns = sorted(rev_level_by_turn.index)
     for i in range(1, len(rev_turns)):
-        rev_mry[rev_turns[i]] = float(rev_level_by_turn[rev_turns[i]] - rev_level_by_turn[rev_turns[i-1]])
+        rev_quality_delta[rev_turns[i]] = float(rev_level_by_turn[rev_turns[i]] - rev_level_by_turn[rev_turns[i-1]])
 
     print(f"\nRevision-only - mean level by turn: {dict(zip(rev_turns, [f'{rev_level_by_turn[t]:.2f}' for t in rev_turns]))}")
-    print(f"Revision-only MRY: {rev_mry}")
+    print(f"Revision-only quality delta: {rev_quality_delta}")
     print(f"\nTurn | All (n, mean) | Revised (n, mean) | Declined (n, mean)")
     print("-" * 70)
     for t in turns:
@@ -223,9 +592,9 @@ def rq1_revision_yield_curve(worker_df: pd.DataFrame, eval_df: pd.DataFrame) -> 
 
     return {
         "level_by_turn": {int(t): float(level_by_turn[t]) for t in turns},
-        "mry": mry,
+        "quality_delta": quality_delta,
         "revision_only_level_by_turn": {int(t): float(rev_level_by_turn[t]) for t in rev_turns},
-        "revision_only_mry": rev_mry,
+        "revision_only_quality_delta": rev_quality_delta,
         "revision_only_n_by_turn": {int(t): int(rev_count_by_turn.get(t, 0)) for t in turns},
         "decline_rate_by_turn": decline_rate,
     }
@@ -257,26 +626,27 @@ def rq2_drp_by_domain(eval_df: pd.DataFrame) -> dict:
         level_by_turn = subset.groupby("turn")["level"].mean()
         turns = sorted(level_by_turn.index)
 
-        # DRP on all responses
+        # DRP = first turn >= 2 where MRY <= 0 (quality stops improving)
         drp = None
-        for t in turns:
-            if level_by_turn[t] >= 4.0:
-                drp = t
+        for i in range(1, len(turns)):
+            if level_by_turn[turns[i]] <= level_by_turn[turns[i-1]]:
+                drp = int(turns[i])
                 break
 
         # DRP on revision-only
         rev_subset = rev_only[rev_only["domain"] == domain]
         rev_level = rev_subset.groupby("turn")["level"].mean()
+        rev_turns = sorted(rev_level.index)
         rev_drp = None
-        for t in sorted(rev_level.index):
-            if rev_level[t] >= 4.0:
-                rev_drp = t
+        for i in range(1, len(rev_turns)):
+            if rev_level[rev_turns[i]] <= rev_level[rev_turns[i-1]]:
+                rev_drp = int(rev_turns[i])
                 break
 
         results[domain] = {
             "level_by_turn": {int(t): float(level_by_turn[t]) for t in turns},
             "drp": drp,
-            "revision_only_level_by_turn": {int(t): float(rev_level[t]) for t in sorted(rev_level.index)},
+            "revision_only_level_by_turn": {int(t): float(rev_level[t]) for t in rev_turns},
             "revision_only_drp": rev_drp,
         }
         rev_traj = [f'{rev_level.get(t, 0):.2f}' for t in turns if t in rev_level.index]
@@ -309,34 +679,60 @@ def rq3_overcorrection_rate(worker_df: pd.DataFrame, eval_df: pd.DataFrame) -> d
     }
 
 
-# ── RQ4: Compliance vs quality judgment ──
+# ── RQ4: Revision-Despite-Sufficiency ──
 
-def rq4_compliance_mechanism(worker_df: pd.DataFrame, eval_df: pd.DataFrame) -> dict:
-    print("\n== RQ4: Compliance vs Quality Judgment ==")
+def rq4_revision_despite_sufficiency(worker_df: pd.DataFrame, eval_df: pd.DataFrame) -> dict:
+    print("\n== RQ4: Revision Despite Sufficiency ==")
 
-    worker_t2 = worker_df[worker_df["turn"] >= 2][["trial_id", "turn", "revised"]].copy()
+    # Temporal alignment: evaluator judges turn T, worker decides at turn T+1.
+    # Question: when the evaluator says output is already good at turn T (level >= 4),
+    # does the worker still revise at turn T+1?
     eval_match = eval_df[["worker_trial_id", "turn", "level"]].copy()
-    eval_match = eval_match.rename(columns={"worker_trial_id": "trial_id"})
+    eval_match = eval_match.rename(columns={"worker_trial_id": "trial_id", "turn": "eval_turn"})
 
-    merged = worker_t2.merge(eval_match, on=["trial_id", "turn"], how="inner")
+    worker_next = worker_df[worker_df["turn"] >= 2][["trial_id", "turn", "revised"]].copy()
+    worker_next = worker_next.rename(columns={"turn": "next_turn"})
+
+    # Join: evaluator at turn T -> worker at turn T+1
+    eval_match["next_turn"] = eval_match["eval_turn"] + 1
+    merged = eval_match.merge(worker_next, on=["trial_id", "next_turn"], how="inner")
 
     if merged.empty:
         print("  No matched data.")
         return {}
 
-    # Cases where evaluator says done (level >= 4 = Sufficient) but worker revises = compliance
-    compliance_cases = merged[(merged["level"] >= 4) & (merged["revised"] == True)]
-    total_done_evals = merged[merged["level"] >= 4]
+    # Cases where evaluator says done at turn T (level >= 4) but worker revises at T+1
+    done_at_t = merged[merged["level"] >= 4]
+    compliance_cases = done_at_t[done_at_t["revised"] == True]
 
-    compliance_rate = len(compliance_cases) / len(total_done_evals) if len(total_done_evals) > 0 else 0
-    print(f"  Evaluator says 'done' (level >= 4 Sufficient): {len(total_done_evals)} cases")
-    print(f"  Worker revises anyway: {len(compliance_cases)} ({compliance_rate:.1%})")
-    print(f"  -> Compliance-driven revision rate: {compliance_rate:.1%}")
+    compliance_rate = len(compliance_cases) / len(done_at_t) if len(done_at_t) > 0 else 0
+    print(f"  Evaluator says 'done' at turn T (level >= 4): {len(done_at_t)} cases")
+    print(f"  Worker revises at T+1 anyway: {len(compliance_cases)} ({compliance_rate:.1%})")
+    print(f"  -> Revision-despite-sufficiency rate: {compliance_rate:.1%}")
+
+    # Quality stratification: show rate is stable across quality levels
+    for level_threshold, label in [(4, "level==4"), (5, "level>=5")]:
+        if level_threshold == 4:
+            stratum = done_at_t[done_at_t["level"] == 4]
+        else:
+            stratum = done_at_t[done_at_t["level"] >= 5]
+        if len(stratum) > 0:
+            s_rev = stratum[stratum["revised"] == True]
+            s_rate = len(s_rev) / len(stratum)
+            print(f"  Quality stratum {label}: {len(s_rev)}/{len(stratum)} ({s_rate:.1%}) revise anyway")
+
+    # Break down by turn
+    print("\n  By turn:")
+    for t in sorted(done_at_t["eval_turn"].unique()):
+        t_done = done_at_t[done_at_t["eval_turn"] == t]
+        t_comp = t_done[t_done["revised"] == True]
+        rate = len(t_comp) / len(t_done) if len(t_done) > 0 else 0
+        print(f"    Eval done at T{int(t)} -> revises at T{int(t)+1}: {len(t_comp)}/{len(t_done)} ({rate:.1%})")
 
     return {
-        "total_done_evals": len(total_done_evals),
-        "compliance_revisions": len(compliance_cases),
-        "compliance_rate": float(compliance_rate),
+        "total_done_evals": len(done_at_t),
+        "unnecessary_revisions": len(compliance_cases),
+        "revision_despite_sufficiency_rate": float(compliance_rate),
     }
 
 
@@ -391,6 +787,11 @@ def rq6_stylistic_drift(worker_df: pd.DataFrame) -> dict:
     rows = []
     for trial in successful:
         for turn_idx, response in enumerate(trial["responses"]):
+            turn = turn_idx + 1
+            # Skip meta-responses (decline-to-revise) -- only measure stylistic
+            # drift on actual content revisions
+            if turn >= 2 and not classify_revision(response):
+                continue
             words = response.split()
             unique_words = set(w.lower() for w in words)
             ttr = len(unique_words) / len(words) if words else 0
@@ -398,7 +799,7 @@ def rq6_stylistic_drift(worker_df: pd.DataFrame) -> dict:
                 "trial_id": trial["trial_id"],
                 "model": trial["model"],
                 "domain": trial["domain"],
-                "turn": turn_idx + 1,
+                "turn": turn,
                 "word_count": len(words),
                 "type_token_ratio": ttr,
                 "char_count": len(response),
@@ -416,15 +817,22 @@ def rq6_stylistic_drift(worker_df: pd.DataFrame) -> dict:
     for turn, row in drift.iterrows():
         print(f"  {turn}   | {row['word_count']:.0f}       | {row['type_token_ratio']:.3f}   | {row['char_count']:.0f}")
 
-    rho_len, p_len = sp_stats.spearmanr(df["turn"], df["word_count"])
-    rho_ttr, p_ttr = sp_stats.spearmanr(df["turn"], df["type_token_ratio"])
-    print(f"\n  Turn vs word_count: rho={rho_len:.3f}, p={p_len:.4f}")
-    print(f"  Turn vs TTR: rho={rho_ttr:.3f}, p={p_ttr:.4f}")
+    # Per-trial slopes to avoid pseudoreplication (Judge 5 verdict)
+    len_slopes = []
+    for tid, grp in df.groupby("trial_id"):
+        if len(grp) >= 2:
+            slope = np.polyfit(grp["turn"], grp["word_count"], 1)[0]
+            len_slopes.append(slope)
+    if len_slopes:
+        t_stat, p_len = sp_stats.ttest_1samp(len_slopes, 0)
+        mean_slope = np.mean(len_slopes)
+        print(f"\n  Turn vs word_count (per-trial slopes): mean_slope={mean_slope:.1f}, t={t_stat:.2f}, p={p_len:.4f}, n_trials={len(len_slopes)}")
+    else:
+        mean_slope, p_len = 0, 1.0
 
     return {
         "drift_by_turn": drift.to_dict(),
-        "length_correlation": {"rho": float(rho_len), "p": float(p_len)},
-        "ttr_correlation": {"rho": float(rho_ttr), "p": float(p_ttr)},
+        "length_trend": {"mean_slope": float(mean_slope), "p": float(p_len), "n_trials": len(len_slopes)},
     }
 
 
@@ -437,7 +845,24 @@ def rq7_targeted_feedback() -> dict:
         print("  No targeted feedback data.")
         return {}
 
-    valid = [r for r in results if r.get("targeted_level") and r.get("generic_next_level")]
+    # Filter out entries where generic baseline is a meta-response (Judge 3 verdict)
+    trials = load_jsonl(S3_WORKER_TRIALS_PATH)
+    worker_map = {t["trial_id"]: t for t in trials if t.get("status") == "success"}
+    filtered = []
+    meta_filtered_count = 0
+    for r in results:
+        if not r.get("targeted_level") or not r.get("generic_next_level"):
+            continue
+        trial = worker_map.get(r.get("worker_trial_id", ""))
+        if trial and r.get("turn") is not None and r["turn"] < len(trial["responses"]):
+            generic_response = trial["responses"][r["turn"]]
+            if not classify_revision(generic_response):
+                meta_filtered_count += 1
+                continue
+        filtered.append(r)
+    print(f"  Excluded {meta_filtered_count} pairs where generic baseline was a meta-response")
+
+    valid = filtered
     if not valid:
         print("  No valid paired comparisons.")
         return {}
@@ -543,6 +968,31 @@ def rq9_oneshot_ceiling(eval_df: pd.DataFrame) -> dict:
             total_out = sum((tc.get("output", 0) or 0) for tc in (t.get("token_counts") or []))
             worker_map[key] = total_out
 
+    # Get evaluator quality for one-shot (from eval_df, oneshot entries have
+    # turn=1 and their trial_id starts with "s3_oneshot__")
+    oneshot_eval_map = {}
+    for _, row in eval_df.iterrows():
+        if "oneshot" in str(row.get("eval_id", "")):
+            key = (row["model"], row.get("scenario_id", ""), row.get("run", 0))
+            oneshot_eval_map[key] = row["level"]
+
+    # Get iterative T1 quality (revision-only)
+    rev_eval = get_revision_only_eval(eval_df)
+    iterative_t1_map = {}
+    iterative_best_map = {}
+    for trial_id in rev_eval["worker_trial_id"].unique():
+        t_eval = rev_eval[rev_eval["worker_trial_id"] == trial_id]
+        if t_eval.empty:
+            continue
+        t1_row = t_eval[t_eval["turn"] == 1]
+        if not t1_row.empty:
+            # Find matching worker trial for the key
+            wt = [t for t in worker_trials if t["trial_id"] == trial_id and t.get("status") == "success"]
+            if wt:
+                key = (wt[0]["model"], wt[0]["scenario_id"], wt[0]["run"])
+                iterative_t1_map[key] = float(t1_row["level"].iloc[0])
+                iterative_best_map[key] = float(t_eval["level"].max())
+
     comparisons = []
     for t in successful:
         key = (t["model"], t["scenario_id"], t["run"])
@@ -553,12 +1003,47 @@ def rq9_oneshot_ceiling(eval_df: pd.DataFrame) -> dict:
                 "oneshot_tokens": oneshot_tokens,
                 "iterative_tokens": iterative_tokens,
                 "savings_pct": 1 - (oneshot_tokens / iterative_tokens),
+                "iterative_t1_quality": iterative_t1_map.get(key),
+                "iterative_best_quality": iterative_best_map.get(key),
             })
 
     if comparisons:
         mean_savings = np.mean([c["savings_pct"] for c in comparisons])
         print(f"  Mean token savings (one-shot vs iterative): {mean_savings:.1%}")
-        return {"n": len(comparisons), "mean_token_savings": float(mean_savings)}
+
+        # One-shot quality scores (from evaluator data)
+        oneshot_qualities = [v for v in oneshot_eval_map.values() if v is not None]
+        if oneshot_qualities:
+            mean_oneshot_q = np.mean(oneshot_qualities)
+            print(f"  One-shot quality (blind evaluator): {mean_oneshot_q:.2f} (n={len(oneshot_qualities)})")
+        else:
+            mean_oneshot_q = None
+
+        # Quality comparison
+        with_quality = [c for c in comparisons if c["iterative_t1_quality"] is not None]
+        if with_quality:
+            mean_t1 = np.mean([c["iterative_t1_quality"] for c in with_quality])
+            mean_best = np.mean([c["iterative_best_quality"] for c in with_quality])
+            print(f"  Iterative T1 quality: {mean_t1:.2f}")
+            print(f"  Iterative best quality (revision-only): {mean_best:.2f}")
+            print(f"  Iterative revision gain over T1: {mean_best - mean_t1:+.2f}")
+            print(f"  Note: one-shot prompt includes 'produce the best possible version'")
+            print(f"    instruction absent from iterative T1; comparison is directional, not a clean ablation.")
+            result = {
+                "n": len(comparisons),
+                "mean_token_savings": float(mean_savings),
+                "iterative_t1_quality": float(mean_t1),
+                "iterative_best_quality": float(mean_best),
+                "revision_quality_gain": float(mean_best - mean_t1),
+            }
+            if mean_oneshot_q is not None:
+                result["oneshot_quality"] = float(mean_oneshot_q)
+            return result
+
+        result = {"n": len(comparisons), "mean_token_savings": float(mean_savings)}
+        if mean_oneshot_q is not None:
+            result["oneshot_quality"] = float(mean_oneshot_q)
+        return result
 
     return {}
 
@@ -572,6 +1057,13 @@ def rq10_reversibility() -> dict:
         print("  No reversibility data.")
         return {}
 
+    # Build revision flags for T5 to stratify results
+    trials = load_jsonl(S3_WORKER_TRIALS_PATH)
+    t5_is_revision = {}
+    for trial in [t for t in trials if t.get("status") == "success"]:
+        if len(trial["responses"]) >= 5:
+            t5_is_revision[trial["trial_id"]] = classify_revision(trial["responses"][4])
+
     valid = [r for r in results if r.get("prefers_turn1") is not None]
     prefers_t1 = sum(1 for r in valid if r["prefers_turn1"])
     prefers_t5 = sum(1 for r in valid if not r["prefers_turn1"])
@@ -581,7 +1073,16 @@ def rq10_reversibility() -> dict:
     t1_rate = prefers_t1 / total if total > 0 else 0
 
     print(f"  Total comparisons: {len(results)} (valid: {total}, ties: {ties})")
-    print(f"  Prefers Turn 1: {prefers_t1} ({t1_rate:.1%})")
+
+    # Stratify by T5 revision status first to get clean headline
+    rev_valid = [r for r in valid if t5_is_revision.get(r.get("worker_trial_id", ""), True)]
+    meta_valid_list = [r for r in valid if not t5_is_revision.get(r.get("worker_trial_id", ""), True)]
+
+    if rev_valid:
+        rev_t1_count = sum(1 for r in rev_valid if r["prefers_turn1"])
+        rev_rate = rev_t1_count / len(rev_valid)
+        print(f"  HEADLINE (revision-only): Prefers T1 {rev_t1_count}/{len(rev_valid)} ({rev_rate:.1%})")
+    print(f"  Including meta-responses: Prefers T1 {prefers_t1}/{total} ({t1_rate:.1%})")
     print(f"  Prefers Turn 5: {prefers_t5} ({1-t1_rate:.1%})")
 
     if total > 0:
@@ -589,6 +1090,31 @@ def rq10_reversibility() -> dict:
         print(f"  Binomial test (vs 50%): p={binom_p:.4f}")
     else:
         binom_p = None
+
+    print(f"\n  Stratified by T5 content type:")
+    if rev_valid:
+        print(f"    T5 is revision (n={len(rev_valid)}): T1 preferred {rev_t1_count}/{len(rev_valid)} ({rev_rate:.1%})")
+    if meta_valid_list:
+        meta_t1 = sum(1 for r in meta_valid_list if r["prefers_turn1"])
+        meta_rate = meta_t1 / len(meta_valid_list)
+        print(f"    T5 is meta-response (n={len(meta_valid_list)}): T1 preferred {meta_t1}/{len(meta_valid_list)} ({meta_rate:.1%})")
+
+    # Length-ratio robustness check: only compare length-stable pairs
+    trial_resp_map = {t["trial_id"]: t["responses"] for t in trials if t.get("status") == "success"}
+    length_stable = []
+    for r in valid:
+        trial_id = r.get("worker_trial_id", "")
+        resps = trial_resp_map.get(trial_id)
+        if resps and len(resps) >= 5:
+            len_t1 = len(resps[0])
+            len_t5 = len(resps[4])
+            ratio = abs(len_t5 - len_t1) / max(len_t1, 1)
+            if ratio < 0.3:
+                length_stable.append(r)
+    if length_stable:
+        ls_t1 = sum(1 for r in length_stable if r["prefers_turn1"])
+        ls_rate = ls_t1 / len(length_stable)
+        print(f"    Length-stable pairs (|len_ratio| < 0.3, n={len(length_stable)}): T1 preferred {ls_t1}/{len(length_stable)} ({ls_rate:.1%})")
 
     domain_results = {}
     for r in valid:
@@ -606,7 +1132,23 @@ def rq10_reversibility() -> dict:
         rate = counts["t1"] / n if n > 0 else 0
         print(f"    {domain}: T1 preferred {counts['t1']}/{n} ({rate:.1%})")
 
-    return {"prefers_t1_rate": float(t1_rate), "n": total, "binom_p": binom_p, "by_domain": domain_results}
+    result = {
+        "prefers_t1_rate": float(t1_rate),
+        "n": total,
+        "binom_p": binom_p,
+        "by_domain": domain_results,
+    }
+    if rev_valid:
+        result["revision_only_t1_rate"] = float(rev_t1_count / len(rev_valid))
+        result["revision_only_n"] = len(rev_valid)
+    if meta_valid_list:
+        result["meta_response_t1_rate"] = float(sum(1 for r in meta_valid_list if r["prefers_turn1"]) / len(meta_valid_list))
+        result["meta_response_n"] = len(meta_valid_list)
+    if length_stable:
+        result["length_stable_t1_rate"] = float(ls_t1 / len(length_stable))
+        result["length_stable_n"] = len(length_stable)
+
+    return result
 
 
 # ── RQ11: Cross-model convergence ──
@@ -620,7 +1162,11 @@ def rq11_convergence() -> dict:
     for trial in successful:
         key = (trial["scenario_id"], trial["run"])
         for turn_idx, response in enumerate(trial["responses"]):
-            grouped[key][turn_idx + 1][trial["model"]] = len(response)
+            turn = turn_idx + 1
+            # Skip meta-responses to avoid comparing content length with decline length
+            if turn >= 2 and not classify_revision(response):
+                continue
+            grouped[key][turn][trial["model"]] = len(response)
 
     cv_by_turn = defaultdict(list)
     for key, turns in grouped.items():
@@ -662,14 +1208,21 @@ def rq12_instruction_adherence(worker_df: pd.DataFrame) -> dict:
     for trial in successful:
         task_words = set(trial["task_prompt"].lower().split())
         for turn_idx, response in enumerate(trial["responses"]):
+            turn = turn_idx + 1
+            # Skip meta-responses -- a decline to revise has low task overlap
+            # by nature, not because of adherence decay
+            if turn >= 2 and not classify_revision(response):
+                continue
             resp_words = set(response.lower().split())
             overlap = len(task_words & resp_words) / len(task_words) if task_words else 0
+            resp_word_count = len(response.split())
             rows.append({
                 "trial_id": trial["trial_id"],
                 "model": trial["model"],
                 "domain": trial["domain"],
-                "turn": turn_idx + 1,
+                "turn": turn,
                 "task_overlap": overlap,
+                "response_length": resp_word_count,
             })
 
     df = pd.DataFrame(rows)
@@ -683,12 +1236,32 @@ def rq12_instruction_adherence(worker_df: pd.DataFrame) -> dict:
     for turn, overlap in overlap_by_turn.items():
         print(f"  {turn}   | {overlap:.3f}")
 
-    rho, p = sp_stats.spearmanr(df["turn"], df["task_overlap"])
-    print(f"\n  Spearman (turn vs overlap): rho={rho:.3f}, p={p:.4f}")
+    # Per-trial slopes to avoid pseudoreplication (Judge 5 verdict)
+    slopes = []
+    for tid, grp in df.groupby("trial_id"):
+        if len(grp) >= 2:
+            slope = np.polyfit(grp["turn"], grp["task_overlap"], 1)[0]
+            slopes.append(slope)
+    if slopes:
+        t_stat, p_val = sp_stats.ttest_1samp(slopes, 0)
+        mean_slope = np.mean(slopes)
+        print(f"\n  Per-trial slope (turn vs overlap): mean={mean_slope:.4f}, t={t_stat:.2f}, p={p_val:.4f}, n={len(slopes)}")
+    else:
+        mean_slope, p_val = 0, 1.0
+
+    # Length covariate: partial correlation via OLS residualization (Judge 5 verdict)
+    if len(df) > 2 and df["response_length"].std() > 0:
+        resid_overlap = df["task_overlap"] - np.polyval(np.polyfit(df["response_length"], df["task_overlap"], 1), df["response_length"])
+        resid_turn = df["turn"] - np.polyval(np.polyfit(df["response_length"], df["turn"], 1), df["response_length"])
+        rho_partial, p_partial = sp_stats.spearmanr(resid_turn, resid_overlap)
+        print(f"  Length-controlled partial correlation: rho={rho_partial:.3f}, p={p_partial:.4f}")
+    else:
+        rho_partial, p_partial = 0, 1.0
 
     return {
         "overlap_by_turn": {int(k): float(v) for k, v in overlap_by_turn.items()},
-        "correlation": {"rho": float(rho), "p": float(p)},
+        "trend": {"mean_slope": float(mean_slope), "p": float(p_val), "n_trials": len(slopes)},
+        "length_controlled": {"rho_partial": float(rho_partial), "p": float(p_partial)},
     }
 
 
@@ -765,12 +1338,41 @@ def rq14_self_reflection() -> dict:
         turns = by_model[model]
         print(f"    {model}: mean={np.mean(turns):.2f}, not-last={sum(1 for t in turns if t < 5)}/{len(turns)}")
 
-    return {
+    # Stratify by meta-response contamination in conversation history (Judge 3 verdict)
+    trials = load_jsonl(S3_WORKER_TRIALS_PATH)
+    trial_map = {t["trial_id"]: t for t in trials if t.get("status") == "success"}
+    clean_recs = []
+    contaminated_recs = []
+    for r in valid:
+        trial = trial_map.get(r.get("worker_trial_id", ""))
+        if not trial:
+            continue
+        meta_count = sum(1 for i, resp in enumerate(trial["responses"]) if i >= 1 and not classify_revision(resp))
+        if meta_count == 0:
+            clean_recs.append(r["recommended_turn"])
+        else:
+            contaminated_recs.append(r["recommended_turn"])
+
+    print(f"\n  By meta-response contamination:")
+    if clean_recs:
+        print(f"    0 meta turns (n={len(clean_recs)}): mean recommended={np.mean(clean_recs):.2f}")
+    if contaminated_recs:
+        print(f"    1+ meta turns (n={len(contaminated_recs)}): mean recommended={np.mean(contaminated_recs):.2f}")
+
+    result = {
         "mean_recommended_turn": float(mean_rec),
         "distribution": dict(rec_dist),
         "not_last_rate": float(not_last_rate),
         "by_model": {m: {"mean": float(np.mean(t)), "n": len(t)} for m, t in by_model.items()},
     }
+    if clean_recs:
+        result["clean_mean_rec"] = float(np.mean(clean_recs))
+        result["clean_n"] = len(clean_recs)
+    if contaminated_recs:
+        result["contaminated_mean_rec"] = float(np.mean(contaminated_recs))
+        result["contaminated_n"] = len(contaminated_recs)
+
+    return result
 
 
 # ── RQ15: Revision Yield Equations (MRY, CRY, CARY) ──
@@ -806,13 +1408,19 @@ def compute_cry(quality_by_turn: dict, tokens_by_turn: dict) -> dict:
 
 
 def compute_cary(quality_by_turn: dict, tokens_by_turn: dict, C: float) -> dict:
-    """Cost-Adjusted Revision Yield: CARY(t) = [Q(t)/6] * e^(-C * T_cum(t))"""
+    """Cost-Adjusted Revision Yield: CARY(t) = Q(t)/6 - C * T_cum(t)
+
+    Linear penalty replaces original exponential (Judge 2 verdict):
+    exponential collapsed discriminative power across budget tiers.
+    Linear form directly mirrors per-token pricing and produces
+    distinct optimal stops at different C values.
+    """
     turns = sorted(quality_by_turn.keys())
     cary = {}
     t_cum = 0
     for t in turns:
         t_cum += tokens_by_turn.get(t, 0)
-        cary[t] = (quality_by_turn[t] / 6.0) * math.exp(-C * t_cum)
+        cary[t] = (quality_by_turn[t] / 6.0) - C * t_cum
     return cary
 
 
@@ -830,15 +1438,15 @@ def rq15_revision_yield_equations(eval_df: pd.DataFrame, worker_df: pd.DataFrame
     mry = compute_mry(level_by_turn, tokens_by_turn)
     cry = compute_cry(level_by_turn, tokens_by_turn)
 
-    # CARY at multiple C values
+    # CARY at multiple C values (recalibrated for linear penalty)
     c_values = {
         "unlimited": 0,
-        "api_heavy": 2e-8,
-        "api_light": 2e-7,
-        "pro": 5e-7,
-        "max": 1e-6,
-        "plus": 2e-6,
-        "free": 1e-5,
+        "api_heavy": 1e-5,
+        "api_light": 5e-5,
+        "pro": 1e-4,
+        "max": 2e-4,
+        "plus": 5e-4,
+        "free": 1e-3,
     }
 
     cary_results = {}
@@ -850,9 +1458,9 @@ def rq15_revision_yield_equations(eval_df: pd.DataFrame, worker_df: pd.DataFrame
             t_star = max(cary.keys(), key=lambda t: cary[t])
             optimal_stops[label] = int(t_star)
 
-    print(f"\nMRY: {mry}")
-    print(f"CRY: {cry}")
-    print(f"Optimal stopping turns by budget tier: {optimal_stops}")
+    print(f"\nAggregate MRY: {mry}")
+    print(f"Aggregate CRY: {cry}")
+    print(f"Aggregate optimal stops by budget tier: {optimal_stops}")
 
     # DRP using MRY definition
     drp = None
@@ -861,14 +1469,44 @@ def rq15_revision_yield_equations(eval_df: pd.DataFrame, worker_df: pd.DataFrame
             drp = t
             break
 
-    print(f"DRP (first turn with MRY <= 0): {drp}")
+    print(f"Aggregate DRP (first turn with MRY <= 0): {drp}")
+
+    # Per-model breakdown (Judge 2 verdict: aggregate hides sign flips)
+    per_model = {}
+    print(f"\nPer-model breakdown:")
+    for model in sorted(rev_eval["model"].unique()):
+        m_eval = rev_eval[rev_eval["model"] == model]
+        m_worker = worker_df[(worker_df["model"] == model) & (worker_df["revised"] == True)]
+        m_level = m_eval.groupby("turn")["level"].mean().to_dict()
+        m_tokens = m_worker.groupby("turn")["output_tokens"].mean().to_dict()
+
+        m_mry = compute_mry(m_level, m_tokens)
+        m_cary = compute_cary(m_level, m_tokens, 1e-4)  # Pro tier
+        m_drp = None
+        for t in sorted(m_mry.keys()):
+            if m_mry[t] <= 0:
+                m_drp = t
+                break
+        m_tstar = max(m_cary.keys(), key=lambda t: m_cary[t]) if m_cary else 1
+
+        per_model[model] = {
+            "level_by_turn": {int(k): float(v) for k, v in m_level.items()},
+            "mry": {int(k): float(v) for k, v in m_mry.items()},
+            "drp": m_drp,
+            "cary_tstar_pro": int(m_tstar),
+        }
+        traj = [f"{m_level.get(t, 0):.2f}" for t in sorted(m_level.keys())]
+        print(f"  {model}: traj={traj}, DRP={m_drp}, CARY_t*={m_tstar}")
 
     return {
-        "mry": {int(k): float(v) for k, v in mry.items()},
-        "cry": {int(k): float(v) for k, v in cry.items()},
-        "cary": cary_results,
-        "optimal_stops": optimal_stops,
-        "drp": drp,
+        "aggregate": {
+            "mry": {int(k): float(v) for k, v in mry.items()},
+            "cry": {int(k): float(v) for k, v in cry.items()},
+            "cary": cary_results,
+            "optimal_stops": optimal_stops,
+            "drp": drp,
+        },
+        "per_model": per_model,
     }
 
 
@@ -917,7 +1555,7 @@ def rq16_unit_economics(eval_df: pd.DataFrame, worker_df: pd.DataFrame) -> dict:
         full_tokens = sum(tokens_by_turn.get(t, 0) for t in turns)
 
         # Find optimal stop using CARY at C=5e-7 (Pro tier)
-        cary = compute_cary(level_by_turn, tokens_by_turn, 5e-7)
+        cary = compute_cary(level_by_turn, tokens_by_turn, 1e-4)
         t_star = max(cary.keys(), key=lambda t: cary[t]) if cary else 1
         opt_tokens = sum(tokens_by_turn.get(t, 0) for t in turns if t <= t_star)
 
@@ -959,7 +1597,7 @@ def rq16_unit_economics(eval_df: pd.DataFrame, worker_df: pd.DataFrame) -> dict:
             d_turns = sorted(d_level.keys())
             if not d_turns:
                 continue
-            d_cary = compute_cary(d_level, d_tokens, 5e-7)
+            d_cary = compute_cary(d_level, d_tokens, 1e-4)
             d_tstar = max(d_cary.keys(), key=lambda t: d_cary[t]) if d_cary else 1
             d_full = sum(d_tokens.get(t, 0) for t in d_turns)
             d_opt = sum(d_tokens.get(t, 0) for t in d_turns if t <= d_tstar)
@@ -993,8 +1631,9 @@ def rq17_overcorrection_magnitude(eval_df: pd.DataFrame, worker_df: pd.DataFrame
     rev_eval = get_revision_only_eval(eval_df)
     print(f"  (Using revision-only quality: meta-responses excluded as N/A)")
 
-    # For each trial, find t_done (first revision turn with level >= 4)
-    drp_per_trial = rev_eval[rev_eval["level"] >= 4].groupby("worker_trial_id")["turn"].min()
+    # For each trial, find t_done (first revision turn >= T2 with level >= 4)
+    # Only count trials where revision actually occurred before reaching threshold (Judge 2 verdict)
+    drp_per_trial = rev_eval[(rev_eval["level"] >= 4) & (rev_eval["turn"] >= 2)].groupby("worker_trial_id")["turn"].min()
 
     trials = load_jsonl(S3_WORKER_TRIALS_PATH)
     trial_data = {}
@@ -1023,12 +1662,13 @@ def rq17_overcorrection_magnitude(eval_df: pd.DataFrame, worker_df: pd.DataFrame
             continue
         td = trial_data[trial_id]
         n_turns = td["n_turns"]
-        max_er = n_turns - t_done
+        # max_er = maximum possible excess rounds (if task was done at turn 1)
+        max_er = n_turns - 1
 
         if max_er <= 0:
             continue
 
-        # Component 1: Excess Rounds
+        # Component 1: Excess Rounds (turns after DRP)
         er = n_turns - t_done
 
         # Component 2: Wasted Token Fraction
@@ -1205,6 +1845,9 @@ def structural_bloat_analysis() -> dict:
         for turn_idx, response in enumerate(trial["responses"]):
             if response is None:
                 continue
+            turn = turn_idx + 1
+            if turn >= 2 and not classify_revision(response):
+                continue
             headers = len(re.findall(r'^#{1,6}\s', response, re.MULTILINE))
             bullets = len(re.findall(r'^[\s]*[-*]\s', response, re.MULTILINE))
             numbered = len(re.findall(r'^[\s]*\d+[.)]\s', response, re.MULTILINE))
@@ -1240,9 +1883,19 @@ def structural_bloat_analysis() -> dict:
               f"{row['numbered_items']:.1f}        | {row['code_blocks']:.1f}          | "
               f"{row['bold_phrases']:.1f}   | {row['total_structure']:.1f}")
 
-    rho, p = sp_stats.spearmanr(df["turn"], df["total_structure"])
-    print(f"\n  Spearman (turn vs total structure): rho={rho:.3f}, p={p:.4f}")
-    print(f"  {'Structure increases over turns' if rho > 0 else 'Structure stable or decreasing'}")
+    # Per-trial slopes to avoid pseudoreplication (Judge 5 verdict)
+    struct_slopes = []
+    for tid, grp in df.groupby("trial_id"):
+        if len(grp) >= 2:
+            slope = np.polyfit(grp["turn"], grp["total_structure"], 1)[0]
+            struct_slopes.append(slope)
+    if struct_slopes:
+        t_stat, p = sp_stats.ttest_1samp(struct_slopes, 0)
+        mean_slope = np.mean(struct_slopes)
+        print(f"\n  Per-trial slope (turn vs structure): mean={mean_slope:.2f}, t={t_stat:.2f}, p={p:.4f}, n={len(struct_slopes)}")
+        print(f"  {'Structure increases over turns' if mean_slope > 0 else 'Structure stable or decreasing'}")
+    else:
+        mean_slope, p = 0, 1.0
 
     by_model = {}
     for model in sorted(df["model"].unique()):
@@ -1257,7 +1910,7 @@ def structural_bloat_analysis() -> dict:
 
     return {
         "by_turn": {int(t): {c: float(v) for c, v in row.items()} for t, row in by_turn.iterrows()},
-        "correlation": {"rho": float(rho), "p": float(p)},
+        "trend": {"mean_slope": float(mean_slope), "p": float(p), "n_trials": len(struct_slopes)},
         "by_model": by_model,
     }
 
@@ -1318,6 +1971,9 @@ def semantic_similarity_analysis() -> dict:
         for i in range(1, len(resps)):
             if resps[i] is None or resps[i-1] is None:
                 continue
+            # Skip meta-responses
+            if not classify_revision(resps[i]):
+                continue
             sim = _tfidf_cosine(resps[i-1], resps[i])
             rows.append({
                 "trial_id": trial["trial_id"],
@@ -1330,6 +1986,8 @@ def semantic_similarity_analysis() -> dict:
         if resps[0] is not None:
             for i in range(1, len(resps)):
                 if resps[i] is None:
+                    continue
+                if not classify_revision(resps[i]):
                     continue
                 sim = _tfidf_cosine(resps[0], resps[i])
                 rows.append({
@@ -1360,14 +2018,24 @@ def semantic_similarity_analysis() -> dict:
     for turn, sim in drift_by_turn.items():
         print(f"  T1 vs T{int(turn)}: {sim:.3f}")
 
-    rho, p = sp_stats.spearmanr(drift["turn"], drift["cosine_sim"])
-    print(f"\n  Spearman (turn vs T1-similarity): rho={rho:.3f}, p={p:.4f}")
-    print(f"  {'Drifting from original' if rho < 0 else 'Staying close to original'}")
+    # Per-trial slopes to avoid pseudoreplication (Judge 5 verdict)
+    drift_slopes = []
+    for tid, grp in drift.groupby("trial_id"):
+        if len(grp) >= 2:
+            slope = np.polyfit(grp["turn"], grp["cosine_sim"], 1)[0]
+            drift_slopes.append(slope)
+    if drift_slopes:
+        t_stat, p = sp_stats.ttest_1samp(drift_slopes, 0)
+        mean_slope = np.mean(drift_slopes)
+        print(f"\n  Per-trial slope (turn vs T1-similarity): mean={mean_slope:.4f}, t={t_stat:.2f}, p={p:.4f}, n={len(drift_slopes)}")
+        print(f"  {'Drifting from original' if mean_slope < 0 else 'Staying close to original'}")
+    else:
+        mean_slope, p = 0, 1.0
 
     return {
         "consecutive_similarity": {int(t): float(v) for t, v in by_turn.items()},
         "drift_from_t1": {int(t): float(v) for t, v in drift_by_turn.items()},
-        "drift_correlation": {"rho": float(rho), "p": float(p)},
+        "drift_trend": {"mean_slope": float(mean_slope), "p": float(p), "n_trials": len(drift_slopes)},
     }
 
 
@@ -1634,6 +2302,9 @@ def constraint_satisfaction_analysis(eval_df: pd.DataFrame) -> dict:
         if not task_words:
             continue
         for turn_idx, response in enumerate(trial["responses"]):
+            turn = turn_idx + 1
+            if turn >= 2 and not classify_revision(response):
+                continue
             resp_words = set(re.findall(r'\b\w{4,}\b', response.lower()))
             recall = len(task_words & resp_words) / len(task_words)
             rows.append({
@@ -1655,9 +2326,18 @@ def constraint_satisfaction_analysis(eval_df: pd.DataFrame) -> dict:
     for turn, recall in by_turn.items():
         print(f"  {turn}   | {recall:.3f}")
 
-    # Test for decline
-    rho, p = sp_stats.spearmanr(df["turn"], df["constraint_recall"])
-    print(f"\n  Spearman (turn vs recall): rho={rho:.3f}, p={p:.4f}")
+    # Per-trial slopes to avoid pseudoreplication (Judge 5 verdict)
+    recall_slopes = []
+    for tid, grp in df.groupby("trial_id"):
+        if len(grp) >= 2:
+            slope = np.polyfit(grp["turn"], grp["constraint_recall"], 1)[0]
+            recall_slopes.append(slope)
+    if recall_slopes:
+        t_stat, p = sp_stats.ttest_1samp(recall_slopes, 0)
+        mean_slope = np.mean(recall_slopes)
+        print(f"\n  Per-trial slope (turn vs recall): mean={mean_slope:.4f}, t={t_stat:.2f}, p={p:.4f}, n={len(recall_slopes)}")
+    else:
+        mean_slope, p = 0, 1.0
 
     # Per-trial: flag trials where recall drops by >10% from T1 to T5
     t1_recall = df[df["turn"] == 1].set_index("trial_id")["constraint_recall"]
@@ -1672,8 +2352,82 @@ def constraint_satisfaction_analysis(eval_df: pd.DataFrame) -> dict:
 
     return {
         "recall_by_turn": {int(k): float(v) for k, v in by_turn.items()},
-        "correlation": {"rho": float(rho), "p": float(p)},
+        "trend": {"mean_slope": float(mean_slope), "p": float(p), "n_trials": len(recall_slopes)},
         "significant_drop_rate": float(significant_drops / len(shared)) if shared else 0.0,
+    }
+
+
+# ── Survivorship Analysis (Judge 1 verdict) ──
+
+def survivorship_analysis(worker_df: pd.DataFrame, eval_df: pd.DataFrame) -> dict:
+    """Analyze attrition as a study variable, not a confound.
+
+    The 65% of trials that self-terminate via meta-responses are themselves
+    evidence of overcorrection resistance. The balanced panel (trials completing
+    all 5 turns as revisions) serves as a robustness check.
+    """
+    print("\n== Survivorship Analysis ==")
+
+    # Per-turn survival rate (fraction still actively revising)
+    survival_by_turn = {}
+    for t in range(1, 6):
+        t_data = worker_df[worker_df["turn"] == t]
+        if len(t_data) > 0:
+            survival_by_turn[t] = float(t_data["revised"].mean()) if t >= 2 else 1.0
+
+    print(f"\nOverall survival rate (fraction revising) by turn:")
+    for t, rate in sorted(survival_by_turn.items()):
+        print(f"  Turn {t}: {rate:.1%}")
+
+    # Per-model survival
+    per_model_survival = {}
+    print(f"\nPer-model T1-to-T5 survival rate:")
+    for model in sorted(worker_df["model"].unique()):
+        m_df = worker_df[(worker_df["model"] == model) & (worker_df["turn"] == 5)]
+        if len(m_df) > 0:
+            rate = float(m_df["revised"].mean())
+        else:
+            rate = 0.0
+        per_model_survival[model] = rate
+        print(f"  {model}: {rate:.1%}")
+
+    # Balanced panel: trials where model revised at ALL 5 turns
+    trial_survival = worker_df[worker_df["turn"] >= 2].groupby("trial_id")["revised"].all()
+    balanced_ids = set(trial_survival[trial_survival].index)
+    total_trials = len(trial_survival)
+    print(f"\nBalanced panel: {len(balanced_ids)}/{total_trials} trials ({len(balanced_ids)/total_trials:.1%}) revised at all turns")
+
+    # Balanced panel quality trajectory (robustness check)
+    rev_eval = get_revision_only_eval(eval_df)
+    balanced_eval = rev_eval[rev_eval["worker_trial_id"].isin(balanced_ids)]
+    balanced_level = balanced_eval.groupby("turn")["level"].mean()
+    print(f"\nBalanced panel quality trajectory:")
+    for t in sorted(balanced_level.index):
+        print(f"  Turn {t}: {balanced_level[t]:.2f} (n={len(balanced_eval[balanced_eval['turn'] == t])})")
+
+    # Compare T1 quality: survivors vs non-survivors
+    t1_eval = eval_df[eval_df["turn"] == 1]
+    survivor_t1 = t1_eval[t1_eval["worker_trial_id"].isin(balanced_ids)]["level"]
+    nonsurvivor_t1 = t1_eval[~t1_eval["worker_trial_id"].isin(balanced_ids)]["level"]
+
+    if len(survivor_t1) > 0 and len(nonsurvivor_t1) > 0:
+        u_stat, mann_p = sp_stats.mannwhitneyu(survivor_t1, nonsurvivor_t1, alternative="two-sided")
+        print(f"\n  T1 quality: survivors={survivor_t1.mean():.2f} (n={len(survivor_t1)}), "
+              f"non-survivors={nonsurvivor_t1.mean():.2f} (n={len(nonsurvivor_t1)})")
+        print(f"  Mann-Whitney U: U={u_stat:.0f}, p={mann_p:.4f}")
+        mann_result = {"U": float(u_stat), "p": float(mann_p),
+                       "survivor_mean": float(survivor_t1.mean()),
+                       "nonsurvivor_mean": float(nonsurvivor_t1.mean())}
+    else:
+        mann_result = {}
+
+    return {
+        "survival_by_turn": survival_by_turn,
+        "per_model_survival": per_model_survival,
+        "balanced_panel_n": len(balanced_ids),
+        "balanced_panel_pct": float(len(balanced_ids) / total_trials) if total_trials > 0 else 0,
+        "balanced_panel_level_by_turn": {int(t): float(balanced_level[t]) for t in balanced_level.index},
+        "t1_quality_comparison": mann_result,
     }
 
 
@@ -1701,19 +2455,22 @@ def main():
     # Data integrity check (run first, before any analysis)
     results["validation"] = validate_data_integrity(worker_df, eval_df)
 
+    # Edge case framework: decompose aggregates, flag compositional artifacts
+    results["edge_cases"] = edge_case_framework(worker_df, eval_df)
+
     results["rq1"] = rq1_revision_yield_curve(worker_df, eval_df)
     results["rq2"] = rq2_drp_by_domain(eval_df)
     results["rq3"] = rq3_overcorrection_rate(worker_df, eval_df)
-    results["rq4"] = rq4_compliance_mechanism(worker_df, eval_df)
+    results["rq4"] = rq4_revision_despite_sufficiency(worker_df, eval_df)
     results["rq5"] = rq5_token_cost(worker_df, eval_df)
     results["rq6"] = rq6_stylistic_drift(worker_df)
     results["rq7"] = rq7_targeted_feedback()
     results["rq8"] = rq8_cross_model(worker_df, eval_df)
     results["rq9"] = rq9_oneshot_ceiling(eval_df)
     results["rq10"] = rq10_reversibility()
-    results["rq11"] = rq11_convergence()
+    # RQ11 dropped: character-length CV does not measure semantic convergence (Judge 5 verdict)
+    # RQ13 dropped: word-list cosmetic detector produces degenerate 0.3% rate (Judge 5 verdict)
     results["rq12"] = rq12_instruction_adherence(worker_df)
-    results["rq13"] = rq13_performative_revision()
     results["rq14"] = rq14_self_reflection()
     results["rq15"] = rq15_revision_yield_equations(eval_df, worker_df)
     results["rq16"] = rq16_unit_economics(eval_df, worker_df)
@@ -1721,9 +2478,11 @@ def main():
     results["revision_efficiency"] = revision_efficiency_analysis(worker_df)
     results["structural_bloat"] = structural_bloat_analysis()
     results["semantic_similarity"] = semantic_similarity_analysis()
-    results["wavering"] = wavering_analysis(eval_df)
+    # Use revision-only eval for wavering to avoid meta-response Level 1 creating false sign-changes (Judge 3 verdict)
+    results["wavering"] = wavering_analysis(get_revision_only_eval(eval_df))
     results["constraint_satisfaction"] = constraint_satisfaction_analysis(eval_df)
     results["position_bias"] = position_bias_check()
+    results["survivorship"] = survivorship_analysis(worker_df, eval_df)
 
     results_path = S3_STATS_DIR / "study3_results.json"
     with open(results_path, "w") as f:

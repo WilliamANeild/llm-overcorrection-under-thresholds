@@ -122,3 +122,66 @@ Threshold alignment & 0.339 & 38.3 & 85.0 \\
 \caption{Inter-rater reliability for Study~2 (quadratic-weighted Cohen's $\kappa$, GPT-4o vs.\ Claude Sonnet 4, $n = 60$).}
 \label{tab:irr-momentum}
 \end{table}
+
+\subsection{Study 3: Revision Yield}
+\label{sec:study3-methods}
+
+Studies~1 and~2 establish that the revision gate is controlled by prompt phrasing, not quality thresholds, and that conversational momentum can shift the gate. Study~3 tests the downstream consequence: when a model is given repeated opportunities to revise across multiple turns, does output quality improve, plateau, or degrade?
+
+\paragraph{Design.} We use a five-turn conversational design in which the model produces an initial output (Turn~1) and is then asked at each subsequent turn whether it would like to revise. The working probe is deliberately balanced: ``Would you like to keep this as your final version, or would you like to revise it?'' This offers an explicit off-ramp at every turn, unlike the leading probe in Studies~1--2, making any persistent revision a stronger signal of the model's revision disposition.
+
+The experiment crosses 6 models $\times$ 40 scenarios $\times$ 3 runs $=$ \textbf{720 trials} (3,600 model-turn observations). The six models are Claude Sonnet~4, GPT-4o, Gemini~2.5 Flash, Llama~3.3~70B, Qwen~3~235B, and DeepSeek~V4. The 40 scenarios span five task domains (Table~\ref{tab:s3-domains}): code (8 tasks), data logic (8), analysis (8), writing (8), and creative writing (8). All generation uses temperature~1.0.
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{@{}lrl@{}}
+\toprule
+\textbf{Domain} & \textbf{$n$} & \textbf{Example tasks} \\
+\midrule
+Code & 8 & Debounce function, email validator \\
+Data logic & 8 & Discount stacking, scheduling \\
+Analysis & 8 & Quarterly sales summary, policy memo \\
+Writing & 8 & PTO request, LinkedIn announcement \\
+Creative & 8 & Story opening, tone rewrite \\
+\bottomrule
+\end{tabular}
+\caption{Study~3 task domains. Each domain contains 8 scenarios.}
+\label{tab:s3-domains}
+\end{table}
+
+\paragraph{Response Classification.} At each turn $\geq 2$, the model's response is classified as either a \textit{revision} (the model produces new content) or a \textit{meta-response} (the model declines to revise, e.g., ``This looks good as is''). Classification uses keyword matching on the first 300 characters, with strong decline phrases (``no changes needed,'' ``this is my final version'') checked in all responses and weak decline phrases (``looks good'') checked only in short responses ($<$500 characters) to avoid false positives on responses that begin with a preamble and then revise. Meta-responses are excluded from quality scoring, receiving N/A rather than a numeric level; this ensures the quality trajectory reflects only responses where the model attempted to produce content.
+
+\paragraph{Blind Evaluation.} Each of the 3,600 model-turn outputs is scored by a blind evaluator on a six-level quality scale:
+\begin{enumerate}
+    \item \textbf{Inadequate:} Does not address the task or is off-topic.
+    \item \textbf{Incomplete:} Addresses the task but is missing requested components.
+    \item \textbf{Functional:} All components present but with clear weaknesses.
+    \item \textbf{Sufficient:} All components present and competently executed. A reasonable user would accept this.
+    \item \textbf{Polished:} Well-executed with thoughtfulness beyond the minimum.
+    \item \textbf{Overdone:} Adds unrequested complexity, excessive length, or has drifted from the original ask.
+\end{enumerate}
+Level~4 (``Sufficient'') is the threshold for task completion. The evaluator model was selected via a judge calibration phase (\S\ref{sec:judge-calibration}).
+
+\paragraph{Judge Calibration.}
+\label{sec:judge-calibration}
+To select the evaluator model, we drew a stratified sample of 64 responses (balanced across model, domain, and turn) and had three human raters (the first author and two research assistants) independently score each on the same six-level scale. We then ran each of the six candidate models as evaluator on the same 64 samples and selected the model whose scores best correlated with the human mean. Claude Sonnet~4 was selected (Spearman $r = 0.505$, $p < 0.001$, QW $\kappa = 0.526$). The next-best candidate (DeepSeek~V4) achieved $r = 0.340$; GPT-4o achieved only $r = 0.140$. All 3,600 evaluator judgments use Claude Sonnet~4.
+
+\paragraph{Human Validation.} Three raters independently scored 64 stratified samples on the six-level scale. Pairwise Spearman correlations range from $r = 0.50$ (Rater~1--Rater~3) to $r = 0.07$ (Rater~1--Rater~2), yielding Krippendorff's $\alpha = 0.237$ on the ordinal scale. However, binary agreement on the sufficient/not-sufficient threshold ($\geq 4$) is substantially higher: 90.6\% for the strongest rater pair and 75.0\% for all three raters, with human-evaluator threshold agreement at 85.9\%. The evaluator slightly overrates relative to humans (mean 4.50 vs.\ 4.30, bias $= +0.20$). We report ordinal reliability transparently and note that the binary threshold, which drives most of our analyses (revision-despite-sufficiency, DRP, overcorrection scoring), is well-validated.
+
+\paragraph{Analysis.} We define several metrics for the multi-turn revision trajectory:
+\begin{itemize}
+    \item \textbf{Revision-only quality trajectory:} Mean evaluator level at each turn, restricted to responses classified as revisions (meta-responses excluded).
+    \item \textbf{Diminishing Return Point (DRP):} The first turn at which marginal quality gain is $\leq 0$; equivalently, the last turn where revision adds value.
+    \item \textbf{Revision-despite-sufficiency rate:} The fraction of turns where the evaluator rated the output $\geq 4$ (Sufficient) but the model revised at the next turn anyway.
+    \item \textbf{Overcorrection Score (OCS):} A composite of excess rounds beyond DRP, wasted token fraction, and quality regression magnitude, restricted to trials where the model revised past the sufficiency threshold.
+\end{itemize}
+
+To guard against aggregation artifacts, we apply an edge case framework before interpreting quality trajectories. This framework decomposes all pooled statistics into (1) cohort-locked trajectories using a balanced panel of trials that revised at all five turns, (2) per-model trajectories to detect sign-flip masking, (3) T1 quality stratification separating trials that started below the sufficiency threshold from those already sufficient, and (4) a compositional audit checking whether shifting model proportions in the revision-only pool inflate apparent quality decline.
+
+\paragraph{Additional Phases.} Study~3 includes several targeted sub-experiments analyzed alongside the main results:
+\begin{itemize}
+    \item \textbf{Targeted feedback} (1,047 trials): For outputs rated level~1--3 by the evaluator, a second model instance receives the output plus a specific critique and produces a targeted revision, which is then blind-evaluated. This tests whether specific feedback outperforms the generic revision probe.
+    \item \textbf{Self-reflection} (720 trials): After the five-turn conversation, the same model is shown all its versions and asked which turn it would recommend the user actually use.
+    \item \textbf{Reversibility} (720 trials): A fresh model instance is shown the Turn~1 and Turn~5 outputs (in randomized order) and asked which better fulfills the task. This tests whether models prefer their own first drafts when freed from conversational momentum.
+\end{itemize}

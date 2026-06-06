@@ -138,3 +138,84 @@ GPT-4o's trajectory illustrates the range of the framing effect: affirming feedb
 \paragraph{Context Length Confound.} A potential concern is that momentum trials have longer conversation histories, and that context length itself drives revision behavior. We test this by correlating context length with revision outcomes. The correlation between threshold level and response length delta is $r = 0.015$, effectively zero, confirming that threshold conditions do not systematically differ in length. Within momentum trials, longer contexts actually predict \textit{less} revision, not more: the relationship runs opposite to what a length confound would predict. Response length rankings across models (Gemini $>$ Claude $>$ GPT-4o) are consistent with judge-based overcorrection rankings, providing convergent validity.
 
 \paragraph{Power.} Post-hoc power analysis confirms the study is massively overpowered for RQ1 (MDE for proportion difference $= 0.032$; observed $\approx 0.75$) and well-powered for RQ2 (MDE for $|\rho| = 0.064$; observed $0.14$--$0.50$).
+
+\subsection{Study 3: Revision Yield}
+
+Studies~1 and~2 show that the revision gate is phrasing-sensitive and that conversational momentum can shift it. Study~3 asks the downstream question: when a model is offered a balanced revision opportunity at every turn across five turns, what happens to output quality?
+
+\subsubsection{Quality Degrades With Revision}
+\label{sec:quality-degrades}
+
+Mean quality drops monotonically from 4.34 at Turn~1 to 2.45 at Turn~5 in the revision-only pool (Figure~\ref{fig:revision-yield}). The sharpest decline occurs between Turns~1 and~2 ($\Delta = -1.11$), with continued degradation at each subsequent turn. By Turn~5, the mean quality level has fallen below ``Incomplete'' on the six-level scale.
+
+The decline rate by turn shows a complementary pattern: 31.8\% of models decline to revise at Turn~2, rising to 64.9\% by Turn~5. Even the balanced probe, which explicitly offers an off-ramp, fails to prevent the majority of models from revising when revision degrades quality.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/study3/fig1_revision_yield_curve.png}
+    \caption{Revision yield curve (Study~3). Top: the working model's revision rate remains high even as the blind evaluator's ``done'' rate rises, producing an overcorrection gap. Bottom: mean quality level drops monotonically across turns. Annotations show per-turn marginal quality change.}
+    \label{fig:revision-yield}
+\end{figure}
+
+\paragraph{Controlling for Aggregation Artifacts.} The pooled trajectory overstates the decline. An edge case framework reveals three artifacts that inflate the apparent drop:
+
+\begin{enumerate}
+    \item \textbf{Compositional shift:} As models with high decline rates (Gemini: 87.5\% by Turn~5) exit the revision-only pool, models with low decline rates (Llama: 56.7\% survival) grow from 16.7\% to 26.9\% of the pool. This shifts the composition toward models that happen to revise more but are not necessarily worse.
+    \item \textbf{Survivorship bias:} Trials that stop revising early have slightly higher T1 quality (4.46 vs.\ 4.29 for survivors; $U = 37{,}508$, $p = 0.31$, not significant but directionally consistent). Higher-quality trials exit while lower-quality trials persist.
+    \item \textbf{T1 quality stratification:} 6.7\% of trials start below the sufficiency threshold (T1 $< 4$). These trials \textit{improve} with revision ($+2.22$ levels), while the 93.3\% that start sufficient \textit{degrade} ($-1.76$ levels). Pooling masks these opposing trajectories.
+\end{enumerate}
+
+A cohort-locked balanced panel restricted to the 135 trials (18.8\%) that revised at all five turns shows a T1-to-T5 drop of 1.23 levels (4.27 $\to$ 3.04), compared to 1.89 levels in the pooled analysis. \textbf{Compositional inflation accounts for 35\% of the pooled decline.} The remaining 65\% is genuine within-trial degradation: even tracking the same trials across all turns, quality falls by more than one full scale level.
+
+\subsubsection{Five of Six Models Overcorrect}
+
+The overcorrection pattern is consistent across five of six models (Table~\ref{tab:s3-model-comparison}). Llama~3.3~70B is the sole exception: it improves from 3.85 to 4.35 in the balanced panel ($\Delta = +1.02$, 61\% of trials improve). All other models degrade, with GPT-4o and Gemini showing the steepest drops.
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+\textbf{Model} & \textbf{T1} & \textbf{T5} & \textbf{$\Delta$} & \textbf{Surv.} \\
+\midrule
+Claude Sonnet 4 & 4.45 & 2.07 & $-2.38$ & 9\% \\
+DeepSeek V4 & 4.52 & 1.61 & $-2.91$ & 18\% \\
+Gemini 2.5 Flash & 4.52 & 1.33 & $-3.19$ & 2\% \\
+GPT-4o & 4.19 & 1.67 & $-2.52$ & 10\% \\
+Llama 3.3 70B & 3.85 & 4.35 & $+0.50$ & 45\% \\
+Qwen 3 235B & 4.52 & 1.76 & $-2.76$ & 29\% \\
+\bottomrule
+\end{tabular}
+\caption{Study~3 revision-only quality by model. T1 and T5 are mean evaluator levels; $\Delta$ is the change. Surv.\ is the fraction of trials where the model revised at all five turns. All models except Llama degrade.}
+\label{tab:s3-model-comparison}
+\end{table}
+
+The Diminishing Return Point (DRP) is Turn~2 for all five degrading models and all five task domains. Only Llama's DRP extends to Turn~3. After the DRP, 57.4\% of output tokens are wasted on quality-reducing revisions, totaling 615,299 tokens across the experiment.
+
+\subsubsection{Revision Despite Sufficiency}
+
+When the blind evaluator rates an output as sufficient (level $\geq 4$), the model revises at the next turn 64.3\% of the time (801 of 1,245 cases). This rate is stable across quality levels: 63.9\% for outputs rated exactly level~4, and 64.9\% for outputs rated level~5 or higher. Even outputs the evaluator considers polished are revised at nearly the same rate as merely adequate ones.
+
+The revision-despite-sufficiency rate decreases modestly across turns (67.3\% at T1$\to$T2, down to 51.5\% at T4$\to$T5), but remains above 50\% at every turn. Models do not learn to stop revising as the conversation progresses.
+
+\subsubsection{Models Recognize Their Own Overcorrection}
+
+Two convergent tests show that models prefer their earlier outputs when freed from conversational pressure:
+
+\paragraph{Reversibility.} A fresh model instance, shown the Turn~1 and Turn~5 outputs in randomized position, prefers Turn~1 in 83.7\% of revision-only comparisons (binomial $p < 0.0001$). A position bias check confirms the result is not driven by order effects: the model chose the first-presented option 51.3\% of the time ($p = 0.50$), and T1 preference is 93.0\% when T1 appears first vs.\ 93.6\% when T1 appears second. Restricting to length-stable pairs ($|\text{length ratio}| < 0.3$) preserves the effect (79.2\% T1 preference).
+
+\paragraph{Self-Reflection.} When asked to recommend the best turn from the full five-turn conversation, models recommend a mean turn of 2.44, with 90.7\% recommending a turn other than the last. The distribution peaks at Turn~1 (40.0\%) and Turn~3 (24.4\%). Model-level variation is large: DeepSeek and Gemini recommend Turn~1 on average (mean 1.38 and 1.37), while Llama recommends Turn~4 (mean 3.95), consistent with its unique improvement trajectory.
+
+\subsubsection{Targeted Feedback Outperforms Generic Probing}
+
+For outputs rated level~1--3 by the evaluator, targeted feedback (a specific critique plus a fresh revision) produces substantially higher quality than the generic next-turn revision: mean targeted level 4.74 vs.\ mean generic level 2.74, a difference of $+2.00$ levels (Wilcoxon $p < 0.0001$, $n = 424$ after excluding pairs where the generic baseline was a meta-response). This shows that the quality problem is not revision itself but \textit{undirected} revision: models revise poorly when given no signal about what to fix, but revise effectively when given specific feedback.
+
+\subsubsection{Content Drift and Instruction Loss}
+
+Revisions do not merely degrade in quality; they drift from the original task. Three measures confirm this:
+
+\begin{itemize}
+    \item \textbf{Instruction adherence} (task-word overlap) decays from 0.42 at Turn~1 to 0.29 at Turn~5 (per-trial slope $= -0.056$, $t = -12.50$, $p < 0.0001$). A length-controlled partial correlation remains significant ($\rho = -0.20$, $p < 0.0001$), confirming the decay is not explained by shorter responses alone.
+    \item \textbf{Semantic similarity} to Turn~1 drops from 0.51 (T1$\to$T2) to 0.37 (T1$\to$T5), with a per-trial slope of $-0.048$ ($t = -6.83$, $p < 0.0001$).
+    \item \textbf{Response length} shrinks from 289 words at Turn~1 to 186 at Turn~5 (per-trial slope $= -50.9$, $t = -9.30$, $p < 0.0001$), with each revision being a near-complete rewrite (edit ratio 0.97). Models do not make targeted edits; they regenerate the entire response from scratch, discarding more content with each iteration.
+\end{itemize}
