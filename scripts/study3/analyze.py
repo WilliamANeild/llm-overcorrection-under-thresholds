@@ -137,43 +137,126 @@ def load_evaluator() -> pd.DataFrame:
 def rq1_revision_yield_curve(worker_df: pd.DataFrame, eval_df: pd.DataFrame) -> dict:
     print("\n== RQ1: Revision Yield Curve ==")
 
+    # All-responses curve (what users actually experience)
     level_by_turn = eval_df.groupby("turn")["level"].mean()
     turns = sorted(level_by_turn.index)
 
-    # MRY = quality delta between consecutive turns
     mry = {}
     for i in range(1, len(turns)):
         mry[turns[i]] = float(level_by_turn[turns[i]] - level_by_turn[turns[i-1]])
 
-    print(f"\nMean level by turn: {dict(zip(turns, [f'{level_by_turn[t]:.2f}' for t in turns]))}")
+    print(f"\nAll responses - mean level by turn: {dict(zip(turns, [f'{level_by_turn[t]:.2f}' for t in turns]))}")
     print(f"Marginal Revision Yield: {mry}")
 
-    return {"level_by_turn": {int(t): float(level_by_turn[t]) for t in turns}, "mry": mry}
+    # Revision-only curve (excludes decline-to-revise meta-responses)
+    # Merge evaluator levels with worker revision classification
+    trials = load_jsonl(S3_WORKER_TRIALS_PATH)
+    revision_flags = {}
+    for trial in [t for t in trials if t.get("status") == "success"]:
+        for turn_idx, response in enumerate(trial["responses"]):
+            turn = turn_idx + 1
+            is_rev = True if turn == 1 else classify_revision(response)
+            revision_flags[(trial["trial_id"], turn)] = is_rev
+
+    eval_with_rev = eval_df.copy()
+    eval_with_rev["is_revision"] = eval_with_rev.apply(
+        lambda r: revision_flags.get((r["worker_trial_id"], r["turn"]), True), axis=1
+    )
+
+    rev_only = eval_with_rev[eval_with_rev["is_revision"]]
+    rev_level_by_turn = rev_only.groupby("turn")["level"].mean()
+    rev_count_by_turn = rev_only.groupby("turn")["level"].count()
+    declined_count = eval_with_rev[~eval_with_rev["is_revision"]].groupby("turn")["level"].count()
+
+    rev_mry = {}
+    rev_turns = sorted(rev_level_by_turn.index)
+    for i in range(1, len(rev_turns)):
+        rev_mry[rev_turns[i]] = float(rev_level_by_turn[rev_turns[i]] - rev_level_by_turn[rev_turns[i-1]])
+
+    print(f"\nRevision-only - mean level by turn: {dict(zip(rev_turns, [f'{rev_level_by_turn[t]:.2f}' for t in rev_turns]))}")
+    print(f"Revision-only MRY: {rev_mry}")
+    print(f"\nTurn | All (n, mean) | Revised (n, mean) | Declined (n, mean)")
+    print("-" * 70)
+    for t in turns:
+        all_n = len(eval_df[eval_df["turn"] == t])
+        all_m = level_by_turn[t]
+        rev_n = int(rev_count_by_turn.get(t, 0))
+        rev_m = float(rev_level_by_turn.get(t, 0))
+        dec_n = int(declined_count.get(t, 0))
+        dec_levels = eval_with_rev[(~eval_with_rev["is_revision"]) & (eval_with_rev["turn"] == t)]["level"]
+        dec_m = float(dec_levels.mean()) if len(dec_levels) > 0 else 0
+        print(f"  {t}   | {all_n:3d}, {all_m:.2f}    | {rev_n:3d}, {rev_m:.2f}      | {dec_n:3d}, {dec_m:.2f}")
+
+    # Decline rate by turn
+    decline_rate = {}
+    for t in turns:
+        total = len(eval_df[eval_df["turn"] == t])
+        declined = int(declined_count.get(t, 0))
+        decline_rate[int(t)] = float(declined / total) if total > 0 else 0
+    print(f"\nDecline rate by turn: {decline_rate}")
+
+    return {
+        "level_by_turn": {int(t): float(level_by_turn[t]) for t in turns},
+        "mry": mry,
+        "revision_only_level_by_turn": {int(t): float(rev_level_by_turn[t]) for t in rev_turns},
+        "revision_only_mry": rev_mry,
+        "revision_only_n_by_turn": {int(t): int(rev_count_by_turn.get(t, 0)) for t in turns},
+        "decline_rate_by_turn": decline_rate,
+    }
 
 
 # ── RQ2: DRP by domain ──
 
 def rq2_drp_by_domain(eval_df: pd.DataFrame) -> dict:
     print("\n== RQ2: Diminishing Return Point by Domain ==")
-    results = {}
 
+    # Build revision-only evaluator subset
+    trials = load_jsonl(S3_WORKER_TRIALS_PATH)
+    revision_flags = {}
+    for trial in [t for t in trials if t.get("status") == "success"]:
+        for turn_idx, response in enumerate(trial["responses"]):
+            turn = turn_idx + 1
+            is_rev = True if turn == 1 else classify_revision(response)
+            revision_flags[(trial["trial_id"], turn)] = is_rev
+
+    eval_with_rev = eval_df.copy()
+    eval_with_rev["is_revision"] = eval_with_rev.apply(
+        lambda r: revision_flags.get((r["worker_trial_id"], r["turn"]), True), axis=1
+    )
+    rev_only = eval_with_rev[eval_with_rev["is_revision"]]
+
+    results = {}
     for domain in sorted(eval_df["domain"].unique()):
         subset = eval_df[eval_df["domain"] == domain]
         level_by_turn = subset.groupby("turn")["level"].mean()
         turns = sorted(level_by_turn.index)
 
-        # DRP = first turn where evaluator level >= 4 (Sufficient)
+        # DRP on all responses
         drp = None
         for t in turns:
             if level_by_turn[t] >= 4.0:
                 drp = t
                 break
 
+        # DRP on revision-only
+        rev_subset = rev_only[rev_only["domain"] == domain]
+        rev_level = rev_subset.groupby("turn")["level"].mean()
+        rev_drp = None
+        for t in sorted(rev_level.index):
+            if rev_level[t] >= 4.0:
+                rev_drp = t
+                break
+
         results[domain] = {
             "level_by_turn": {int(t): float(level_by_turn[t]) for t in turns},
             "drp": drp,
+            "revision_only_level_by_turn": {int(t): float(rev_level[t]) for t in sorted(rev_level.index)},
+            "revision_only_drp": rev_drp,
         }
-        print(f"  {domain}: DRP at turn {drp}, level trajectory: {[f'{level_by_turn[t]:.2f}' for t in turns]}")
+        rev_traj = [f'{rev_level.get(t, 0):.2f}' for t in turns if t in rev_level.index]
+        print(f"  {domain}: DRP={drp} (all), DRP={rev_drp} (rev-only)")
+        print(f"    All:      {[f'{level_by_turn[t]:.2f}' for t in turns]}")
+        print(f"    Rev-only: {rev_traj}")
 
     return results
 
@@ -358,7 +441,24 @@ def rq7_targeted_feedback() -> dict:
 
 def rq8_cross_model(worker_df: pd.DataFrame, eval_df: pd.DataFrame) -> dict:
     print("\n== RQ8: Cross-Model Comparison ==")
+
+    # Build revision flags
+    trials = load_jsonl(S3_WORKER_TRIALS_PATH)
+    revision_flags = {}
+    for trial in [t for t in trials if t.get("status") == "success"]:
+        for turn_idx, response in enumerate(trial["responses"]):
+            turn = turn_idx + 1
+            is_rev = True if turn == 1 else classify_revision(response)
+            revision_flags[(trial["trial_id"], turn)] = is_rev
+
+    eval_with_rev = eval_df.copy()
+    eval_with_rev["is_revision"] = eval_with_rev.apply(
+        lambda r: revision_flags.get((r["worker_trial_id"], r["turn"]), True), axis=1
+    )
+
     results = {}
+    print(f"\n{'Model':<20} | {'Gap':>6} | {'Decline T2':>10} | {'Decline T5':>10} | {'Rev-only T1':>11} | {'Rev-only T5':>11}")
+    print("-" * 85)
 
     for model in sorted(worker_df["model"].unique()):
         m_eval = eval_df[eval_df["model"] == model]
@@ -372,13 +472,27 @@ def rq8_cross_model(worker_df: pd.DataFrame, eval_df: pd.DataFrame) -> dict:
         gaps = [worker_rev[t] - (1 - eval_done[t]) for t in shared_turns]
         mean_gap = np.mean(gaps) if gaps else 0
 
+        # Revision-only quality
+        m_rev = eval_with_rev[(eval_with_rev["model"] == model) & eval_with_rev["is_revision"]]
+        rev_level = m_rev.groupby("turn")["level"].mean()
+
+        # Decline rates
+        m_all = eval_with_rev[eval_with_rev["model"] == model]
+        decline_t2 = 1 - m_all[m_all["turn"] == 2]["is_revision"].mean() if len(m_all[m_all["turn"] == 2]) > 0 else 0
+        decline_t5 = 1 - m_all[m_all["turn"] == 5]["is_revision"].mean() if len(m_all[m_all["turn"] == 5]) > 0 else 0
+
         results[model] = {
             "eval_done_rate": {int(k): float(v) for k, v in eval_done.items()},
             "worker_revision_rate": {int(k): float(v) for k, v in worker_rev.items()},
             "level_by_turn": {int(k): float(v) for k, v in level.items()},
+            "revision_only_level_by_turn": {int(k): float(v) for k, v in rev_level.items()},
+            "decline_rate_t2": float(decline_t2),
+            "decline_rate_t5": float(decline_t5),
             "mean_overcorrection_gap": float(mean_gap),
         }
-        print(f"  {model}: mean overcorrection gap = {mean_gap:+.1%}")
+        rev_t1 = rev_level.get(1, 0)
+        rev_t5 = rev_level.get(5, 0) if 5 in rev_level.index else 0
+        print(f"  {model:<18} | {mean_gap:+.1%} | {decline_t2:>9.1%} | {decline_t5:>9.1%} | {rev_t1:>10.2f} | {rev_t5:>10.2f}")
 
     return results
 
@@ -735,9 +849,9 @@ API_PRICING = {
     "gpt-4o": 10.0 / 1_000_000,       # $10/1M output tokens
     "claude-sonnet-4": 15.0 / 1_000_000,  # $15/1M output tokens
     "gemini-2.5-flash": 0.40 / 1_000_000,  # $0.40/1M output tokens
-    "llama-3.1-70b": 0.88 / 1_000_000,   # $0.88/1M output tokens
-    "mistral-large": 2.00 / 1_000_000,   # $2.00/1M output tokens
-    "qwen-2.5-72b": 0.90 / 1_000_000,    # $0.90/1M output tokens
+    "llama-3.3-70b": 0.88 / 1_000_000,   # $0.88/1M output tokens (Together)
+    "qwen-3-235b": 0.90 / 1_000_000,     # $0.90/1M output tokens (Together)
+    "deepseek-v4": 0.55 / 1_000_000,     # $0.55/1M output tokens
 }
 
 BUDGET_TIERS = {
