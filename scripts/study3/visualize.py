@@ -25,6 +25,7 @@ import seaborn as sns
 from scripts.config import S3_FIGURES_DIR, S3_STATS_DIR
 from scripts.study3.analyze import (
     compute_cary,
+    get_revision_only_eval,
     load_evaluator,
     load_worker_turns,
 )
@@ -34,10 +35,12 @@ from scripts.utils import load_jsonl
 def fig1_revision_yield_curve(worker_df: pd.DataFrame, eval_df: pd.DataFrame):
     """Main figure: Revision Yield Curve with 6-level scale and DRP annotation."""
 
-    eval_done = eval_df.groupby("turn").apply(lambda g: (g["level"] >= 4).mean())
+    # Use revision-only quality for the quality trajectory
+    rev_eval = get_revision_only_eval(eval_df)
+    eval_done = rev_eval.groupby("turn").apply(lambda g: (g["level"] >= 4).mean())
     worker_t2 = worker_df[worker_df["turn"] >= 2]
     worker_rev = worker_t2.groupby("turn")["revised"].mean()
-    level = eval_df.groupby("turn")["level"].mean()
+    level = rev_eval.groupby("turn")["level"].mean()
 
     fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(9, 8), sharex=True,
                                      gridspec_kw={"height_ratios": [2, 1]})
@@ -98,7 +101,8 @@ def fig1_revision_yield_curve(worker_df: pd.DataFrame, eval_df: pd.DataFrame):
 
 
 def fig2_divergence_by_model(worker_df: pd.DataFrame, eval_df: pd.DataFrame):
-    """Divergence curves faceted by model (6 models, 2x3 grid)."""
+    """Divergence curves faceted by model (6 models, 2x3 grid, revision-only quality)."""
+    eval_df = get_revision_only_eval(eval_df)
     models = sorted(worker_df["model"].unique())
     n_models = len(models)
     ncols = min(3, n_models)
@@ -154,7 +158,8 @@ def fig2_divergence_by_model(worker_df: pd.DataFrame, eval_df: pd.DataFrame):
 
 
 def fig3_drp_by_domain(eval_df: pd.DataFrame):
-    """Quality trajectories by domain with DRP annotated."""
+    """Quality trajectories by domain with DRP annotated (revision-only)."""
+    eval_df = get_revision_only_eval(eval_df)
     domains = sorted(eval_df["domain"].unique())
     palette = {"code": "#e67e22", "data_logic": "#f39c12", "analysis": "#9b59b6",
                "writing": "#3498db", "creative": "#e74c3c"}
@@ -221,9 +226,11 @@ def fig4_stylistic_drift(worker_df: pd.DataFrame):
 
 
 def fig5_cary_curves(eval_df: pd.DataFrame, worker_df: pd.DataFrame):
-    """CARY curves at multiple C values showing optimal stopping turn."""
-    level_by_turn = eval_df.groupby("turn")["level"].mean().to_dict()
-    tokens_by_turn = worker_df.groupby("turn")["output_tokens"].mean().to_dict()
+    """CARY curves at multiple C values showing optimal stopping turn (revision-only)."""
+    rev_eval = get_revision_only_eval(eval_df)
+    level_by_turn = rev_eval.groupby("turn")["level"].mean().to_dict()
+    rev_worker = worker_df[worker_df["revised"] == True]
+    tokens_by_turn = rev_worker.groupby("turn")["output_tokens"].mean().to_dict()
 
     c_values = {
         "Unlimited (C=0)": 0,
@@ -263,12 +270,13 @@ def fig5_cary_curves(eval_df: pd.DataFrame, worker_df: pd.DataFrame):
 
 
 def fig6_unit_economics(eval_df: pd.DataFrame, worker_df: pd.DataFrame):
-    """Bar chart comparing revision tax across models."""
+    """Bar chart comparing revision tax across models (revision-only quality)."""
+    rev_eval = get_revision_only_eval(eval_df)
     models = sorted(worker_df["model"].unique())
     revision_taxes = []
 
     for model in models:
-        m_eval = eval_df[eval_df["model"] == model]
+        m_eval = rev_eval[rev_eval["model"] == model]
         m_worker = worker_df[worker_df["model"] == model]
 
         level_by_turn = m_eval.groupby("turn")["level"].mean().to_dict()
