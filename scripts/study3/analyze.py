@@ -132,6 +132,32 @@ def load_evaluator() -> pd.DataFrame:
     return pd.DataFrame(valid)
 
 
+def _build_revision_flags() -> dict[tuple[str, int], bool]:
+    """Build a lookup of (trial_id, turn) -> is_revision for all worker trials."""
+    trials = load_jsonl(S3_WORKER_TRIALS_PATH)
+    flags = {}
+    for trial in [t for t in trials if t.get("status") == "success"]:
+        for turn_idx, response in enumerate(trial["responses"]):
+            turn = turn_idx + 1
+            flags[(trial["trial_id"], turn)] = True if turn == 1 else classify_revision(response)
+    return flags
+
+
+def get_revision_only_eval(eval_df: pd.DataFrame) -> pd.DataFrame:
+    """Filter eval_df to only include turns where the model produced actual content.
+
+    Meta-responses (decline-to-revise) are excluded from the graded population
+    entirely, matching the human evaluation protocol where they receive N/A
+    rather than a quality score.
+    """
+    flags = _build_revision_flags()
+    df = eval_df.copy()
+    df["is_revision"] = df.apply(
+        lambda r: flags.get((r["worker_trial_id"], r["turn"]), True), axis=1
+    )
+    return df[df["is_revision"]].drop(columns=["is_revision"])
+
+
 # ── RQ1: Revision Yield Curve ──
 
 def rq1_revision_yield_curve(worker_df: pd.DataFrame, eval_df: pd.DataFrame) -> dict:
@@ -780,7 +806,7 @@ def compute_cry(quality_by_turn: dict, tokens_by_turn: dict) -> dict:
 
 
 def compute_cary(quality_by_turn: dict, tokens_by_turn: dict, C: float) -> dict:
-    """Cost-Adjusted Revision Yield: CARY(t) = [Q(t)/4] * e^(-C * T_cum(t))"""
+    """Cost-Adjusted Revision Yield: CARY(t) = [Q(t)/6] * e^(-C * T_cum(t))"""
     turns = sorted(quality_by_turn.keys())
     cary = {}
     t_cum = 0
@@ -793,9 +819,13 @@ def compute_cary(quality_by_turn: dict, tokens_by_turn: dict, C: float) -> dict:
 def rq15_revision_yield_equations(eval_df: pd.DataFrame, worker_df: pd.DataFrame) -> dict:
     print("\n== RQ15: Revision Yield Equations ==")
 
-    # Aggregate quality and tokens by turn
-    level_by_turn = eval_df.groupby("turn")["level"].mean().to_dict()
-    tokens_by_turn = worker_df.groupby("turn")["output_tokens"].mean().to_dict()
+    # Use revision-only quality (meta-responses excluded as N/A)
+    rev_eval = get_revision_only_eval(eval_df)
+    level_by_turn = rev_eval.groupby("turn")["level"].mean().to_dict()
+    # Tokens from revision-only worker rows
+    rev_worker = worker_df[worker_df["revised"] == True]
+    tokens_by_turn = rev_worker.groupby("turn")["output_tokens"].mean().to_dict()
+    print(f"  (Using revision-only data: {len(rev_eval)} graded responses, meta-responses excluded as N/A)")
 
     mry = compute_mry(level_by_turn, tokens_by_turn)
     cry = compute_cry(level_by_turn, tokens_by_turn)
@@ -866,10 +896,13 @@ BUDGET_TIERS = {
 
 def rq16_unit_economics(eval_df: pd.DataFrame, worker_df: pd.DataFrame) -> dict:
     print("\n== RQ16: Unit Economics ==")
+    # Use revision-only quality (meta-responses excluded as N/A)
+    rev_eval = get_revision_only_eval(eval_df)
+    print(f"  (Using revision-only quality: meta-responses excluded as N/A)")
     results = {}
 
     for model in sorted(worker_df["model"].unique()):
-        m_eval = eval_df[eval_df["model"] == model]
+        m_eval = rev_eval[rev_eval["model"] == model]
         m_worker = worker_df[worker_df["model"] == model]
 
         level_by_turn = m_eval.groupby("turn")["level"].mean().to_dict()
@@ -956,8 +989,12 @@ def rq16_unit_economics(eval_df: pd.DataFrame, worker_df: pd.DataFrame) -> dict:
 def rq17_overcorrection_magnitude(eval_df: pd.DataFrame, worker_df: pd.DataFrame) -> dict:
     print("\n== RQ17: Overcorrection Magnitude (OCS) ==")
 
-    # For each trial, find t_done (first turn with level >= 4)
-    drp_per_trial = eval_df[eval_df["level"] >= 4].groupby("worker_trial_id")["turn"].min()
+    # Use revision-only eval: meta-responses are N/A, not Level 1
+    rev_eval = get_revision_only_eval(eval_df)
+    print(f"  (Using revision-only quality: meta-responses excluded as N/A)")
+
+    # For each trial, find t_done (first revision turn with level >= 4)
+    drp_per_trial = rev_eval[rev_eval["level"] >= 4].groupby("worker_trial_id")["turn"].min()
 
     trials = load_jsonl(S3_WORKER_TRIALS_PATH)
     trial_data = {}
@@ -973,9 +1010,11 @@ def rq17_overcorrection_magnitude(eval_df: pd.DataFrame, worker_df: pd.DataFrame
                 "domain": t["domain"],
             }
 
-    # Get quality at t_done and final turn
+    # Get quality at t_done and final turn -- revision-only
+    # For quality regression, use the last REVISION turn's quality, not the
+    # last turn overall (which may be a meta-response scored Level 1)
     eval_by_trial_turn = {}
-    for _, row in eval_df.iterrows():
+    for _, row in rev_eval.iterrows():
         eval_by_trial_turn[(row["worker_trial_id"], row["turn"])] = row["level"]
 
     ocs_scores = []
@@ -998,8 +1037,14 @@ def rq17_overcorrection_magnitude(eval_df: pd.DataFrame, worker_df: pd.DataFrame
         wtf = tokens_after / total_tokens if total_tokens > 0 else 0
 
         # Component 3: Quality Regression
+        # Use the last revision turn's quality (not last turn overall,
+        # which may be a meta-response excluded from grading)
         q_done = eval_by_trial_turn.get((trial_id, t_done), None)
-        q_final = eval_by_trial_turn.get((trial_id, n_turns), None)
+        q_final = None
+        for t_check in range(n_turns, 0, -1):
+            q_final = eval_by_trial_turn.get((trial_id, t_check), None)
+            if q_final is not None:
+                break
         if q_done is not None and q_final is not None:
             qr = max(0, q_done - q_final)
         else:
