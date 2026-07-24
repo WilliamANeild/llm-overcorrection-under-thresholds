@@ -89,5 +89,36 @@ The results are considered DONE by the mentor ("you passed the big beast"). This
 - The prior we sit against. It is fully formalized (M, x, y0, fb_t, y_{t+1}, prompts p_gen/p_fb/p_refine, Algorithm 1) — a template for our own light formalization of iterations I.
 - Best citable line (defines what makes feedback work — our targeted half): *"By 'actionable', we mean the feedback should contain a concrete action... By 'specific', we mean the feedback should identify concrete phrases in the output to change."* Self-Refine works because its feedback is targeted, not merely because revision occurs.
 
+---
+
+## PART 4 — FIG 1 REAL-DATA CANDIDATES (mined from 720 trials)
+Joined worker_trials.jsonl + stripped_rescore_full.jsonl + genuine_meta_labels.jsonl.
+Criteria: balanced panel (genuine revision every turn), starts sufficient, visible monotonic decline.
+
+**TOP PICK — `s3_worker__llama-3.3-70b__story_opening__run3`** (creative, stripped scores [4,4,4,3,2])
+- Task: 150-word atmospheric story opening, lighthouse keeper finds something washed ashore.
+- Genuine revision every turn. Degradation is VISIBLE to any reader: clean atmospheric prose (T1)
+  → progressively overstuffed purple prose by T5 (comma-spliced, over-elaborated, "Overdone").
+- Why it wins for a teaser: believable real data, accessible task, the failure mode (over-elaboration)
+  is legible without domain expertise. Starts "Sufficient" (4), ends "Incomplete" (2).
+
+**Alt 1 — `s3_worker__llama-3.3-70b__cover_letter__run1`** (writing, [4,4,4,2,2])
+- Cover letter gets shorter/more generic; adds self-congratulatory meta ("I think this is a strong
+  final version!"). Good, slightly less visually dramatic than the story.
+
+**Alt 2 — `s3_worker__qwen-3-235b__backup_script__run2`** (code, [5,4,2,2,2])
+- Biggest clean drop, starts at 5 (Polished). Code degradation is harder to show in a teaser but
+  strongest score delta; good if we want a technical example.
+
+Recommendation: lead with story_opening (readability), optionally pair with a code example.
+
+## PART 5 — CITATION INVENTORY
+references.bib has 45 entries. Strong for: self-correction (madaan, huang, kamoi, shinn, kim),
+multi-turn (laban, zhang2020dialogpt, thoppilan), overthinking (chen2025, ghosal2025), sycophancy
+(perez, sharma, wei, openai2025sycophancy), reward hacking (skalse, singhal, goodhart), cost
+(menlo, gartner, deloitte, mckinsey, goldman, thompson), prompting advice (openai/anthropic2025prompting).
+GAPS to fill for the human-AI-interaction field intro (agent researching): Anthropic Economic Index /
+LLM workplace-usage study; underspecification-in-real-prompts; non-expert oversight / expertise gap.
+
 ### The dialectic to exploit
 Madaan (optimistic: actionable+specific self-feedback helps) vs Huang (skeptical: undirected intrinsic correction degrades; gains trace to oracle labels/informative prompts). **Our thesis sits on the seam: the operative variable is whether feedback is targeted, not whether revision happens.** Kamoi is the survey that adjudicates; Laban is the multi-turn cousin (different mechanism: underspecification vs the revision act itself).
