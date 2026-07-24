@@ -12,15 +12,20 @@ task, produces a single answer, and is scored against a reference, and on benchm
 current models perform well \cite{liang2023holistic}. The tasks that motivate their deployment,
 however, are rarely solved in a single exchange. Increasingly they are workplace tasks carried out
 in collaboration with a user who supplies the goal, reacts to the output, and asks for changes
-\cite{laban2025lost}. In this setting the quality a user ultimately receives is not a property of
-the model alone but of the interaction, and it depends heavily on what the user is able to
-contribute to it. Studying that dependence is the concern of human-AI interaction, and it is where
-we situate this work.
+\cite{anthropic2025economicindex, laban2025lost}. In this setting the quality a user ultimately
+receives is not a property of the model alone but of the interaction, and it depends heavily on what
+the user is able to contribute to it. What users contribute is often thin: real prompts are
+frequently underspecified, and underspecification measurably degrades the outputs that follow
+\cite{yang2025underspecification}. Studying this dependence of output quality on user-side behavior
+is the concern of human-AI interaction, and it is where we situate this work.
 
 One user-side contribution matters more than most: the ability to say what is wrong with an output.
 A user who can identify a specific weakness can direct the model to fix it. A user who cannot, either
 because the task exceeds their expertise or because the output looks acceptable but they are unsure,
-has a single move available. They ask the model to improve the work without saying what improving it
+has a single move available. This is the ordinary condition of a non-expert working above the level
+at which they could specify a correction, a difficulty that scalable-oversight research identifies as
+central: users often cannot articulate precise intent or reliably validate a complex output
+\cite{zhou2026oversight}. They ask the model to improve the work without saying what improving it
 would mean. This undirected request, some version of \emph{make it better}, is among the most common
 things people ask of these systems, and vendor guidance actively encourages it, advising users to
 treat the model as a collaborator and to iterate toward a better result
