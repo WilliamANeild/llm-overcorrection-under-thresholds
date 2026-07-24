@@ -61,7 +61,8 @@ The results are considered DONE by the mentor ("you passed the big beast"). This
   Keep existing visual design; swap fabricated Rachel email for real T1 vs T5 excerpts. Build figure LAST.
 - **Token-cost crossing graph:** remove or replace with quantitative (real token counts). Decide at figure step.
 - **Mathematization:** keep BOTH variants (`_formalization_variants.tex`), decide at Methods rewrite.
-- **Title:** curated final-5 pending user pick (see below).
+- **Title:** LOCKED = **"Intrinsic Self-Correction Requires Extrinsic Direction"** (research register;
+  field-grounded term from Kamoi/Huang; earned in intro opening + closing sentence). Set in main.tex.
 - **Register:** no em-dashes, no staccato, measured/scope-fenced observation verbs throughout.
 
 ## PART 2 — TARGET INTRO SKELETON (Ali's 6 beats, NLP-standard)
