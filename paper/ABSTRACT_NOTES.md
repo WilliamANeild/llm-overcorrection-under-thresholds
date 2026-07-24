@@ -68,6 +68,27 @@ FIX: dropped "720 five-turn conversations" -> "across six models and forty tasks
 conversations...". Result: ZERO arabic numerals in the abstract; scale carried by spelled scope
 words. The exact "720 = 6 models x 40 tasks x 3 runs" goes in the experimental-setup section.
 
+## v7 LOCKED — internal-vs-external-feedback framing (the correct axis)
+Advisor: humans self-correct too; the real distinction is internal vs external feedback. Reframed the
+opening on the SOURCE OF FEEDBACK (true for humans and models alike), not a human-vs-model contrast.
+Verified, citable anchors (gathered by a research agent; use in intro/related work, NOT the abstract):
+- Huang 2024 (arXiv:2310.01798): "A pivotal distinction lies in the source of feedback ... Is it
+  purely internal, originating solely from the LLM, or does it draw from external inputs?"; intrinsic
+  = "based solely on its inherent capabilities, without the crutch of external feedback."
+- Kamoi 2024 (TACL, arXiv:2406.01297): "Intrinsic self-correction prompts LLMs to generate feedback
+  on their own responses"; external = tools / knowledge / oracle.
+- Human side: Gehring 1993 (Psych Science) "Humans can monitor actions and compensate for errors"
+  (internal error-monitoring); Hattie & Timperley 2007 (external feedback d=0.79); Kluger & DeNisi
+  1996 FIT (external agent; caveat "over 1/3 ... decreased performance"); Dunning 2004 / Zell &
+  Krizan 2014 / Davis 2006 JAMA (self-assessment tracks performance only weakly).
+- HONESTY CAVEAT to preserve anywhere we lean on this: external feedback helps ON AVERAGE, not
+  uniformly (Kluger & DeNisi). The human/LLM parallel is our framing, not any single source's claim.
+Opening now: both people and models revise; what matters is the feedback and whether it comes from
+outside; a model told only to "make it better" must correct itself with no external signal (= the
+non-expert user's case). Pays off in the close "Intrinsic self-correction ... is not enough; the
+direction has to come from outside." TODO(optional): add these 4-6 human-feedback cites to the intro
+and a short definitions line in Related Work 2.3 to ground intrinsic/extrinsic.
+
 ## If a hard length cap bites
 Current ~210 words. Safe further trims: drop "of the six" in S5; shorten the measurement sentence's
 tail to "and nearly vanishes once it is removed". Do not cut the meta-commentary caveat or the
