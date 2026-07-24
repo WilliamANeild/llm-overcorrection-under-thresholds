@@ -1,20 +1,20 @@
 \begin{abstract}
-% DRAFT v4 (post-Ali, number-discipline pass). Modeled on Kamoi/Laban/Huang/Madaan, which use
-% 0-2 numbers total and state findings in WORDS with scope conditions. All result statistics
-% (39->13%, -0.74, p-values, 62%, +1.16, 56->92%) moved to the body; only the study scale
-% (720/six/forty) remains, Laban/Madaan-style. No em-dashes, no colons, one antithesis, plain close.
-Self-correction is the practice of improving a large language model's output by asking the model to
-revise its own work. Often the user who asks for a revision cannot say what is wrong, so the request
-comes down to asking the model to make it better. In this work we study this undirected
-revision across six models and forty tasks, running five-turn conversations in which the model is
-offered a neutral choice at each turn to keep or revise its output, with no indication of what to
-change. We find that models mostly
-decline to genuinely revise, returning restatements and refusals that leave the task content
-unchanged, and that this deepens as the conversation continues. The revisions they do produce tend to
-make an already-adequate output worse, so that for every model the first version is the best one. A
-single specific critique reverses the pattern and improves the output, which places the failure in
-the absence of direction rather than in the capacity to revise. Measuring this takes care, because
-models wrap their revisions in meta-commentary addressed to the user that biases an automated judge
-toward the first draft, a bias that fades once the commentary is removed. Intrinsic self-correction,
-on its own, is not enough; the direction has to come from outside.
+% DRAFT v6 (post-Ali). Opening reworked: leads from human self-correction (Madaan-style analogy)
+% and defines the concept correctly (a model revising its OWN output), Huang-style register.
+% Number-discipline from the 23-abstract survey: scope by models/tasks, no raw trial count, no
+% result statistics (all in body). Audit: 0 numerals, 0 em-dashes, 0 colons, 0 percent, 0 p-values.
+Correcting one's own mistakes is a routine part of how people write and reason, and self-correction
+has a language model do the same, improving its output by revising it rather than starting over. A
+person who revises usually knows what to change, but a model is often asked only to make its answer
+better, without being told what is wrong, as when the user cannot say what the problem is. In this
+work we study this undirected revision across six models and forty tasks, running five-turn
+conversations that offer the model a neutral choice at each turn to keep or revise its output. We
+find that models mostly decline to genuinely revise, returning restatements and refusals that leave
+the task content unchanged, and that this deepens as the conversation continues. The revisions they
+do produce tend to make an already-adequate output worse, so that for every model the first version
+is the best one. A single specific critique reverses the pattern and improves the output, which
+places the failure in the absence of direction rather than in the capacity to revise. Measuring this
+takes care, because the meta-commentary that models add to their revisions biases an automated judge
+toward the first draft, a bias that disappears once the commentary is removed. Intrinsic
+self-correction, on its own, is not enough; the direction has to come from outside.
 \end{abstract}
