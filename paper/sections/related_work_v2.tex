@@ -1,0 +1,109 @@
+\section{Related Work}
+
+% ============================================================================
+% DRAFT v2 (post-Ali reframe). Register: Laban 2025 / Kamoi 2024.
+% 8 themed citation clusters ("sea of blue"). No em-dashes, no staccato.
+% Leads with human-AI interaction; over-reliance is the backbone of "hidden cost".
+% Each paragraph ties back to our contribution.
+% ============================================================================
+
+\paragraph{Human-AI interaction and user-side determinants of quality.}
+A growing body of work treats the quality of a model's output not as a fixed property of the model
+but as an outcome of the interaction in which it is produced, shaped by what the user contributes.
+Deployment data show that models are increasingly applied to open-ended workplace tasks rather than
+the closed, fully specified problems on which they are benchmarked \cite{anthropic2025economicindex}.
+In that setting the user's instructions are often thin: real prompts are frequently underspecified,
+and underspecification measurably degrades and destabilizes the outputs that follow
+\cite{yang2025underspecification}. The difficulty is most acute for non-expert users, whom
+scalable-oversight research identifies as frequently unable to articulate precise intent or to
+validate a complex output \cite{zhou2026oversight}. \citet{laban2025lost} show that this dependence
+compounds across turns, with accuracy falling when requirements are revealed gradually. We situate
+our work in this line and treat the revision request itself as a user-side variable, asking how its
+most impoverished form, a request to revise that carries no direction at all, affects output quality.
+
+\paragraph{Over-reliance and automation bias.}
+Whether such degradation is noticed depends on the user's ability to evaluate the output, and a long
+line of human-factors research indicates that ability is limited. Automation bias, the tendency to
+accept a machine's recommendation and to under-scrutinize it, is documented across decades of studies
+and affects experts and novices alike \cite{skitka1999automation, parasuraman2010complacency}. In
+AI-assisted decision-making the same pattern holds: fluent explanations and confident presentation
+raise users' acceptance of model output without improving their ability to separate correct outputs
+from incorrect ones \cite{bansal2021whole, bucinca2021trust}. Reliance behaves as a cost-benefit
+trade-off in which users accept the model's answer rather than pay the cognitive cost of verifying
+it, so a degraded output can pass uncaught \cite{vasconcelos2023explanations, schemmer2023reliance}.
+This literature explains why the failure we document is easy to miss: a user who cannot distinguish a
+worse revision from a better one absorbs the loss, and the tokens spent reaching it are billed all
+the same.
+
+\paragraph{Intrinsic self-correction and self-refinement.}
+Whether models can improve their own outputs has been studied under the heading of self-refinement.
+\citet{madaan2024self} show that a model prompted to critique and rewrite its work can raise its
+quality, and locate the benefit in feedback that is \emph{actionable} and \emph{specific}, naming a
+concrete change to a concrete part of the output. Later work finds the benefit contingent on an
+external signal. \citet{huang2024large} report that without external feedback models struggle to
+correct their own reasoning and at times degrade it, and that apparent gains often trace to oracle
+labels or to more informative prompts. The limit appears to lie in error detection rather than error
+correction: \citet{tyen2024llms} find that models cannot reliably locate their own reasoning errors
+but can fix them once the location is supplied, and \citet{tsui2025selfcorrection} document a
+self-correction blind spot in which models repair errors introduced by others while overlooking their
+own. Reliable self-correction correspondingly depends on a strong external verifier or on additional
+training rather than on intrinsic prompting \cite{zhang2024small, qu2024recursive}. A critical survey
+by \citet{kamoi2024selfcorrection} synthesizes these results and locates the bottleneck in feedback
+generation rather than in the capacity to revise, the seam on which our finding sits
+\cite{kim2024language, shinn2023reflexion}. This literature asks whether a given feedback signal is
+sufficient to improve an output; we ask the complementary question of what happens when the signal is
+absent entirely and the output to be revised is already adequate.
+
+\paragraph{Termination and overthinking.}
+A parallel failure appears within a single response. Reasoning models continue generating past the
+point at which their answer is complete and degrade it through redundant self-correction
+\cite{chen2024overthinking, chen2025overthinking}, and test-time scaling produces non-monotonic
+accuracy that rises and then falls as further computation introduces variance
+\cite{ghosal2025overthinking}. Knowing when to stop is now treated as an open problem in its own
+right \cite{sui2025efficient}. Inside a response this failure manifests as overthinking; across
+responses, we argue, it manifests as the revision cliff we measure. In both cases an optimal stopping
+point exists and the model overshoots it.
+
+\paragraph{Sycophancy and compliance under pressure.}
+The revision probe also exerts a mild but recurring pressure to comply, and models are known to yield
+to such pressure. Instruction-tuned models exhibit sycophancy, agreeing with users and avoiding
+disagreement even when holding firm would be more helpful
+\cite{perez2023discovering, sharma2024towards, wei2024simple}, a tendency embedded deeply enough in
+preference training that a 2025 model update was rolled back for it \cite{openai2025sycophancy}. Under
+sustained multi-turn pressure the effect strengthens, with correct answers revised toward incorrect
+ones when a user pushes back or persists \cite{xu2024earth, fanous2025syceval}. Our repeated revision
+offer is a weak instance of this pressure, and the cumulative degradation we observe is consistent
+with the same compliance mechanism operating across turns.
+
+\paragraph{Biases in LLM-as-judge evaluation.}
+Using LLMs to evaluate generated text is now standard practice \cite{zheng2024judging,
+li2024generation}, but LLM judges carry biases that our setting activates directly. Beyond the
+documented self-preference and position biases \cite{panickssery2024llm, koo2024benchmarking}, judges
+reward stylistic and formatting cues over substance: verbose outputs score higher regardless of
+quality \cite{singhal2023long}, and surface features such as lists, boldface, and confident framing
+raise a judge's score independently of content \cite{wu2023style, zhang2024lists, chen2024humans,
+ye2024justice}. The meta-commentary that models attach to revisions is precisely such a cue, and we
+find it biases an automated judge strongly enough to reverse the measured direction of the effect.
+Any study that compares first-draft and revised outputs with an LLM judge inherits this confound, and
+we treat controlling for it as a methodological requirement rather than a robustness check.
+
+\paragraph{Token efficiency and the cost of AI.}
+The waste we quantify has an economic dimension. Enterprise inference spending has risen steeply,
+roughly doubling in under a year, and the multi-turn agentic workflows driving that growth are where
+undirected revision loops live \cite{menlo2025llmmarket, gartner2026agentic, deloitte2026stateofai,
+mckinsey2025stateofai}. Our revision tax is adjacent to the single-turn over-generation metric of
+\citet{borisov2026yapbench} but captures a distinct multi-turn cost, the tokens spent revising an
+already-sufficient output past the point of peak quality.
+
+\paragraph{Multi-turn degradation and closest work.}
+Quality loss across multiple turns has been observed before, though through different mechanisms.
+Early dialogue systems lose coherence over long conversations
+\cite{zhang2020dialogpt, thoppilan2022lamda}, a degradation driven by topic drift rather than by
+revision. Closest to our work, \citet{laban2025lost} show that models lose accuracy across multi-turn
+conversations when a task's requirements are revealed piecewise, and attribute the loss to
+underspecification accumulating over turns as the model commits to early assumptions it cannot
+recover from. Our setting differs in a way that isolates a distinct cause: the task is fully specified
+from the first turn and the initial output is already sufficient, so the degradation we measure is
+produced by the revision act itself rather than by information arriving late. The two findings are
+complementary, one showing failure when requirements accumulate and the other showing failure when a
+sufficient output is revised without direction.
