@@ -44,6 +44,17 @@ with alternatives; the final text was synthesized and audited by hand.
 - +1.16 levels, p=5.7e-19, n=177 targeted feedback (L676)
 - judge first-draft preference 56% -> 92%, near-vanishes stripped (L209, L219)
 
+## v4 number-discipline pass (the important one)
+Advisor note: the draft front-loaded ~13 numbers; real abstracts in this space use 0-2. Exemplar
+counts: Huang 0, Kamoi 0, Laban 1 (the 39%), Madaan 2. Fix: every RESULT statistic moved to the body
+(39->13%, -0.74, p=1e-4, 62%, +1.16, p=5.7e-19/n=177, 56->92%), findings restated qualitatively with
+scope carried in words ("for every model the first version is the best one"; "mostly decline to
+genuinely revise ... this deepens as the conversation continues"). Only the study scale remains
+(720 five-turn conversations, six models, forty tasks), Laban/Madaan-style. Final: 1 numeral, 0 %,
+0 p-values, 0 colons, 0 em-dashes, one antithesis ("direction rather than capacity"), plain close.
+Built with a fresh writer agent (3 qualitative drafts) + an adversarial critic agent (number audit),
+synthesized by hand.
+
 ## If a hard length cap bites
 Current ~210 words. Safe further trims: drop "of the six" in S5; shorten the measurement sentence's
 tail to "and nearly vanishes once it is removed". Do not cut the meta-commentary caveat or the

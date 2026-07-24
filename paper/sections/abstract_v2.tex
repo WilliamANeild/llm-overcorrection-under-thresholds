@@ -1,21 +1,19 @@
 \begin{abstract}
-% DRAFT v3 (post-Ali). Modeled sentence-by-sentence on the abstracts of Kamoi 2024,
-% Laban 2025, Huang 2024, Madaan 2024. Register audited: no em-dashes, no rule-of-three
-% tricolons, no significance-adverbs, one hedge per claim, numbers chaperoned by scope,
-% data-as-subject result sentences, sentence-length variation, plain over Latinate.
-% Every number traces to results_FINAL.md. See ABSTRACT_NOTES.md for the beat provenance.
+% DRAFT v4 (post-Ali, number-discipline pass). Modeled on Kamoi/Laban/Huang/Madaan, which use
+% 0-2 numbers total and state findings in WORDS with scope conditions. All result statistics
+% (39->13%, -0.74, p-values, 62%, +1.16, 56->92%) moved to the body; only the study scale
+% (720/six/forty) remains, Laban/Madaan-style. No em-dashes, no colons, one antithesis, plain close.
 Self-correction is the practice of improving a large language model's output by asking the model to
-revise its own work. Often the user cannot say what is wrong, and their only move
-is to tell the model to make it better. In this work we run 720 five-turn conversations across
-six models and forty tasks, offering a neutral choice at each turn to keep or revise the output with
-no hint of what is wrong. Genuine revision falls from 39\% of responses at the second turn to 13\% at
-the fifth; the rest decline or restate the work without changing its content. When a model does
-revise, quality falls by 0.74 levels on a five-point scale ($p = 1.0 \times 10^{-4}$), and for every
-one of the six models it peaks at the first turn, so 62\% of output tokens are spent past that peak.
-Supplying one specific critique before the revision reverses the decline and raises quality by 1.16
-levels ($p = 5.7 \times 10^{-19}$, $n = 177$), which shows the failure to be one of direction rather
-than capacity. Measuring this takes care, because models wrap revisions in meta-commentary that lifts
-an automated judge's preference for the first draft from 56\% to 92\%, an effect that nearly vanishes
-once the commentary is removed. Left to its own judgment, a model does not reliably improve its work;
-the direction has to come from outside.
+revise its own work. Often the user who asks for a revision cannot say what is wrong, so the request
+comes down to asking the model to make it better. In this work we study this undirected revision over
+720 five-turn conversations spanning six models and forty tasks, offering a neutral choice at each
+turn to keep the output or revise it with no indication of what to change. We find that models mostly
+decline to genuinely revise, returning restatements and refusals that leave the task content
+unchanged, and that this deepens as the conversation continues. The revisions they do produce tend to
+make an already-adequate output worse, so that for every model the first version is the best one. A
+single specific critique reverses the pattern and improves the output, which places the failure in
+the absence of direction rather than in the capacity to revise. Measuring this takes care, because
+models wrap their revisions in meta-commentary addressed to the user that biases an automated judge
+toward the first draft, a bias that fades once the commentary is removed. Intrinsic self-correction,
+on its own, is not enough; the direction has to come from outside.
 \end{abstract}
