@@ -1,0 +1,30 @@
+% SCRATCH: two variants for the "mathematization" Ali suggested (let I = revision iterations).
+% For side-by-side comparison only. Pick one; this file is not \input anywhere.
+
+% ============================================================
+% VARIANT A — light formalism (goes in Methods, "Design" or "Metrics")
+% ============================================================
+We index the turns of a conversation by $i \in \{1, \dots, 5\}$, where $i = 1$ is the model's
+initial output and each subsequent turn $i > 1$ is an undirected revision request. Let $Q_m(i)$
+denote the expected quality of model $m$'s turn-$i$ output on the evaluator's five-level scale, and
+define the quality-optimal stopping point
+\[
+  i^{*}_m \;=\; \arg\max_{i} \; Q_m(i).
+\]
+A model that benefits from revision would have $Q_m$ non-decreasing in $i$ up to a plateau, so that
+$i^{*}_m$ marks the turn past which further revision is unnecessary. Our central quantitative finding
+is that $Q_m$ is instead decreasing in $i$ for every model we test, so that $i^{*}_m = 1$ throughout:
+the quality-maximizing number of undirected revisions is zero. We report the per-turn decline
+$Q_m(1) - Q_m(5)$ (the \emph{revision cliff}) and the tokens generated after $i^{*}_m$ (the
+\emph{revision tax}) as our primary quantities.
+
+% ============================================================
+% VARIANT B — prose only (no notation)
+% ============================================================
+For each model we track output quality across the five turns and identify the turn at which quality
+peaks. A model that benefits from revision should improve, or at least hold steady, as the turns
+proceed. Instead, quality peaks at the first turn for every model we test and declines with each
+subsequent revision, so the quality-maximizing number of undirected revisions to request is none. We
+summarize this with two quantities: the drop in quality from the first turn to the fifth, which we
+call the revision cliff, and the fraction of output generated after the peak, which we call the
+revision tax.
