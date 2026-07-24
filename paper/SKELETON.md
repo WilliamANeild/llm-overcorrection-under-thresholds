@@ -149,7 +149,7 @@ Every beat below is a phrased topic sentence + its grounding.
 1. **t* = Turn 1 for all six models.** All post-T1 tokens are waste under a quality criterion. `[D: L128, L151]`
 2. **Magnitude.** 62.1% of output tokens spent past t*; aggregate tax 164.2%; per-model 23.4% (Gemini) to 81.3% (Llama). `[D: L147–149; per-model L137–142]`
 3. **Framing.** Adjacent to YapTax but multi-turn. `[C: borisov2026yapbench]`
-4. **(Optional) enterprise projection.** $323–$65,678/yr per 500-person org. `[D: results_FINAL.md S7 L536–549]` `[decide whether to restore; currently dropped]`
+4. **Enterprise projection (restored, caveated sentence).** $323–$65,678/yr per 500-person org; dominated by model choice, order-of-magnitude. `[D: results_FINAL.md S7 L536–549]`
 
 ---
 
@@ -199,7 +199,7 @@ Every beat below is a phrased topic sentence + its grounding.
 - **a3 [VERIFIED, was correct].** All Study-1 probe n's reproduce exactly. Source: `data/analysis/summary_by_probe_type.csv`. leading n=1920 (99.9%), pilot_a "Is there anything you would change?" n=18 (100%), pilot_b "Does it meet the bar?" n=24 (12.5%), neutral "What do you think?" n=50 (2.0%), pilot_c "Take another look..." n=1920 (23.2%). Total 3,932. Per-model pilot_c decline (Gemini 99.7, GPT-4o 68.6, Claude 62.0) also confirmed in `summary_by_model_probe.csv`.
 - **a4 [VERIFIED, was correct].** Per-domain paired Wilcoxon (trials GENUINE at T5, stripped T1 vs T5) reproduces the paper: analysis p=0.003, code p=0.003, creative p=0.031, writing p=0.008, **data_logic p=0.058 (marginal, exact match)**. NOTE: the Table-4 deltas are the pooled-trajectory (unpaired vs global T1 mean 4.11) quantity, while the p-values are from the within-trial paired test; both defensible but consider a one-line footnote reconciling the two pairings.
 - **a5 [VERIFIED, was correct].** All exact: model range 71.9pp (Llama 73.5% to Gemini 1.7%, n=480 each), domain range 13.5pp (code 34.0% to writing 20.5%, n=576 each), χ²=35.63 df=4 p=3.44e-7. Source: computed from `genuine_meta_labels.jsonl`.
-- **a6 [LOCATED — user decision].** Enterprise projection is corrected S7 in results_FINAL.md: $323/yr (Gemini) to $65,678/yr (Claude) per 500-person org, pricing-tier-dominated, 2025 rates. DECISION NEEDED: restore to Results 4.4 or leave cut. (Recommend a single sentence with the range + the caveat that it is dominated by model choice, not a table.)
+- **a6 [RESOLVED — restored].** Enterprise projection restored as a single caveated sentence in the Revision Tax section (results_v2.tex L203): $323/yr (Gemini) to $65,678/yr (Claude) per 500-person org, dominated by model choice (~37x price spread + differing revision volumes), flagged as order-of-magnitude, 2025 rates. Source: results_FINAL.md S7.
 
 **Bottom line: 4 of 6 flagged numbers (a1,a3,a4,a5) were CORRECT, just unsourced; now sourced. a2 was a genuine table error, now fixed. a6 is a content decision.**
 - **basis note** study3_results.json is the OLD keyword-classifier analysis. Never cite its rq* rates; results_FINAL.md is the corrected primary basis. Old superseded numbers (68/50/42/35% rates, 62.4% RDS, +2.00 targeted, 93.3%/83.7% reversibility, balanced n=135) must never re-enter the paper.
