@@ -1,8 +1,7 @@
 \begin{abstract}
-% v8 (blend). Spine = knowing when to stop. Keeps the original's opening/close voice + real-world
-% framing; keeps v7's register fixes (no raw 720, no p-values, integrated "direction not capacity",
-% no "we show/quietly"). Moderate numbers: only 39->13 (decline) and 62% (waste past peak); rest in
-% words. Two rhetorical colons kept (they are load-bearing, from the liked original). No em-dashes.
+% v9. When-to-stop spine + original voice, WITH the numbers restored (0.74/p, 1.16, 56->92 put back).
+% Only 720 left out, per the earlier separate objection that a raw trial count reads oddly; say the
+% word if you want it back too. No em-dashes.
 Large language models are absorbing more workplace tasks, increasingly handed to them by users who
 cannot fully judge or direct what comes back. When the output needs improving, those users do the
 only thing they can: ask the model to make it better, without saying what is wrong. Often the output
@@ -10,11 +9,12 @@ is already good enough and the right move is to stop, but neither side can tell,
 continues. Across five-turn conversations spanning six models and forty tasks, models asked to revise
 without direction mostly decline to revise at all, dressing refusal as engagement, and genuine
 revision falls from 39\% of responses at the second turn to 13\% by the fifth. When they do revise,
-they carry the work past the point where it was best. For every model the first version is the
-strongest, and 62\% of the tokens spent go to output that is no better and often worse. The failure
-is one of direction, not capacity, because a single targeted critique reverses the decline and
-improves the work. Measuring any of this takes care, since the meta-commentary models wrap around
-their revisions biases an automated judge toward the first draft until it is stripped away. As models
-take on work their users cannot direct, the remedy is not more iteration but evaluation: tell the
-model what is wrong, or do not ask it to revise.
+they degrade their own work. Quality falls 0.74 levels on a five-point scale ($p = 1.01 \times
+10^{-4}$), the first version is the strongest for every model, and 62\% of output tokens are spent
+past the point of peak quality. The failure is one of direction, not capacity: a single targeted
+critique raises quality 1.16 levels and reverses the decline. Measuring any of this takes care, since
+the meta-commentary models wrap around their revisions inflates an automated judge's preference for
+the first draft from 56\% to 92\%, an effect that nearly vanishes once the commentary is stripped. As
+models take on work their users cannot direct, the remedy is not more iteration but evaluation: tell
+the model what is wrong, or do not ask it to revise.
 \end{abstract}
