@@ -55,6 +55,19 @@ genuinely revise ... this deepens as the conversation continues"). Only the stud
 Built with a fresh writer agent (3 qualitative drafts) + an adversarial critic agent (number audit),
 synthesized by hand.
 
+## v5 scale-convention pass (survey of 23 real abstracts)
+Two observant agents surveyed how empirical LLM papers state study scale in the abstract (n=23 +
+the 4 exemplars). Distribution: scope by models/tasks (bucket c) 48% (plurality); exact raw count
+22% but ALWAYS a released-benchmark size in the 1,000s-100,000s (MT-Eval "1170 queries", Malberg
+"30,000 tests", red-teaming "214,271 attempts"); rounded floor ("200,000+", "over 240K") only for
+large datasets; qualitative/none 18%. A bare mid-size exact N like "720 conversations" appears
+essentially NOWHERE and reads as oddly specific and small. Closest analogues Madaan ("across 7
+diverse tasks... using GPT-3.5 and GPT-4") and Sharma ("five state-of-the-art AI assistants across
+four varied tasks") both use models x tasks scope.
+FIX: dropped "720 five-turn conversations" -> "across six models and forty tasks, running five-turn
+conversations...". Result: ZERO arabic numerals in the abstract; scale carried by spelled scope
+words. The exact "720 = 6 models x 40 tasks x 3 runs" goes in the experimental-setup section.
+
 ## If a hard length cap bites
 Current ~210 words. Safe further trims: drop "of the six" in S5; shorten the measurement sentence's
 tail to "and nearly vanishes once it is removed". Do not cut the meta-commentary caveat or the
