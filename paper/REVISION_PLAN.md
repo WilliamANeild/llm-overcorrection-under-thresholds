@@ -55,6 +55,15 @@ The results are considered DONE by the mentor ("you passed the big beast"). This
 
 ---
 
+## LOCKED DECISIONS (this cycle)
+- **Scope:** full Introduction rewrite first (done: `introduction_v2.tex`), then outward.
+- **Fig 1:** REAL story-opening excerpt `s3_worker__llama-3.3-70b__story_opening__run3` [4,4,4,3,2].
+  Keep existing visual design; swap fabricated Rachel email for real T1 vs T5 excerpts. Build figure LAST.
+- **Token-cost crossing graph:** remove or replace with quantitative (real token counts). Decide at figure step.
+- **Mathematization:** keep BOTH variants (`_formalization_variants.tex`), decide at Methods rewrite.
+- **Title:** curated final-5 pending user pick (see below).
+- **Register:** no em-dashes, no staccato, measured/scope-fenced observation verbs throughout.
+
 ## PART 2 — TARGET INTRO SKELETON (Ali's 6 beats, NLP-standard)
 1. **Present the field.** Human-AI interaction: models excel on solo benchmarks, but real economic tasks are human-in-the-loop; output quality is co-determined by user-side behavior.
 2. **Thicken the plot (problem).** A dominant user-side behavior is *undirected* revision — "make it better" with no specification of what is wrong — used precisely by users who cannot judge/direct the output.
