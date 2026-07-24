@@ -193,12 +193,14 @@ Every beat below is a phrased topic sentence + its grounding.
 
 ---
 
-## OPEN GROUNDING FLAGS (must resolve before submission)
-- **a1** "Gemini declines in 98.3%" (results_v2.tex L40): inferred, not computed. Compute per-turn Gemini META count or soften to "near-universally."
-- **a2** Judge candidate table rows for Qwen/Gemini/Llama + QW κ (appendix): source is `selected_judge.json`/`judge_calibration.jsonl`; locate and cite.
-- **a3** Study-1 pilot probe n's (18/24/50/3,932) in results_v2.tex L51: from an unprovided Study-1 pilot file; locate or drop.
-- **a4** Per-domain Wilcoxon p-values (4/5 sig, data_logic p=0.058): deltas sourced, p-values not; recompute.
-- **a5** Domain-vs-model variance stats (71.9pp/13.5pp, χ²=35.63, code 34.0%): not in provided data files; locate the computation or recompute.
-- **a6** Enterprise projection ($323–$65,678): exists in results_FINAL.md S7 but dropped from draft; decide restore vs cut.
+## GROUNDING FLAGS — RESOLVED 2026-07-23 (chase complete)
+- **a1 [VERIFIED, was correct].** Gemini 98.3% = 472/480 post-T1 META, exact. Source: computed from `genuine_meta_labels.jsonl`. Bonus per-model META rates: Gemini 98.3, DeepSeek 93.5, GPT-4o 91.7, Qwen 81.2, Claude 59.2, Llama 26.5. results_v2.tex FLAG 1 updated.
+- **a2 [ERROR FOUND + FIXED].** Appendix judge table had wrong rows. Real values from `data/study3/raw_responses/selected_judge.json` (n=64): Claude 0.505/0.526, DeepSeek 0.340/0.398, Qwen 0.272/0.017, Llama 0.181/0.022, GPT-4o 0.140/0.065, **Gemini −0.036/−0.026 (anti-correlated)**. appendix.tex Table corrected + reordered by r. (methods.tex text "DeepSeek next-best 0.340; GPT-4o only 0.140" still accurate.)
+- **a3 [VERIFIED, was correct].** All Study-1 probe n's reproduce exactly. Source: `data/analysis/summary_by_probe_type.csv`. leading n=1920 (99.9%), pilot_a "Is there anything you would change?" n=18 (100%), pilot_b "Does it meet the bar?" n=24 (12.5%), neutral "What do you think?" n=50 (2.0%), pilot_c "Take another look..." n=1920 (23.2%). Total 3,932. Per-model pilot_c decline (Gemini 99.7, GPT-4o 68.6, Claude 62.0) also confirmed in `summary_by_model_probe.csv`.
+- **a4 [VERIFIED, was correct].** Per-domain paired Wilcoxon (trials GENUINE at T5, stripped T1 vs T5) reproduces the paper: analysis p=0.003, code p=0.003, creative p=0.031, writing p=0.008, **data_logic p=0.058 (marginal, exact match)**. NOTE: the Table-4 deltas are the pooled-trajectory (unpaired vs global T1 mean 4.11) quantity, while the p-values are from the within-trial paired test; both defensible but consider a one-line footnote reconciling the two pairings.
+- **a5 [VERIFIED, was correct].** All exact: model range 71.9pp (Llama 73.5% to Gemini 1.7%, n=480 each), domain range 13.5pp (code 34.0% to writing 20.5%, n=576 each), χ²=35.63 df=4 p=3.44e-7. Source: computed from `genuine_meta_labels.jsonl`.
+- **a6 [LOCATED — user decision].** Enterprise projection is corrected S7 in results_FINAL.md: $323/yr (Gemini) to $65,678/yr (Claude) per 500-person org, pricing-tier-dominated, 2025 rates. DECISION NEEDED: restore to Results 4.4 or leave cut. (Recommend a single sentence with the range + the caveat that it is dominated by model choice, not a table.)
+
+**Bottom line: 4 of 6 flagged numbers (a1,a3,a4,a5) were CORRECT, just unsourced; now sourced. a2 was a genuine table error, now fixed. a6 is a content decision.**
 - **basis note** study3_results.json is the OLD keyword-classifier analysis. Never cite its rq* rates; results_FINAL.md is the corrected primary basis. Old superseded numbers (68/50/42/35% rates, 62.4% RDS, +2.00 targeted, 93.3%/83.7% reversibility, balanced n=135) must never re-enter the paper.
 - **bib note** New bib entries use first author + "and others" where full author lists were not verified; complete author lists before submission. Two keys chen2024overthinking (2412.21187) and chen2025overthinking (2508.17627) are distinct papers; keep both, consider renaming for clarity.
