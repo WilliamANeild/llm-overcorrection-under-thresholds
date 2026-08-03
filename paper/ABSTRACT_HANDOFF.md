@@ -7,7 +7,7 @@ preferences (learned over many iterations), and the open decisions.
 ---
 
 ## 1. Paper at a glance
-- **Title (LOCKED):** *Intrinsic Self-Correction Requires Extrinsic Direction*
+- **Title (LOCKED):** *Intrinsic Self-Correction Hinges on Extrinsic Direction*
 - **Venue / deadline:** targeting NAACL, October 2026 deadline. Single author (Liam Neild, Emory).
 - **Thesis:** When a user asks a model to revise without saying what is wrong (undirected /
   *intrinsic* revision), the model mostly declines to genuinely revise and, when it does, degrades
