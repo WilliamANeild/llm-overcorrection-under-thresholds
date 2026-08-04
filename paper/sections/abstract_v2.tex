@@ -1,21 +1,20 @@
 \begin{abstract}
-% v9. When-to-stop spine + original voice, WITH the numbers restored (0.74/p, 1.16, 56->92 put back).
-% Only 720 left out, per the earlier separate objection that a raw trial count reads oddly; say the
-% word if you want it back too. No em-dashes.
-Large language models are absorbing more workplace tasks, increasingly handed to them by users who
-cannot fully judge or direct what comes back. When the output needs improving, those users do the
-only thing they can: ask the model to make it better, without saying what is wrong. Often the output
-is already good enough and the right move is to stop, but neither side can tell, so the revising
-continues. Across five-turn conversations spanning six models, on work that ranges from writing code and
-reasoning over data to business documents and creative writing, models asked to revise without
-direction mostly decline to revise at all, dressing refusal as engagement, and genuine revision falls
-from 39\% of responses at the second turn to 13\% by the fifth. When they do revise,
-they degrade their own work. Quality falls 0.74 levels on a five-point scale ($p = 1.01 \times
-10^{-4}$), the first version is the strongest for every model, and 62\% of output tokens are spent
-past the point of peak quality. The failure is one of direction, not capacity: a single targeted
-critique raises quality 1.16 levels and reverses the decline. Measuring any of this takes care, since
-the meta-commentary models wrap around their revisions inflates an automated judge's preference for
-the first draft from 56\% to 92\%, an effect that nearly vanishes once the commentary is stripped. As
-models take on work their users cannot direct, the remedy is not more iteration but evaluation: tell
-the model what is wrong, or do not ask it to revise.
+% v10. New abstract supplied by the author (conventional context->prior work->gap->method->
+% findings->implication arc). One correctness fix vs the pasted text: "cosmetic edits" -> "restate
+% or decline ... leaving outputs effectively unchanged", to match the paper's classifier, which
+% defines the non-genuine class as meta-responses (declines/restatements), not small edits.
+% No em-dashes. Numbers: 39/13, 0.74, 1.16.
+Large language models are increasingly asked to revise their own outputs over multiple conversation
+turns, often by users who cannot specify what should change. Prior work on self-correction has
+largely examined single rounds of self-critique on tasks with verifiable answers, finding that models
+improve mainly when external feedback is available. Whether repeated, undirected revision requests
+help or harm output quality remains unexamined. We study this setting directly, running five-turn
+revision conversations with six LLMs on 40 tasks across five domains, from code and data reasoning to
+business and creative writing. Under undirected requests, genuine revision declines from 39\% of
+responses at the second turn to 13\% by the fifth, with models instead restating or declining in ways
+that leave outputs effectively unchanged. Revisions that do occur reduce quality by 0.74 levels on a
+five-point scale, and every model's first draft rates highest. A single targeted critique reverses
+this pattern, improving quality by 1.16 levels. These results suggest that intrinsic self-correction
+fails not from lack of capacity but from lack of direction: models revise effectively only when told
+what is wrong.
 \end{abstract}
