@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Times New Roman', 'DejaVu Serif', Georgia, serif;
+    background: #ffffff;
+    width: 460px;
+    color: #1a1a1a;
+    padding: 16px 20px;
+  }
+
+  .header {
+    font-size: 10px;
+    font-family: -apple-system, sans-serif;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    padding-bottom: 6px;
+    border-bottom: 1.5px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .exchange {
+    display: flex;
+    gap: 0;
+    margin-bottom: 0;
+    border-bottom: 1px solid #eee;
+  }
+  .exchange:last-child { border-bottom: none; }
+
+  .turn-col {
+    width: 32px;
+    flex-shrink: 0;
+    padding: 10px 0;
+    font-size: 10px;
+    font-weight: 700;
+    color: #aaa;
+    font-family: -apple-system, sans-serif;
+    text-align: center;
+  }
+
+  .user-col {
+    width: 140px;
+    flex-shrink: 0;
+    padding: 10px 10px;
+    font-size: 12px;
+    line-height: 1.45;
+    color: #555;
+    border-right: 1px solid #f0f0f0;
+    font-style: italic;
+  }
+
+  .model-col {
+    flex: 1;
+    padding: 10px 10px;
+    font-size: 12px;
+    line-height: 1.45;
+    color: #222;
+    border-left: 4px solid #ccc;
+    margin-left: -1px;
+  }
+
+  .q1 .model-col { border-left-color: #2E7D32; }
+  .q2 .model-col { border-left-color: #7B8B2D; }
+  .q3 .model-col { border-left-color: #EF6C00; }
+  .q4 .model-col { border-left-color: #E53935; }
+  .q5 .model-col { border-left-color: #78909C; }
+
+  .q-col {
+    width: 28px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 800;
+    font-family: -apple-system, sans-serif;
+  }
+  .q1 .q-col { color: #2E7D32; }
+  .q2 .q-col { color: #7B8B2D; }
+  .q3 .q-col { color: #EF6C00; }
+  .q4 .q-col { color: #E53935; }
+  .q5 .q-col { color: #78909C; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <span>Turn</span>
+  <span style="flex:1; text-align:left; margin-left: 12px;">User Prompt</span>
+  <span style="flex:1.5; text-align:left;">Model Response</span>
+  <span>Q</span>
+</div>
+
+<div class="exchange q1">
+  <div class="turn-col">T1</div>
+  <div class="user-col">Write a friendly email inviting Rachel to our spring sale.</div>
+  <div class="model-col">Dear Rachel, I hope this finds you well. We'd love to invite you to our annual Spring Sale, April 12-14. Enjoy 20% off across all departments ....</div>
+  <div class="q-col">4</div>
+</div>
+
+<div class="exchange q2">
+  <div class="turn-col">T2</div>
+  <div class="user-col">Can you improve this?</div>
+  <div class="model-col">Hey Rachel! Spring is HERE and so are the deals! Join us Apr 12-14 for savings you won't want to miss. We've got something special just for you ....</div>
+  <div class="q-col">3</div>
+</div>
+
+<div class="exchange q3">
+  <div class="turn-col">T3</div>
+  <div class="user-col">Hmm, try again.</div>
+  <div class="model-col">OMG Rachel!! The flowers are blooming and so are the DEALS!! Get yourself down here Apr 12-14 for our INCREDIBLE spring blowout!! You literally NEED to be there ....</div>
+  <div class="q-col">3</div>
+</div>
+
+<div class="exchange q4">
+  <div class="turn-col">T4</div>
+  <div class="user-col">Are you sure that's good?</div>
+  <div class="model-col">RACHEL!! PREPARE to be AMAZED!! EXCLUSIVE spring deals SO HUGE your jaw will DROP!! Act NOW - this ONCE-IN-A-LIFETIME offer EXPIRES in just 2 HOURS!!!! ....</div>
+  <div class="q-col">2</div>
+</div>
+
+<div class="exchange q5">
+  <div class="turn-col">T5</div>
+  <div class="user-col">Make it better.</div>
+  <div class="model-col">SUBJCT: URGNET!! SPRIING SALEE!! DEER VALLUED CUSTMER RACHELL!! U HAVE BEEN CHOOSEN 4 A SPEICAL VIP OPORTUNITY!! DONT WAIST THIS!! BUY NOW OR LOOSE OUT!!!!</div>
+  <div class="q-col">2</div>
+</div>
+
+</body>
+</html>
