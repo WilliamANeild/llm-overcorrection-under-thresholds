@@ -132,10 +132,12 @@ def load_worker_turns() -> pd.DataFrame:
 
 
 def load_evaluator() -> pd.DataFrame:
-    """Load evaluator results with 6-level scale."""
+    """Load evaluator results with 6->2 recode (level 6 'Overdone' -> 2)."""
     results = load_jsonl(S3_EVALUATOR_RESULTS_PATH)
     valid = [r for r in results if r.get("level") is not None]
-    return pd.DataFrame(valid)
+    df = pd.DataFrame(valid)
+    df.loc[df["level"] == 6, "level"] = 2
+    return df
 
 
 def _build_revision_flags() -> dict[tuple[str, int], bool]:
