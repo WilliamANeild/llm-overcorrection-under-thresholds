@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reversibility Annotation</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #1a1a1a; }
+.container { max-width: 1400px; margin: 0 auto; padding: 16px; }
+
+/* Login screen */
+#login { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; gap: 20px; }
+#login h1 { font-size: 24px; }
+#login .btn-group { display: flex; gap: 12px; }
+#login button { padding: 16px 40px; font-size: 18px; border: 2px solid #333; border-radius: 8px; background: white; cursor: pointer; }
+#login button:hover { background: #e0e0e0; }
+
+/* Main UI */
+#app { display: none; }
+.header { position: sticky; top: 0; background: #f5f5f5; padding: 8px 0 12px; z-index: 10; border-bottom: 1px solid #ddd; margin-bottom: 16px; }
+.instructions { font-size: 13px; color: #555; margin-bottom: 8px; line-height: 1.4; }
+.progress-row { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.progress-bar { flex: 1; height: 8px; background: #ddd; border-radius: 4px; overflow: hidden; }
+.progress-fill { height: 100%; background: #2563eb; transition: width 0.2s; }
+.progress-text { font-size: 13px; color: #666; white-space: nowrap; }
+.nav-row { display: flex; align-items: center; gap: 12px; }
+.nav-row button { padding: 6px 14px; font-size: 13px; border: 1px solid #ccc; border-radius: 4px; background: white; cursor: pointer; }
+.nav-row button:hover { background: #eee; }
+.pair-number { font-weight: 600; font-size: 15px; }
+
+/* Task prompt */
+.task-prompt { background: #e8f0fe; border: 1px solid #b3d4fc; border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; }
+.task-prompt h3 { font-size: 13px; color: #1a56db; margin-bottom: 4px; }
+.task-prompt pre { white-space: pre-wrap; font-size: 14px; font-family: inherit; }
+
+/* Outputs */
+.outputs { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+@media (max-width: 800px) { .outputs { grid-template-columns: 1fr; } }
+.output-panel { background: white; border: 2px solid #ddd; border-radius: 8px; padding: 16px; max-height: 60vh; overflow-y: auto; }
+.output-panel.selected-A { border-color: #2563eb; background: #f0f6ff; }
+.output-panel.selected-B { border-color: #dc2626; background: #fff5f5; }
+.output-panel.selected-eq { border-color: #65a30d; background: #f7fee7; }
+.output-panel h3 { font-size: 14px; font-weight: 700; margin-bottom: 8px; color: #555; }
+.output-panel pre { white-space: pre-wrap; word-wrap: break-word; font-size: 13px; line-height: 1.5; font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace; }
+
+/* Judgment buttons */
+.judgment-row { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+.judgment-row button { padding: 14px 28px; font-size: 16px; font-weight: 600; border: 2px solid #ccc; border-radius: 8px; background: white; cursor: pointer; transition: all 0.15s; }
+.judgment-row button:hover { transform: scale(1.03); }
+.btn-a { color: #2563eb; border-color: #2563eb; }
+.btn-a:hover, .btn-a.active { background: #2563eb; color: white; }
+.btn-eq { color: #65a30d; border-color: #65a30d; }
+.btn-eq:hover, .btn-eq.active { background: #65a30d; color: white; }
+.btn-b { color: #dc2626; border-color: #dc2626; }
+.btn-b:hover, .btn-b.active { background: #dc2626; color: white; }
+
+.save-row { margin-top: 20px; text-align: center; }
+.save-row button { padding: 10px 24px; font-size: 14px; background: #1a1a1a; color: white; border: none; border-radius: 6px; cursor: pointer; }
+.save-row button:hover { background: #333; }
+.save-msg { margin-top: 8px; font-size: 13px; color: #16a34a; }
+.shortcut-hint { font-size: 11px; color: #999; text-align: center; margin-top: 8px; }
+</style>
+</head>
+<body>
+
+<div id="login">
+  <h1>Reversibility Annotation</h1>
+  <p>Who is annotating?</p>
+  <div class="btn-group">
+    <button onclick="startSession('liam')">Liam</button>
+    <button onclick="startSession('troy')">Troy</button>
+  </div>
+</div>
+
+<div id="app" class="container">
+  <div class="header">
+    <div class="instructions">
+      Which output better fulfills the task? Mark equivalent only if you genuinely cannot tell.<br>
+      <em>Do not guess which is the first draft; order is randomized.</em>
+    </div>
+    <div class="progress-row">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      <span class="progress-text" id="progressText"></span>
+    </div>
+    <div class="nav-row">
+      <button onclick="navigate(-1)">&larr; Back</button>
+      <span class="pair-number" id="pairNumber"></span>
+      <button onclick="navigate(1)">Next &rarr;</button>
+    </div>
+  </div>
+
+  <div class="task-prompt">
+    <h3>Task Prompt</h3>
+    <pre id="taskPrompt"></pre>
+  </div>
+
+  <div class="outputs">
+    <div class="output-panel" id="panelA">
+      <h3>Output A</h3>
+      <pre id="outputA"></pre>
+    </div>
+    <div class="output-panel" id="panelB">
+      <h3>Output B</h3>
+      <pre id="outputB"></pre>
+    </div>
+  </div>
+
+  <div class="judgment-row">
+    <button class="btn-a" onclick="judge('A_better')">A is better <span style="font-size:11px;opacity:0.6">[1]</span></button>
+    <button class="btn-eq" onclick="judge('equivalent')">Equivalent <span style="font-size:11px;opacity:0.6">[2]</span></button>
+    <button class="btn-b" onclick="judge('B_better')">B is better <span style="font-size:11px;opacity:0.6">[3]</span></button>
+  </div>
+
+  <div class="shortcut-hint">Keyboard: 1 = A better, 2 = Equivalent, 3 = B better, &larr;/&rarr; = navigate</div>
+
+  <div class="save-row">
+    <button onclick="saveToDisk()">Save to disk</button>
+    <div class="save-msg" id="saveMsg"></div>
+  </div>
+</div>
+
+<script>
+let pairs = [];
+let currentIdx = 0;
+let rater = null;
+
+function storageKey() { return `reversibility_judgments_${rater}`; }
+
+function getJudgments() {
+  const raw = localStorage.getItem(storageKey());
+  return raw ? JSON.parse(raw) : {};
+}
+
+function setJudgment(pairId, value) {
+  const j = getJudgments();
+  j[pairId] = value;
+  localStorage.setItem(storageKey(), JSON.stringify(j));
+}
+
+async function startSession(name) {
+  rater = name;
+  document.getElementById('login').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+
+  const resp = await fetch('/pairs');
+  pairs = await resp.json();
+
+  // Try to load existing judgments from server (in case previously saved)
+  try {
+    const existing = await fetch(`/load/${rater}`);
+    if (existing.ok) {
+      const data = await existing.json();
+      const j = getJudgments();
+      let loaded = 0;
+      for (const p of data) {
+        if (p.judgment && !j[p.pair_id]) {
+          j[p.pair_id] = p.judgment;
+          loaded++;
+        }
+      }
+      if (loaded > 0) {
+        localStorage.setItem(storageKey(), JSON.stringify(j));
+      }
+    }
+  } catch(e) {}
+
+  render();
+}
+
+function render() {
+  const pair = pairs[currentIdx];
+  const judgments = getJudgments();
+  const answered = pairs.filter(p => judgments[p.pair_id]).length;
+
+  document.getElementById('pairNumber').textContent = `${currentIdx + 1} / ${pairs.length}`;
+  document.getElementById('progressFill').style.width = `${(answered / pairs.length) * 100}%`;
+  document.getElementById('progressText').textContent = `${answered} answered, ${pairs.length - answered} remaining`;
+
+  document.getElementById('taskPrompt').textContent = pair.task_prompt;
+  document.getElementById('outputA').textContent = pair.output_A;
+  document.getElementById('outputB').textContent = pair.output_B;
+
+  // Highlight current judgment
+  const current = judgments[pair.pair_id] || null;
+  document.getElementById('panelA').className = 'output-panel' + (current === 'A_better' ? ' selected-A' : '');
+  document.getElementById('panelB').className = 'output-panel' + (current === 'B_better' ? ' selected-B' : '');
+  if (current === 'equivalent') {
+    document.getElementById('panelA').className = 'output-panel selected-eq';
+    document.getElementById('panelB').className = 'output-panel selected-eq';
+  }
+
+  // Highlight active button
+  document.querySelectorAll('.judgment-row button').forEach(btn => btn.classList.remove('active'));
+  if (current === 'A_better') document.querySelector('.btn-a').classList.add('active');
+  if (current === 'equivalent') document.querySelector('.btn-eq').classList.add('active');
+  if (current === 'B_better') document.querySelector('.btn-b').classList.add('active');
+
+  document.getElementById('saveMsg').textContent = '';
+}
+
+function judge(value) {
+  const pair = pairs[currentIdx];
+  setJudgment(pair.pair_id, value);
+  render();
+  // Auto-advance after short delay
+  setTimeout(() => {
+    if (currentIdx < pairs.length - 1) {
+      currentIdx++;
+      render();
+      window.scrollTo(0, 0);
+    }
+  }, 200);
+}
+
+function navigate(dir) {
+  const next = currentIdx + dir;
+  if (next >= 0 && next < pairs.length) {
+    currentIdx = next;
+    render();
+    window.scrollTo(0, 0);
+  }
+}
+
+async function saveToDisk() {
+  const judgments = getJudgments();
+  const output = pairs.map(p => ({
+    pair_id: p.pair_id,
+    task_prompt: p.task_prompt,
+    output_A: p.output_A,
+    output_B: p.output_B,
+    judgment: judgments[p.pair_id] || null,
+  }));
+
+  const resp = await fetch(`/save/${rater}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(output, null, 2),
+  });
+
+  if (resp.ok) {
+    const data = await resp.json();
+    const answered = output.filter(p => p.judgment).length;
+    document.getElementById('saveMsg').textContent = `Saved (${answered}/50 judged) to ${data.path}`;
+  } else {
+    document.getElementById('saveMsg').textContent = 'Save failed!';
+  }
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  if (e.key === '1') judge('A_better');
+  else if (e.key === '2') judge('equivalent');
+  else if (e.key === '3') judge('B_better');
+  else if (e.key === 'ArrowLeft') navigate(-1);
+  else if (e.key === 'ArrowRight') navigate(1);
+});
+</script>
+</body>
+</html>
