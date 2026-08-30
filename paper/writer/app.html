@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Writing desk</title>
+<style>
+  :root{
+    --paper:#faf8f4;
+    --card:#fffdfa;
+    --ink:#24211e;
+    --soft:#6f665c;
+    --faint:#9a9085;
+    --rule:#e8dfd2;
+    --accent:#c2603f;
+    --accent-soft:#d97757;
+    --warn:#a97317;
+    --err:#b4412f;
+    --ok:#4a7c59;
+    --shadow:0 1px 2px rgba(60,45,30,.05), 0 6px 18px rgba(60,45,30,.05);
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,system-ui,sans-serif;
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--sans); font-size:14px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .label{
+    font-size:10px; letter-spacing:.13em; text-transform:uppercase;
+    color:var(--faint); font-weight:600;
+  }
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky; top:0; z-index:20;
+    display:flex; align-items:center; gap:18px;
+    padding:12px 22px; background:rgba(250,248,244,.92);
+    backdrop-filter:saturate(1.6) blur(8px);
+    border-bottom:1px solid var(--rule);
+  }
+  .brand{font-family:var(--serif); font-size:17px; font-style:italic; letter-spacing:.01em}
+  .brand span{color:var(--accent)}
+  .tabs{display:flex; gap:5px; margin-left:6px}
+  .tab{
+    position:relative; width:30px; height:30px; border-radius:9px;
+    border:1px solid var(--rule); background:var(--card); color:var(--soft);
+    font-family:var(--mono); font-size:12px; cursor:pointer;
+    transition:all .13s ease;
+  }
+  .tab:hover{border-color:var(--accent-soft); color:var(--ink)}
+  .tab.on{background:var(--ink); border-color:var(--ink); color:var(--paper)}
+  .tab .pip{
+    position:absolute; bottom:4px; left:50%; transform:translateX(-50%);
+    width:4px; height:4px; border-radius:50%; background:var(--accent-soft); opacity:0;
+  }
+  .tab.filled .pip{opacity:1}
+  .tab.on .pip{background:var(--paper)}
+  .spacer{flex:1}
+  .hcount{font-family:var(--mono); font-size:12px; color:var(--soft)}
+  .hcount b{color:var(--ink); font-weight:600}
+  .saved{font-size:11px; color:var(--faint); min-width:58px; text-align:right}
+  .saved.on{color:var(--ok)}
+  button.ghost{
+    border:1px solid var(--rule); background:var(--card); color:var(--soft);
+    border-radius:8px; padding:6px 11px; font-size:12px; cursor:pointer;
+    font-family:var(--sans);
+  }
+  button.ghost:hover{border-color:var(--accent-soft); color:var(--ink)}
+
+  /* ---------- layout ---------- */
+  main{
+    display:grid; grid-template-columns:minmax(280px,1fr) minmax(440px,1.55fr);
+    gap:20px; padding:20px 22px 60px; max-width:1400px; margin:0 auto;
+    align-items:start;
+  }
+  @media (max-width:900px){ main{grid-template-columns:1fr} }
+  .card{
+    background:var(--card); border:1px solid var(--rule); border-radius:13px;
+    box-shadow:var(--shadow);
+  }
+  .pad{padding:16px 18px}
+
+  /* ---------- outline pane ---------- */
+  .side{position:sticky; top:74px}
+  .beat-no{font-family:var(--mono); font-size:11px; color:var(--accent)}
+  h2{
+    margin:2px 0 6px; font-family:var(--serif); font-size:21px;
+    font-weight:600; letter-spacing:-.01em;
+  }
+  .goal{color:var(--soft); font-size:13px; margin:0 0 14px; font-style:italic}
+  hr{border:0; border-top:1px solid var(--rule); margin:14px 0}
+  ul.checks{list-style:none; margin:8px 0 0; padding:0; display:grid; gap:7px}
+  ul.checks li{display:flex; gap:9px; align-items:flex-start}
+  ul.checks input{
+    appearance:none; flex:none; width:15px; height:15px; margin-top:2px;
+    border:1.5px solid var(--rule); border-radius:4px; background:var(--paper);
+    cursor:pointer; transition:all .12s;
+  }
+  ul.checks input:hover{border-color:var(--accent-soft)}
+  ul.checks input:checked{
+    background:var(--accent); border-color:var(--accent);
+  }
+  ul.checks input:checked::after{
+    content:"✓"; display:block; color:#fff; font-size:11px;
+    line-height:12px; text-align:center;
+  }
+  ul.checks label{font-size:13px; line-height:1.45; cursor:pointer; color:var(--ink)}
+  ul.checks input:checked + label{color:var(--faint); text-decoration:line-through}
+  .chips{display:flex; flex-wrap:wrap; gap:6px; margin-top:8px}
+  .chip{
+    font-family:var(--mono); font-size:11px; padding:4px 8px; border-radius:7px;
+    border:1px solid var(--rule); background:var(--paper); color:var(--soft);
+    cursor:pointer;
+  }
+  .chip:hover{border-color:var(--accent); color:var(--accent); background:#fff}
+  .notes{margin:8px 0 0; padding-left:16px; display:grid; gap:6px}
+  .notes li{font-size:12.5px; color:var(--soft); line-height:1.45}
+  details.current{margin-top:14px}
+  details.current summary{
+    cursor:pointer; font-size:11.5px; color:var(--faint); list-style:none;
+  }
+  details.current summary::-webkit-details-marker{display:none}
+  details.current summary:before{content:"▸ "; color:var(--accent-soft)}
+  details.current[open] summary:before{content:"▾ "}
+  details.current p{
+    margin:9px 0 0; font-family:var(--serif); font-size:13px; line-height:1.6;
+    color:var(--faint); padding:11px 13px; background:var(--paper);
+    border-radius:9px; border:1px dashed var(--rule);
+  }
+
+  /* ---------- editor ---------- */
+  .ed-head{
+    display:flex; align-items:baseline; gap:12px; padding:14px 18px 0;
+  }
+  textarea{
+    display:block; width:100%; min-height:330px; resize:vertical;
+    border:0; outline:0; background:transparent; padding:12px 18px 16px;
+    font-family:var(--serif); font-size:16.5px; line-height:1.75; color:var(--ink);
+    letter-spacing:.005em;
+  }
+  textarea::placeholder{color:#c9c0b4; font-style:italic}
+  .bar{
+    display:flex; align-items:center; gap:16px; padding:11px 18px;
+    border-top:1px solid var(--rule); flex-wrap:wrap;
+  }
+  .stat{font-family:var(--mono); font-size:11.5px; color:var(--faint)}
+  .stat b{color:var(--ink); font-weight:600; font-size:12.5px}
+  .stat.over b{color:var(--warn)}
+  .stat.bad b{color:var(--err)}
+
+  /* meter */
+  .meter{display:flex; align-items:flex-end; gap:3px; height:34px; padding:0 18px 12px}
+  .meter i{
+    flex:1; min-width:3px; max-width:22px; border-radius:2px 2px 0 0;
+    background:var(--accent-soft); opacity:.5; transition:opacity .12s;
+  }
+  .meter i:hover{opacity:1}
+  .meter i.long{background:var(--err); opacity:.65}
+  .meter i.short{background:var(--warn); opacity:.65}
+
+  /* lint */
+  .lint{border-top:1px solid var(--rule); padding:12px 18px 16px}
+  .lint-empty{font-size:12.5px; color:var(--ok)}
+  .finding{
+    display:flex; gap:10px; align-items:flex-start; padding:7px 0;
+    border-bottom:1px dotted var(--rule); cursor:pointer;
+  }
+  .finding:last-child{border-bottom:0}
+  .finding:hover .snip{color:var(--ink)}
+  .sev{
+    flex:none; margin-top:2px; font-size:9.5px; letter-spacing:.08em; font-weight:700;
+    text-transform:uppercase; padding:2px 6px; border-radius:5px;
+  }
+  .sev.err{background:#fbeae7; color:var(--err)}
+  .sev.warn{background:#fcf2e0; color:var(--warn)}
+  .sev.info{background:#eef1f5; color:#5a6b7d}
+  .fbody{min-width:0}
+  .fname{font-size:12.5px; font-weight:600}
+  .snip{
+    font-family:var(--mono); font-size:11.5px; color:var(--soft);
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">the <span>writing desk</span></div>
+  <div class="tabs" id="tabs"></div>
+  <div class="spacer"></div>
+  <div class="hcount" id="hcount"></div>
+  <button class="ghost" id="export">Export .tex</button>
+  <div class="saved" id="saved"></div>
+</header>
+
+<main>
+  <section class="card side pad" id="side"></section>
+
+  <section class="card">
+    <div class="ed-head">
+      <span class="label" id="edLabel">Draft</span>
+      <span class="stat" id="target"></span>
+    </div>
+    <textarea id="ed" spellcheck="true" placeholder="Write the paragraph."></textarea>
+    <div class="meter" id="meter" title="One bar per sentence. Height is length."></div>
+    <div class="bar" id="bar"></div>
+    <div class="lint" id="lint"></div>
+  </section>
+</main>
+
+<script>
+const RULES = [
+  {id:'emdash', name:'Em dash', sev:'err',
+   re:/—/g, note:'Standing rule: never.'},
+  {id:'notbut', name:'not-X-but-Y seesaw', sev:'warn',
+   re:/\bnot\s+(?:just\s+|merely\s+|only\s+|simply\s+)?[^,.;:]{2,45}?,?\s+but\s+/gi},
+  {id:'adverb', name:'Significance adverb', sev:'warn',
+   re:/\b(crucially|notably|quietly|importantly|moreover|fundamentally|critically|remarkably|strikingly|tellingly|precisely|indeed)\b/gi},
+  {id:'tricolon', name:'Possible rhythm tricolon', sev:'info',
+   re:/[^,.;:]{3,40},\s[^,.;:]{3,40},\s(?:and|or)\s[^,.;:]{3,40}/g},
+  {id:'hedge', name:'Stacked hedge', sev:'info',
+   re:/\b(may|might|could|appears? to|seems? to|tends? to|arguably|possibly|perhaps|somewhat|relatively)\b[^.]{0,70}?\b(may|might|could|appears? to|seems? to|tends? to|arguably|possibly|perhaps|somewhat|relatively)\b/gi},
+  {id:'hype', name:'Hype verb', sev:'warn',
+   re:/\b(dramatically|massively|revolutionis|revolutioniz|game.chang|profoundly|vastly|hugely)\w*\b/gi},
+  {id:'expletive', name:'Expletive opener', sev:'info',
+   re:/(?:^|[.!?]\s+)(There (?:is|are|was|were)\b|It is (?:also|worth|clear|important|no accident)\b)/g},
+  {id:'weshow', name:'Assertion verb (prefer observation)', sev:'info',
+   re:/\bwe (?:show that|prove|argue that|claim that|demonstrate)\b/gi},
+];
+
+const ABBR = [['e.g.','e_g_'],['i.e.','i_e_'],['et al.','et al_'],['cf.','cf_'],
+               ['vs.','vs_'],['Fig.','Fig_'],['Sec.','Sec_'],['Eq.','Eq_'],['approx.','approx_']];
+
+let OUTLINE=null, STATE={}, SEC=null, BEAT=0, timer=null;
+
+const $ = id => document.getElementById(id);
+const key = () => SEC.id + '.' + SEC.beats[BEAT].id;
+
+function prose(t){
+  return t.replace(/\\cite[tp]?\{[^}]*\}/g,'')
+          .replace(/\\(?:ref|label|S)\{?[^}\s]*\}?/g,'')
+          .replace(/\\(?:emph|textit|textbf)\{([^}]*)\}/g,'$1')
+          .replace(/^%.*$/gm,'')
+          .replace(/\\%/g,'%');
+}
+function words(t){ return prose(t).trim().split(/\s+/).filter(Boolean).length; }
+function sentences(t){
+  let s = prose(t);
+  ABBR.forEach(([a,b]) => { s = s.split(a).join(b); });
+  return s.split(/(?<=[.!?])["'”’)]?\s+/)
+          .map(x=>x.trim()).filter(x=>x.split(/\s+/).filter(Boolean).length > 1);
+}
+
+/* ---------- rendering ---------- */
+
+function renderTabs(){
+  $('tabs').innerHTML = SEC.beats.map((b,i)=>{
+    const has = ((STATE[SEC.id+'.'+b.id]||{}).text||'').trim().length > 0;
+    return `<button class="tab ${i===BEAT?'on':''} ${has?'filled':''}" data-i="${i}"
+             title="${b.title}">${i+1}<span class="pip"></span></button>`;
+  }).join('');
+  [...document.querySelectorAll('.tab')].forEach(t=>{
+    t.onclick = () => { flush(); BEAT = +t.dataset.i; paint(); };
+  });
+}
+
+function renderSide(){
+  const b = SEC.beats[BEAT];
+  const st = STATE[key()] || {};
+  const checked = new Set(st.checked || []);
+  const cites = b.cites.length
+    ? `<hr><div class="label">Citations in play</div>
+       <div class="chips">${b.cites.map(c=>`<span class="chip" data-cite="${c}">${c}</span>`).join('')}</div>`
+    : '';
+  const notes = b.notes.length
+    ? `<hr><div class="label">Notes</div><ul class="notes">${b.notes.map(n=>`<li>${n}</li>`).join('')}</ul>`
+    : '';
+  const cur = b.current
+    ? `<details class="current"><summary>current v2 paragraph (anchoring risk)</summary><p>${b.current}</p></details>`
+    : '';
+
+  $('side').innerHTML = `
+    <div class="beat-no">Beat ${BEAT+1} of ${SEC.beats.length}</div>
+    <h2>${b.title}</h2>
+    <p class="goal">${b.goal}</p>
+    <div class="label">Must land</div>
+    <ul class="checks">
+      ${b.must.map((m,i)=>`
+        <li><input type="checkbox" id="c${i}" data-i="${i}" ${checked.has(i)?'checked':''}>
+        <label for="c${i}">${m}</label></li>`).join('')}
+    </ul>
+    ${cites}${notes}${cur}`;
+
+  [...document.querySelectorAll('.checks input')].forEach(i=>{ i.onchange = save; });
+  [...document.querySelectorAll('.chip')].forEach(c=>{
+    c.onclick = () => insert('\\cite{'+c.dataset.cite+'}');
+  });
+}
+
+function insert(str){
+  const ed = $('ed'), s = ed.selectionStart, e = ed.selectionEnd;
+  ed.value = ed.value.slice(0,s) + str + ed.value.slice(e);
+  ed.focus(); ed.setSelectionRange(s+str.length, s+str.length);
+  analyse(); save();
+}
+
+function analyse(){
+  const raw = $('ed').value;
+  const b = SEC.beats[BEAT];
+  const w = words(raw), sents = sentences(raw);
+  const lens = sents.map(s=>s.split(/\s+/).filter(Boolean).length);
+  const mean = lens.length ? lens.reduce((a,c)=>a+c,0)/lens.length : 0;
+  const max = lens.length ? Math.max(...lens) : 0;
+
+  // target
+  const ratio = w / b.targetWords;
+  const cls = ratio > 1.3 ? 'bad' : ratio > 1.12 ? 'over' : '';
+  $('target').className = 'stat ' + cls;
+  $('target').innerHTML = `<b>${w}</b> / ${b.targetWords} words`;
+
+  // section total
+  let total = 0, goal = 0;
+  SEC.beats.forEach(bb=>{
+    goal += bb.targetWords;
+    const t = bb.id===b.id ? raw : ((STATE[SEC.id+'.'+bb.id]||{}).text||'');
+    total += words(t);
+  });
+  $('hcount').innerHTML = `<b>${total}</b> / ${goal}`;
+
+  // bar
+  const meanCls = mean > 38 ? 'bad' : mean > 32 ? 'over' : '';
+  $('bar').innerHTML = `
+    <div class="stat">sentences <b>${lens.length}</b></div>
+    <div class="stat ${meanCls}">mean length <b>${mean.toFixed(1)}</b></div>
+    <div class="stat ${max>45?'bad':''}">longest <b>${max}</b></div>
+    <div class="stat">shortest <b>${lens.length?Math.min(...lens):0}</b></div>
+    <div class="stat" style="color:var(--faint)">exemplar band 18&ndash;30</div>`;
+
+  // meter
+  const cap = Math.max(45, max);
+  $('meter').innerHTML = lens.map((l,i)=>{
+    const c = l > 45 ? 'long' : l < 8 ? 'short' : '';
+    return `<i class="${c}" style="height:${Math.max(8,(l/cap)*100)}%"
+             title="S${i+1}: ${l} words — ${sents[i].slice(0,90).replace(/"/g,'&quot;')}…"></i>`;
+  }).join('');
+
+  lint(raw, lens);
+}
+
+function lint(raw, lens){
+  const out = [];
+  RULES.forEach(r=>{
+    r.re.lastIndex = 0;
+    let m;
+    while ((m = r.re.exec(raw)) !== null){
+      if (m[0].length === 0){ r.re.lastIndex++; continue; }
+      out.push({sev:r.sev, name:r.name, snip:m[0].trim().replace(/\s+/g,' '),
+                start:m.index, end:m.index+m[0].length});
+      if (out.length > 40) break;
+    }
+  });
+
+  // structural: paragraph ends on a punch
+  if (lens.length >= 3){
+    const last = lens[lens.length-1], prev = lens[lens.length-2];
+    if (last < 12 && prev > 24){
+      out.push({sev:'warn', name:'Paragraph ends on a punch',
+                snip:`final sentence ${last} words after ${prev}`, start:raw.length, end:raw.length});
+    }
+  }
+  // structural: no variation
+  if (lens.length >= 4){
+    const mean = lens.reduce((a,c)=>a+c,0)/lens.length;
+    const sd = Math.sqrt(lens.reduce((a,c)=>a+(c-mean)**2,0)/lens.length);
+    if (sd < 5){
+      out.push({sev:'info', name:'Flat meter',
+                snip:`sentence lengths within ±${sd.toFixed(1)} words of each other`,
+                start:0, end:0});
+    }
+  }
+
+  const el = $('lint');
+  if (!out.length){
+    el.innerHTML = raw.trim()
+      ? '<div class="lint-empty">Clean against the rule list.</div>'
+      : '<div class="stat" style="color:var(--faint)">Nothing to check yet.</div>';
+    return;
+  }
+  const order = {err:0, warn:1, info:2};
+  out.sort((a,b)=>order[a.sev]-order[b.sev] || a.start-b.start);
+  el.innerHTML = out.map((f,i)=>`
+    <div class="finding" data-s="${f.start}" data-e="${f.end}">
+      <span class="sev ${f.sev}">${f.sev}</span>
+      <div class="fbody"><div class="fname">${f.name}</div>
+      <div class="snip">${f.snip.replace(/</g,'&lt;')}</div></div>
+    </div>`).join('');
+  [...el.querySelectorAll('.finding')].forEach(f=>{
+    f.onclick = () => {
+      const ed = $('ed');
+      ed.focus();
+      ed.setSelectionRange(+f.dataset.s, +f.dataset.e);
+    };
+  });
+}
+
+/* ---------- persistence ---------- */
+
+function collect(){
+  return {
+    key: key(),
+    text: $('ed').value,
+    checked: [...document.querySelectorAll('.checks input')]
+              .filter(i=>i.checked).map(i=>+i.dataset.i)
+  };
+}
+
+function save(){
+  clearTimeout(timer);
+  $('saved').className = 'saved';
+  $('saved').textContent = 'saving…';
+  timer = setTimeout(flush, 550);
+}
+
+async function flush(){
+  clearTimeout(timer);
+  const payload = collect();
+  STATE[payload.key] = {text:payload.text, checked:payload.checked};
+  try{
+    await fetch('/save', {method:'POST', headers:{'Content-Type':'application/json'},
+                          body:JSON.stringify(payload)});
+    $('saved').className = 'saved on';
+    $('saved').textContent = 'saved';
+  }catch(e){
+    $('saved').className = 'saved';
+    $('saved').textContent = 'offline';
+  }
+  renderTabs();
+}
+
+function paint(){
+  const st = STATE[key()] || {};
+  $('ed').value = st.text || '';
+  $('edLabel').textContent = 'Draft — beat ' + (BEAT+1);
+  renderTabs(); renderSide(); analyse();
+  $('ed').focus();
+}
+
+/* ---------- boot ---------- */
+
+(async function(){
+  OUTLINE = await (await fetch('/outline')).json();
+  STATE  = await (await fetch('/state')).json();
+  SEC = OUTLINE.sections[0];
+  document.title = SEC.title + ' — writing desk';
+  paint();
+
+  $('ed').addEventListener('input', () => { analyse(); save(); });
+
+  $('export').onclick = async () => {
+    await flush();
+    const r = await (await fetch('/export', {method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({section:SEC.id})})).json();
+    $('saved').className='saved on';
+    $('saved').textContent='exported';
+    console.log('wrote', r.path);
+  };
+
+  document.addEventListener('keydown', e => {
+    if ((e.metaKey||e.ctrlKey) && e.key === 's'){ e.preventDefault(); flush(); }
+    if (e.altKey && e.key === 'ArrowRight' && BEAT < SEC.beats.length-1){
+      e.preventDefault(); flush(); BEAT++; paint();
+    }
+    if (e.altKey && e.key === 'ArrowLeft' && BEAT > 0){
+      e.preventDefault(); flush(); BEAT--; paint();
+    }
+  });
+})();
+</script>
+</body>
+</html>
