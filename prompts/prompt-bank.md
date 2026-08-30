@@ -172,4 +172,4 @@ The prompt bank still needs refinement in a few areas:
 
 The current direction is to keep the first prompt bank broad enough to cover core communication settings, but controlled enough that threshold framing remains the main variable of interest.
 
-The five current scenarios give the project a strong base across public, professional, personal, humorous, and persuasive writing. The next step is to pair each of those scenarios with the numeric and qualitative expectation ladders and begin building the full prompt matrix.
+The five current scenarios give the project a strong base across public, professional, personal, humorous, and persuasive writing. The next step is to pair each of those scenarios with the numeric and qualitative expectation ladders and begin building the full prompt matrix.`
