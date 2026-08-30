@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #ffffff;
+    padding: 28px 32px;
+    width: 520px;
+  }
+  .chat {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .row {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+  }
+  .row.user { justify-content: flex-start; }
+  .row.model { justify-content: flex-end; }
+
+  .bubble {
+    padding: 10px 14px;
+    border-radius: 16px;
+    font-size: 13px;
+    line-height: 1.45;
+    max-width: 340px;
+    white-space: pre-line;
+  }
+
+  /* User bubbles */
+  .row.user .bubble {
+    background: #F0F0F0;
+    color: #222;
+    border-bottom-left-radius: 4px;
+  }
+
+  /* Model bubbles - colored outlines with pastel fills */
+  .row.model .bubble {
+    color: #222;
+    border-width: 2px;
+    border-style: solid;
+    border-bottom-right-radius: 4px;
+  }
+  .model.t1 .bubble { background: #D6F0ED; border-color: #26A69A; }
+  .model.t2 .bubble { background: #FFF4CC; border-color: #F9A825; }
+  .model.t3 .bubble { background: #FFE4CC; border-color: #FB8C00; }
+  .model.t4 .bubble { background: #FCDADA; border-color: #E53935; }
+  .model.t5 .bubble { background: #E3E8EC; border-color: #6B7B8D; }
+
+  /* Face icons */
+  .face {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+  }
+
+  /* Spacing between turn pairs */
+  .turn-gap { height: 2px; }
+</style>
+</head>
+<body>
+<div class="chat">
+
+  <!-- T1: User prompt (no face - first message) -->
+  <div class="row user">
+    <div class="bubble">Write a friendly email inviting Rachel to our spring sale.</div>
+  </div>
+
+  <!-- T1: Model response (formal) -->
+  <div class="row model t1">
+    <div class="bubble">Dear Rachel,
+I hope this finds you well. We'd love to invite you to our annual Spring Sale, April 12-14. Enjoy 20% off across all departments. We think you'll find some wonderful pieces this season ....</div>
+  </div>
+
+  <div class="turn-gap"></div>
+
+  <!-- T2: User (with smile face for T1 quality) -->
+  <div class="row user">
+    <img class="face" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'%3E%3Ccircle cx='18' cy='18' r='16' fill='%23E0F2F1' stroke='%2300897B' stroke-width='2'/%3E%3Ccircle cx='12' cy='15' r='2' fill='%2300897B'/%3E%3Ccircle cx='24' cy='15' r='2' fill='%2300897B'/%3E%3Cpath d='M11 22 Q18 28 25 22' fill='none' stroke='%2300897B' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+    <div class="bubble">Can you improve this?</div>
+  </div>
+
+  <!-- T2: Model response (informal) -->
+  <div class="row model t2">
+    <div class="bubble">Hey Rachel! Spring is HERE and so are the deals! Join us Apr 12-14 for savings you won't want to miss. We've got something special just for you - don't sleep on it! ....</div>
+  </div>
+
+  <div class="turn-gap"></div>
+
+  <!-- T3: User (with neutral face for T2 quality) -->
+  <div class="row user">
+    <img class="face" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'%3E%3Ccircle cx='18' cy='18' r='16' fill='%23FFF8E1' stroke='%23F9A825' stroke-width='2'/%3E%3Ccircle cx='12' cy='15' r='2' fill='%23F9A825'/%3E%3Ccircle cx='24' cy='15' r='2' fill='%23F9A825'/%3E%3Cline x1='11' y1='23' x2='25' y2='23' stroke='%23F9A825' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+    <div class="bubble">Hmm, try again.</div>
+  </div>
+
+  <!-- T3: Model response (ultra informal) -->
+  <div class="row model t3">
+    <div class="bubble">OMG Rachel!! The flowers are blooming and so are the DEALS!! Get yourself down here Apr 12-14 for our INCREDIBLE spring blowout!! You literally NEED to be there ....</div>
+  </div>
+
+  <div class="turn-gap"></div>
+
+  <!-- T4: User (with uneasy face for T3 quality) -->
+  <div class="row user">
+    <img class="face" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'%3E%3Ccircle cx='18' cy='18' r='16' fill='%23FFF3E0' stroke='%23EF6C00' stroke-width='2'/%3E%3Ccircle cx='12' cy='15' r='2' fill='%23EF6C00'/%3E%3Ccircle cx='24' cy='15' r='2' fill='%23EF6C00'/%3E%3Cpath d='M12 24 Q18 20 24 24' fill='none' stroke='%23EF6C00' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+    <div class="bubble">Are you sure that's good?</div>
+  </div>
+
+  <!-- T4: Model response (spam) -->
+  <div class="row model t4">
+    <div class="bubble">RACHEL!! PREPARE to be AMAZED!! EXCLUSIVE spring deals SO HUGE your jaw will DROP!! Act NOW - this ONCE-IN-A-LIFETIME offer EXPIRES in just 2 HOURS!!!! ....</div>
+  </div>
+
+  <div class="turn-gap"></div>
+
+  <!-- T5: User (with angry face for T4 quality) -->
+  <div class="row user">
+    <img class="face" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'%3E%3Ccircle cx='18' cy='18' r='16' fill='%23FFEBEE' stroke='%23C62828' stroke-width='2'/%3E%3Ccircle cx='12' cy='15' r='2' fill='%23C62828'/%3E%3Ccircle cx='24' cy='15' r='2' fill='%23C62828'/%3E%3Cpath d='M12 25 Q18 20 24 25' fill='none' stroke='%23C62828' stroke-width='2' stroke-linecap='round'/%3E%3Cline x1='9' y1='10' x2='15' y2='12' stroke='%23C62828' stroke-width='1.5' stroke-linecap='round'/%3E%3Cline x1='27' y1='10' x2='21' y2='12' stroke='%23C62828' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E">
+    <div class="bubble">Make it better.</div>
+  </div>
+
+  <!-- T5: Model response (unhinged misspellings) -->
+  <div class="row model t5">
+    <div class="bubble">SUBJCT: URGNET!! SPRIING SALEE!! DEER VALLUED CUSTMER RACHELL!! U HAVE BEEN CHOOSEN 4 A SPEICAL VIP OPORTUNITY!! DONT WAIST THIS!! BUY NOW OR LOOSE OUT!!!!</div>
+  </div>
+
+  <div class="turn-gap"></div>
+
+  <!-- Final: User "Huh?" with dead face -->
+  <div class="row user">
+    <img class="face" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'%3E%3Ccircle cx='18' cy='18' r='16' fill='%23CFD8DC' stroke='%23455A64' stroke-width='2'/%3E%3Cline x1='9' y1='12' x2='15' y2='18' stroke='%23455A64' stroke-width='2.5' stroke-linecap='round'/%3E%3Cline x1='15' y1='12' x2='9' y2='18' stroke='%23455A64' stroke-width='2.5' stroke-linecap='round'/%3E%3Cline x1='21' y1='12' x2='27' y2='18' stroke='%23455A64' stroke-width='2.5' stroke-linecap='round'/%3E%3Cline x1='27' y1='12' x2='21' y2='18' stroke='%23455A64' stroke-width='2.5' stroke-linecap='round'/%3E%3Ccircle cx='18' cy='26' r='3.5' fill='none' stroke='%23455A64' stroke-width='2'/%3E%3C/svg%3E">
+    <div class="bubble">Huh?</div>
+  </div>
+
+</div>
+</body>
+</html>

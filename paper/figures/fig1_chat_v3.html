@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #ffffff;
+    width: 440px;
+    color: #1a1a1a;
+    padding: 16px 16px;
+  }
+
+  .chat {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .turn-label {
+    font-size: 9px;
+    font-weight: 700;
+    color: #aaa;
+    text-align: center;
+    margin: 6px 0 2px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .turn-label:first-child { margin-top: 0; }
+
+  .msg {
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+  }
+  .msg.user { justify-content: flex-end; }
+  .msg.model { justify-content: flex-start; }
+
+  .bubble {
+    font-size: 12.5px;
+    line-height: 1.5;
+    padding: 8px 12px;
+    border-radius: 14px;
+    max-width: 310px;
+  }
+
+  .msg.user .bubble {
+    background: #e8edf2;
+    color: #1a1a1a;
+    border-bottom-right-radius: 4px;
+  }
+
+  .msg.model .bubble {
+    background: #f7f7f8;
+    color: #1a1a1a;
+    border-bottom-left-radius: 4px;
+    border: 1px solid #e5e5e5;
+    border-left-width: 4px;
+    border-left-style: solid;
+  }
+
+  .msg.model.q1 .bubble { border-left-color: #2E7D32; }
+  .msg.model.q2 .bubble { border-left-color: #7B8B2D; }
+  .msg.model.q3 .bubble { border-left-color: #EF6C00; }
+  .msg.model.q4 .bubble { border-left-color: #E53935; }
+  .msg.model.q5 .bubble { border-left-color: #78909C; }
+
+  .q-badge {
+    font-size: 10px;
+    font-weight: 800;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.0;
+    min-width: 24px;
+  }
+  .q-badge .num { font-size: 12px; }
+  .q-badge .word {
+    font-size: 6.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    opacity: 0.65;
+  }
+  .q1 .q-badge { color: #2E7D32; }
+  .q2 .q-badge { color: #7B8B2D; }
+  .q3 .q-badge { color: #EF6C00; }
+  .q4 .q-badge { color: #E53935; }
+  .q5 .q-badge { color: #78909C; }
+
+  .caption {
+    margin-top: 16px;
+    padding-top: 10px;
+    border-top: 1px solid #e0e0e0;
+    font-size: 11px;
+    color: #666;
+    line-height: 1.5;
+    text-align: center;
+    font-style: italic;
+  }
+  .caption strong {
+    font-style: normal;
+    color: #444;
+  }
+</style>
+</head>
+<body>
+<div class="chat">
+
+  <div class="turn-label">T1</div>
+  <div class="msg user">
+    <div class="bubble">Write a friendly email inviting Rachel to our spring sale.</div>
+  </div>
+  <div class="msg model q1">
+    <div class="bubble">Dear Rachel, I hope this finds you well. We'd love to invite you to our annual Spring Sale, April 12-14. Enjoy 20% off across all departments ....</div>
+    <div class="q-badge"><span class="num">4</span><span class="word">quality</span></div>
+  </div>
+
+  <div class="turn-label">T2</div>
+  <div class="msg user">
+    <div class="bubble">Can you improve this?</div>
+  </div>
+  <div class="msg model q2">
+    <div class="bubble">Hey Rachel! Spring is HERE and so are the deals! Join us Apr 12-14 for savings you won't want to miss. We've got something special just for you ....</div>
+    <div class="q-badge"><span class="num">3</span><span class="word">quality</span></div>
+  </div>
+
+  <div class="turn-label">T3</div>
+  <div class="msg user">
+    <div class="bubble">Hmm, try again.</div>
+  </div>
+  <div class="msg model q3">
+    <div class="bubble">OMG Rachel!! The flowers are blooming and so are the DEALS!! Get yourself down here Apr 12-14 for our INCREDIBLE spring blowout!! You literally NEED to be there ....</div>
+    <div class="q-badge"><span class="num">3</span><span class="word">quality</span></div>
+  </div>
+
+  <div class="turn-label">T4</div>
+  <div class="msg user">
+    <div class="bubble">Are you sure that's good?</div>
+  </div>
+  <div class="msg model q4">
+    <div class="bubble">RACHEL!! PREPARE to be AMAZED!! EXCLUSIVE spring deals SO HUGE your jaw will DROP!! Act NOW - this ONCE-IN-A-LIFETIME offer EXPIRES in just 2 HOURS!!!! ....</div>
+    <div class="q-badge"><span class="num">2</span><span class="word">quality</span></div>
+  </div>
+
+  <div class="turn-label">T5</div>
+  <div class="msg user">
+    <div class="bubble">Make it better.</div>
+  </div>
+  <div class="msg model q5">
+    <div class="bubble">DEER VALLUED CUSTMER RACHELL!! U HAVE BEEN CHOOSEN 4 A SPEICAL VIP OPORTUNITY!! DONT WAIST THIS!! BUY NOW OR LOOSE OUT!!!!</div>
+    <div class="q-badge"><span class="num">2</span><span class="word">quality</span></div>
+  </div>
+
+</div>
+
+<div class="caption">
+  Undirected revision degrades output: over five turns, response quality <strong>dropped by half</strong> while token cost <strong>increased ~165%</strong>.
+</div>
+
+</body>
+</html>

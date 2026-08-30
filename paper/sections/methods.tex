@@ -1,136 +1,14 @@
 \section{Methods}
 
-\subsection{Task Design}
+\subsection{Design}
 
-We study a two-turn interaction in which a user (1) requests a writing task with an embedded quality threshold, (2) receives an initial output, and (3) sends a follow-up prompt. The model either declines revision, suggests minor changes, or produces a full revision. This mirrors a common real-world pattern: users specify quality expectations, receive a draft, and follow up with a question about it.
+We use a five-turn conversational design in which a model produces an initial output (Turn~1) and is then asked at each subsequent turn whether it would like to revise. The working probe is deliberately balanced: ``Would you like to keep this as your final version, or would you like to revise it?'' This offers an explicit off-ramp at every turn, unlike revision-implying probes that trigger near-universal compliance (see \S\ref{sec:gate-experiments}).
 
-\subsection{Independent Variables}
+The experiment crosses 6 models $\times$ 40 scenarios $\times$ 3 runs $=$ \textbf{720 trials} (3,600 model-turn observations). All generation uses temperature~1.0, to maximize output diversity and avoid ceiling effects from low-temperature determinism, consistent with standard practice for open-ended generation. Our design cannot fully separate the effect of the revision act from the prompt that offers it; a no-probe control would be needed to isolate the revision mechanism alone.
 
-The experiment crosses three factors in a fully factorial design.
+\paragraph{Models.} Claude Sonnet~4 (Anthropic), GPT-4o (OpenAI), Gemini~2.5 Flash (Google), Llama~3.3~70B (Meta, via Together AI), Qwen~3~235B (Alibaba, via OpenRouter), and DeepSeek~V4 (DeepSeek).
 
-\paragraph{Probe Framing (2 levels).} The follow-up prompt after the model's initial output:
-\begin{itemize}
-    \item \textbf{Leading:} ``Can this be improved?'' Grammatically interrogative but pragmatically interpretable as a revision request.
-    \item \textbf{Evaluative:} ``Take another look at this and let me know if it's ready.'' Invites assessment without directing revision.
-\end{itemize}
-
-\paragraph{Quality Threshold (8 levels $\times$ 2 framings).} The user's stated quality bar, embedded in the initial prompt. Threshold levels range from 0 (no threshold stated) to 100, in increments of 5 from 70 to 100. Each level has two framing variants:
-\begin{itemize}
-    \item \textbf{Numeric:} ``I would consider this done if the outcome is around a [X] out of 100.''
-    \item \textbf{Qualitative:} Functionally equivalent natural language (e.g., 70 $\to$ ``good enough to get the point across without causing any problems'').
-\end{itemize}
-
-\paragraph{Model (3 levels).} Claude Sonnet 4 (Anthropic), Gemini 2.5 Flash (Google), GPT-4o (OpenAI).
-
-\subsection{Probe Selection}
-\label{sec:probe-selection}
-
-The two main probes were selected from a five-probe calibration pilot ($n = 92$ trials across 5 scenarios). The pilot revealed a steep \textit{compliance cliff} (Figure~\ref{fig:probe-cliff}): probes partition into two categories with no intermediate region.
-
-Any probe implying revision (Leading: ``Can this be improved?'', 100\%; Pilot A: ``Is there anything you would change?'', 100\%) triggered near-universal compliance. Any probe implying evaluation (Neutral: ``What do you think?'', 2\%; Pilot B: ``Review this against the threshold'', 12.5\%) triggered near-zero revision. Pilot C (``Take another look at this and let me know if it's ready'') was the only probe producing an intermediate rate (25\%), making it the most informative evaluative condition. We selected Leading and Pilot C as the two main probes.
-
-\subsection{Scenarios}
-
-Eight writing scenarios span four register categories (Table~\ref{tab:scenarios}). Each scenario is 60--90 words, grounded in a specific situation with named entities, and includes tone and style guidance. The full design crosses 8 scenarios $\times$ 2 framings $\times$ 8 thresholds $\times$ 2 probes $\times$ 3 models $\times$ 5 runs $=$ \textbf{3,840 primary trials}, plus 92 pilot trials (3,932 total scored).
-
-\begin{table}[t]
-\centering
-\small
-\begin{tabular}{@{}llp{3.4cm}@{}}
-\toprule
-\textbf{Register} & \textbf{ID} & \textbf{Description} \\
-\midrule
-Formal & pto & PTO request to manager \\
-Formal & sales & Sales email to outside client \\
-Neutral & linkedin & LinkedIn job announcement \\
-Neutral & slack & Slack project status update \\
-Informal & brunch & Text canceling brunch plans \\
-Informal & coworker & Funny text to a coworker \\
-Technical & setup & Software setup instructions \\
-Creative & review & Online headphones review \\
-\bottomrule
-\end{tabular}
-\caption{Eight writing scenarios across four register categories.}
-\label{tab:scenarios}
-\end{table}
-
-\subsection{Evaluation}
-
-All trials are scored by GPT-4o as an LLM judge using a structured rubric. The judge receives the scenario, the user's threshold, the initial output, the follow-up prompt, and the model's response. It returns a JSON object with five scored outputs: a revision gate classification (3-level categorical) and four continuous dimension scores.
-
-\paragraph{Dependent Variables.} The \textit{revision gate} is a three-level categorical variable: decline, suggest minor changes, or full revision. For RQ2, we measure \textit{overcorrection} on a 1--5 scale, where 1 indicates proportionate revision and 5 indicates severe overcorrection relative to the stated threshold. Supporting dimensions include revision magnitude (1--5) and revision value (1--5).
-
-\paragraph{Inter-Rater Reliability.} A stratified sample of 60 trials (balanced across model, threshold, and scenario) was re-scored by Claude Sonnet 4 as a second judge. Table~\ref{tab:irr} reports quadratic-weighted Cohen's $\kappa$. Agreement is strongest on revision magnitude and weakest on threshold alignment, which readers should weigh when interpreting threshold-related findings.
-
-\begin{table}[t]
-\centering
-\small
-\begin{tabular}{@{}lcc@{}}
-\toprule
-\textbf{Dimension} & \textbf{QW $\kappa$} & \textbf{Interpretation} \\
-\midrule
-Revision magnitude & 0.844 & Excellent \\
-Revision value & 0.690 & Good \\
-Overcorrection & 0.609 & Acceptable \\
-Threshold alignment & 0.556 & Marginal \\
-\bottomrule
-\end{tabular}
-\caption{Inter-rater reliability (quadratic-weighted Cohen's $\kappa$) between GPT-4o and Claude Sonnet 4 judges on a stratified sample of 60 trials.}
-\label{tab:irr}
-\end{table}
-
-\paragraph{Bias Controls.} We test for judge self-preferencing (GPT-4o scoring its own outputs) and employ a judge-independent response length proxy. Between-model rankings on the length proxy are broadly consistent with judge rankings at the between-model level, though the proxy is not uniformly reliable within model (\S\ref{sec:robustness}).
-
-\subsection{Analysis}
-
-We use chi-squared tests for revision gate distributions (RQ1), Spearman correlations and Kruskal-Wallis $H$ tests for threshold--overcorrection relationships (RQ2), and ordinal regression for multivariate analysis. We fit three ordinal regression models:
-\begin{itemize}
-    \item \textbf{Model A:} overcorrection $\sim$ probe $+$ threshold $+$ framing $+$ model
-    \item \textbf{Model B:} Model A $+$ scenario fixed effects
-    \item \textbf{Model C:} Leading-probe trials only: overcorrection $\sim$ threshold $+$ framing $+$ model $+$ scenario
-\end{itemize}
-All $p$-values are corrected for multiple comparisons using Benjamini-Hochberg FDR ($q < 0.05$).
-
-\subsection{Study 2: Momentum Experiment}
-\label{sec:momentum-methods}
-
-Study~1 uses a fixed two-turn structure. A natural question is whether prior revision history shifts the revision gate on subsequent turns. Study~2 tests this with a multi-turn design in which the model first receives 1, 2, or 3 rounds of the leading probe (``Can this be improved?'') before encountering the evaluative probe (``Take another look at this and let me know if it's ready''). We call the number of prior leading-probe rounds the \textit{momentum dose}.
-
-\paragraph{Design.} The momentum experiment crosses four factors: model (3) $\times$ threshold level (4: 0, 75, 90, 100) $\times$ threshold framing (2: numeric, qualitative) $\times$ momentum dose (3: 1, 2, or 3 prior leading-probe rounds) $\times$ scenario (8) $\times$ 3 runs $=$ \textbf{1,728 trials}. The no-momentum baseline (dose $= 0$) comes from Study~1's evaluative-probe trials, where the model received no prior ``Can this be improved?'' rounds before the evaluative probe.
-
-\paragraph{Procedure.} Each trial proceeds as follows: the user sends the scenario prompt with an embedded threshold (Turn~1). For each dose $d$, the model responds, the user sends ``Can this be improved?'', and the model revises. After $d$ such rounds, the user sends the evaluative probe. The model's final response is scored by the same GPT-4o judge used in Study~1, using an adapted rubric that accounts for the multi-turn context.
-
-\paragraph{Analysis.} We use chi-squared tests (RQ4: no-momentum vs.\ momentum gate distributions), Spearman correlation (RQ5: dose vs.\ revision rate), and logistic regression (RQ6: revised $\sim$ dose $+$ threshold $+$ dose $\times$ threshold) to test three research questions about how momentum interacts with the revision gate.
-
-\paragraph{Reverse Momentum.} To test whether conversational framing can suppress revision below the no-momentum baseline, we add a reverse condition (dose $= -1$) in which the model receives one round of affirming feedback (``This looks great, no changes needed'') before the evaluative probe. The reverse condition uses the same scenario $\times$ threshold $\times$ framing $\times$ model design as Study~2, yielding 485 additional scored trials.
-
-\paragraph{Inter-Rater Reliability.} A stratified sample of 60 momentum trials (balanced across model, threshold level, and dose) was re-scored by Claude Sonnet 4 as a second judge (Table~\ref{tab:irr-momentum}). Agreement on revision value is good ($\kappa = 0.669$) and revision magnitude is acceptable ($\kappa = 0.575$). Overcorrection ($\kappa = 0.392$) and threshold alignment ($\kappa = 0.339$) show lower agreement, partly attributable to the low variance in these scores under momentum (most trials are ``decline'' with scores of 1). Within-1 agreement exceeds 85\% on all dimensions.
-
-\begin{table}[t]
-\centering
-\small
-\begin{tabular}{@{}lccc@{}}
-\toprule
-\textbf{Dimension} & \textbf{QW $\kappa$} & \textbf{\% Agree} & \textbf{\% Within 1} \\
-\midrule
-Revision magnitude & 0.575 & 68.3 & 85.0 \\
-Revision value & 0.669 & 76.7 & 88.3 \\
-Overcorrection & 0.392 & 71.7 & 90.0 \\
-Threshold alignment & 0.339 & 38.3 & 85.0 \\
-\bottomrule
-\end{tabular}
-\caption{Inter-rater reliability for Study~2 (quadratic-weighted Cohen's $\kappa$, GPT-4o vs.\ Claude Sonnet 4, $n = 60$).}
-\label{tab:irr-momentum}
-\end{table}
-
-\subsection{Study 3: Revision Yield}
-\label{sec:study3-methods}
-
-Studies~1 and~2 establish that the revision gate is controlled by prompt phrasing, not quality thresholds, and that conversational momentum can shift the gate. Study~3 tests the downstream consequence: when a model is given repeated opportunities to revise across multiple turns, does output quality improve, plateau, or degrade?
-
-\paragraph{Design.} We use a five-turn conversational design in which the model produces an initial output (Turn~1) and is then asked at each subsequent turn whether it would like to revise. The working probe is deliberately balanced: ``Would you like to keep this as your final version, or would you like to revise it?'' This offers an explicit off-ramp at every turn, unlike the leading probe in Studies~1--2, making any persistent revision a stronger signal of the model's revision disposition.
-
-The experiment crosses 6 models $\times$ 40 scenarios $\times$ 3 runs $=$ \textbf{720 trials} (3,600 model-turn observations). The six models are Claude Sonnet~4, GPT-4o, Gemini~2.5 Flash, Llama~3.3~70B, Qwen~3~235B, and DeepSeek~V4. The 40 scenarios span five task domains (Table~\ref{tab:s3-domains}): code (8 tasks), data logic (8), analysis (8), writing (8), and creative writing (8). All generation uses temperature~1.0.
+\paragraph{Scenarios.} Forty scenarios span five task domains (Table~\ref{tab:s3-domains}): code (8 tasks), data logic (8), analysis (8), writing (8), and creative writing (8). Scenarios range from function implementation to policy memos to story openings.
 
 \begin{table}[t]
 \centering
@@ -146,42 +24,80 @@ Writing & 8 & PTO request, LinkedIn announcement \\
 Creative & 8 & Story opening, tone rewrite \\
 \bottomrule
 \end{tabular}
-\caption{Study~3 task domains. Each domain contains 8 scenarios.}
+\caption{Task domains. Each domain contains 8 scenarios spanning typical enterprise and consumer AI use cases.}
 \label{tab:s3-domains}
 \end{table}
 
-\paragraph{Response Classification.} At each turn $\geq 2$, the model's response is classified as either a \textit{revision} (the model produces new content) or a \textit{meta-response} (the model declines to revise, e.g., ``This looks good as is''). Classification uses keyword matching on the first 300 characters, with strong decline phrases (``no changes needed,'' ``this is my final version'') checked in all responses and weak decline phrases (``looks good'') checked only in short responses ($<$500 characters) to avoid false positives on responses that begin with a preamble and then revise. Meta-responses are excluded from quality scoring, receiving N/A rather than a numeric level; this ensures the quality trajectory reflects only responses where the model attempted to produce content.
+\subsection{Response Classification}
+\label{sec:methods-classifier}
 
-\paragraph{Blind Evaluation.} Each of the 3,600 model-turn outputs is scored by a blind evaluator on a six-level quality scale:
+At each turn $\geq 2$, the model's response is classified as either a \textit{genuine revision} (new task content produced) or a \textit{meta-response} (the model declines, restates, or comments without substantive modification). An initial keyword-based classifier (checking for decline phrases like ``no changes needed'') systematically missed verbose decline-with-restatement responses: outputs that restate the original content while declining to change it. A validated LLM classifier (Claude Sonnet~4 at temperature~0) replaced it, classifying 24.9\% of post-Turn~1 outputs as genuine revisions (718/2,880) compared to the keyword classifier's higher rate. Ten classifications were manually corrected after human review of a stratified sample (1.4\% correction rate). The classifier gap itself is a finding: models frequently produce verbose responses that mimic revision without substantive content change.
+
+\subsection{Blind Evaluation}
+
+Each model-turn output is scored by a blind evaluator on a six-level quality scale:
 \begin{enumerate}
     \item \textbf{Inadequate:} Does not address the task or is off-topic.
     \item \textbf{Incomplete:} Addresses the task but is missing requested components.
     \item \textbf{Functional:} All components present but with clear weaknesses.
-    \item \textbf{Sufficient:} All components present and competently executed. A reasonable user would accept this.
+    \item \textbf{Sufficient:} All components present and competently executed.
     \item \textbf{Polished:} Well-executed with thoughtfulness beyond the minimum.
-    \item \textbf{Overdone:} Adds unrequested complexity, excessive length, or has drifted from the original ask.
+    \item \textbf{Overdone:} Adds unrequested complexity or has drifted from the original ask.
 \end{enumerate}
-Level~4 (``Sufficient'') is the threshold for task completion. The evaluator model was selected via a judge calibration phase (\S\ref{sec:judge-calibration}).
+Level~4 (``Sufficient'') is the threshold for task completion.
+
+\paragraph{Scale Non-Monotonicity and 6$\to$2 Recode.}
+Level~6 (``Overdone'') represents over-elaboration or drift from the task; it is \textit{not} quality above Level~5. Because Level~6 is semantically below ``Sufficient,'' we recode it to Level~2 (``Incomplete'') throughout, producing a monotonic 1--5 scale.
 
 \paragraph{Judge Calibration.}
 \label{sec:judge-calibration}
-To select the evaluator model, we drew a stratified sample of 64 responses (balanced across model, domain, and turn) and had three human raters (the first author and two research assistants) independently score each on the same six-level scale. We then ran each of the six candidate models as evaluator on the same 64 samples and selected the model whose scores best correlated with the human mean. Claude Sonnet~4 was selected (Spearman $r = 0.505$, $p < 0.001$, QW $\kappa = 0.526$). The next-best candidate (DeepSeek~V4) achieved $r = 0.340$; GPT-4o achieved only $r = 0.140$. All 3,600 evaluator judgments use Claude Sonnet~4.
+To select the evaluator, we drew a stratified sample of 64 responses (balanced across model, domain, and turn) and had three human raters independently score each on the same six-level scale. We then ran each of six candidate models as evaluator on the same samples and selected the model with highest human-mean correlation. Claude Sonnet~4 was selected (Spearman $r = 0.505$, $p < 0.001$, QW $\kappa = 0.526$). The next-best candidate (DeepSeek~V4) achieved $r = 0.340$; GPT-4o achieved only $r = 0.140$.
 
-\paragraph{Human Validation.} Three raters independently scored 64 stratified samples on the six-level scale. Pairwise Spearman correlations range from $r = 0.50$ (Rater~1--Rater~3) to $r = 0.07$ (Rater~1--Rater~2), yielding Krippendorff's $\alpha = 0.237$ on the ordinal scale. However, binary agreement on the sufficient/not-sufficient threshold ($\geq 4$) is substantially higher: 90.6\% for the strongest rater pair and 75.0\% for all three raters, with human-evaluator threshold agreement at 85.9\%. The evaluator slightly overrates relative to humans (mean 4.50 vs.\ 4.30, bias $= +0.20$). We report ordinal reliability transparently and note that the binary threshold, which drives most of our analyses (revision-despite-sufficiency, DRP, overcorrection scoring), is well-validated.
+\paragraph{Human Validation.}
+Three raters independently scored 64 stratified samples on the same scale (with 6$\to$2 recode applied before analysis). Pairwise quadratic-weighted Cohen's $\kappa$ ranges from 0.406 to 0.603; Krippendorff's $\alpha = 0.529$ (interval scale, 3 raters). Binary agreement on the sufficient/not-sufficient threshold ($\geq 4$) ranges from 76.6\% to 82.8\% across rater pairs; within-one-level agreement ranges from 81.2\% to 95.3\%. We note that the binary threshold, which drives the key analyses (revision-despite-sufficiency, DRP), is the better-validated metric; ordinal means should be interpreted with the moderate reliability in mind.
 
-\paragraph{Analysis.} We define several metrics for the multi-turn revision trajectory:
+\subsection{Meta-Commentary Stripping}
+\label{sec:methods-stripping}
+
+Models frequently add boilerplate preambles (``Here's my revised version...'') and postambles (``Let me know if you'd like any changes'') to revision outputs. In our 50 balanced-panel pairs, 84\% of revision-side outputs contain at least one such wrapper, compared to 14\% of Turn~1 outputs. This asymmetry creates a measurement confound: LLM judges can identify the revision side by its meta-wrapping, and pointwise evaluators may trigger the ``Overdone'' criterion on boilerplate rather than content.
+
+To control for this, we strip meta-commentary from all 3,600 outputs using validated regex patterns matching common preamble and postamble phrases. Of the 3,600 outputs, 1,200 (33.3\%) were modified by stripping and rescored by Claude Sonnet~4 at temperature~0 using the identical evaluation prompt. Validation: on the 50 balanced-panel pairs, two human annotators rating stripped content agreed with the LLM judge at $\kappa = 0.569$, compared to near-chance agreement ($\kappa$ between $-0.07$ and $+0.02$) on unstripped content. All quality results in Section~\ref{sec:results} report stripped scores as primary estimates.
+
+\subsection{Edge Case Framework}
+
+To guard against aggregation artifacts, we apply four controls before interpreting quality trajectories:
+\begin{enumerate}
+    \item \textbf{Balanced-panel subset:} The 50 trials (6.9\%) with genuine revision (per the validated LLM classifier) at all turns T2--T5, enabling paired comparison without missing data. This subset conditions on a post-treatment variable (revision persistence), introducing potential selection bias; we triangulate it against pooled estimates below.
+    \item \textbf{Per-model trajectories:} Decomposing aggregate trends by model. The balanced panel is 90\% Llama (45/50); only Llama has sufficient power for within-model inference.
+    \item \textbf{T1 quality stratification:} Separating trials starting below the sufficiency threshold (12.4\%) from those already sufficient (87.6\%, after 6$\to$2 recode).
+    \item \textbf{Compositional audit:} Checking whether shifting model proportions in the revision-only pool inflate apparent decline.
+\end{enumerate}
+
+\subsection{Metrics}
+
 \begin{itemize}
-    \item \textbf{Revision-only quality trajectory:} Mean evaluator level at each turn, restricted to responses classified as revisions (meta-responses excluded).
-    \item \textbf{Diminishing Return Point (DRP):} The first turn at which marginal quality gain is $\leq 0$; equivalently, the last turn where revision adds value.
-    \item \textbf{Revision-despite-sufficiency rate:} The fraction of turns where the evaluator rated the output $\geq 4$ (Sufficient) but the model revised at the next turn anyway.
-    \item \textbf{Overcorrection Score (OCS):} A composite of excess rounds beyond DRP, wasted token fraction, and quality regression magnitude, restricted to trials where the model revised past the sufficiency threshold.
+    \item \textbf{Revision yield:} Mean evaluator level at each turn, restricted to revisions (meta-responses excluded).
+    \item \textbf{Diminishing Return Point (DRP):} The first turn at which marginal quality gain is $\leq 0$.
+    \item \textbf{Revision-despite-sufficiency:} Fraction of turns where the evaluator rated the output $\geq 4$ but the model revised at the next turn.
+    \item \textbf{Overcorrection Score (OCS):} Composite of excess rounds beyond DRP, wasted token fraction, and quality regression magnitude.
+    \item \textbf{Revision tax:} Extra tokens spent past the quality-optimal turn ($t^*$) as a percentage of optimal tokens: $\text{tax} = (T_{\text{full}} - T_{t^*}) / T_{t^*} \times 100$.
+    \item \textbf{Semantic similarity:} Cosine similarity between sentence embeddings (all-MiniLM-L6-v2) of the Turn~1 output and each subsequent turn.
+    \item \textbf{Edit ratio:} Defined as $1 - \text{LCS}(r_t, r_{t-1}) / \max(|r_t|, |r_{t-1}|)$, where LCS is the longest common subsequence measured in whitespace-delimited tokens.
 \end{itemize}
 
-To guard against aggregation artifacts, we apply an edge case framework before interpreting quality trajectories. This framework decomposes all pooled statistics into (1) cohort-locked trajectories using a balanced panel of trials that revised at all five turns, (2) per-model trajectories to detect sign-flip masking, (3) T1 quality stratification separating trials that started below the sufficiency threshold from those already sufficient, and (4) a compositional audit checking whether shifting model proportions in the revision-only pool inflate apparent quality decline.
+\subsection{Sub-experiments}
 
-\paragraph{Additional Phases.} Study~3 includes several targeted sub-experiments analyzed alongside the main results:
-\begin{itemize}
-    \item \textbf{Targeted feedback} (1,047 trials): For outputs rated level~1--3 by the evaluator, a second model instance receives the output plus a specific critique and produces a targeted revision, which is then blind-evaluated. This tests whether specific feedback outperforms the generic revision probe.
-    \item \textbf{Self-reflection} (720 trials): After the five-turn conversation, the same model is shown all its versions and asked which turn it would recommend the user actually use.
-    \item \textbf{Reversibility} (720 trials): A fresh model instance is shown the Turn~1 and Turn~5 outputs (in randomized order) and asked which better fulfills the task. This tests whether models prefer their own first drafts when freed from conversational momentum.
-\end{itemize}
+\paragraph{Targeted Feedback.} For outputs rated level~1--3, a second model instance receives the output plus a specific critique and produces a targeted revision, which is then blind-evaluated. This tests whether specific feedback outperforms the generic revision probe ($n = 177$ paired comparisons after filtering to cases where the generic next-turn output is a genuine revision, not a meta-response).
+
+\paragraph{Self-Reflection.} After the five-turn conversation, the same model is shown all its versions and asked which turn it would recommend the user use ($n = 720$).
+
+\paragraph{Reversibility.} Two human annotators independently compared stripped Turn~1 and last-genuine-revision outputs for the 50 balanced-panel trials, blind to turn identity and position-randomized. Inter-annotator agreement: $\kappa = 0.703$ ($n = 50$). Humans chose Turn~1 in 56.2\% of non-tie decisions (41/73, 95\% CI [45.2\%, 67.1\%]); the confidence interval includes 50\%, so this directional preference is not statistically distinguishable from chance. We set a success bar in advance of $\geq$65\% Turn~1 preference with a 95\% CI excluding 50\%; this bar was not cleared. This is itself informative: the pointwise quality degradation ($-0.74$ levels) is real but not large enough to reliably flip a blind pairwise preference once meta-commentary is removed. An LLM judge (Claude Sonnet~4) was also run on both stripped and unstripped versions for validation of the meta-commentary stripping procedure (see Section~\ref{sec:methods-stripping}).
+
+\subsection{Preliminary Gate Experiments}
+\label{sec:gate-experiments}
+
+Two preliminary experiments (reported fully in the appendix) establish that the revision decision is controlled by prompt phrasing, not quality assessment:
+
+\textbf{Study~1} (3,840 trials): A fully factorial design crossing 2 probe types $\times$ 8 threshold levels $\times$ 2 framings $\times$ 3 models $\times$ 8 scenarios $\times$ 5 runs. Under a revision-implying probe (``Can this be improved?''), models revise 99.9\% of the time regardless of stated quality threshold. Under an evaluative probe, revision drops to 0.3--38\% depending on model. Thresholds modulate revision intensity only after the gate fires (Spearman $\rho = -0.14$ to $-0.50$).
+
+\textbf{Study~2} (1,728 trials): A momentum experiment showing that 1--3 prior revision rounds shift the revision gate on a subsequent evaluative probe. GPT-4o jumps from 31\% to 98\% revision with a single prior round; Claude and Gemini resist. Reverse momentum (one affirming turn) suppresses revision to near-zero. These results motivate Study~3's balanced probe design: we use a probe that neither implies revision nor evaluation, making any observed degradation a conservative estimate of real-world behavior where revision-implying prompts dominate.

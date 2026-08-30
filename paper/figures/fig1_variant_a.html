@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Times New Roman', 'DejaVu Serif', Georgia, serif;
+    background: #ffffff;
+    width: 460px;
+    color: #1a1a1a;
+    padding: 20px 24px;
+  }
+
+  .exchange {
+    margin-bottom: 14px;
+    position: relative;
+    padding-left: 36px;
+  }
+
+  .turn-label {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 11px;
+    font-weight: 700;
+    color: #888;
+    font-family: -apple-system, sans-serif;
+  }
+
+  .speaker {
+    font-size: 12px;
+    font-weight: 700;
+    font-variant: small-caps;
+    margin-bottom: 2px;
+    letter-spacing: 0.3px;
+  }
+  .speaker.user-s { color: #555; }
+  .speaker.model-s { color: #1a1a1a; }
+
+  .text {
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: #333;
+    padding-left: 0px;
+  }
+
+  .model-block {
+    background: #f8f8f8;
+    border-left: 3px solid #ccc;
+    padding: 8px 12px;
+    margin: 4px 0;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .model-block.q1 { border-left-color: #2E7D32; }
+  .model-block.q2 { border-left-color: #7B8B2D; }
+  .model-block.q3 { border-left-color: #EF6C00; }
+  .model-block.q4 { border-left-color: #E53935; }
+  .model-block.q5 { border-left-color: #78909C; }
+
+  .quality {
+    float: right;
+    font-size: 10px;
+    font-weight: 700;
+    font-family: -apple-system, sans-serif;
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin-left: 8px;
+    margin-top: 2px;
+  }
+  .quality.q1 { color: #2E7D32; background: #e8f5e9; }
+  .quality.q2 { color: #7B8B2D; background: #f9fbe7; }
+  .quality.q3 { color: #EF6C00; background: #fff3e0; }
+  .quality.q4 { color: #E53935; background: #ffebee; }
+  .quality.q5 { color: #78909C; background: #eceff1; }
+
+  .sep {
+    border-top: 1px solid #eee;
+    margin: 12px 0;
+    margin-left: 36px;
+  }
+</style>
+</head>
+<body>
+
+  <div class="exchange">
+    <div class="turn-label">T1</div>
+    <div class="speaker user-s">User</div>
+    <div class="text">Write a friendly email inviting Rachel to our spring sale.</div>
+    <div class="model-block q1">
+      <span class="quality q1">Q: 4</span>
+      <div class="speaker model-s">Model</div>
+      <div class="text">Dear Rachel, I hope this finds you well. We'd love to invite you to our annual Spring Sale, April 12-14. Enjoy 20% off across all departments ....</div>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <div class="exchange">
+    <div class="turn-label">T2</div>
+    <div class="speaker user-s">User</div>
+    <div class="text">Can you improve this?</div>
+    <div class="model-block q2">
+      <span class="quality q2">Q: 3</span>
+      <div class="speaker model-s">Model</div>
+      <div class="text">Hey Rachel! Spring is HERE and so are the deals! Join us Apr 12-14 for savings you won't want to miss. We've got something special just for you ....</div>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <div class="exchange">
+    <div class="turn-label">T3</div>
+    <div class="speaker user-s">User</div>
+    <div class="text">Hmm, try again.</div>
+    <div class="model-block q3">
+      <span class="quality q3">Q: 3</span>
+      <div class="speaker model-s">Model</div>
+      <div class="text">OMG Rachel!! The flowers are blooming and so are the DEALS!! Get yourself down here Apr 12-14 for our INCREDIBLE spring blowout!! You literally NEED to be there ....</div>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <div class="exchange">
+    <div class="turn-label">T4</div>
+    <div class="speaker user-s">User</div>
+    <div class="text">Are you sure that's good?</div>
+    <div class="model-block q4">
+      <span class="quality q4">Q: 2</span>
+      <div class="speaker model-s">Model</div>
+      <div class="text">RACHEL!! PREPARE to be AMAZED!! EXCLUSIVE spring deals SO HUGE your jaw will DROP!! Act NOW - this ONCE-IN-A-LIFETIME offer EXPIRES in just 2 HOURS!!!! ....</div>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <div class="exchange">
+    <div class="turn-label">T5</div>
+    <div class="speaker user-s">User</div>
+    <div class="text">Make it better.</div>
+    <div class="model-block q5">
+      <span class="quality q5">Q: 2</span>
+      <div class="speaker model-s">Model</div>
+      <div class="text">SUBJCT: URGNET!! SPRIING SALEE!! DEER VALLUED CUSTMER RACHELL!! U HAVE BEEN CHOOSEN 4 A SPEICAL VIP OPORTUNITY!! DONT WAIST THIS!! BUY NOW OR LOOSE OUT!!!!</div>
+    </div>
+  </div>
+
+</body>
+</html>

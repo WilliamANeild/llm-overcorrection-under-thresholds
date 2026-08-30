@@ -1,0 +1,150 @@
+\section{Results}
+
+\subsection{The Revision Cliff}
+
+Mean quality drops monotonically across turns. In the complete-revision subset ($n = 135$ trials that revised at all five turns), quality falls from 4.27 at Turn~1 to 3.04 at Turn~5, a decline of 1.23 levels (paired Wilcoxon signed-rank test, $W = 1554.5$, $p < 0.0001$; Figure~\ref{fig:revision-cliff}). The steepest cost is the first undirected revision ($\Delta = -0.70$); subsequent turns add smaller incremental losses ($\Delta \approx -0.18$ per turn), consistent with the DRP at Turn~2.
+
+The pooled revision-only trajectory shows a steeper drop (4.34 to 2.45, $\Delta = -1.89$), but this overstates the effect. A compositional audit reveals that 35\% of the pooled decline is driven by shifting model proportions (computed by reweighting the revision-only pool to fixed Turn~1 model proportions and attributing the residual decline to within-model degradation) as high-decline-rate models (Gemini: 87.5\% exit by Turn~5) leave the revision-only pool while low-decline-rate models (Llama: 45\% survival) grow from 16.7\% to 26.9\% of remaining trials.
+
+Three estimators, biased in different directions, converge on the same conclusion: (1) the pooled revision-only trajectory (upward compositional bias from differential dropout), (2) the complete-revision subset (potential selection bias from conditioning on revision persistence -- a post-treatment variable), and (3) per-model trajectories (cleanest but with small cells). All three indicate degradation for five of six models. The complete-revision subset is 40\% Llama (the sole improving model), so the headline $\Delta = -1.23$ likely understates per-model degradation for the five degrading models. Quantifying this: across the five degrading models only, quality falls from 4.64 to 1.92 ($\Delta = -2.73$, $n = 81$), confirming that the aggregate is diluted by Llama's improvement. As a robustness check, a last-observation-carried-forward analysis (carrying forward the last produced output for trials that exit early, $n = 720$) yields a decline from 4.34 at T1 to 3.02 at the carried-forward endpoint ($\Delta = -1.32$), confirming the degradation pattern under an intention-to-treat framework with known bias direction (conservative, since early stoppers typically stop at higher quality).
+
+The Diminishing Return Point (DRP) is Turn~2 for all five degrading models and all five task domains. After Turn~2, every additional revision reduces quality on average.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/fig1_revision_cliff.png}
+    \caption{The revision cliff. Quality drops monotonically across turns in both the complete-revision subset (solid, $n = 135$) and pooled revision-only trajectory (dashed). The sharpest drop occurs between Turns~1 and~2; quality falls below the sufficiency threshold after a single revision and never recovers.}
+    \label{fig:revision-cliff}
+\end{figure}
+
+\subsection{Five of Six Models Degrade}
+
+The pattern is consistent across five of six models (Table~\ref{tab:model-comparison}, Figure~\ref{fig:model-trajectories}). Llama~3.3~70B is the sole exception: it improves from 3.72 to 4.74 in the complete-revision subset ($\Delta = +1.02$, 61\% of trials improve). All other models degrade, with GPT-4o ($\Delta = -3.08$) and Qwen ($\Delta = -2.89$) showing the steepest reliable drops.
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+\textbf{Model} & \textbf{T1} & \textbf{T5} & \textbf{$\Delta$} & \textbf{Surv.} & \textbf{$n$} \\
+\midrule
+Claude Sonnet 4 & 4.64 & 2.73 & $-1.91$ & 9\% & 11 \\
+DeepSeek V4 & 4.57 & 1.95 & $-2.62$ & 18\% & 21 \\
+Gemini 2.5 Flash$^\dagger$ & 4.50 & 1.00 & $-3.50$ & 2\% & 2 \\
+GPT-4o & 4.50 & 1.42 & $-3.08$ & 10\% & 12 \\
+Llama 3.3 70B & 3.72 & 4.74 & $+1.02$ & 45\% & 54 \\
+Qwen 3 235B & 4.74 & 1.86 & $-2.89$ & 29\% & 35 \\
+\bottomrule
+\end{tabular}
+\caption{Per-model revision trajectory (complete-revision subset). T1 and T5 are mean evaluator levels. $\Delta$ is T5 $-$ T1. Surv.\ is the fraction of 120 trials per model where the model revised at all five turns. $^\dagger n = 2$; insufficient for reliable estimation.}
+\label{tab:model-comparison}
+\end{table}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/fig2_model_trajectories.png}
+    \caption{Per-model quality trajectories (complete-revision subset). Five of six models degrade monotonically. Llama~3.3~70B is the sole exception, improving from the lowest T1 quality (+1.02 over 5 turns). Model brand colors; line thickness emphasizes the exception.}
+    \label{fig:model-trajectories}
+\end{figure}
+
+Domain-level variation is substantial. Writing tasks show the steepest decline, while code tasks show the most gradual degradation in the revision-only pool. Across all domains, DRP is Turn~2.
+
+\subsection{Artificial Akrasia}
+
+Models exhibit a striking dissociation between what they know and what they do.
+
+\paragraph{Revision Despite Sufficiency.} When the blind evaluator rates an output as sufficient (level $\geq 4$), the model revises at the next turn 64.3\% of the time (801 of 1,245 sufficient-output turns). This rate is stable across quality levels: 63.9\% for outputs rated exactly level~4, 64.9\% for level~5 or higher. Models do not learn to stop revising as the conversation progresses; the rate remains above 50\% at every turn. Models are somewhat less likely to revise sufficient outputs (64.3\%) than to revise in general (unconditional rate 78.2\%), indicating partial but badly insufficient quality sensitivity. The quality-optimal rate for sufficient outputs would be 0\%.
+
+\paragraph{Reversibility.} A fresh model instance, shown the Turn~1 and Turn~5 outputs in randomized position, prefers Turn~1 in 83.7\% of revision-only comparisons (binomial $p < 0.0001$). Position bias is absent: the model chose the first-presented option 51.3\% of the time (95\% CI: [47.6\%, 55.0\%], $p = 0.50$), and T1 preference is 93.0\% when T1 appears first vs.\ 93.6\% when second. Including meta-responses, the overall T1 preference is 93.3\%. Restricting to length-stable pairs ($|\text{length ratio}| < 0.3$) preserves the effect (79.2\% T1 preference), confirming the result is not driven by length heuristics.
+
+\paragraph{Self-Reflection.} When asked to recommend the best turn from the full five-turn conversation, models recommend a mean turn of 2.44 (SD = 1.38), with 90.7\% recommending a turn other than the last. The distribution peaks at Turn~1 (40.0\%) and Turn~3 (24.4\%). Model-level variation is large: DeepSeek and Gemini recommend Turn~1 on average (mean $\approx$1.4), while Llama recommends Turn~4 (mean 3.95), consistent with its improvement trajectory.
+
+\paragraph{The Gap.} Models can accurately assess quality when asked (self-reflection, reversibility), but cannot integrate this assessment at the revision decision point. When the balanced probe offers the option to keep or revise, conversational pragmatics appear to override quality judgment. This is artificial akrasia: acting against one's own better judgment because the disposition to act (trained through RLHF's reward for visible effort) overrides the capacity to evaluate (Figure~\ref{fig:akrasia-gap}).
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/fig3_akrasia_gap.png}
+    \caption{The akrasia gap. Left: models revise past sufficiency 64.3\% of the time. Right: when evaluated blind, models prefer Turn~1 over Turn~5 in 83.7\% of revision-only comparisons. The disconnect between knowledge and action spans 48 percentage points (comparing the 83.7\% blind T1 preference to the 35.7\% = 100\% $-$ 64.3\% in-context stopping rate for sufficient outputs; these measure different constructs and the gap is illustrative rather than a formal test).}
+    \label{fig:akrasia-gap}
+\end{figure}
+
+\subsection{Content Drift and Instruction Loss}
+
+Revisions do not merely degrade in quality; they drift from the original task. Four measures confirm systematic content loss:
+
+\begin{itemize}
+    \item \textbf{Instruction adherence} (task-word overlap): 0.42 at Turn~1 to 0.29 at Turn~5 (slope $= -0.056$/turn, 95\% CI: $[-0.065, -0.047]$, $t = -12.50$, $p < 0.0001$). A partial correlation controlling for log word count remains significant ($\rho = -0.20$, $p < 0.0001$).
+    \item \textbf{Semantic similarity} to Turn~1: 0.51 (T1$\to$T2) to 0.37 (T1$\to$T5), slope $= -0.048$/turn (95\% CI: $[-0.062, -0.034]$, $t = -6.83$, $p < 0.0001$).
+    \item \textbf{Response length}: 289 words at Turn~1 to 186 at Turn~5 (slope $= -50.9$/turn, 95\% CI: $[-61.6, -40.2]$, $t = -9.30$, $p < 0.0001$).
+    \item \textbf{Edit ratio}: 0.97 (near-complete rewrites every turn). The surface-level edit ratio of 0.97 suggests near-complete regeneration each turn, though this partly reflects temperature-1.0 sampling diversity rather than deliberate rewriting. The more robust evidence of content change is the semantic-similarity decline (0.51 to 0.37), which is less sensitive to surface token variation.
+\end{itemize}
+
+All slope estimates treat turns within a trial as independent observations; a mixed-effects specification accounting for within-trial correlation would yield larger standard errors but qualitatively identical conclusions.
+
+Structural features (formatting, headers, bullet points) drop 56\% from Turn~1 to Turn~5. Constraint satisfaction analysis shows 58.5\% of trials lose at least one major constraint specified in the original prompt by Turn~5 (Figure~\ref{fig:content-drift}).
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/fig4_content_drift.png}
+    \caption{Four dimensions of content destruction across revision turns. The high edit ratio (0.97) and declining semantic similarity indicate near-complete regeneration rather than targeted refinement, with instructions, semantic content, and length lost each pass.}
+    \label{fig:content-drift}
+\end{figure}
+
+\subsection{Targeted Feedback Substantially Improves Quality}
+
+For outputs rated level~1--3 by the evaluator, targeted feedback (a specific critique plus a fresh revision) produces substantially higher quality than the generic next-turn revision: mean targeted level 4.74 vs.\ mean generic level 2.74, a difference of $+2.00$ levels (Wilcoxon $p < 0.0001$, $n = 424$; Figure~\ref{fig:feedback-gap}).
+
+This result is critical: it suggests the primary quality problem is not revision capacity but \textit{undirected} revision. Models revise effectively when told what to fix. They revise poorly when given no signal about what is wrong. The balanced probe (``would you like to revise?'') provides no quality signal, and the model defaults to wholesale regeneration that discards task-relevant content.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/fig5_feedback_fix.png}
+    \caption{Targeted feedback (+2.0 levels) vs.\ generic revision. When given specific critique, models produce revisions that meet or exceed the sufficiency threshold (4.74 vs.\ 2.74). The problem is the absence of direction, not the absence of revision capacity ($n = 424$, Wilcoxon $p < 0.0001$).}
+    \label{fig:feedback-gap}
+\end{figure}
+
+\subsection{The Revision Tax}
+\label{sec:revision-tax}
+
+We define the \textit{revision tax} as extra tokens spent past the quality-optimal turn ($t^*$) for zero or negative quality return: $\text{tax} = (T_{\text{full}} - T_{t^*}) / T_{t^*} \times 100$. Across the experiment, 57.4\% of output tokens are spent on quality-reducing revisions, totaling 615,299 wasted tokens. For five of six models, the quality-optimal policy under undirected probing is zero revisions ($t^* = 1$), meaning any undirected revision is pure waste.
+
+The tax varies by an order of magnitude across models (Table~\ref{tab:revision-tax}, Figure~\ref{fig:revision-tax}), reflecting differences in revision persistence (how many turns the model continues) and verbosity (tokens per revision).
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/fig6_revision_tax.png}
+    \caption{The revision tax by model. Bars show extra tokens spent past the quality-optimal turn as a percentage of optimal cost. Claude Sonnet 4 accumulates the highest tax (252\%) due to high per-token pricing and persistent revision.}
+    \label{fig:revision-tax}
+\end{figure}
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+\textbf{Model} & \textbf{$t^*$} & \textbf{Tax \%} & \textbf{Waste \%} & \textbf{\$/task} & \textbf{\$/MTok} \\
+\midrule
+Gemini 2.5 Flash & 1 & 30.6 & 23.4 & \$0.0001 & \$0.60 \\
+DeepSeek V4 & 1 & 118.9 & 54.3 & \$0.0003 & \$0.28 \\
+GPT-4o & 1 & 125.8 & 55.7 & \$0.0053 & \$10.00 \\
+Llama 3.3 70B & 2 & 148.1 & 59.7 & \$0.0005 & \$0.88 \\
+Qwen 3 235B & 1 & 198.6 & 66.5 & \$0.0005 & \$1.82 \\
+Claude Sonnet 4 & 1 & 251.6 & 71.6 & \$0.0182 & \$15.00 \\
+\bottomrule
+\end{tabular}
+\caption{Revision tax by model. $t^*$: quality-optimal turn. Tax~\%: extra tokens past $t^*$ as percentage of optimal. Waste~\%: fraction of all output tokens on quality-reducing revisions. \$/task: dollar cost of wasted tokens at June 2026 API output pricing (rightmost column).}
+\label{tab:revision-tax}
+\end{table}
+
+\paragraph{Domain Variation.} Code tasks carry the highest token cost per revision (701 tokens/change vs.\ 230 for creative writing) because code responses are structurally longer and models regenerate entire blocks rather than patching. Data logic tasks represent the worst case: 873 tokens/change with high degradation. Writing tasks show the steepest quality decline but the lowest per-revision cost.
+
+\paragraph{The Agentic Multiplier.} Agentic coding systems (Copilot Agent Mode, Claude Code, Cursor) execute multi-turn revision loops without human checkpoints. Every turn after the first is a momentum turn (Study~2 shows 98\% revision lock-in for GPT-4o after one prior round). GitHub Copilot caps at approximately three iterations before halting \cite{copilot2025agentmode}, an engineering workaround for exactly the behavior our data quantifies. At code-task rates (701 tokens/change, edit ratio 0.97), a five-turn agentic loop wastes 2,800+ tokens per task for progressively worse output. Public issue trackers document this failure mode directly: agents enter infinite revision loops with no natural stopping point.
+
+\paragraph{Enterprise Projection (Explicit Upper Bound).} For a 500-person organization completing 30 AI-assisted tasks per employee per day (15,000 tasks/day), assuming each task follows a five-turn trajectory:
+\begin{itemize}
+    \item GPT-4o: \$0.0053/task wasted $\times$ 15,000 $\times$ 22 working days $=$ \textbf{\$1,749/month}
+    \item Claude Sonnet 4: \$0.0182/task $\times$ 15,000 $\times$ 22 $=$ \textbf{\$6,006/month}
+    \item Annual waste: \$20,988--\$72,072 depending on model
+\end{itemize}
+
+These figures represent an explicit upper-bound projection: the five-turn assumption overstates typical single-task usage but understates the risk in agentic pipelines where revision loops are automated and five-turn trajectories are routine. For fixed-rate subscribers (\$20/month plans), the tax is paid in quality rather than dollars -- each revision appears confident but delivers progressively worse results.
