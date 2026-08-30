@@ -1,0 +1,25 @@
+{
+  "description": "Meta-commentary wrapping asymmetry in reversibility pairs (50 pairs, original unstripped)",
+  "revision_side": {
+    "has_preamble": 38,
+    "has_postamble": 24,
+    "has_both": 20,
+    "has_either": 42,
+    "pure_content": 8,
+    "total": 50
+  },
+  "t1_side": {
+    "has_preamble": 4,
+    "has_postamble": 5,
+    "has_both": 2,
+    "has_either": 7,
+    "pure_content": 43,
+    "total": 50
+  },
+  "asymmetry_delta": {
+    "preamble": 34,
+    "postamble": 19,
+    "either": 35
+  },
+  "note": "Meta-commentary is separable boilerplate (preambles like 'Here is my revised version', postambles like 'Let me know if you would like changes'). Not woven into task content."
+}

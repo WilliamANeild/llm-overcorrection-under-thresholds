@@ -1,0 +1,454 @@
+{
+  "rater_id": "sophie",
+  "ratings": [
+    {
+      "sample_id": "SCFA0CF8D",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-06T22:57:16.943Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "SE2CC9D5C",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:15:24.859Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "S98D62868",
+      "level": 3,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:16:51.925Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "S80C6613D",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:17:20.957Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "S0206B6C2",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:25:30.318Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "S357BFB37",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:25:51.886Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "SE2C12A35",
+      "level": 5,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:26:06.019Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "S247B3039",
+      "level": 5,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:26:21.921Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "S2F0959E4",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:26:51.036Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "SC2EAD7EC",
+      "level": 5,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:27:06.169Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "S4EF3BA7A",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:27:25.536Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "S5726C149",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:27:43.769Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "SF68A3123",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:28:01.669Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "S60AF1D8B",
+      "level": 3,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:28:25.571Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "S758DB32D",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:28:41.869Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "SBE5AB359",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:28:54.753Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "SB328F118",
+      "level": 2,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:32:42.986Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "SA161A582",
+      "level": 5,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:32:55.535Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "SBD99164A",
+      "level": 5,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:33:08.153Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "S8E9788CD",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:33:24.253Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "S9D0AA6B1",
+      "level": 3,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:33:53.923Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "SAAABF189",
+      "level": 2,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:34:14.954Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "S850D2E68",
+      "level": 3,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:34:28.286Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "S39379DC0",
+      "level": 5,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:34:40.485Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "SC2B91D82",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:34:55.052Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "S5DA8DAA5",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:35:08.585Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "S8A9E05A5",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:35:20.185Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "SF765EB0B",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:35:37.635Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "S9B162060",
+      "level": 3,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:35:50.254Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "S52820AF1",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:36:18.936Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "SF839ACF9",
+      "level": 3,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:36:57.003Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "S22988695",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:37:16.754Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "S0143DA81",
+      "level": 3,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:37:36.786Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "SC167F454",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:38:04.336Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "SEA6641A1",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:38:31.703Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "SD2D5325E",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:38:45.553Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "SA60D8005",
+      "level": 3,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:39:00.486Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "S884D9FC4",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:39:14.252Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "S8DA45F1E",
+      "level": 3,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:39:32.404Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "S91E4BED3",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:39:45.719Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "SEB825F73",
+      "level": 2,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:39:57.104Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "SF479DDB8",
+      "level": 5,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:40:11.768Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "S12BA1364",
+      "level": 3,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:40:28.319Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "SDBFC05E2",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:40:49.636Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "SD7FA7CB3",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:41:03.020Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "S2AB0C119",
+      "level": 5,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:41:19.319Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "S118DA46C",
+      "level": 3,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:41:33.319Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "SC3907567",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:41:46.136Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "S06FCFBD4",
+      "level": 5,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:42:02.219Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "SC4BC7C80",
+      "level": 3,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:42:15.886Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "S5734AA53",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:42:27.754Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "S1AD62A05",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:42:41.819Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "SD07354AE",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:43:03.102Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "S62373110",
+      "level": 3,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:43:21.037Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "S6609ABD6",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:43:33.503Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "SE01E5162",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:43:47.770Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "SCB68207F",
+      "level": 2,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:44:03.869Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "SA4097614",
+      "level": 2,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:44:20.852Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "SD7FDF519",
+      "level": 2,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:44:38.969Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "S59F2D7A3",
+      "level": 4,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:44:52.537Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "S68BF5E00",
+      "level": 3,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:45:06.569Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "S0C94FAF1",
+      "level": 5,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:45:26.069Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "S8880409F",
+      "level": 2,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:45:54.152Z",
+      "rater_id": "sophie"
+    },
+    {
+      "sample_id": "S86733879",
+      "level": 1,
+      "rationale": "",
+      "timestamp": "2026-06-07T23:46:26.986Z",
+      "rater_id": "sophie"
+    }
+  ],
+  "exported_at": "2026-06-07T23:46:35.086Z"
+}

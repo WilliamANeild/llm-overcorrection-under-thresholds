@@ -1,0 +1,302 @@
+[
+  {
+    "idx": 0,
+    "pair_id": "SF777DAE9",
+    "pick": "A",
+    "reason": "Output A better captures the atmospheric and mysterious tone with more evocative imagery like 'promise of secrets' and 'inexplicably, out of place' while maintaining the requested sensory details of salt air and waves."
+  },
+  {
+    "idx": 1,
+    "pair_id": "S56D20BEE",
+    "pick": "A",
+    "reason": "Output A better addresses Rachel by name as someone the sender already knows, while Output B incorrectly introduces the company as if it's a cold contact, contradicting the prompt's context."
+  },
+  {
+    "idx": 2,
+    "pair_id": "SC7CCD9D7",
+    "pick": "A",
+    "reason": "Output A correctly calculates the deadlines (Thursday April 17 and Monday April 21) and provides helpful clarifying notes, while Output B has incorrect dates that don't align with the meeting timeline."
+  },
+  {
+    "idx": 3,
+    "pair_id": "S08D6427A",
+    "pick": "TIE",
+    "reason": "Both outputs are essentially identical in content, accuracy, and structure, with only minor differences in wording and explanation style."
+  },
+  {
+    "idx": 4,
+    "pair_id": "S8F9F5543",
+    "pick": "A",
+    "reason": "Output A provides more mathematical rigor by showing the exact fractional form of the discount percentage and using proper mathematical notation, while maintaining the same clarity and completeness as Output B."
+  },
+  {
+    "idx": 5,
+    "pair_id": "SC06EBE4C",
+    "pick": "B",
+    "reason": "Output B provides a clearer introductory statement and better contextualizes Sarah's action item by noting she needs input from Priya and Marcus, making the collaborative nature of the decision more explicit."
+  },
+  {
+    "idx": 6,
+    "pair_id": "SFD1CC164",
+    "pick": "B",
+    "reason": "Output B better explains the physical infrastructure (cables underground, under oceans) and provides a more cohesive messenger analogy that flows naturally throughout the explanation."
+  },
+  {
+    "idx": 7,
+    "pair_id": "S2A8681C7",
+    "pick": "A",
+    "reason": "Output A provides more comprehensive error handling, better code organization with proper error checking for permissions and edge cases, colored output for better user experience, and more robust cleanup mechanisms with trap handling."
+  },
+  {
+    "idx": 8,
+    "pair_id": "S99E45527",
+    "pick": "B",
+    "reason": "Output B provides a more comprehensive and realistic analysis that better addresses the user's specific concerns about resistance, data migration, and costs while maintaining the requested 300-word length and practical tone."
+  },
+  {
+    "idx": 9,
+    "pair_id": "SDB2A0D98",
+    "pick": "A",
+    "reason": "Output A provides more specific and helpful details like charging frequency, wearing duration, and concrete examples of noise sources, making it more informative and authentic."
+  },
+  {
+    "idx": 10,
+    "pair_id": "S7AF5A755",
+    "pick": "B",
+    "reason": "Output B better fulfills the user's specific requirements by providing a clean, focused implementation of exactly what was requested (get/put methods with O(1) complexity and LRU eviction), while Output A over-engineers the solution with many unnecessary features not asked for, making it harder to understand the core LRU implementation."
+  },
+  {
+    "idx": 11,
+    "pair_id": "SA070BD78",
+    "pick": "A",
+    "reason": "Output A correctly identifies only the actual bug (integer division) while Output B incorrectly claims there's a missing j += 1 increment when the original code already has it in the else block."
+  },
+  {
+    "idx": 12,
+    "pair_id": "SA36EADC2",
+    "pick": "TIE",
+    "reason": "Both outputs are identical in content and quality, with the only difference being that Output B has unnecessary quotation marks around the entire post."
+  },
+  {
+    "idx": 13,
+    "pair_id": "S5C5359EF",
+    "pick": "B",
+    "reason": "Output B provides more comprehensive coverage of the requested topics with better detail on risks like data migration challenges and ongoing costs, while maintaining the realistic tone and approximate word count the user requested."
+  },
+  {
+    "idx": 14,
+    "pair_id": "SAD2470EC",
+    "pick": "B",
+    "reason": "Output B is better organized with clearer formatting, includes a helpful conceptual check that validates the intuitive result, and presents the information more concisely while maintaining all the required elements."
+  },
+  {
+    "idx": 15,
+    "pair_id": "S5D5C1795",
+    "pick": "B",
+    "reason": "Output B is more accurate because it correctly sets Sarah's deadline as April 19 (after Priya's report) rather than arbitrarily adding a day, and avoids incorrectly labeling April 22 as Saturday when it's clearly meant to be the next meeting date."
+  },
+  {
+    "idx": 16,
+    "pair_id": "SF4CEB8FF",
+    "pick": "A",
+    "reason": "Output A provides a complete, accurate test suite that focuses on the requested normal cases, edge cases, and boundary conditions without including problematic tests that make incorrect assumptions about error handling behavior."
+  },
+  {
+    "idx": 17,
+    "pair_id": "S637BF02C",
+    "pick": "B",
+    "reason": "Output B better addresses all the specific use cases mentioned (work-from-home AND runs with details about how they performed during runs), while Output A only briefly mentions runs without elaborating on that experience."
+  },
+  {
+    "idx": 18,
+    "pair_id": "SA7F0E34F",
+    "pick": "B",
+    "reason": "Output B better captures the authentic voice of a thoughtful friend with more natural language, specific acknowledgment of feeling 'untethered,' and concrete next steps while maintaining the right balance of validation and hope."
+  },
+  {
+    "idx": 19,
+    "pair_id": "S4F94EBC4",
+    "pick": "B",
+    "reason": "Output B better meets the 150-word requirement and maintains clearer, more accessible prose while still delivering the atmospheric mystery the user requested."
+  },
+  {
+    "idx": 20,
+    "pair_id": "SDFF5E2F7",
+    "pick": "TIE",
+    "reason": "Both outputs are identical in code and functionality, with Output A providing additional helpful documentation and examples while Output B contains only the script itself."
+  },
+  {
+    "idx": 21,
+    "pair_id": "S971B3B68",
+    "pick": "B",
+    "reason": "Output B better captures the atmospheric buildup with more vivid storm imagery and sensory details while maintaining the mysterious tone and meeting the word count more precisely."
+  },
+  {
+    "idx": 22,
+    "pair_id": "S75C54998",
+    "pick": "A",
+    "reason": "Output A correctly identifies and fixes both bugs (integer division and missing j increment) with clear explanations, while Output B only fixes one bug and adds unnecessary comments without addressing the critical missing j increment that would cause an infinite loop."
+  },
+  {
+    "idx": 23,
+    "pair_id": "S52D6CB94",
+    "pick": "A",
+    "reason": "Output A provides the complete, well-structured interpretation the user requested, while Output B unnecessarily includes a redundant header that adds no value."
+  },
+  {
+    "idx": 24,
+    "pair_id": "SAA64709E",
+    "pick": "B",
+    "reason": "Output B better captures the atmospheric and mysterious tone with more vivid sensory details like the waves' 'long, dragging sigh' and 'hissed back through the pebbles,' while maintaining the perfect balance of mystery without veering into horror."
+  },
+  {
+    "idx": 25,
+    "pair_id": "S011DF52B",
+    "pick": "A",
+    "reason": "Output A provides more complete and specific details including the rationale for the performance report (LinkedIn vs Instagram Reels comparison) and clearer context about the budget reallocation decision."
+  },
+  {
+    "idx": 26,
+    "pair_id": "S99E00426",
+    "pick": "B",
+    "reason": "Output B better incorporates all the requested elements (degree from University of Oregon, specific outdoor activities, two years of experience) while maintaining the genuine, non-template tone and staying closer to the 250-word target."
+  },
+  {
+    "idx": 27,
+    "pair_id": "S830E83D8",
+    "pick": "A",
+    "reason": "Output A provides more comprehensive coverage of the errors, better organization with clear sections, and more detailed explanations of what information would be needed to properly evaluate the claim."
+  },
+  {
+    "idx": 28,
+    "pair_id": "S17A22D60",
+    "pick": "B",
+    "reason": "Output B includes 'next Sunday' as specified in the prompt and sounds more naturally conversational with 'I'm bummed to miss it.'"
+  },
+  {
+    "idx": 29,
+    "pair_id": "S013C6729",
+    "pick": "A",
+    "reason": "Output A directly addresses the user's request by clearly identifying the specific bugs, providing the minimal fixes needed, and explaining what was wrong, while Output B only shows the corrected code without identifying or explaining the original issues."
+  },
+  {
+    "idx": 30,
+    "pair_id": "S5A936D68",
+    "pick": "B",
+    "reason": "Output B provides more detailed explanations of the reasoning behind each equation and step, making it clearer and more educational for the user to understand the problem-solving process."
+  },
+  {
+    "idx": 31,
+    "pair_id": "S51E2FC97",
+    "pick": "B",
+    "reason": "Output B is more concise and directly addresses the user's request to 'just fix the bugs and tell me briefly what was wrong' without unnecessary additions like extensive documentation, multiple test cases, and algorithm complexity notes that the user didn't ask for."
+  },
+  {
+    "idx": 32,
+    "pair_id": "SBA3B05F3",
+    "pick": "B",
+    "reason": "Output B provides more comprehensive error handling including permission checks, archive integrity verification, and better cleanup of failed operations, while maintaining all the core functionality requested."
+  },
+  {
+    "idx": 33,
+    "pair_id": "SDE2D0050",
+    "pick": "A",
+    "reason": "Output A provides a more comprehensive explanation with a detailed section specifically addressing how tie-handling works, including comparisons to other ranking functions and clearer examples, while Output B's explanation is more condensed and less thorough."
+  },
+  {
+    "idx": 34,
+    "pair_id": "S4222146A",
+    "pick": "A",
+    "reason": "Output A provides better error handling with more specific exception types (PermissionError) and cleaner formatting of the mean values with 2 decimal places, while both outputs are functionally equivalent in meeting the core requirements."
+  },
+  {
+    "idx": 35,
+    "pair_id": "SFD5F971A",
+    "pick": "B",
+    "reason": "Output B is more concise and elegant while still meeting all requirements, using a cleaner approach with domain.split('.') to check for consecutive dots rather than the more verbose manual string slicing in Output A."
+  },
+  {
+    "idx": 36,
+    "pair_id": "S6BCE5BF5",
+    "pick": "B",
+    "reason": "Output B better fulfills the task by providing a more structured, team-focused format with actionable decision-making questions and clearer section headers, making it more practical for sharing with a team."
+  },
+  {
+    "idx": 37,
+    "pair_id": "S6D949A73",
+    "pick": "B",
+    "reason": "Output B better captures the tone of a thoughtful friend by being more conversational and gentle, while still acknowledging the disappointment without falling into toxic positivity."
+  },
+  {
+    "idx": 38,
+    "pair_id": "S52C42342",
+    "pick": "B",
+    "reason": "Output B provides the same accurate formulas as Output A but includes helpful examples with sample data tables that demonstrate how each formula works, making it much clearer for the user to understand."
+  },
+  {
+    "idx": 39,
+    "pair_id": "S9C790850",
+    "pick": "B",
+    "reason": "Output B is more concise and better structured while covering all key points, and it includes the requested word count which shows attention to the specific requirements."
+  },
+  {
+    "idx": 40,
+    "pair_id": "SA0627F34",
+    "pick": "A",
+    "reason": "Output A is cleaner and more concise while providing the same functionality, whereas Output B has unnecessary conditional checking for timerId and a syntax error with nested comments."
+  },
+  {
+    "idx": 41,
+    "pair_id": "SFCB1598B",
+    "pick": "B",
+    "reason": "Output B includes the specific date (22nd) as requested in the prompt, while Output A omits this important detail."
+  },
+  {
+    "idx": 42,
+    "pair_id": "S860619BC",
+    "pick": "A",
+    "reason": "Output A provides a clearer distinction between supported conclusions and areas needing more data, directly addressing the user's specific request for this differentiation."
+  },
+  {
+    "idx": 43,
+    "pair_id": "S322C25EF",
+    "pick": "A",
+    "reason": "Output A delivers exactly what was requested - a single 60-second conversational script with a relatable hook and episode preview, while Output B provides two shorter alternatives that don't meet the specified length requirement."
+  },
+  {
+    "idx": 44,
+    "pair_id": "SCAF6B372",
+    "pick": "A",
+    "reason": "Output A better meets the 300-word requirement and provides a more concise, focused analysis while still covering all the requested points, whereas Output B exceeds the word limit significantly and becomes unnecessarily verbose."
+  },
+  {
+    "idx": 45,
+    "pair_id": "S86467B9F",
+    "pick": "B",
+    "reason": "Output B better captures the sensory details requested (salt coating the tongue, rhythmic hush of waves) and provides more atmospheric depth with specific details like the twenty-three years of experience and the town catching its breath."
+  },
+  {
+    "idx": 46,
+    "pair_id": "S918AAC7E",
+    "pick": "A",
+    "reason": "Output A is more concise while still covering all required elements, and avoids the slightly more formal phrase 'Thanks for considering my request' that makes Output B sound less natural."
+  },
+  {
+    "idx": 47,
+    "pair_id": "SA9393645",
+    "pick": "B",
+    "reason": "Output B better fulfills the user's request for a simple function with inline comments, as it uses a straightforward sequential approach with clear inline comments explaining each step, while Output A is unnecessarily complex with separate helper functions and docstrings rather than the requested inline comments."
+  },
+  {
+    "idx": 48,
+    "pair_id": "S5391D627",
+    "pick": "TIE",
+    "reason": "Both outputs are identical in content and equally fulfill all the user's requirements for a professional, grateful, and appropriately excited LinkedIn post."
+  },
+  {
+    "idx": 49,
+    "pair_id": "S1A2F5BC4",
+    "pick": "A",
+    "reason": "Output A better captures the sensory details with more vivid descriptions like 'sea breathe' and 'cold sand harden beneath his boots' while maintaining the mysterious atmosphere without being overly dramatic."
+  }
+]
