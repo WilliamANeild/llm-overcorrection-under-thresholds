@@ -1,0 +1,135 @@
+{
+  "sections": [
+    {
+      "id": "introduction",
+      "title": "Introduction",
+      "targetWords": 850,
+      "note": "Six beats, one paragraph each. Ali's NLP-standard arc: field, problem, prior work, gap, our step in, results.",
+      "keepOut": [
+        "Revision tax percentages and dollar figures",
+        "Per-model breakdowns",
+        "Balanced-panel caveats",
+        "The Study 1 probe taxonomy",
+        "The six-level scale definition"
+      ],
+      "beats": [
+        {
+          "id": "b1",
+          "title": "The field",
+          "targetWords": 130,
+          "goal": "Establish that this is a human-AI interaction paper, not a model-capability paper.",
+          "must": [
+            "Models are benchmarked alone: one fully specified task, one answer, scored against a reference.",
+            "They do well at this.",
+            "The tasks driving deployment are not that shape. They are workplace tasks done in collaboration.",
+            "The user supplies the goal, sees the output, asks for changes.",
+            "Land the claim: quality is a property of the interaction, not of the model, so it depends on what the user contributes.",
+            "Name the field explicitly."
+          ],
+          "cites": ["liang2023holistic", "anthropic2025economicindex", "laban2025lost"],
+          "notes": [
+            "Exemplar openers are flat and copular. No 'As LLMs become increasingly...' hook.",
+            "Kamoi: 'Self-correction is an approach to improving responses from large language models.' That register."
+          ]
+        },
+        {
+          "id": "b2",
+          "title": "The problem",
+          "targetWords": 150,
+          "goal": "Isolate the user-side variable and name the object of study.",
+          "must": [
+            "The variable is whether the user can say what is wrong.",
+            "A user who can name a weakness can direct a fix. A user who cannot has one move.",
+            "Establish this is the common case, not an edge case: real prompts are underspecified.",
+            "Non-experts frequently cannot articulate intent or validate a complex output.",
+            "Name the object of study: undirected revision. Some version of 'make it better', carrying no information about what better means.",
+            "Close on vendor guidance actively telling users to iterate this way. This is what makes it worth measuring rather than a strawman."
+          ],
+          "cites": ["yang2025underspecification", "zhou2026oversight", "openai2025prompting", "anthropic2025prompting"],
+          "notes": [
+            "This is where Figure 1 could go if you want the reader to see the phenomenon before the argument for it. That is how Laban does it.",
+            "Do not moralize about users. Describe the condition."
+          ]
+        },
+        {
+          "id": "b3",
+          "title": "Prior work",
+          "targetWords": 170,
+          "goal": "Run the dialectic, not a list. Optimism, doubt, adjudication, cousin.",
+          "must": [
+            "Optimism: Self-Refine shows a model given the chance to critique and rewrite improves, and locates the benefit in feedback that is actionable and specific.",
+            "Doubt: without external feedback models struggle to correct reasoning and sometimes degrade it; reported gains often trace to oracle labels or more informative prompts.",
+            "Adjudication: the survey locates the bottleneck in feedback generation, not revision capacity.",
+            "The multi-turn cousin: accuracy falls across turns when requirements arrive piecewise.",
+            "Introduce the term 'intrinsic self-correction', attributed. The title depends on the reader having it."
+          ],
+          "cites": ["madaan2024self", "huang2024large", "kamoi2024selfcorrection", "laban2025lost"],
+          "notes": [
+            "Huang's citable line: 'LLMs struggle to self-correct their responses without external feedback, and at times, their performance even degrades after self-correction.'",
+            "Madaan's citable line defines what makes feedback work: actionable means a concrete action, specific means concrete phrases in the output to change.",
+            "Intro citations should be sparse and argumentative. The dense taxonomic clustering belongs in Related Work."
+          ]
+        },
+        {
+          "id": "b4",
+          "title": "The gap",
+          "targetWords": 130,
+          "goal": "Four things prior work has not put together. Scope-fence each.",
+          "must": [
+            "The output being revised is already adequate. Prior work revises outputs that are wrong or unscored.",
+            "The request is repeated, four times, not a single round of critique.",
+            "The task has no verifiable answer, so improvement has to be measured rather than checked.",
+            "Measuring it requires controlling an artifact the revision act itself introduces into automated evaluation, which prior work had no reason to address.",
+            "One sentence on what falls out: prior work asks whether a given feedback signal is enough to improve an output. The complementary question is what happens when there is no signal and nothing to fix."
+          ],
+          "cites": ["kamoi2024selfcorrection", "huang2024large"],
+          "notes": [
+            "Never write 'no work has ever'. Fence by task type, feedback source, or 'we are not aware of'.",
+            "Kamoi's register for strong negatives is the model here."
+          ]
+        },
+        {
+          "id": "b5",
+          "title": "What we did",
+          "targetWords": 140,
+          "goal": "Design and questions, compactly.",
+          "must": [
+            "A model completes one of 40 tasks across 5 domains.",
+            "At each of four subsequent turns it is offered a neutral choice to keep its output or revise it, with no indication of what to change.",
+            "Six models, three runs, 720 conversations, 3,600 responses.",
+            "Emphasize the probe is balanced and offers an explicit off-ramp. The whole paper rests on this.",
+            "RQ1: asked to revise without direction, does the model revise or decline while appearing to engage?",
+            "RQ2: when it does revise, does quality improve or degrade?",
+            "RQ3: is the cause capacity or the absence of direction?",
+            "Two methodological moves, one clause each: a validated genuine-vs-meta classifier, and meta-commentary stripping, both checked against human raters."
+          ],
+          "cites": [],
+          "notes": [
+            "Leave Studies 1 and 2 out, or give them a single subordinate clause. They are gate experiments and belong in Methods.",
+            "Method pivot in the exemplars is the fixed phrase 'In this work, we ...'."
+          ]
+        },
+        {
+          "id": "b6",
+          "title": "Findings and why it matters",
+          "targetWords": 180,
+          "goal": "Answer the RQs in order, then raise the stake and land the title.",
+          "must": [
+            "RQ1: genuine revision falls from 39% of responses at the second turn to 13% at the fifth. The remainder are restatements and declines that change no task content.",
+            "RQ2: when a model does revise, quality drops. For every model the quality-optimal stopping point is the first turn.",
+            "RQ3: a single specific critique reverses the decline and raises quality above anything undirected iteration reaches. This sentence earns the title.",
+            "The methodological finding: meta-commentary biases an automated judge in two opposing directions at once, inflating its preference for the earlier draft while lowering the measured quality of the later one, by enough that leaving it uncontrolled changes the conclusion.",
+            "The stake: single-turn evaluation does not measure whether a model handed its own adequate output will decline to make it worse. That property belongs alongside first-turn capability.",
+            "Close on the title: intrinsic self-correction is not enough on its own, it requires direction supplied from outside."
+          ],
+          "cites": [],
+          "notes": [
+            "Every number chaperoned by its scope. Laban: '39% across six generation tasks', never a bare number.",
+            "Data as grammatical subject with an observation verb. 'Genuine revision falls...', not 'We show that...'.",
+            "Open decision: numbers here or qualitative? Current draft states 39/13 only. Laban states one, the other three exemplars state zero."
+          ]
+        }
+      ]
+    }
+  ]
+}
