@@ -78,6 +78,12 @@ To guard against aggregation artifacts, we apply four controls before interpreti
 \begin{itemize}
     \item \textbf{Revision yield:} Mean evaluator level at each turn, restricted to revisions (meta-responses excluded).
     \item \textbf{Diminishing Return Point (DRP):} The first turn at which marginal quality gain is $\leq 0$.
+    \item \textbf{Revision direction:} For each genuine revision, whether its level is lower
+    than, equal to, or higher than the level of the most recent turn whose content was
+    genuinely new (Turn~1, or the last turn classified as a genuine revision). The comparison
+    is made against the last genuinely new content rather than against the immediately
+    preceding turn because that turn is frequently a meta-response whose text restates the
+    output it accompanies.
     \item \textbf{Revision-despite-sufficiency:} Fraction of turns where the evaluator rated the output $\geq 4$ but the model revised at the next turn.
     \item \textbf{Overcorrection Score (OCS):} Composite of excess rounds beyond DRP, wasted token fraction, and quality regression magnitude.
     \item \textbf{Revision tax:} Extra tokens spent past the quality-optimal turn ($t^*$) as a percentage of optimal tokens: $\text{tax} = (T_{\text{full}} - T_{t^*}) / T_{t^*} \times 100$.

@@ -83,11 +83,11 @@ def style_ax(ax, ylabel=None, xlabel=None):
     ax.spines["right"].set_visible(False)
     ax.spines["left"].set_color("#444444")
     ax.spines["bottom"].set_color("#444444")
-    ax.tick_params(colors="#444444", labelsize=8)
+    ax.tick_params(colors="#444444", labelsize=9, pad=4)
     if ylabel:
-        ax.set_ylabel(ylabel, fontsize=9, color="#333333")
+        ax.set_ylabel(ylabel, fontsize=9.5, color="#333333", labelpad=5)
     if xlabel:
-        ax.set_xlabel(xlabel, fontsize=9, color="#333333")
+        ax.set_xlabel(xlabel, fontsize=9.5, color="#333333", labelpad=5)
 
 
 # ======================================================================
@@ -104,7 +104,7 @@ def make_fig_survival():
             rates.append(gc / 120)
         model_rates[m] = rates
 
-    fig, ax = plt.subplots(figsize=(3.4, 2.8), dpi=250)
+    fig, ax = plt.subplots(figsize=(3.17, 2.95), dpi=250)
     fig.patch.set_facecolor("white")
     ax.set_facecolor("white")
 
@@ -117,15 +117,14 @@ def make_fig_survival():
                 linewidth=lw, alpha=alpha, label=MODEL_NAMES[m], zorder=3)
 
     ax.set_xlim(1.8, 5.2)
-    ax.set_ylim(-0.02, 0.72)
+    ax.set_ylim(-0.02, 0.97)   # Llama peaks at 90.0% and Claude at 86.7%; a lower cap clipped them
     ax.set_xticks([2, 3, 4, 5])
     ax.set_xticklabels(["T2", "T3", "T4", "T5"])
     ax.yaxis.set_major_formatter(mticker.PercentFormatter(1.0, decimals=0))
     style_ax(ax, ylabel="Genuine revision rate", xlabel="Turn")
-    ax.legend(fontsize=6, loc="upper right", framealpha=0.9,
-              edgecolor="#cccccc", ncol=2)
-    ax.set_title("Per-model genuine-revision survival", fontsize=9,
-                 fontweight="bold", color="#333333", pad=6)
+    ax.legend(fontsize=6.8, loc="lower center", bbox_to_anchor=(0.5, 1.01),
+              ncol=3, frameon=False, handlelength=1.8, columnspacing=1.4,
+              handletextpad=0.5)
 
     fig.savefig(OUTDIR / "fig_survival_curves.pdf", bbox_inches="tight",
                 facecolor="white")
@@ -182,7 +181,7 @@ def make_fig_trajectory():
         pooled_ns.append(len(scores))
 
     # --- Plot ---
-    fig, ax = plt.subplots(figsize=(3.4, 2.8), dpi=250)
+    fig, ax = plt.subplots(figsize=(3.17, 2.95), dpi=250)
     fig.patch.set_facecolor("white")
     ax.set_facecolor("white")
 
@@ -220,10 +219,9 @@ def make_fig_trajectory():
     ax.set_xticks(TURNS)
     ax.set_xticklabels(["T1", "T2", "T3", "T4", "T5"])
     style_ax(ax, ylabel="Mean quality (1-5 scale, stripped)", xlabel="Turn")
-    ax.legend(fontsize=6.5, loc="upper right", framealpha=0.9,
-              edgecolor="#cccccc")
-    ax.set_title("Quality trajectory under undirected revision",
-                 fontsize=9, fontweight="bold", color="#333333", pad=6)
+    ax.legend(fontsize=7, loc="lower center", bbox_to_anchor=(0.5, 1.01),
+              ncol=2, frameon=False, handlelength=1.8, columnspacing=1.6,
+              handletextpad=0.5)
 
     fig.savefig(OUTDIR / "fig_quality_trajectory.pdf", bbox_inches="tight",
                 facecolor="white")
@@ -248,74 +246,6 @@ def make_fig_trajectory():
 # FIGURE C: Targeted-feedback dumbbell
 # Generic stripped 3.53 vs Targeted 4.68, gap +1.16
 # ======================================================================
-def make_fig_targeted():
-    pairs = []
-    for r in targeted:
-        if r["targeted_level"] is None or r["generic_next_level"] is None:
-            continue
-        next_turn = r["turn"] + 1
-        if next_turn > 5:
-            continue
-        if label_idx.get((r["worker_trial_id"], next_turn)) != "GENUINE":
-            continue
-        tl = 2 if r["targeted_level"] == 6 else r["targeted_level"]
-        strip_r = strip_idx.get((r["worker_trial_id"], next_turn))
-        gl_stripped = strip_r["stripped_score"] if strip_r else (2 if r["generic_next_level"] == 6 else r["generic_next_level"])
-        pairs.append({"targeted": tl, "generic_stripped": gl_stripped})
-
-    t_mean = statistics.mean([p["targeted"] for p in pairs])
-    g_mean = statistics.mean([p["generic_stripped"] for p in pairs])
-    delta = t_mean - g_mean
-    n = len(pairs)
-
-    fig, ax = plt.subplots(figsize=(3.4, 2.2), dpi=250)
-    fig.patch.set_facecolor("white")
-    ax.set_facecolor("white")
-
-    y = 0
-    ax.plot([g_mean, t_mean], [y, y], color=GRAY, linewidth=3, zorder=1)
-    ax.scatter([g_mean], [y], color=RED, s=100, zorder=3, edgecolors="white",
-               linewidth=1, label=f"Generic revision ({g_mean:.2f})")
-    ax.scatter([t_mean], [y], color=GREEN, s=100, zorder=3, edgecolors="white",
-               linewidth=1, label=f"Targeted feedback ({t_mean:.2f})")
-
-    mid = (g_mean + t_mean) / 2
-    ax.text(mid, y + 0.18, f"+{delta:.2f}", ha="center", fontsize=11,
-            fontweight="bold", color="#333333")
-
-    ax.axvline(THRESHOLD, color=GRAY, linestyle="--", linewidth=0.8, alpha=0.5)
-    ax.text(THRESHOLD + 0.03, 0.35, "Sufficient", fontsize=7, color=GRAY,
-            va="bottom", rotation=90)
-
-    ax.text(0.98, 0.03,
-            f"n={n}, p=$5.7 \\times 10^{{-19}}$",
-            transform=ax.transAxes, fontsize=6.5, color=GRAY,
-            ha="right", va="bottom")
-
-    ax.set_xlim(2.5, 5.5)
-    ax.set_ylim(-0.5, 0.6)
-    ax.set_yticks([])
-    style_ax(ax, xlabel="Quality level (1-5 scale)")
-    ax.legend(fontsize=7, loc="lower center", framealpha=0.9,
-              edgecolor="#cccccc", ncol=2,
-              bbox_to_anchor=(0.5, -0.35))
-    ax.set_title("Targeted feedback restores quality", fontsize=9,
-                 fontweight="bold", color="#333333", pad=6)
-
-    fig.savefig(OUTDIR / "fig_targeted_dumbbell.pdf", bbox_inches="tight",
-                facecolor="white")
-    fig.savefig(OUTDIR / "fig_targeted_dumbbell.png", dpi=200,
-                facecolor="white")
-    plt.close(fig)
-
-    print("=== FIGURE C: Targeted Feedback Dumbbell ===")
-    print(f"  Generic (stripped): {g_mean:.2f}")
-    print(f"  Targeted: {t_mean:.2f}")
-    print(f"  Delta: +{delta:.2f}")
-    print(f"  n={n}")
-    print("  -> fig_targeted_dumbbell.pdf")
-
-
 # ======================================================================
 if __name__ == "__main__":
     print("Generating corrected figures from validated pipeline...\n")
@@ -323,5 +253,4 @@ if __name__ == "__main__":
     print()
     make_fig_trajectory()
     print()
-    make_fig_targeted()
     print("\nDone. All figures use corrected classifier + 6->2 recode + stripped scores.")

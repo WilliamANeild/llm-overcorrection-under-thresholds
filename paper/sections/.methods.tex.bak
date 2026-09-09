@@ -1,0 +1,103 @@
+\section{Methods}
+
+\subsection{Design}
+
+We use a five-turn conversational design in which a model produces an initial output (Turn~1) and is then asked at each subsequent turn whether it would like to revise. The working probe is deliberately balanced: ``Would you like to keep this as your final version, or would you like to revise it?'' This offers an explicit off-ramp at every turn, unlike revision-implying probes that trigger near-universal compliance (see \S\ref{sec:gate-experiments}).
+
+The experiment crosses 6 models $\times$ 40 scenarios $\times$ 3 runs $=$ \textbf{720 trials} (3,600 model-turn observations). All generation uses temperature~1.0, to maximize output diversity and avoid ceiling effects from low-temperature determinism, consistent with standard practice for open-ended generation. Our design cannot fully separate the effect of the revision act from the prompt that offers it; a no-probe control would be needed to isolate the revision mechanism alone.
+
+\paragraph{Models.} Claude Sonnet~4 (Anthropic), GPT-4o (OpenAI), Gemini~2.5 Flash (Google), Llama~3.3~70B (Meta, via Together AI), Qwen~3~235B (Alibaba, via OpenRouter), and DeepSeek~V4 (DeepSeek).
+
+\paragraph{Scenarios.} Forty scenarios span five task domains (Table~\ref{tab:s3-domains}): code (8 tasks), data logic (8), analysis (8), writing (8), and creative writing (8). Scenarios range from function implementation to policy memos to story openings.
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{@{}lrl@{}}
+\toprule
+\textbf{Domain} & \textbf{$n$} & \textbf{Example tasks} \\
+\midrule
+Code & 8 & Debounce function, email validator \\
+Data logic & 8 & Discount stacking, scheduling \\
+Analysis & 8 & Quarterly sales summary, policy memo \\
+Writing & 8 & PTO request, LinkedIn announcement \\
+Creative & 8 & Story opening, tone rewrite \\
+\bottomrule
+\end{tabular}
+\caption{Task domains. Each domain contains 8 scenarios spanning typical enterprise and consumer AI use cases.}
+\label{tab:s3-domains}
+\end{table}
+
+\subsection{Response Classification}
+\label{sec:methods-classifier}
+
+At each turn $\geq 2$, the model's response is classified as either a \textit{genuine revision} (new task content produced) or a \textit{meta-response} (the model declines, restates, or comments without substantive modification). An initial keyword-based classifier (checking for decline phrases like ``no changes needed'') systematically missed verbose decline-with-restatement responses: outputs that restate the original content while declining to change it. A validated LLM classifier (Claude Sonnet~4 at temperature~0) replaced it, classifying 24.9\% of post-Turn~1 outputs as genuine revisions (718/2,880) compared to the keyword classifier's higher rate. Ten classifications were manually corrected after human review of a stratified sample (1.4\% correction rate). The classifier gap itself is a finding: models frequently produce verbose responses that mimic revision without substantive content change.
+
+\subsection{Blind Evaluation}
+
+Each model-turn output is scored by a blind evaluator on a six-level quality scale:
+\begin{enumerate}
+    \item \textbf{Inadequate:} Does not address the task or is off-topic.
+    \item \textbf{Incomplete:} Addresses the task but is missing requested components.
+    \item \textbf{Functional:} All components present but with clear weaknesses.
+    \item \textbf{Sufficient:} All components present and competently executed.
+    \item \textbf{Polished:} Well-executed with thoughtfulness beyond the minimum.
+    \item \textbf{Overdone:} Adds unrequested complexity or has drifted from the original ask.
+\end{enumerate}
+Level~4 (``Sufficient'') is the threshold for task completion.
+
+\paragraph{Scale Non-Monotonicity and 6$\to$2 Recode.}
+Level~6 (``Overdone'') represents over-elaboration or drift from the task; it is \textit{not} quality above Level~5. Because Level~6 is semantically below ``Sufficient,'' we recode it to Level~2 (``Incomplete'') throughout, producing a monotonic 1--5 scale.
+
+\paragraph{Judge Calibration.}
+\label{sec:judge-calibration}
+To select the evaluator, we drew a stratified sample of 64 responses (balanced across model, domain, and turn) and had three human raters independently score each on the same six-level scale. We then ran each of six candidate models as evaluator on the same samples and selected the model with highest human-mean correlation. Claude Sonnet~4 was selected (Spearman $r = 0.505$, $p < 0.001$, QW $\kappa = 0.526$). The next-best candidate (DeepSeek~V4) achieved $r = 0.340$; GPT-4o achieved only $r = 0.140$.
+
+\paragraph{Human Validation.}
+Three raters independently scored 64 stratified samples on the same scale (with 6$\to$2 recode applied before analysis). Pairwise quadratic-weighted Cohen's $\kappa$ ranges from 0.406 to 0.603; Krippendorff's $\alpha = 0.529$ (interval scale, 3 raters). Binary agreement on the sufficient/not-sufficient threshold ($\geq 4$) ranges from 76.6\% to 82.8\% across rater pairs; within-one-level agreement ranges from 81.2\% to 95.3\%. We note that the binary threshold, which drives the key analyses (revision-despite-sufficiency, DRP), is the better-validated metric; ordinal means should be interpreted with the moderate reliability in mind.
+
+\subsection{Meta-Commentary Stripping}
+\label{sec:methods-stripping}
+
+Models frequently add boilerplate preambles (``Here's my revised version...'') and postambles (``Let me know if you'd like any changes'') to revision outputs. In our 50 balanced-panel pairs, 84\% of revision-side outputs contain at least one such wrapper, compared to 14\% of Turn~1 outputs. This asymmetry creates a measurement confound: LLM judges can identify the revision side by its meta-wrapping, and pointwise evaluators may trigger the ``Overdone'' criterion on boilerplate rather than content.
+
+To control for this, we strip meta-commentary from all 3,600 outputs using validated regex patterns matching common preamble and postamble phrases. Of the 3,600 outputs, 1,200 (33.3\%) were modified by stripping and rescored by Claude Sonnet~4 at temperature~0 using the identical evaluation prompt. Validation: on the 50 balanced-panel pairs, two human annotators rating stripped content agreed with the LLM judge at $\kappa = 0.569$, compared to near-chance agreement ($\kappa$ between $-0.07$ and $+0.02$) on unstripped content. All quality results in Section~\ref{sec:results} report stripped scores as primary estimates.
+
+\subsection{Edge Case Framework}
+
+To guard against aggregation artifacts, we apply four controls before interpreting quality trajectories:
+\begin{enumerate}
+    \item \textbf{Balanced-panel subset:} The 50 trials (6.9\%) with genuine revision (per the validated LLM classifier) at all turns T2--T5, enabling paired comparison without missing data. This subset conditions on a post-treatment variable (revision persistence), introducing potential selection bias; we triangulate it against pooled estimates below.
+    \item \textbf{Per-model trajectories:} Decomposing aggregate trends by model. The balanced panel is 90\% Llama (45/50); only Llama has sufficient power for within-model inference.
+    \item \textbf{T1 quality stratification:} Separating trials starting below the sufficiency threshold (12.4\%) from those already sufficient (87.6\%, after 6$\to$2 recode).
+    \item \textbf{Compositional audit:} Checking whether shifting model proportions in the revision-only pool inflate apparent decline.
+\end{enumerate}
+
+\subsection{Metrics}
+
+\begin{itemize}
+    \item \textbf{Revision yield:} Mean evaluator level at each turn, restricted to revisions (meta-responses excluded).
+    \item \textbf{Diminishing Return Point (DRP):} The first turn at which marginal quality gain is $\leq 0$.
+    \item \textbf{Revision-despite-sufficiency:} Fraction of turns where the evaluator rated the output $\geq 4$ but the model revised at the next turn.
+    \item \textbf{Overcorrection Score (OCS):} Composite of excess rounds beyond DRP, wasted token fraction, and quality regression magnitude.
+    \item \textbf{Revision tax:} Extra tokens spent past the quality-optimal turn ($t^*$) as a percentage of optimal tokens: $\text{tax} = (T_{\text{full}} - T_{t^*}) / T_{t^*} \times 100$.
+    \item \textbf{Semantic similarity:} Cosine similarity between sentence embeddings (all-MiniLM-L6-v2) of the Turn~1 output and each subsequent turn.
+    \item \textbf{Edit ratio:} Defined as $1 - \text{LCS}(r_t, r_{t-1}) / \max(|r_t|, |r_{t-1}|)$, where LCS is the longest common subsequence measured in whitespace-delimited tokens.
+\end{itemize}
+
+\subsection{Sub-experiments}
+
+\paragraph{Targeted Feedback.} For outputs rated level~1--3, a second model instance receives the output plus a specific critique and produces a targeted revision, which is then blind-evaluated. This tests whether specific feedback outperforms the generic revision probe ($n = 177$ paired comparisons after filtering to cases where the generic next-turn output is a genuine revision, not a meta-response).
+
+\paragraph{Self-Reflection.} After the five-turn conversation, the same model is shown all its versions and asked which turn it would recommend the user use ($n = 720$).
+
+\paragraph{Reversibility.} Two human annotators independently compared stripped Turn~1 and last-genuine-revision outputs for the 50 balanced-panel trials, blind to turn identity and position-randomized. Inter-annotator agreement: $\kappa = 0.703$ ($n = 50$). Humans chose Turn~1 in 56.2\% of non-tie decisions (41/73, 95\% CI [45.2\%, 67.1\%]); the confidence interval includes 50\%, so this directional preference is not statistically distinguishable from chance. We set a success bar in advance of $\geq$65\% Turn~1 preference with a 95\% CI excluding 50\%; this bar was not cleared. This is itself informative: the pointwise quality degradation ($-0.74$ levels) is real but not large enough to reliably flip a blind pairwise preference once meta-commentary is removed. An LLM judge (Claude Sonnet~4) was also run on both stripped and unstripped versions for validation of the meta-commentary stripping procedure (see Section~\ref{sec:methods-stripping}).
+
+\subsection{Preliminary Gate Experiments}
+\label{sec:gate-experiments}
+
+Two preliminary experiments (reported fully in the appendix) establish that the revision decision is controlled by prompt phrasing, not quality assessment:
+
+\textbf{Study~1} (3,840 trials): A fully factorial design crossing 2 probe types $\times$ 8 threshold levels $\times$ 2 framings $\times$ 3 models $\times$ 8 scenarios $\times$ 5 runs. Under a revision-implying probe (``Can this be improved?''), models revise 99.9\% of the time regardless of stated quality threshold. Under an evaluative probe, revision drops to 0.3--38\% depending on model. Thresholds modulate revision intensity only after the gate fires (Spearman $\rho = -0.14$ to $-0.50$).
+
+\textbf{Study~2} (1,728 trials): A momentum experiment showing that 1--3 prior revision rounds shift the revision gate on a subsequent evaluative probe. GPT-4o jumps from 31\% to 98\% revision with a single prior round; Claude and Gemini resist. Reverse momentum (one affirming turn) suppresses revision to near-zero. These results motivate Study~3's balanced probe design: we use a probe that neither implies revision nor evaluation, making any observed degradation a conservative estimate of real-world behavior where revision-implying prompts dominate.

@@ -1,0 +1,45 @@
+% Standalone reading copy: title, introduction and Figure 1 only.
+% Single column, wide margins, generous leading. Not the submission build.
+% Build: tectonic -X compile intro_standalone.tex --outdir builds/
+\documentclass[12pt]{article}
+\usepackage[a4paper,margin=1.35in]{geometry}
+\usepackage{times}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}
+\usepackage{inconsolata}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage[round]{natbib}
+\let\cite\citep   % parenthetical, as in the paper build
+\bibliographystyle{acl_natbib}
+\usepackage[hidelinks]{hyperref}
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf,width=\textwidth}
+
+\linespread{1.18}
+\setlength{\parskip}{0.55em}
+\setlength{\parindent}{0pt}
+\pagestyle{empty}                 % no page numbers on a reading copy
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Worse on Request, Better on Critique:\\[0.25em]
+   Self-Correction on Work That Is Already Sufficient\par}
+  \vspace{1.1em}
+  {\large Liam Neild\par}
+  \vspace{0.3em}
+  {\normalsize Emory University\par}
+\end{center}
+
+\vspace{2.2em}
+
+\input{builds/_intro_reading}
+
+\vfill
+
+\bibliography{references}
+
+\end{document}

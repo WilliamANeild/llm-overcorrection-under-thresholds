@@ -1,0 +1,31 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:Helvetica,Arial,sans-serif;background:#fff;width:760px;color:#111;
+         padding:2px 4px 8px}
+    .prov{font-size:10px;color:#555;margin-bottom:11px}
+    .spk{font-size:10.5px;font-weight:700;color:#222;margin-bottom:4px}
+    .spk span{font-weight:400;color:#666}
+    .hdr{font-size:10.5px;color:#666;margin-bottom:4px;display:flex;
+         justify-content:space-between;align-items:baseline}
+    .hdr b{color:#222;font-weight:700}
+    .hdr .wc{font-size:9.5px;color:#888;white-space:nowrap}
+    .user{border:1px solid #b4b4b4;background:#f1f1f1;padding:10px 13px;font-size:12.5px;
+          line-height:1.58;margin-bottom:11px}
+    .note .req{border-left:3px solid #999;padding:1px 0 1px 10px;margin-bottom:7px}
+    .cols{display:flex;gap:12px;align-items:stretch}
+    .mid{width:78px;flex:0 0 78px;display:flex;flex-direction:column;
+         justify-content:center;align-items:center;text-align:center;padding-bottom:26px}
+    .mid .cap{font-size:9px;line-height:1.32;color:#333;margin-top:6px}
+    .col{flex:1;display:flex;flex-direction:column}
+    .bub{font-family:Menlo,"DejaVu Sans Mono","Courier New",monospace;font-size:11px;
+         line-height:1.58;padding:10px 13px;border:1px solid #b4b4b4;background:#fff;flex:1}
+    .bub u{text-decoration:none;background:#f4ecc9;padding:0 1px}
+    .len{font-size:11.5px;color:#111;margin-top:8px}
+    .len b{font-weight:700}
+    .note{margin-top:13px;padding-top:9px;border-top:1px solid #ccc;font-size:11px;
+          line-height:1.6;color:#444}
+    .note b{color:#111}
+    .note p{margin-bottom:5px}
+    .swatch{background:#f4ecc9;padding:0 3px}
+    .keynote{font-size:9.5px;color:#555;margin-top:7px;line-height:1.35}
+    </style></head><body><div class="prov">Llama 3.3 70B on a quarterly sales summary (analysis task)</div><div class="spk">Prompt <span>given once</span></div><div class="user">Can you write a concise summary that identifies the patterns, addresses the Q3 dip and Q4 spike, and <b>suggests a couple possible explanations for each</b>?</div><div class="cols"><div class="col"><div class="hdr"><span><b>Model</b> initial response</span><span class="wc">214 words</span></div><div class="bub">[…] Q3 saw a 21% dip to $1.9M, which <u>may be attributed to seasonal factors or increased competition</u>. […] Q4 saw a significant spike to $3.1M […] This surge <u>could be due to successful holiday season promotions, effective year-end sales strategies, or a strong new product launch</u>. […]</div><div class="len"><b>Quality level = (4)&nbsp;Sufficient</b></div></div><div class="mid"><svg width="72" height="44" viewBox="0 0 72 44"><text x="8" y="12" font-size="9.5" fill="#222" text-anchor="middle" font-family="Helvetica">1</text><text x="25" y="12" font-size="9.5" fill="#222" text-anchor="middle" font-family="Helvetica">2</text><text x="42" y="12" font-size="9.5" fill="#222" text-anchor="middle" font-family="Helvetica">3</text><text x="59" y="12" font-size="9.5" fill="#222" text-anchor="middle" font-family="Helvetica">4</text><line x1="8" y1="27" x2="62" y2="27" stroke="#222" stroke-width="1.4"/><line x1="8" y1="21" x2="8" y2="33" stroke="#222" stroke-width="1.4"/><line x1="25" y1="21" x2="25" y2="33" stroke="#222" stroke-width="1.4"/><line x1="42" y1="21" x2="42" y2="33" stroke="#222" stroke-width="1.4"/><line x1="59" y1="21" x2="59" y2="33" stroke="#222" stroke-width="1.4"/><polygon points="62,22 71,27 62,32" fill="#222"/></svg><div class="cap">four identical<br>requests</div></div><div class="col"><div class="hdr"><span><b>Model</b> after four revisions</span><span class="wc">79 words</span></div><div class="bub">[…] a notable dip in Q3 ($1.9M) and a significant spike in Q4 ($3.1M). To build on this momentum, we recommend: 1. Analyzing Q4’s success factors […] 2. Identifying opportunities to mitigate future dips […]</div><div class="len"><b>Quality level = (2)&nbsp;Incomplete</b></div></div></div><div class="keynote"><span class="swatch">Highlighted</span>: the two explanations the prompt asked for</div><div class="note"><p class="req"><b>Each of the four requests, verbatim:</b> “Would you like to keep this as your final version, or would you like to revise it?”</p><p><b>The judge, on the final response:</b> it is “missing the explicitly requested specific explanations for the Q3 dip and Q4 spike, providing only generic recommendations”.</p></div></body></html>

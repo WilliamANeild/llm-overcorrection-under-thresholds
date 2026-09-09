@@ -10,6 +10,7 @@ Within the leading-probe condition, higher thresholds produce moderately less ov
 \begin{table}[h]
 \centering
 \small
+\setlength{\tabcolsep}{4pt}
 \begin{tabular}{@{}lrrr@{}}
 \toprule
 \textbf{Predictor} & \textbf{Model A} & \textbf{Model B} & \textbf{Model C} \\
@@ -141,19 +142,19 @@ The momentum effect is a step function: the entire shift occurs between dose~0 a
     \label{fig:probe-cliff}
 \end{figure}
 
-\begin{figure}[tbp]
+\begin{figure*}[tbp]
     \centering
-    \includegraphics[width=\columnwidth]{figures/02_threshold_ladder.pdf}
+    \includegraphics[width=\textwidth]{figures/02_threshold_ladder.pdf}
     \caption{Overcorrection by threshold level within leading-probe trials (Study~1).}
     \label{fig:threshold-ladder}
-\end{figure}
+\end{figure*}
 
-\begin{figure}[tbp]
+\begin{figure*}[tbp]
     \centering
-    \includegraphics[width=\columnwidth]{figures/dose_response_curve.pdf}
+    \includegraphics[width=0.72\textwidth]{figures/dose_response_curve.png}
     \caption{Revision rate by momentum dose (Study~2). The momentum effect is a step function driven by GPT-4o.}
     \label{fig:dose-response}
-\end{figure}
+\end{figure*}
 
 \section{Full Statistical Tables}
 \label{sec:appendix-stats}
@@ -215,19 +216,20 @@ Gemini 2.5 Flash & $-0.036$ & $-0.026$ \\
 \begin{table}[h]
 \centering
 \small
+\setlength{\tabcolsep}{4pt}
 \begin{tabular}{@{}lrrr@{}}
 \toprule
-\textbf{Rater Pair} & \textbf{QW $\kappa$} & \textbf{Binary ($\geq 4$)} & \textbf{Within-1} \\
+Rater pair & QW $\kappa$ & Binary & Within 1 \\
 \midrule
-Liam -- Sophie & 0.578 & 78.1\% (50/64) & 95.3\% (61/64) \\
-Sophie -- Troy & 0.603 & 82.8\% (53/64) & 87.5\% (56/64) \\
-Liam -- Troy & 0.406 & 76.6\% (49/64) & 81.2\% (52/64) \\
+Liam -- Sophie & 0.578 & 78.1\% & 95.3\% \\
+Sophie -- Troy & 0.603 & 82.8\% & 87.5\% \\
+Liam -- Troy & 0.406 & 76.6\% & 81.2\% \\
 \midrule
-All 3 (Krippendorff's $\alpha$) & 0.529 & --- & --- \\
+All three ($\alpha$) & 0.529 & --- & --- \\
 Evaluator -- Human Mean & 0.526 & --- & --- \\
 \bottomrule
 \end{tabular}
-\caption{Human rater agreement on 64 stratified samples (6$\to$2 recode applied before analysis, 3 raters). QW $\kappa$: quadratic-weighted Cohen's $\kappa$ on the 1--5 scale. Binary: both raters agree on sufficient ($\geq 4$) vs.\ not. Within-1: ratings differ by $\leq 1$ level. Evaluator--Human Mean: Spearman $r = 0.505$ ($p < 0.001$).}
+\caption{Human rater agreement on 64 stratified samples (6$\to$2 recode applied before analysis, 3 raters). QW $\kappa$: quadratic-weighted Cohen's $\kappa$ on the 1--5 scale; $\alpha$ is Krippendorff's. Binary: both raters agree on sufficient ($\geq 4$) vs.\ not. Within-1: ratings differ by $\leq 1$ level. Evaluator--Human Mean: Spearman $r = 0.505$ ($p < 0.001$).}
 \label{tab:human-agreement}
 \end{table}
 
@@ -267,3 +269,5 @@ Threshold alignment & 0.339 & 38.3 & 85.0 \\
 \caption{Inter-rater reliability for Study~2 ($n = 60$).}
 \label{tab:irr-momentum}
 \end{table}
+
+\input{sections/_fig1_appendix}

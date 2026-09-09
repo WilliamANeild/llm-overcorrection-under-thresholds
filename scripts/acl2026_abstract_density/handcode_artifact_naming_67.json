@@ -1,0 +1,12 @@
+{
+ "_note": "HAND adjudication of the names_artifact flag over the 67-abstract corpus, 2026-09-06. The 03_measure.py flag is (coined acronym matched by ACRO) AND (an introducing verb within 3 words of we/this paper). It has two failure modes, both found by reading all 67: hyphenated CamelCase names are not matched by the acronym regex (false negatives), and an abstract carrying only BORROWED acronyms (benchmark names, model names, field terms) plus an introducing verb is scored as naming an artifact when it names nothing of its own (false positives). Keys below override the script flag.",
+ "false_negatives_now_named": {
+  "2026.acl-short.57": "names FL-MSCL; introducing verb sits 9 words after 'This paper'",
+  "2026.findings-acl.447": "names Self-Sum; hyphenated CamelCase not matched by the acronym regex"
+ },
+ "false_positives_now_unnamed": {
+  "2026.eacl-long.54": "introduces 'an adaptive, multi-paradigm, neuro-symbolic inference framework' with no coined name; CoTsym is an evaluation setting and DeepSeek-V3 a third-party model",
+  "2026.acl-long.1099": "introduces 'an evolutionary, task-agnostic, strategy-guided, executably-checkable data synthesis framework' with no coined name; LiveCodeBench, AgentBench-OS and RLVR are all borrowed",
+  "2026.acl-long.536": "the paper is titled ReProbe but the string ReProbe never appears in the abstract, which says only 'a lightweight alternative' and 'a transformer-based probe'; DeepSeek-R1 and PRMs are borrowed"
+ }
+}

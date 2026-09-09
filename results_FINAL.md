@@ -50,6 +50,37 @@ and stripped meta-commentary where applicable. These are the definitive numbers 
 
 **DISCLOSURE -- Revision Style:** Llama revises incrementally (mean SequenceMatcher similarity to prior turn = 0.50, median 0.51) while other models that revise tend toward wholesale rewrites (mean similarity 0.15--0.34). The cliff is therefore best-powered for incremental-revision behavior. However, wholesale-rewrite models show *steeper* drops when they do comply: DeepSeek -1.71 (n=7 at T5), Qwen -3.00 (n=6), vs Llama -0.81 (n=64). The cliff is not a Llama-specific artifact; it is a general pattern that is only statistically powered in Llama due to its high compliance rate. Audited 2026-06-11.
 
+### Stripped Cliff: significance test (added 2026-09-07, resolving RECOMPUTE_TODO)
+
+The paper printed p and r for the stripped cliff in `results_v2.tex` Table 3, the conclusion
+and the appendix, with no entry anywhere in this ledger. Recomputed 2026-09-07 and recorded
+here. `RECOMPUTE_TODO.md` asked for exactly this and was closed in error on 2026-09-02.
+
+| Subset | n | T1 | T5 | delta | Wilcoxon W | p | r (N=n) | r (N=non-zero) |
+|--------|---|----|----|-------|-----------|---|---------|----------------|
+| All balanced | 50 | 3.66 | 2.92 | **-0.74** | 54.5 | **1.01e-4** | 0.536 | 0.681 |
+| Llama only | 45 | 3.53 | 2.87 | **-0.67** | 51.5 | **3.76e-4** | 0.514 | 0.652 |
+
+- **Filter:** the 50 balanced-panel trials (GENUINE at all of turns 2-5). Stripped levels at
+  turns 1 and 5 from `stripped_rescore_full.jsonl` field `stripped_score`, 6 -> 2 recode
+  applied first. Two-sided Wilcoxon signed-rank on the paired values. Non-zero differences:
+  31 of 50 all-balanced, 28 of 45 Llama.
+- **Both p-values reproduce the printed values exactly.** The numbers were correct; they had
+  no recorded provenance.
+
+**TWO DISCREPANCIES, both requiring a decision:**
+
+1. **Effect size.** The paper prints r = 0.55 (all) and r = 0.53 (Llama). Recomputation gives
+   0.536 and 0.514 dividing by N = all trials, or 0.681 and 0.652 dividing by N = non-zero
+   differences. The printed values match neither. The formula must be stated in the paper;
+   a survey of 270 papers found only one that states which N it divides by.
+
+2. **Llama delta.** This computation gives -0.67 from the full 3,600-output rescore. The paper
+   prints -0.69, which comes from the 50-pair rescore in `stripped_rescore_results.json`. Table 3
+   therefore mixes two rescore bases in one table: an all-balanced row on the full rescore and a
+   Llama row on the 50-pair rescore. Independently confirms the finding in
+   `paper/reference/stats_07_own_inventory.md` (mismatch M1).
+
 ### Stripped Cliff (meta-commentary removed, re-scored)
 
 | Subset | Orig cliff | Stripped cliff | Meta inflation |
@@ -93,6 +124,136 @@ and stripped meta-commentary where applicable. These are the definitive numbers 
 - **Filter:** For every (trial, turn) pair where turn in {1,2,3,4}, pull `level` from `evaluator_results.jsonl` (recode 6 -> 2). If level >= 4 ("sufficient"), check whether `genuine_meta_labels.jsonl` has `classifier_label == "GENUINE"` at turn+1. Numerator = sufficient turns where next turn is GENUINE. Denominator = all sufficient turns (938). Bootstrap: 1000 resamples, percentile CI, seed 42.
 - **T1 sufficiency:** Count of trials where evaluator level at turn 1 >= 4 (after 6 -> 2 recode). 631/720 = 87.6%.
 - Source: `evaluator_results.jsonl` + `genuine_meta_labels.jsonl`
+
+---
+
+## 4b. DIRECTION OF REVISIONS (added 2026-09-03)
+
+Does a genuine revision lower, leave, or raise the quality level of what it replaced?
+
+- **Script:** `scripts/study3/revision_direction.py`
+- **Output:** `data/study3/analysis/revision_direction.json`
+- **Sample:** unchanged. The same 720 trials and the same GENUINE/META labels from the
+  validated classifier. No sample restriction, no balanced-panel requirement.
+- **Filter (exact):** For each trial, walk turns 2-5. Where `genuine_meta_labels.jsonl`
+  has `classifier_label == "GENUINE"` at that turn, compare its level against the level
+  of the most recent turn whose content was genuinely new: turn 1, or the last turn
+  labelled GENUINE. Recode level 6 -> 2 first. Comparing against turn t-1 directly would
+  score a revision against a meta-response, whose text is a restatement rather than a
+  distinct draft. Direction is `worse` / `same` / `better` on the recoded level.
+  Stripped scores from `stripped_rescore_full.jsonl` field `stripped_score`; unstripped
+  from `evaluator_results.jsonl` field `level`. Stripped is primary.
+- **Tests:** one-sided binomial sign test on worse against better, ties excluded;
+  Clopper-Pearson exact 95% CI on the share worse among movers; chi-square on the
+  worse-by-better contingency across the five domains; Fisher exact on objective
+  (code + data_logic) against subjective (creative + writing).
+
+### Overall (n = 718 genuine revisions)
+
+| Basis | worse | same | better | movers | % of movers worse | 95% CI | sign p |
+|-------|-------|------|--------|--------|-------------------|--------|--------|
+| **Stripped** | 199 (27.7%) | 432 (60.2%) | 87 (12.1%) | 286 | **69.6%** | [63.9%, 74.9%] | 1.48e-11 |
+| Unstripped | 245 (34.1%) | 398 (55.4%) | 75 (10.4%) | 320 | 76.6% | [71.5%, 81.1%] | 1.66e-22 |
+
+Most revisions (60.2% stripped) do not move the level at all, which is partly the
+coarseness of a six-level scale. Among those that do move it, the movement is
+asymmetric: down about 2.3 times as often as up.
+
+### Per-model (stripped, primary)
+
+| Model | n | worse | same | better | % of movers worse | sign p |
+|-------|---|-------|------|--------|-------------------|--------|
+| gemini-2.5-flash | 8 | 50.0% | 50.0% | 0.0% | 100.0% | 0.062 |
+| deepseek-v4 | 31 | 38.7% | 54.8% | 6.5% | 85.7% | 0.0065 |
+| gpt-4o | 40 | 40.0% | 50.0% | 10.0% | 80.0% | 0.0059 |
+| qwen-3-235b | 90 | 42.2% | 43.3% | 14.4% | 74.5% | 0.00031 |
+| llama-3.3-70b | 353 | 25.8% | 62.6% | 11.6% | 68.9% | 8.0e-06 |
+| claude-sonnet-4 | 196 | 19.4% | 66.8% | 13.8% | 58.5% | 0.11 |
+
+**DISCLOSURE:** worse outnumbers better in all six models, but the asymmetry is
+individually significant in only four. Claude Sonnet 4 is not significant (p = 0.11)
+and Gemini has only 8 genuine revisions. The correct claim is that the direction holds
+in every model and reaches significance in four of six, not that every model shows it
+significantly. Unstripped, five of six reach significance (Gemini p = 0.062).
+
+### Per-domain (stripped, primary)
+
+| Domain | n | worse | same | better | % of movers worse | sign p |
+|--------|---|-------|------|--------|-------------------|--------|
+| writing | 118 | 28.8% | 63.6% | 7.6% | 79.1% | 8.5e-05 |
+| creative | 145 | 26.2% | 64.1% | 9.7% | 73.1% | 0.0006 |
+| code | 196 | 35.2% | 47.4% | 17.3% | 67.0% | 0.00036 |
+| analysis | 125 | 23.2% | 64.8% | 12.0% | 65.9% | 0.024 |
+| data_logic | 134 | 21.6% | 67.2% | 11.2% | 65.9% | 0.024 |
+
+All five domains individually significant. Domain homogeneity chi-square:
+**chi2 = 3.02, dof = 4, p = 0.555.** The asymmetry does not differ by domain.
+
+### The objectivity gradient is a meta-commentary artifact
+
+| Basis | Objective (code + data_logic) | Subjective (creative + writing) | Fisher p |
+|-------|-------------------------------|----------------------------------|----------|
+| **Stripped** | 98 / 49 = 66.7% worse | 72 / 23 = 75.8% worse | **0.151** |
+| Unstripped | 109 / 44 = 71.2% worse | 94 / 18 = 83.9% worse | **0.019** |
+
+Unstripped domain chi-square p = 0.205; stripped p = 0.555.
+
+**BEARS ON A REGISTERED PREDICTION.** `experiment/study3_revision_yield_design.md` line 117
+states as a "Key prediction" that the overcorrection gap widens moving from Code to
+Creative along the objectivity spectrum. That prediction is supported on unstripped
+scores (p = 0.019) and **is not supported once meta-commentary is stripped** (p = 0.151).
+This is consistent with Section M5, which records creative as the domain most sensitive
+to stripping because commentary is most prevalent there. Report the stripped estimate as
+the finding with the unstripped one beside it, naming the control in the same sentence.
+This is the second registered prediction the corrected analysis does not confirm, after
+the 65% reversibility bar in Section 7.
+
+### Outcome when the input was already sufficient (added 2026-09-07)
+
+Of the genuine revisions whose baseline content was already at level 4 or above, how many
+end below level 4?
+
+| Basis | revisions to sufficient input | still sufficient after | no longer sufficient |
+|-------|------------------------------|------------------------|----------------------|
+| **Stripped** | 411 | 298 (72.5%) | **113 (27.5%)** |
+
+Of the 113 that fall below, 85 land at level 2 and 28 at level 3.
+
+- **Filter:** the same 718 genuine revisions as above. Keep those whose baseline (the most
+  recent turn with genuinely new content) is at level >= 4 after the 6 -> 2 recode. Count how
+  many have a level < 4 at the revision turn.
+- **This is the same set of 411 as Stripped Sensitivity M1** ("Revised despite sufficient",
+  411 of 1,038 sufficient turns, 39.6%). Verified 2026-09-07: the two constructions produce
+  identical sets, 411 of 411, zero on either side. They coincide because a meta-response
+  strips to near-empty text and scores about 1.06, so it can never be a sufficient baseline.
+  M1 counts how OFTEN sufficient work is revised; this counts what HAPPENS when it is.
+
+### Magnitude of the change (added 2026-09-07)
+
+| Basis | mean change, all revisions | mean drop when down | median drop | mean rise when up |
+|-------|---------------------------|---------------------|-------------|-------------------|
+| **Stripped** | **-0.30** | **-1.72** | -2 | +1.45 |
+| Unstripped | -0.51 | -1.90 | -2 | +1.32 |
+
+Stripped, 87 of the 199 downward moves fall one level and 112 fall two or more. Drops are both
+more frequent and larger than rises.
+
+- **Filter:** signed difference in recoded level between each genuine revision and its baseline,
+  same comparison basis as above. Script: `scripts/study3/revision_direction.py`.
+
+### Trial-level, balanced panel (Turn 1 vs Turn 5, n = 50)
+
+| Basis | worse | same | better | movers | sign p |
+|-------|-------|------|--------|--------|--------|
+| **Stripped** | 52.0% | 38.0% | 10.0% | 26 / 5 | 9.61e-05 |
+| Unstripped | 62.0% | 30.0% | 8.0% | 31 / 4 | 1.73e-06 |
+
+### Why this estimator is preferred to the balanced-panel cliff
+
+The cliff in Section 2 rests on 50 trials, 45 of them Llama, with three of six models
+contributing zero trials. This analysis uses all 718 genuine revisions across all six
+models and needs no balanced panel. It answers the same question with far more of the
+data. It is the basis for the paper's headline claim as of 2026-09-03.
 
 ---
 
@@ -246,7 +407,12 @@ Meta-commentary prevalence by turn (genuine revisions only):
 - Source: `meta_wrapping_asymmetry.json`
 - **Filter:** The 50 unstripped reversibility pairs (`reversibility_human_pairs.json`). For each pair, decode T1 vs revision side via `reversibility_human_key.json`. Apply regex preamble/postamble detectors (patterns in `audit_meta_commentary.py`: PREAMBLE_PATTERNS checked against first 300 chars, POSTAMBLE_PATTERNS checked against last 400 chars). Count hits per side. Per-turn meta-commentary rates: for each turn T in {1..5}, count how many outputs at that turn match any preamble or postamble pattern, divided by total outputs at that turn.
 - **Scope:** All counts are from the 50 unstripped reversibility pairs, stored in `meta_wrapping_asymmetry.json`. Raw counts: revision preamble=38, postamble=24, either=42; T1 preamble=4, postamble=5, either=7.
-- **FLAG:** The per-turn breakdown (T1:14%, T2:92%...) was computed in a prior session on a broader set; verify it matches the 50-pair scope or the full 720-trial set before citing.
+- **FLAG RESOLVED 2026-09-06, DO NOT CITE.** The per-turn breakdown (T1:14%, T2:92%, T3:85%,
+  T4:79%, T5:68%) does not reproduce from any of 18 candidate scopes tested. Its T1 matches the
+  50-pair scope, its T2 matches GENUINE-only, and its T5 matches the full 720-trial corpus, so
+  the series mixes three denominators. It is not cited anywhere in the live manuscript and must
+  not be. Two per-turn series that do reproduce, each with a single stated scope, are in
+  `paper/reference/stats_08_meta_commentary.md` section 2.
 
 ---
 
