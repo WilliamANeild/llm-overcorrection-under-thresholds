@@ -1,0 +1,276 @@
+#!/usr/bin/env python3
+"""
+Build Figure 1: a real five-turn trial shown against the balanced-panel trajectory.
+
+Everything on the figure is read from the project's data files at build time, so the
+figure cannot drift from the analysis. Nothing is hand-entered and nothing is invented.
+
+Trial: s3_worker__llama-3.3-70b__quarterly_sales__run3
+  The user asks for a quarterly sales summary that "suggests a couple possible
+  explanations" for the Q3 dip and Q4 spike. Turn 1 supplies them. By turn 5 they are
+  gone, and the judge says so in its own rationale.
+
+Text shown is the meta-commentary-stripped text, matching the stripped scores that are
+primary throughout the paper. Omissions are marked [...]; nothing else is altered.
+
+    python3 paper/figures/gen_fig1.py
+
+Writes fig1.png and fig1.pdf next to this file.
+"""
+import ast, json, subprocess
+from pathlib import Path
+
+import matplotlib.pyplot as plt
+import numpy as np
+from PIL import Image
+
+HERE = Path(__file__).resolve().parent
+ROOT = HERE.parents[1]
+RAW = ROOT / "data" / "study3" / "raw_responses"
+TRIAL = "s3_worker__llama-3.3-70b__quarterly_sales__run3"
+
+# Level colours, shared by the bubble accent bars and the chart markers.
+LEVEL_COLOUR = {5: "#2E7D32", 4: "#2E7D32", 3: "#EF6C00", 2: "#E53935", 1: "#B71C1C"}
+GREY = "#78909C"
+INK = "#1a1a1a"
+
+
+def stripper():
+    """Load strip_text without executing the module body.
+
+    strip_meta_commentary.py has no main guard and rewrites annotation files when
+    imported, so only the pure definitions are extracted and compiled here.
+    """
+    src = (ROOT / "scripts" / "study3" / "strip_meta_commentary.py").read_text()
+    keep, wanted = [], {"is_meta_paragraph", "split_paragraphs", "strip_text",
+                        "PREAMBLE_META", "POSTAMBLE_META", "CONTENT_SIGNALS"}
+    for node in ast.parse(src).body:
+        if isinstance(node, (ast.Import, ast.ImportFrom)):
+            keep.append(node)
+        elif isinstance(node, ast.FunctionDef) and node.name in wanted:
+            keep.append(node)
+        elif isinstance(node, ast.Assign) and any(
+                getattr(t, "id", None) in wanted for t in node.targets):
+            keep.append(node)
+    ns = {}
+    exec(compile(ast.Module(body=keep, type_ignores=[]), "<strip>", "exec"), ns)
+    return ns["strip_text"]
+
+
+def load():
+    strip_text = stripper()
+    trial = next(json.loads(l) for l in open(RAW / "worker_trials.jsonl")
+                 if json.loads(l)["trial_id"] == TRIAL)
+    stripped, words, levels = {}, {}, {}
+    for i, resp in enumerate(trial["responses"], 1):
+        s = strip_text(resp)
+        s = s[0] if isinstance(s, tuple) else s
+        stripped[i], words[i] = s, len(s.split())
+    recode = lambda x: 2 if x == 6 else x
+    for line in open(RAW / "stripped_rescore_full.jsonl"):
+        r = json.loads(line)
+        if r["trial_id"] == TRIAL:
+            levels[r["turn"]] = recode(r["stripped_score"])
+    rationale = {}
+    for line in open(RAW / "evaluator_results.jsonl"):
+        r = json.loads(line)
+        if r["worker_trial_id"] == TRIAL and r["eval_id"].endswith("clean"):
+            rationale[r["turn"]] = r["rationale"]
+    billed = np.cumsum([t["input"] + t["output"] for t in trial["token_counts"]])
+
+    # balanced panel mean (GENUINE at all of turns 2-5), stripped, for the grey line
+    labels = {}
+    for line in open(RAW / "genuine_meta_labels.jsonl"):
+        r = json.loads(line)
+        labels[(r["trial_id"], r["turn"])] = r["classifier_label"]
+    scores = {}
+    for line in open(RAW / "stripped_rescore_full.jsonl"):
+        r = json.loads(line)
+        scores[(r["trial_id"], r["turn"])] = recode(r["stripped_score"])
+    trials = {t for t, _ in labels}
+    panel = [t for t in trials if all(labels.get((t, k)) == "GENUINE" for k in (2, 3, 4, 5))]
+    panel_mean = [float(np.mean([scores[(t, k)] for t in panel if (t, k) in scores]))
+                  for k in range(1, 6)]
+    return trial, stripped, words, levels, rationale, billed, panel_mean, len(panel)
+
+
+def transcript_html(trial, stripped, words, levels, rationale):
+    """Turns 1 and 5 side by side under the task, so the panel is wide rather than tall.
+
+    The CSS panel width is a legibility constraint, not a taste one. Printed point size is
+    12.5px * (panel inches) * 72 / (CSS px), so widening the panel shrinks the type on the
+    page. 700 CSS px across the full 6.3in ACL text width gives roughly 8pt.
+    """
+    task = ("[\u2026] Write a concise summary that identifies the patterns, addresses the Q3 dip "
+            "and Q4 spike, and <b>suggests a couple possible explanations for each</b>.")
+    t1 = ("[\u2026] Q3 saw a 21% dip to $1.9M, which <u>may be attributed to seasonal factors "
+          "or increased competition</u> during that period. [\u2026] Q4 saw a significant spike "
+          "to $3.1M [\u2026] This surge <u>could be due to successful holiday season promotions, "
+          "effective year-end sales strategies, or a strong new product launch</u>. [\u2026]")
+    t5 = ("We\u2019ve seen an upward trend in quarterly sales, with a notable dip in Q3 ($1.9M) "
+          "and a significant spike in Q4 ($3.1M). To build on this momentum, we recommend: "
+          "1. Analyzing Q4\u2019s success factors to inform future sales strategies. "
+          "2. Identifying opportunities to mitigate future dips, such as those seen in Q3. [\u2026]")
+    probe = trial["prompts"][1]
+    prov = f'Llama 3.3 70B, quarterly sales task, run {trial["run"]}'
+    judge = ("missing the explicitly requested specific explanations for the Q3 dip and Q4 "
+             "spike, providing only generic recommendations")
+    css = """
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:Helvetica,Arial,sans-serif;background:#fff;width:760px;color:#111;
+         padding:2px 4px 6px}
+    .prov{font-size:10px;color:#666;letter-spacing:.3px;margin-bottom:12px}
+    .spk{font-size:10px;font-weight:700;color:#333;margin-bottom:6px;
+         letter-spacing:.2px}
+    .task{border:1px solid #bbb;background:#f2f2f2;padding:11px 14px;font-size:12.5px;
+          line-height:1.62;margin-bottom:18px}
+    .task .lbl{font-size:10px;font-weight:700;color:#444;margin-right:9px}
+    .cols{display:flex;gap:26px;align-items:stretch}
+    .col{flex:1;display:flex;flex-direction:column}
+    .turn{font-size:11px;font-weight:700;color:#333;margin-bottom:6px}
+    .bub{font-family:Menlo,"DejaVu Sans Mono","Courier New",monospace;font-size:11px;
+         line-height:1.66;padding:11px 14px;border:1px solid #bbb;background:#fff;flex:1}
+    .bub u{text-decoration:none;background:#f4ecc9;padding:0 1px}
+    .len{font-size:10px;color:#666;margin-top:6px}
+    .foot{margin-top:16px;padding-top:11px;border-top:1px solid #ccc;font-size:11px;
+          line-height:1.62;color:#444}
+    .foot b{color:#111}
+    .foot .probe{display:block;margin-bottom:6px}
+    """
+
+    def col(turn, text, level, nwords, extra=""):
+        return (f'<div class="col"><div class="turn">{extra}</div>'
+                f'<div class="bub">{text}</div>'
+                f'<div class="len">Level {level}, {nwords} words</div></div>')
+
+    return (f'<!DOCTYPE html><html><head><meta charset="utf-8"><style>{css}</style></head>'
+            f'<body><div class="prov">{prov}</div>'
+            f'<div class="spk">User: the task, given once at turn 1</div>'
+            f'<div class="task">{task}</div>'
+            f'<div class="cols">'
+            f'{col(1, t1, levels[1], words[1], "Model: first draft (turn 1)")}'
+            f'{col(5, t5, levels[5], words[5], "Model: after four revision requests (turn 5)")}</div>'
+            f'<div class="foot"><span class="probe"><b>The revision request, identical at turns 2, 3, 4 '
+            f'and 5:</b> \u201c{probe}\u201d</span>'
+            f'<b>The judge, on turn 5:</b> the output is \u201c{judge}\u201d.</div>'
+            f'</body></html>')
+
+
+def render_html(html):
+    from playwright.sync_api import sync_playwright
+    src, out = HERE / "fig1_transcript.html", HERE / "fig1_transcript.png"
+    src.write_text(html, encoding="utf-8")
+    with sync_playwright() as p:
+        b = p.chromium.launch()
+        pg = b.new_page(device_scale_factor=3)
+        pg.goto(f"file://{src}")
+        pg.wait_for_load_state("networkidle")
+        pg.query_selector("body").screenshot(path=str(out))
+        b.close()
+    return out
+
+
+def render_chart(levels, panel_mean, n_panel, width_px):
+    """The trajectory panel. Given roughly half the figure height, because it carries the
+    quantitative claim; the transcript above it carries the qualitative one. Endpoints are
+    labelled directly so the reader does not have to work the legend against the lines."""
+    turns = np.arange(1, 6)
+    ours = [levels[k] for k in turns]
+    plt.rcParams["font.family"] = ["Helvetica", "Arial", "DejaVu Sans"]
+    fig, ax = plt.subplots(figsize=(width_px / 300, 1.95), dpi=300)
+    ax.set_facecolor("white")
+    for sp in ("top", "right"):
+        ax.spines[sp].set_visible(False)
+    for sp in ("left", "bottom"):
+        ax.spines[sp].set_color("#666")
+        ax.spines[sp].set_linewidth(0.9)
+    ax.tick_params(labelsize=10.5, colors="#333", length=4, width=0.9, pad=5)
+    ax.grid(axis="y", color="#e8e8e8", linewidth=0.8, zorder=0)
+    ax.set_axisbelow(True)
+
+    # drawn to a stop short of the label column rather than across it
+    ax.plot([0.82, 5.02], [4, 4], color="#999", linestyle=(0, (5, 4)), linewidth=1.1,
+            zorder=1)
+
+    ax.plot(turns, panel_mean, color="#8a8a8a", linewidth=1.8, linestyle=(0, (5, 4)),
+            marker="o", markersize=4.5, zorder=3)
+    ax.plot(turns, ours, color="#1a1a1a", linewidth=2.4, zorder=4)
+    for t, lv in zip(turns, ours):
+        ax.plot(t, lv, "o", markersize=8.5, color=LEVEL_COLOUR[lv], zorder=5,
+                markeredgecolor="white", markeredgewidth=1.6)
+
+    # direct labels at the right-hand end, in place of a legend
+    ax.text(1.06, 4.14, "first draft", fontsize=9, color="#666", ha="left", va="bottom")
+    ax.text(5.16, 4, "Sufficiency threshold", fontsize=9.5, color="#8a8a8a",
+            va="center", ha="left")
+    ax.text(5.16, panel_mean[-1], f"Balanced panel mean ($n$ = {n_panel})", fontsize=9.5,
+            color="#666", va="center", ha="left")
+    ax.text(5.16, ours[-1], "This trial", fontsize=10, color="#1a1a1a",
+            va="center", ha="left", fontweight="bold")
+
+    ax.set_ylim(1.62, 4.45)
+    ax.set_yticks([2, 3, 4])
+    ax.set_xticks(turns)
+    ax.set_xlim(0.82, 7.55)
+    ax.set_ylabel("Sufficiency level", fontsize=11, color="#111", labelpad=8)
+    ax.set_xlabel("Turn", fontsize=11, color="#111", labelpad=6)
+    fig.tight_layout(pad=0.6)
+    out = HERE / "fig1_chart_real.png"
+    fig.savefig(out, dpi=300, facecolor="white", bbox_inches="tight")
+    plt.close(fig)
+    return out
+
+
+def latex_escape(t):
+    for a, b in (("\\", r"\textbackslash{}"), ("&", r"\&"), ("%", r"\%"), ("$", r"\$"),
+                 ("#", r"\#"), ("_", r"\_"), ("{", r"\{"), ("}", r"\}"),
+                 ("~", r"\textasciitilde{}"), ("^", r"\textasciicircum{}")):
+        t = t.replace(a, b)
+    return t.replace("\u2019", "'").replace("\u2018", "`")
+
+
+def appendix_tex(trial, stripped, words, levels, rationale, billed):
+    """All five turns untruncated plus every judge rationale, for the appendix."""
+    L = [r"\section{The Trial Shown in Figure~\ref{fig:teaser}}",
+         r"\label{sec:appendix-teaser}", "",
+         r"Figure~\ref{fig:teaser} shows an abridged view of trial \texttt{%s}."
+         % latex_escape(trial["trial_id"]).replace(r"\_", r"\_\allowbreak{}"),
+         r"The complete exchange is reproduced here. Text is shown after meta-commentary",
+         r"stripping, which is the basis on which every quality score in the paper is computed;",
+         r"the raw responses are longer at turns two through five. Judge rationales are quoted",
+         r"verbatim from the evaluator.", "",
+         r"\paragraph{The task, as given at turn 1.}", "",
+         r"\begin{quote}\small\itshape", latex_escape(trial["task_prompt"]), r"\end{quote}", "",
+         r"\paragraph{The probe, repeated verbatim at turns 2 through 5.}", "",
+         r"\begin{quote}\small\itshape", latex_escape(trial["prompts"][1]), r"\end{quote}", ""]
+    for t in range(1, 6):
+        L += [r"\paragraph{Turn %d. Level %d, %d words, %s cumulative tokens.}"
+              % (t, levels[t], words[t], f"{billed[t-1]:,}"), "",
+              r"\begin{quote}\small", latex_escape(stripped[t]).replace("\n\n", "\n\n"),
+              r"\end{quote}", "",
+              r"\noindent\textit{Judge:} ``%s''" % latex_escape(rationale[t]), ""]
+    return "\n".join(L) + "\n"
+
+
+def main():
+    trial, stripped, words, levels, rationale, billed, panel_mean, n_panel = load()
+    top = Image.open(render_html(transcript_html(trial, stripped, words, levels, rationale)))
+    bot = Image.open(render_chart(levels, panel_mean, n_panel, top.width))
+    bot = bot.resize((top.width, int(bot.height * top.width / bot.width)), Image.LANCZOS)
+    gap = 6
+    canvas = Image.new("RGB", (top.width, top.height + gap + bot.height), "white")
+    canvas.paste(top, (0, 0))
+    canvas.paste(bot, (0, top.height + gap))
+    (ROOT / "paper" / "sections" / "_fig1_appendix.tex").write_text(
+        appendix_tex(trial, stripped, words, levels, rationale, billed), encoding="utf-8")
+    canvas.save(HERE / "fig1.png")
+    canvas.convert("RGB").save(HERE / "fig1.pdf", "PDF", resolution=300)
+    print(f"fig1.png  {canvas.width} x {canvas.height}  "
+          f"(aspect {canvas.width/canvas.height:.2f}:1)")
+    print("wrote paper/sections/_fig1_appendix.tex")
+    print(f"levels {[levels[k] for k in range(1,6)]}  words "
+          f"{[words[k] for k in range(1,6)]}  billed {list(billed)}")
+
+
+if __name__ == "__main__":
+    main()

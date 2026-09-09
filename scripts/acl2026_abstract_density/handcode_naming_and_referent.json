@@ -1,0 +1,30 @@
+{
+"_note": "Hand-verified flags, adjudicated by reading each abstract. The script's regexes are reported alongside these in the report; where they differ the hand code governs, because words like 'recall', 'calibration' and 'agreement' occur as ordinary English in these abstracts.",
+"names_specific_model": ["2026.acl-long.1988","2026.findings-acl.583","2026.findings-acl.1935"],
+"names_eval_resource": ["2026.acl-long.1099","2026.acl-long.1988","2026.findings-acl.177","2026.findings-acl.583","2026.findings-acl.853","2026.findings-acl.1123","2026.findings-acl.1259","2026.findings-acl.1394","2026.findings-acl.1799"],
+"names_metric": ["2026.acl-long.99","2026.acl-long.544","2026.acl-long.988","2026.acl-long.1210","2026.acl-long.1321","2026.acl-long.1988","2026.acl-long.2099","2026.findings-acl.583","2026.findings-acl.718","2026.findings-acl.1259","2026.findings-acl.1394","2026.findings-acl.1529","2026.eacl-long.79","2026.eacl-long.177","2026.eacl-long.374","2026.acl-short.38"],
+"no_named_artifact": ["2026.acl-long.1099","2026.findings-acl.42","2026.findings-acl.1259","2026.findings-acl.1935","2026.eacl-long.29","2026.eacl-long.226","2026.eacl-long.276"],
+"referent_attachment": {
+  "2026.acl-long.99":       "BEFORE",
+  "2026.acl-long.432":      "BEFORE",
+  "2026.acl-long.544":      "BEFORE",
+  "2026.acl-long.988":      "BEFORE",
+  "2026.acl-long.1210":     "BEFORE",
+  "2026.acl-long.1543":     "BEFORE",
+  "2026.findings-acl.583":  "BEFORE",
+  "2026.acl-short.38":      "BEFORE",
+  "2026.acl-long.1655":     "AFTER",
+  "2026.acl-long.1766":     "AFTER",
+  "2026.acl-long.1877":     "AFTER",
+  "2026.acl-long.1988":     "AFTER",
+  "2026.findings-acl.988":  "AFTER",
+  "2026.findings-acl.1529": "AFTER",
+  "2026.eacl-long.325":     "AFTER",
+  "2026.findings-acl.1394": "PAREN_AFTER_MAIN"
+},
+"referent_attachment_prior9": {
+  "ZIP *SEM": "AFTER", "CGM Findings": "BEFORE", "DART Findings": "BEFORE",
+  "DogCat EACL": "AFTER", "CommonToWhom ACL": "AFTER", "ReasoningTraces ACL": "AFTER",
+  "SCOPE ICML": "BEFORE"
+}
+}

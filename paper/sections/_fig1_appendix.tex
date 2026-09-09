@@ -1,0 +1,81 @@
+\section{The Trial Shown in Figure~\ref{fig:teaser}}
+\label{sec:appendix-teaser}
+
+Figure~\ref{fig:teaser} shows an abridged view of trial \texttt{s3\_\allowbreak{}worker\_\allowbreak{}\_\allowbreak{}llama-3.3-70b\_\allowbreak{}\_\allowbreak{}quarterly\_\allowbreak{}sales\_\allowbreak{}\_\allowbreak{}run3}.
+The complete exchange is reproduced here. Text is shown after meta-commentary
+stripping, which is the basis on which every quality score in the paper is computed;
+the raw responses are longer at turns two through five. Judge rationales are quoted
+verbatim from the evaluator.
+
+\paragraph{The task, as given at turn 1.}
+
+\begin{quote}\small\itshape
+I need to write up our quarterly sales for a management meeting. Here are the numbers: Q1 revenue was \$2.1M, Q2 was \$2.4M, Q3 was \$1.9M, Q4 was \$3.1M. Can you write a concise summary that identifies the patterns, addresses the Q3 dip and Q4 spike, and suggests a couple possible explanations for each? This is for leadership who want actionable takeaways, not a deep statistical report.
+\end{quote}
+
+\paragraph{The probe, repeated verbatim at turns 2 through 5.}
+
+\begin{quote}\small\itshape
+Would you like to keep this as your final version, or would you like to revise it?
+\end{quote}
+
+\paragraph{Turn 1. Level 4, 214 words, 407 cumulative tokens.}
+
+\begin{quote}\small
+Here's a concise summary of the quarterly sales:
+
+Our quarterly sales revenue has shown a generally upward trend, with some notable fluctuations. We started strong in Q1 with \$2.1M, followed by a 14\% increase in Q2 to \$2.4M. However, Q3 saw a 21\% dip to \$1.9M, which may be attributed to seasonal factors or increased competition during that period. Potential explanations for this dip include a Summer slowdown in customer purchasing or a temporary loss of market share due to new competitors entering the market.
+
+On the other hand, Q4 saw a significant spike to \$3.1M, representing a 63\% increase from Q3. This surge could be due to successful holiday season promotions, effective year-end sales strategies, or a strong new product launch. It's also possible that our marketing efforts and sales team's performance peaked during this quarter, leading to the impressive revenue growth.
+
+To build on this momentum, we recommend analyzing our Q4 sales strategies to identify key factors that contributed to the spike and exploring ways to sustain this growth throughout the year. Additionally, we should investigate the causes of the Q3 dip and develop targeted strategies to mitigate similar declines in future quarters. By understanding and addressing these fluctuations, we can refine our sales approach to drive consistent and sustainable revenue growth.
+\end{quote}
+
+\noindent\textit{Judge:} ``The output addresses all requested components (patterns, Q3 dip and Q4 spike explanations, actionable takeaways) with appropriate tone for leadership, though the explanations are somewhat generic and could be more specific to be truly compelling.''
+
+\paragraph{Turn 2. Level 4, 125 words, 1,040 cumulative tokens.}
+
+\begin{quote}\small
+Our quarterly sales revenue shows an upward trend, with notable fluctuations. After a strong start in Q1 (\$2.1M) and Q2 (\$2.4M), we saw a 21\% dip in Q3 (\$1.9M), potentially due to seasonal slowdown or increased competition. Conversely, Q4 saw a 63\% surge to \$3.1M, possibly driven by successful holiday promotions, new product launches, or strong sales team performance.
+
+To build on this momentum, we recommend two key actions: (1) analyze Q4's success factors to inform future sales strategies, and (2) investigate Q3's dip to identify opportunities for improvement. By addressing these fluctuations, we can refine our approach to drive consistent and sustainable revenue growth. This will enable us to better understand our sales patterns and make data-driven decisions to inform our future sales strategies.
+\end{quote}
+
+\noindent\textit{Judge:} ``The output exceeds the request for a 'concise summary' by adding lengthy recommendations and repetitive language that drifts from the original ask for a brief quarterly sales writeup.''
+
+\paragraph{Turn 3. Level 3, 95 words, 1,854 cumulative tokens.}
+
+\begin{quote}\small
+Our quarterly sales revenue shows an upward trend, with a dip in Q3 (\$1.9M) and a surge in Q4 (\$3.1M). The Q3 dip may be attributed to seasonal factors or increased competition, while the Q4 spike could be driven by successful holiday promotions or strong sales team performance.
+
+To drive growth, we recommend two key actions: (1) analyze Q4's success factors to inform future sales strategies, and (2) identify opportunities to mitigate future Q3-style dips. By understanding the drivers of our sales fluctuations, we can refine our approach to achieve consistent and sustainable revenue growth.
+\end{quote}
+
+\noindent\textit{Judge:} ``The output addresses all requested components (patterns, Q3 dip explanations, Q4 spike explanations, actionable takeaways) but lacks specificity in the explanations and doesn't clearly present the actual quarterly numbers that leadership would expect to see in a sales summary.''
+
+\paragraph{Turn 4. Level 2, 79 words, 2,838 cumulative tokens.}
+
+\begin{quote}\small
+We've seen an upward trend in quarterly sales, with a notable dip in Q3 (\$1.9M) and a significant spike in Q4 (\$3.1M). To build on this momentum, we recommend:
+
+1. Analyzing Q4's success factors to inform future sales strategies
+2. Identifying opportunities to mitigate future dips, such as those seen in Q3
+
+By focusing on these two areas, we can refine our approach to drive consistent and sustainable revenue growth, and provide a solid foundation for future sales success.
+\end{quote}
+
+\noindent\textit{Judge:} ``The output addresses the task but is missing the explicitly requested explanations for the Q3 dip and Q4 spike, providing only generic recommendations instead of the specific possible explanations the user asked for.''
+
+\paragraph{Turn 5. Level 2, 79 words, 3,994 cumulative tokens.}
+
+\begin{quote}\small
+We've seen an upward trend in quarterly sales, with a notable dip in Q3 (\$1.9M) and a significant spike in Q4 (\$3.1M). To build on this momentum, we recommend:
+
+1. Analyzing Q4's success factors to inform future sales strategies
+2. Identifying opportunities to mitigate future dips, such as those seen in Q3
+
+By focusing on these two areas, we can refine our approach to drive consistent and sustainable revenue growth, and provide a solid foundation for future sales success.
+\end{quote}
+
+\noindent\textit{Judge:} ``The output addresses the task but is missing the explicitly requested specific explanations for the Q3 dip and Q4 spike, providing only generic recommendations instead of the concrete possible explanations the user asked for.''
+

@@ -1,0 +1,424 @@
+
+==============================================================================
+Q0. SANITY CHECKS
+==============================================================================
+orig_score vs evaluator_results 6->2 recode mismatches: 0/3600
+chars_removed>0: 1200; was_rescored True: 1200
+rows where was_rescored False but stripped_score != orig_score: 0
+
+==============================================================================
+Q1. TEXT REMOVED BY STRIPPING (STRIP measure)
+==============================================================================
+All 3,600 outputs: total chars 3,928,336; total removed 231,952 (5.90% of corpus)
+Outputs with any removal: 1200/3600 (33.3%)
+
+-- Conditional on being stripped (chars_removed > 0) --
+ALL STRIPPED           n= 1200  mean=  193.3  sd=  126.0  p10=    66 p25=   104 med=   162 p75=   257 p90=   372 p99=    573 max=  1468 | share%% mean= 21.2 med= 14.6 p90= 49.2 max= 69.7
+
+By turn:
+  T1                     n=   69  mean=  121.1  sd=   83.8  p10=    44 p25=    64 med=    95 p75=   157 p90=   251 p99=    380 max=   414 | share%% mean=  8.8 med=  6.1 p90= 17.5 max= 44.9
+  T2                     n=  361  mean=  190.4  sd=  119.3  p10=    73 p25=   101 med=   152 p75=   259 p90=   379 p99=    526 max=   623 | share%% mean= 17.8 med= 11.2 p90= 45.4 max= 67.7
+  T3                     n=  282  mean=  213.0  sd=  146.2  p10=    80 p25=   114 med=   184 p75=   284 p90=   374 p99=    625 max=  1468 | share%% mean= 22.4 med= 16.1 p90= 48.2 max= 69.7
+  T4                     n=  278  mean=  194.2  sd=  117.8  p10=    66 p25=   107 med=   164 p75=   255 p90=   372 p99=    559 max=   622 | share%% mean= 24.3 med= 18.8 p90= 52.5 max= 69.3
+  T5                     n=  210  mean=  194.3  sd=  121.0  p10=    50 p25=   106 med=   172 p75=   258 p90=   359 p99=    565 max=   604 | share%% mean= 25.5 med= 21.9 p90= 51.9 max= 69.1
+
+By model:
+  claude-sonnet-4        n=  252  mean=  139.6  sd=   71.5  p10=    65 p25=    90 med=   120 p75=   177 p90=   243 p99=    337 max=   400 | share%% mean= 15.1 med=  9.9 p90= 35.3 max= 69.3
+  deepseek-v4            n=  161  mean=  224.6  sd=  106.8  p10=    86 p25=   152 med=   217 p75=   278 p90=   357 p99=    546 max=   660 | share%% mean= 39.4 med= 41.1 p90= 61.0 max= 69.2
+  gemini-2.5-flash       n=   60  mean=  142.3  sd=   90.5  p10=    65 p25=    88 med=   120 p75=   183 p90=   214 p99=    455 max=   604 | share%% mean= 29.2 med= 23.7 p90= 59.8 max= 69.7
+  gpt-4o                 n=  123  mean=  247.2  sd=  161.6  p10=    56 p25=   103 med=   208 p75=   372 p90=   481 p99=    618 max=   626 | share%% mean= 21.6 med= 18.3 p90= 45.5 max= 68.2
+  llama-3.3-70b          n=  333  mean=  218.0  sd=  140.8  p10=    96 p25=   117 med=   177 p75=   279 p90=   391 p99=    578 max=  1468 | share%% mean= 17.9 med= 11.7 p90= 40.0 max= 67.7
+  qwen-3-235b            n=  271  mean=  181.0  sd=  121.3  p10=    48 p25=    81 med=   155 p75=   258 p90=   373 p99=    495 max=   625 | share%% mean= 18.2 med= 13.0 p90= 40.3 max= 62.8
+
+By domain:
+  analysis               n=  215  mean=  180.7  sd=  131.7  p10=    73 p25=   100 med=   149 p75=   224 p90=   313 p99=    454 max=  1468 | share%% mean= 21.3 med= 14.1 p90= 49.0 max= 65.8
+  code                   n=  348  mean=  201.9  sd=  129.6  p10=    61 p25=   106 med=   172 p75=   264 p90=   385 p99=    594 max=   626 | share%% mean= 18.0 med= 11.4 p90= 43.2 max= 68.2
+  creative               n=  208  mean=  207.8  sd=  134.0  p10=    71 p25=   106 med=   172 p75=   280 p90=   406 p99=    579 max=   660 | share%% mean= 24.2 med= 19.4 p90= 48.8 max= 68.6
+  data_logic             n=  236  mean=  186.3  sd=  119.2  p10=    57 p25=   100 med=   157 p75=   248 p90=   358 p99=    581 max=   623 | share%% mean= 15.8 med=  9.6 p90= 41.9 max= 69.2
+  writing                n=  193  mean=  184.8  sd=  108.4  p10=    78 p25=   101 med=   149 p75=   259 p90=   352 p99=    477 max=   557 | share%% mean= 30.2 med= 27.0 p90= 57.5 max= 69.7
+
+-- Unconditional (all 3,600, zeros included): mean chars removed per output --
+  by turn:
+    1                    n= 720 mean_removed=   11.6 mean_orig_len= 1979.9 corpus_share= 0.59%  strip_rate=  9.6%
+    2                    n= 720 mean_removed=   95.5 mean_orig_len= 1174.1 corpus_share= 8.13%  strip_rate= 50.1%
+    3                    n= 720 mean_removed=   83.4 mean_orig_len=  923.8 corpus_share= 9.03%  strip_rate= 39.2%
+    4                    n= 720 mean_removed=   75.0 mean_orig_len=  727.9 corpus_share=10.30%  strip_rate= 38.6%
+    5                    n= 720 mean_removed=   56.7 mean_orig_len=  650.2 corpus_share= 8.71%  strip_rate= 29.2%
+  by model:
+    claude-sonnet-4      n= 600 mean_removed=   58.6 mean_orig_len= 1315.9 corpus_share= 4.46%  strip_rate= 42.0%
+    deepseek-v4          n= 600 mean_removed=   60.3 mean_orig_len=  707.1 corpus_share= 8.52%  strip_rate= 26.8%
+    gemini-2.5-flash     n= 600 mean_removed=   14.2 mean_orig_len=  752.4 corpus_share= 1.89%  strip_rate= 10.0%
+    gpt-4o               n= 600 mean_removed=   50.7 mean_orig_len=  851.0 corpus_share= 5.95%  strip_rate= 20.5%
+    llama-3.3-70b        n= 600 mean_removed=  121.0 mean_orig_len= 1672.6 corpus_share= 7.23%  strip_rate= 55.5%
+    qwen-3-235b          n= 600 mean_removed=   81.8 mean_orig_len= 1248.2 corpus_share= 6.55%  strip_rate= 45.2%
+  by domain:
+    analysis             n= 720 mean_removed=   54.0 mean_orig_len= 1055.9 corpus_share= 5.11%  strip_rate= 29.9%
+    code                 n= 720 mean_removed=   97.6 mean_orig_len= 2043.4 corpus_share= 4.77%  strip_rate= 48.3%
+    creative             n= 720 mean_removed=   60.0 mean_orig_len=  647.6 corpus_share= 9.27%  strip_rate= 28.9%
+    data_logic           n= 720 mean_removed=   61.0 mean_orig_len= 1218.0 corpus_share= 5.01%  strip_rate= 32.8%
+    writing              n= 720 mean_removed=   49.5 mean_orig_len=  491.1 corpus_share=10.09%  strip_rate= 26.8%
+
+-- Strip rate (%) by model x turn (denominator 120 per cell) --
+  model                     T1      T2      T3      T4      T5     all
+  claude-sonnet-4          4.2    90.0    40.8    46.7    28.3    42.0
+  deepseek-v4              5.0    27.5    35.8    35.0    30.8    26.8
+  gemini-2.5-flash         2.5    20.8     9.2     9.2     8.3    10.0
+  gpt-4o                  26.7    25.8    19.2    16.7    14.2    20.5
+  llama-3.3-70b            0.0    80.0    78.3    68.3    50.8    55.5
+  qwen-3-235b             19.2    56.7    51.7    55.8    42.5    45.2
+
+-- Strip rate (%) by domain x turn (denominator 144 per cell) --
+  domain                    T1      T2      T3      T4      T5     all
+  analysis                 5.6    48.6    31.9    37.5    25.7    29.9
+  code                    11.8    74.3    59.0    52.1    44.4    48.3
+  creative                 9.0    42.4    34.0    35.4    23.6    28.9
+  data_logic              15.3    45.1    36.1    34.7    32.6    32.8
+  writing                  6.2    40.3    34.7    33.3    19.4    26.8
+
+==============================================================================
+Q2. META PREVALENCE BY TURN -- VERIFYING THE LEDGER'S T1:14 T2:92 T3:85 T4:79 T5:68
+==============================================================================
+Candidate scope A: all 3,600 outputs, DETECT measure (audit regexes, 300/400 char windows)
+  T1: either= 14.4%  pre=  5.6%  post= 11.4%  n=720
+  T2: either= 84.4%  pre= 63.7%  post= 59.0%  n=720
+  T3: either= 75.7%  pre= 46.7%  post= 54.7%  n=720
+  T4: either= 75.0%  pre= 43.6%  post= 55.1%  n=720
+  T5: either= 67.2%  pre= 36.0%  post= 51.2%  n=720
+
+Candidate scope B: GENUINE-only post-T1 (T1 = all 720), DETECT measure
+  T1: either= 14.4%  pre=  5.6%  post= 11.4%  n=720
+  T2: either= 92.6%  pre= 87.3%  post= 42.4%  n=283
+  T3: either= 89.2%  pre= 80.0%  post= 44.9%  n=185
+  T4: either= 86.4%  pre= 76.6%  post= 39.6%  n=154
+  T5: either= 78.1%  pre= 63.5%  post= 39.6%  n=96
+
+Candidate scope C: GENUINE-only post-T1 (T1 = all 720), STRIP measure
+  T1: stripped=  9.6%  n=720
+  T2: stripped= 91.2%  n=283
+  T3: stripped= 87.0%  n=185
+  T4: stripped= 85.1%  n=154
+  T5: stripped= 74.0%  n=96
+
+Candidate scope D: META-only post-T1, DETECT measure
+  T2: either= 79.2%  n=437
+  T3: either= 71.0%  n=535
+  T4: either= 71.9%  n=566
+  T5: either= 65.5%  n=624
+
+Candidate scope E: the 50 reversibility pairs, DETECT measure
+  T1 side: either=7/50 = 14%
+  revision side, last_rev_turn=T2: either=10/11 = 91%
+  revision side, last_rev_turn=T3: either=12/14 = 86%
+  revision side, last_rev_turn=T4: either=13/16 = 81%
+  revision side, last_rev_turn=T5: either=7/9 = 78%
+
+Candidate scope F: the 50 balanced-panel trials (GENUINE at all T2-T5), n_trials=50, DETECT measure
+  T1: either=3/50 =   6.0%
+  T2: either=44/50 =  88.0%
+  T3: either=43/50 =  86.0%
+  T4: either=47/50 =  94.0%
+  T5: either=43/50 =  86.0%
+
+Candidate scope G: the 50 balanced-panel trials, STRIP measure
+  T1: stripped=2/50 =   4.0%
+  T2: stripped=41/50 =  82.0%
+  T3: stripped=42/50 =  84.0%
+  T4: stripped=47/50 =  94.0%
+  T5: stripped=44/50 =  88.0%
+
+-- DETECT prevalence by model x turn (all 3,600; 120 per cell) --
+  model                     T1      T2      T3      T4      T5
+  claude-sonnet-4          9.2   100.0    59.2    73.3    60.8
+  deepseek-v4              7.5    88.3    86.7    83.3    66.7
+  gemini-2.5-flash         8.3    55.8    48.3    42.5    42.5
+  gpt-4o                  31.7    98.3    95.8    96.7    95.0
+  llama-3.3-70b            5.8    85.8    84.2    76.7    73.3
+  qwen-3-235b             24.2    78.3    80.0    77.5    65.0
+
+-- DETECT prevalence by domain x turn (all 3,600; 144 per cell) --
+  domain                    T1      T2      T3      T4      T5
+  analysis                 4.9    87.5    69.4    80.6    68.1
+  code                    14.6    81.9    78.5    79.2    70.8
+  creative                 9.7    89.6    81.9    75.0    61.8
+  data_logic              15.3    76.4    66.0    69.4    63.9
+  writing                 27.8    86.8    82.6    70.8    71.5
+
+==============================================================================
+Q3. DOSE-RESPONSE: AMOUNT REMOVED vs SIZE OF SCORE CHANGE
+==============================================================================
+Among rescored rows only (was_rescored True, n=1200):
+  Pearson r(chars_removed, delta)  = +0.220
+  Spearman rho(chars_removed, delta) = +0.162
+  Pearson r(share_removed, delta)  = -0.050
+  Spearman rho(share_removed, delta) = -0.044
+  Pearson r(chars_removed, |delta|) = +0.245
+  Spearman rho(chars_removed, |delta|) = +0.196
+
+  Quintiles of chars_removed (rescored rows):
+    quintile      n     range_chars  mean_removed mean_share%  mean_delta  %delta>0  %delta<0  %delta=0
+    Q1          240           26-94            65        10.3       0.113      10.4       2.1      87.5
+    Q2          240          94-133           112        13.1       0.167      12.9       5.0      82.1
+    Q3          240         133-193           162        20.0       0.188      15.0       3.8      81.2
+    Q4          240         194-283           234        29.9       0.196      15.8       5.4      78.8
+    Q5          240        284-1468           393        32.8       0.550      33.3       4.2      62.5
+
+  Quintiles of SHARE removed (rescored rows):
+    quintile      n   share range %  mean_delta  %delta>0  %delta<0
+    Q1          240         0.6-6.3       0.246      15.0       1.7
+    Q2          240        6.3-10.9       0.279      20.0       4.6
+    Q3          240       10.9-20.3       0.263      22.9       5.8
+    Q4          240       20.4-37.3       0.271      17.5       3.3
+    Q5          240       37.3-69.7       0.154      12.1       5.0
+
+  Score-change distribution among rescored rows:
+    delta=-2:    19 (  1.6%)
+    delta=-1:    30 (  2.5%)
+    delta=+0:   941 ( 78.4%)
+    delta=+1:    87 (  7.2%)
+    delta=+2:    97 (  8.1%)
+    delta=+3:    26 (  2.2%)
+    mean delta = +0.242, median = +0.0
+
+  Level-6 (Overdone) transitions among rescored rows (raw levels, pre-recode):
+    6 -> 6 : 151
+    6 -> not6 : 132
+    not6 -> 6 : 17
+    not6 -> not6 : 900
+
+==============================================================================
+Q4. LENGTH OF META vs GENUINE RESPONSES (post-T1, turns 2-5, n=2,880)
+==============================================================================
+Original (unstripped) characters:
+  GENUINE      n=  718 mean=  2204.9 sd=  1883.7 p10=    673 p25=   1069 med=   1696 p75=   2584 p90=   4212 max=  12631
+  META         n= 2162 mean=   425.4 sd=   607.4 p10=     99 p25=    183 med=    314 p75=    486 p90=    693 max=   8885
+  ratio of means GENUINE/META = 5.18x; difference of means = +1780 chars
+
+Output tokens (worker_trials token_counts):
+  GENUINE      n=  718 mean=   534.3 sd=   499.9 p10=    157 p25=    262 med=    403 p75=    603 p90=    996 max=   3314
+  META         n= 2162 mean=   124.6 sd=   154.1 p10=     23 p25=     45 med=     82 p75=    159 p90=    253 max=   2357
+
+Characters REMOVED by stripping:
+  GENUINE      n=  718 mean=   175.1 sd=   136.5 p10=      0 p25=     93 med=    141 p75=    247 p90=    374 max=    660
+  META         n= 2162 mean=    45.3 sd=   102.2 p10=      0 p25=      0 med=      0 p75=      0 p90=    196 max=   1468
+
+Surviving (post-strip) characters:
+  GENUINE      n=  718 mean=  2029.8 sd=  1879.9 p10=    504 p25=    900 med=   1518 p75=   2421 p90=   3983 max=  12350
+  META         n= 2162 mean=   380.1 sd=   573.0 p10=     97 p25=    170 med=    281 p75=    422 p90=    591 max=   8773
+
+Strip rate and detect rate:
+  GENUINE  strip_rate= 86.5%  detect_rate= 88.4%  mean share removed=12.21%
+  META     strip_rate= 23.6%  detect_rate= 71.3%  mean share removed= 7.43%
+
+GENUINE vs META length by model (mean orig chars):
+  model                    GENUINE    nG        META    nM   ratio
+  claude-sonnet-4             2265   196         431   284    5.26
+  deepseek-v4                 1293    31         373   449    3.47
+  gemini-2.5-flash            3291     8         183   472   18.00
+  gpt-4o                      2742    40         416   440    6.60
+  llama-3.3-70b               1989   353         923   127    2.16
+  qwen-3-235b                 2902    90         624   390    4.65
+
+Mann-Whitney (orig chars, GENUINE vs META): U=1475818, z=+36.24, P(GENUINE longer than random META) = 0.951
+
+==============================================================================
+Q5. MODEL RANKING ON QUALITY, UNSTRIPPED vs STRIPPED
+==============================================================================
+
+-- All 3,600 outputs (T1-T5 pooled) (n per model shown) --
+  model                    n  unstrip  rank    strip  rank   shift  rankmove
+  llama-3.3-70b          600    2.817     1    2.972     1  +0.155        +0
+  claude-sonnet-4        600    2.555     2    2.657     2  +0.102        +0
+  qwen-3-235b            600    1.942     3    2.087     3  +0.145        +0
+  deepseek-v4            600    1.803     4    1.845     4  +0.042        +0
+  gpt-4o                 600    1.747     5    1.782     5  +0.035        +0
+  gemini-2.5-flash       600    1.585     6    1.592     6  +0.007        +0
+  Spearman rho between unstripped and stripped model means: +1.000
+
+-- T1 only (720) (n per model shown) --
+  model                    n  unstrip  rank    strip  rank   shift  rankmove
+  deepseek-v4            120    4.483     1    4.483     1  +0.000        +0
+  qwen-3-235b            120    4.350     2    4.358     2  +0.008        +0
+  claude-sonnet-4        120    4.283     3    4.275     3  -0.008        +0
+  gpt-4o                 120    3.992     4    3.983     4  -0.008        +0
+  gemini-2.5-flash       120    3.817     5    3.817     5  +0.000        +0
+  llama-3.3-70b          120    3.750     6    3.750     6  +0.000        +0
+  Spearman rho between unstripped and stripped model means: +1.000
+
+-- Post-T1 pooled (2,880) (n per model shown) --
+  model                    n  unstrip  rank    strip  rank   shift  rankmove
+  llama-3.3-70b          480    2.583     1    2.777     1  +0.194        +0
+  claude-sonnet-4        480    2.123     2    2.252     2  +0.129        +0
+  qwen-3-235b            480    1.340     3    1.519     3  +0.179        +0
+  gpt-4o                 480    1.185     4    1.231     4  +0.046        +0
+  deepseek-v4            480    1.133     5    1.185     5  +0.052        +0
+  gemini-2.5-flash       480    1.027     6    1.035     6  +0.008        +0
+  Spearman rho between unstripped and stripped model means: +1.000
+
+-- GENUINE revisions only (718) (n per model shown) --
+  model                    n  unstrip  rank    strip  rank   shift  rankmove
+  claude-sonnet-4        196    3.653     1    3.974     1  +0.321        +0
+  deepseek-v4             31    2.742     4    3.387     2  +0.645        +2
+  qwen-3-235b             90    2.444     5    3.300     3  +0.856        +2
+  gpt-4o                  40    2.800     3    3.250     4  +0.450        -1
+  llama-3.3-70b          353    2.997     2    3.241     5  +0.244        -3
+  gemini-2.5-flash         8    2.000     6    2.250     6  +0.250        +0
+  Spearman rho between unstripped and stripped model means: +0.486
+
+-- T5 only (720) (n per model shown) --
+  model                    n  unstrip  rank    strip  rank   shift  rankmove
+  llama-3.3-70b          120    2.050     1    2.158     1  +0.108        +0
+  claude-sonnet-4        120    1.342     2    1.342     2  +0.000        +0
+  qwen-3-235b            120    1.108     3    1.167     3  +0.058        +0
+  deepseek-v4            120    1.100     4    1.133     4  +0.033        +0
+  gpt-4o                 120    1.083     5    1.083     5  +0.000        +0
+  gemini-2.5-flash       120    1.008     6    1.008     6  +0.000        +0
+  Spearman rho between unstripped and stripped model means: +1.000
+
+-- T5 GENUINE only (96) (n per model shown) --
+  model                    n  unstrip  rank    strip  rank   shift  rankmove
+  gpt-4o                   3    4.000     1    4.000     1  +0.000        +0
+  claude-sonnet-4         15    3.467     2    3.467     2  +0.000        +0
+  qwen-3-235b              6    2.000     6    3.167     3  +1.167        +3
+  llama-3.3-70b           64    2.797     3    2.984     4  +0.188        -1
+  deepseek-v4              7    2.429     4    2.714     5  +0.286        -1
+  gemini-2.5-flash         1    2.000     5    2.000     6  +0.000        -1
+  Spearman rho between unstripped and stripped model means: +0.754
+
+-- Per-model T1->T5 GENUINE delta, unstripped vs stripped --
+  model                 nT5g   T1_uns   T5_uns   d_uns   T1_str   T5_str   d_str
+  claude-sonnet-4         15     4.28     3.47   -0.82     4.28     3.47   -0.81
+  deepseek-v4              7     4.48     2.43   -2.05     4.48     2.71   -1.77
+  gemini-2.5-flash         1     3.82     2.00   -1.82     3.82     2.00   -1.82
+  gpt-4o                   3     3.99     4.00   +0.01     3.98     4.00   +0.02
+  llama-3.3-70b           64     3.75     2.80   -0.95     3.75     2.98   -0.77
+  qwen-3-235b              6     4.35     2.00   -2.35     4.36     3.17   -1.19
+
+==============================================================================
+Q6. DIRECTION OF SCORE CHANGE UNDER STRIPPING
+==============================================================================
+All 3,600: raised=210 (5.8%), lowered=49 (1.4%), unchanged=3341 (92.8%)
+Of the 1200 rescored rows: raised=210 (17.5%), lowered=49 (4.1%), unchanged=941 (78.4%)
+Net: mean delta over all 3,600 = +0.0808; over rescored = +0.2425
+
+By turn (rescored rows only):
+  turn    n_resc  raised      %  lowered      %   same   mean_d
+  T1          69       2    2.9        3    4.3     64   -0.014
+  T2         361      87   24.1       15    4.2    259   +0.343
+  T3         282      62   22.0       12    4.3    208   +0.305
+  T4         278      41   14.7       11    4.0    226   +0.209
+  T5         210      18    8.6        8    3.8    184   +0.114
+
+By model (rescored rows only):
+  model                 n_resc  raised      %  lowered      %   mean_d
+  claude-sonnet-4          252      44   17.5        8    3.2   +0.242
+  deepseek-v4              161      16    9.9        4    2.5   +0.155
+  gemini-2.5-flash          60       4    6.7        1    1.7   +0.067
+  gpt-4o                   123      17   13.8        5    4.1   +0.171
+  llama-3.3-70b            333      83   24.9       29    8.7   +0.279
+  qwen-3-235b              271      46   17.0        2    0.7   +0.321
+
+By domain (rescored rows only):
+  domain                n_resc  raised      %  lowered      %   mean_d
+  analysis                 215      39   18.1        4    1.9   +0.251
+  code                     348      50   14.4       11    3.2   +0.204
+  creative                 208      44   21.2       12    5.8   +0.288
+  data_logic               236      39   16.5        7    3.0   +0.242
+  writing                  193      38   19.7       15    7.8   +0.254
+
+Downgrades: raw level transitions (orig_level_raw -> stripped_level_raw) for delta<0 rows:
+    4 -> 3: 12
+    4 -> 6: 12
+    5 -> 4: 8
+    4 -> 2: 6
+    3 -> 2: 6
+    2 -> 1: 3
+    3 -> 1: 1
+    3 -> 6: 1
+
+Upgrades: raw level transitions for delta>0 rows (top 12):
+    6 -> 4: 93
+    4 -> 5: 38
+    6 -> 5: 25
+    3 -> 4: 17
+    1 -> 2: 13
+    6 -> 3: 11
+    2 -> 3: 8
+    2 -> 4: 3
+    1 -> 3: 1
+    2 -> 5: 1
+
+Mean share removed, by direction of change (rescored rows):
+  raised     n= 210 mean_chars_removed=    255 mean_share= 18.8% mean_orig_len=   2055 mean_orig_score=2.38
+  lowered    n=  49 mean_chars_removed=    203 mean_share= 23.9% mean_orig_len=   1423 mean_orig_score=3.88
+  unchanged  n= 941 mean_chars_removed=    179 mean_share= 21.6% mean_orig_len=   1563 mean_orig_score=2.27
+
+==============================================================================
+Q7. EXTRAS
+==============================================================================
+-- (a) Judge rationale language: how often does the judge's WRITTEN rationale name the meta-commentary? --
+  orig level 1: rationale names meta 555/2055 =  27.0%
+  orig level 2: rationale names meta 12/94 =  12.8%
+  orig level 3: rationale names meta 19/117 =  16.2%
+  orig level 4: rationale names meta 82/715 =  11.5%
+  orig level 5: rationale names meta 1/259 =   0.4%
+  orig level 6: rationale names meta 174/360 =  48.3%
+  all 3,600: 843 (23.4%)
+  among rows that were stripped: 421/1200
+  among rows not stripped: 422/2400
+
+-- (b) Token cost of meta-commentary (chars removed -> approx output tokens at corpus chars/token) --
+  corpus chars/token = 3.74; total chars removed 231,952 ~= 62,047 output tokens (5.90% of all output tokens)
+
+-- (c) Within-trial asymmetry on the full corpus: is T1 less wrapped than the same trial's own later turns? --
+  (computed below with an index for speed)
+  trials whose T1 is wrapped: 104/720 = 14.4%
+  trials with any wrapped turn in T2-T5: 683/720 = 94.9%
+  T1 clean & later wrapped: 579; T1 wrapped & later clean: 0; both: 104; neither: 37
+  McNemar-style discordant ratio: 579:0
+
+-- (d) Does stripping change whether an output clears the sufficiency bar (level >= 4)? --
+  suff both: 944; insuff->suff: 139; suff->insuff: 30; insuff both: 2487
+  sufficiency rate unstripped 27.1% -> stripped 30.1%
+  by turn:
+    T1:  87.6% ->  87.6% (insuff->suff 1, suff->insuff 1)
+    T2:  22.5% ->  28.3% (insuff->suff 51, suff->insuff 9)
+    T3:  11.4% ->  16.1% (insuff->suff 42, suff->insuff 8)
+    T4:   8.8% ->  12.1% (insuff->suff 30, suff->insuff 6)
+    T5:   5.0% ->   6.2% (insuff->suff 15, suff->insuff 6)
+
+-- (e) Length vs score: is the judge simply penalizing length, or specifically meta? --
+  Correlation of orig_chars with orig_score, all 3,600: Pearson +0.451, Spearman +0.720
+  Correlation of surviving (post-strip) chars with stripped_score: Pearson +0.474, Spearman +0.727
+
+-- (f) Mean quality by turn, unstripped vs stripped, ALL 3,600 (no GENUINE filter) --
+  turn       n   unstrip     strip    shift
+  T1       720     4.112     4.111   -0.001
+  T2       720     1.939     2.111   +0.172
+  T3       720     1.579     1.699   +0.119
+  T4       720     1.461     1.542   +0.081
+  T5       720     1.282     1.315   +0.033
+
+-- (g) Level-6 rate on ALL 3,600 (not GENUINE-only), unstripped vs stripped --
+  turn    unstrip%    strip%  shift_pp
+  T1           5.7       5.6      -0.1
+  T2          14.9       8.6      -6.2
+  T3          12.5       8.3      -4.2
+  T4           9.6       6.2      -3.3
+  T5           7.4       5.3      -2.1
+  Level-6 share among stripped vs unstripped rows (unstripped scores):
+    rows stripped:     283/1200 = 23.6%
+    rows not stripped: 77/2400 = 3.2%
+
+-- (h) Strip-rate vs detect-rate: how much does the CONTENT_SIGNALS veto suppress? --
+  detect only (regex hit, nothing stripped): 1153
+  strip only (stripped, no regex hit in windows): 72
+  both: 1128; neither: 1247
+  detect rate overall: 63.4%; strip rate overall: 33.3%
+
+-- (i) Preamble vs postamble prevalence by turn (DETECT, all 3,600) --
+  turn      pre%   post%   both%  either%
+  T1         5.6    11.4     2.5     14.4
+  T2        63.7    59.0    38.3     84.4
+  T3        46.7    54.7    25.7     75.7
+  T4        43.6    55.1    23.8     75.0
+  T5        36.0    51.2    20.0     67.2

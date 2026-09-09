@@ -1,0 +1,3071 @@
+[
+ {
+  "arxiv_id": "2402.14809",
+  "version": "v4",
+  "title": "CriticBench: Benchmarking LLMs for Critique-Correct Reasoning",
+  "comment": "ACL 2024 Findings",
+  "journal_ref": "",
+  "published": "2024-02-22",
+  "venue_stated": "ACL 2024 Findings"
+ },
+ {
+  "arxiv_id": "2401.16659",
+  "version": "v3",
+  "title": "History-Aware Conversational Dense Retrieval",
+  "comment": "Accepted to Findings of ACL 2024",
+  "journal_ref": "",
+  "published": "2024-01-30",
+  "venue_stated": "Accepted to Findings of ACL 2024"
+ },
+ {
+  "arxiv_id": "2403.13679",
+  "version": "v4",
+  "title": "SocialBench: Sociality Evaluation of Role-Playing Conversational Agents",
+  "comment": "ACL 2024 Findings",
+  "journal_ref": "",
+  "published": "2024-03-20",
+  "venue_stated": "ACL 2024 Findings"
+ },
+ {
+  "arxiv_id": "2407.03051",
+  "version": "v2",
+  "title": "Improving Conversational Abilities of Quantized Large Language Models via Direct Preference Alignment",
+  "comment": "ACL 2024 Main",
+  "journal_ref": "",
+  "published": "2024-07-03",
+  "venue_stated": "ACL 2024 Main"
+ },
+ {
+  "arxiv_id": "2309.08637",
+  "version": "v5",
+  "title": "TextBind: Multi-turn Interleaved Multimodal Instruction-following in the Wild",
+  "comment": "Findings of ACL 2024",
+  "journal_ref": "",
+  "published": "2023-09-14",
+  "venue_stated": "Findings of ACL 2024"
+ },
+ {
+  "arxiv_id": "2406.07168",
+  "version": "v1",
+  "title": "Teaching Language Models to Self-Improve by Learning from Language Feedback",
+  "comment": "Findings of ACL 2024",
+  "journal_ref": "",
+  "published": "2024-06-11",
+  "venue_stated": "Findings of ACL 2024"
+ },
+ {
+  "arxiv_id": "2309.08583",
+  "version": "v2",
+  "title": "ICLEF: In-Context Learning with Expert Feedback for Explainable Style Transfer",
+  "comment": "ACL 2024 Main, Camera Ready",
+  "journal_ref": "",
+  "published": "2023-09-15",
+  "venue_stated": "ACL 2024 Main, Camera Ready"
+ },
+ {
+  "arxiv_id": "2403.11886",
+  "version": "v2",
+  "title": "QueryAgent: A Reliable and Efficient Reasoning Framework with Environmental Feedback-based Self-Correction",
+  "comment": "Accepted by ACL 2024 main conference. 22 pages,7 figures, 13 tables",
+  "journal_ref": "",
+  "published": "2024-03-18",
+  "venue_stated": "Accepted by ACL 2024 main conference. 22 pages,7 figures, 13 tables"
+ },
+ {
+  "arxiv_id": "2401.02009",
+  "version": "v3",
+  "title": "Self-Contrast: Better Reflection Through Inconsistent Solving Perspectives",
+  "comment": "Accepted by ACL 2024 Main",
+  "journal_ref": "",
+  "published": "2024-01-04",
+  "venue_stated": "Accepted by ACL 2024 Main"
+ },
+ {
+  "arxiv_id": "2405.20477",
+  "version": "v2",
+  "title": "Automated Focused Feedback Generation for Scientific Writing Assistance",
+  "comment": "Accepted to ACL 2024 (Findings)",
+  "journal_ref": "",
+  "published": "2024-05-30",
+  "venue_stated": "Accepted to ACL 2024 (Findings)"
+ },
+ {
+  "arxiv_id": "2402.13463",
+  "version": "v4",
+  "title": "RefuteBench: Evaluating Refuting Instruction-Following for Large Language Models",
+  "comment": "ACL 2024 final version",
+  "journal_ref": "",
+  "published": "2024-02-21",
+  "venue_stated": "ACL 2024 final version"
+ },
+ {
+  "arxiv_id": "2402.07092",
+  "version": "v3",
+  "title": "Generalizing Conversational Dense Retrieval via LLM-Cognition Data Augmentation",
+  "comment": "ACL 2024",
+  "journal_ref": "",
+  "published": "2024-02-11",
+  "venue_stated": "ACL 2024"
+ },
+ {
+  "arxiv_id": "2310.04799",
+  "version": "v3",
+  "title": "Chat Vector: A Simple Approach to Equip LLMs with Instruction Following and Model Alignment in New Languages",
+  "comment": "ACL 2024 camera-ready version",
+  "journal_ref": "",
+  "published": "2023-10-07",
+  "venue_stated": "ACL 2024 camera-ready version"
+ },
+ {
+  "arxiv_id": "2405.10516",
+  "version": "v2",
+  "title": "Language Models can Evaluate Themselves via Probability Discrepancy",
+  "comment": "ACL 2024 Findings",
+  "journal_ref": "",
+  "published": "2024-05-17",
+  "venue_stated": "ACL 2024 Findings"
+ },
+ {
+  "arxiv_id": "2407.00997",
+  "version": "v1",
+  "title": "Engineering Conversational Search Systems: A Review of Applications, Architectures, and Functional Components",
+  "comment": "Accepted to ACL 2024 NLP4ConvAI Workshop",
+  "journal_ref": "",
+  "published": "2024-07-01",
+  "venue_stated": "Accepted to ACL 2024 NLP4ConvAI Workshop"
+ },
+ {
+  "arxiv_id": "2402.13113",
+  "version": "v2",
+  "title": "When Only Time Will Tell: Interpreting How Transformers Process Local Ambiguities Through the Lens of Restart-Incrementality",
+  "comment": "Accepted to ACL 2024",
+  "journal_ref": "",
+  "published": "2024-02-20",
+  "venue_stated": "Accepted to ACL 2024"
+ },
+ {
+  "arxiv_id": "2406.03827",
+  "version": "v2",
+  "title": "Chaos with Keywords: Exposing Large Language Models Sycophantic Hallucination to Misleading Keywords and Evaluating Defense Strategies",
+  "comment": "Findings of ACL 2024",
+  "journal_ref": "",
+  "published": "2024-06-06",
+  "venue_stated": "Findings of ACL 2024"
+ },
+ {
+  "arxiv_id": "2403.04460",
+  "version": "v4",
+  "title": "Pearl: A Review-driven Persona-Knowledge Grounded Conversational Recommendation Dataset",
+  "comment": "Published at ACL 2024 Findings",
+  "journal_ref": "",
+  "published": "2024-03-07",
+  "venue_stated": "Published at ACL 2024 Findings"
+ },
+ {
+  "arxiv_id": "2406.04214",
+  "version": "v1",
+  "title": "ValueBench: Towards Comprehensively Evaluating Value Orientations and Understanding of Large Language Models",
+  "comment": "Accepted at ACL 2024",
+  "journal_ref": "",
+  "published": "2024-06-06",
+  "venue_stated": "Accepted at ACL 2024"
+ },
+ {
+  "arxiv_id": "2406.18187",
+  "version": "v1",
+  "title": "Selective Prompting Tuning for Personalized Conversations with LLMs",
+  "comment": "Accepted to ACL 2024 findings",
+  "journal_ref": "",
+  "published": "2024-06-26",
+  "venue_stated": "Accepted to ACL 2024 findings"
+ },
+ {
+  "arxiv_id": "2401.06730",
+  "version": "v2",
+  "title": "Relying on the Unreliable: The Impact of Language Models' Reluctance to Express Uncertainty",
+  "comment": "ACL 2024 (Camera Ready)",
+  "journal_ref": "",
+  "published": "2024-01-12",
+  "venue_stated": "ACL 2024 (Camera Ready)"
+ },
+ {
+  "arxiv_id": "2311.08516",
+  "version": "v3",
+  "title": "LLMs cannot find reasoning errors, but can correct them given the error location",
+  "comment": "ACL 2024 Findings",
+  "journal_ref": "",
+  "published": "2023-11-14",
+  "venue_stated": "ACL 2024 Findings"
+ },
+ {
+  "arxiv_id": "2406.04278",
+  "version": "v1",
+  "title": "Characterizing Similarities and Divergences in Conversational Tones in Humans and LLMs by Sampling with People",
+  "comment": "Accepted to Main Conference at ACL 2024",
+  "journal_ref": "",
+  "published": "2024-06-06",
+  "venue_stated": "Accepted to Main Conference at ACL 2024"
+ },
+ {
+  "arxiv_id": "2401.05928",
+  "version": "v3",
+  "title": "Mitigating Unhelpfulness in Emotional Support Conversations with Multifaceted AI Feedback",
+  "comment": "ACL 2024 Findings",
+  "journal_ref": "",
+  "published": "2024-01-11",
+  "venue_stated": "ACL 2024 Findings"
+ },
+ {
+  "arxiv_id": "2402.00367",
+  "version": "v2",
+  "title": "Don't Hallucinate, Abstain: Identifying LLM Knowledge Gaps via Multi-LLM Collaboration",
+  "comment": "ACL 2024",
+  "journal_ref": "",
+  "published": "2024-02-01",
+  "venue_stated": "ACL 2024"
+ },
+ {
+  "arxiv_id": "2402.05044",
+  "version": "v4",
+  "title": "SALAD-Bench: A Hierarchical and Comprehensive Safety Benchmark for Large Language Models",
+  "comment": "Accepted at ACL 2024 Findings",
+  "journal_ref": "",
+  "published": "2024-02-07",
+  "venue_stated": "Accepted at ACL 2024 Findings"
+ },
+ {
+  "arxiv_id": "2306.12587",
+  "version": "v2",
+  "title": "ARIES: A Corpus of Scientific Paper Edits Made in Response to Peer Reviews",
+  "comment": "ACL 2024, 10 pages, 2 figures",
+  "journal_ref": "",
+  "published": "2023-06-21",
+  "venue_stated": "ACL 2024, 10 pages, 2 figures"
+ },
+ {
+  "arxiv_id": "2405.15110",
+  "version": "v1",
+  "title": "CHARP: Conversation History AwaReness Probing for Knowledge-grounded Dialogue Systems",
+  "comment": "To appear in Findings ACL 2024",
+  "journal_ref": "",
+  "published": "2024-05-24",
+  "venue_stated": "To appear in Findings ACL 2024"
+ },
+ {
+  "arxiv_id": "2407.03460",
+  "version": "v1",
+  "title": "Collaborative Quest Completion with LLM-driven Non-Player Characters in Minecraft",
+  "comment": "Accepted at Wordplay workshop at ACL 2024",
+  "journal_ref": "ACL 2024",
+  "published": "2024-07-03",
+  "venue_stated": "Accepted at Wordplay workshop at ACL 2024 ACL 2024"
+ },
+ {
+  "arxiv_id": "2406.03486",
+  "version": "v1",
+  "title": "BIPED: Pedagogically Informed Tutoring System for ESL Education",
+  "comment": "ACL 2024",
+  "journal_ref": "",
+  "published": "2024-06-05",
+  "venue_stated": "ACL 2024"
+ },
+ {
+  "arxiv_id": "2406.00019",
+  "version": "v3",
+  "title": "EHR-SeqSQL : A Sequential Text-to-SQL Dataset For Interactively Exploring Electronic Health Records",
+  "comment": "ACL 2024 (Findings)",
+  "journal_ref": "",
+  "published": "2024-05-23",
+  "venue_stated": "ACL 2024 (Findings)"
+ },
+ {
+  "arxiv_id": "2310.03878",
+  "version": "v1",
+  "title": "Automatic and Human-AI Interactive Text Generation",
+  "comment": "To appear at ACL 2024, Tutorial",
+  "journal_ref": "",
+  "published": "2023-10-05",
+  "venue_stated": "To appear at ACL 2024, Tutorial"
+ },
+ {
+  "arxiv_id": "2406.03703",
+  "version": "v1",
+  "title": "Synthesizing Conversations from Unlabeled Documents using Automatic Response Segmentation",
+  "comment": "findings of ACL 2024",
+  "journal_ref": "",
+  "published": "2024-06-06",
+  "venue_stated": "findings of ACL 2024"
+ },
+ {
+  "arxiv_id": "2402.01695",
+  "version": "v3",
+  "title": "Language-Guided World Models: A Model-Based Approach to AI Control",
+  "comment": "SpLU-RoboNLP workshop at ACL 2024",
+  "journal_ref": "",
+  "published": "2024-01-24",
+  "venue_stated": "SpLU-RoboNLP workshop at ACL 2024"
+ },
+ {
+  "arxiv_id": "2311.18702",
+  "version": "v2",
+  "title": "CritiqueLLM: Towards an Informative Critique Generation Model for Evaluation of Large Language Model Generation",
+  "comment": "Accepted by ACL 2024 (Main Conference)",
+  "journal_ref": "",
+  "published": "2023-11-30",
+  "venue_stated": "Accepted by ACL 2024 (Main Conference)"
+ },
+ {
+  "arxiv_id": "2406.06606",
+  "version": "v2",
+  "title": "Prototypical Reward Network for Data-Efficient RLHF",
+  "comment": "Accepted by ACL 2024",
+  "journal_ref": "",
+  "published": "2024-06-06",
+  "venue_stated": "Accepted by ACL 2024"
+ },
+ {
+  "arxiv_id": "2406.02911",
+  "version": "v1",
+  "title": "Improving In-Context Learning with Prediction Feedback for Sentiment Analysis",
+  "comment": "Accepted by ACL 2024 (Findings)",
+  "journal_ref": "",
+  "published": "2024-06-05",
+  "venue_stated": "Accepted by ACL 2024 (Findings)"
+ },
+ {
+  "arxiv_id": "2406.03235",
+  "version": "v1",
+  "title": "Error-preserving Automatic Speech Recognition of Young English Learners' Language",
+  "comment": "Accepted at ACL 2024 Main Conference",
+  "journal_ref": "",
+  "published": "2024-06-05",
+  "venue_stated": "Accepted at ACL 2024 Main Conference"
+ },
+ {
+  "arxiv_id": "2404.16816",
+  "version": "v2",
+  "title": "IndicGenBench: A Multilingual Benchmark to Evaluate Generation Capabilities of LLMs on Indic Languages",
+  "comment": "ACL 2024",
+  "journal_ref": "",
+  "published": "2024-04-25",
+  "venue_stated": "ACL 2024"
+ },
+ {
+  "arxiv_id": "2406.02864",
+  "version": "v1",
+  "title": "NUMCoT: Numerals and Units of Measurement in Chain-of-Thought Reasoning using Large Language Models",
+  "comment": "Findings of ACL 2024",
+  "journal_ref": "",
+  "published": "2024-06-05",
+  "venue_stated": "Findings of ACL 2024"
+ },
+ {
+  "arxiv_id": "2505.14279",
+  "version": "v2",
+  "title": "YESciEval: Robust LLM-as-a-Judge for Scientific Question Answering",
+  "comment": "9 pages, 4 figures, Accepted as a Long Paper at the 63rd Annual Meeting of the Association for Computational Linguistics (ACL 2025)",
+  "journal_ref": "",
+  "published": "2025-05-20",
+  "venue_stated": "9 pages, 4 figures, Accepted as a Long Paper at the 63rd Annual Meeting of the Association for Computational Linguistics (ACL 2025)"
+ },
+ {
+  "arxiv_id": "2503.19328",
+  "version": "v2",
+  "title": "Substance over Style: Evaluating Proactive Conversational Coaching Agents",
+  "comment": "Accepted to ACL 2025",
+  "journal_ref": "",
+  "published": "2025-03-25",
+  "venue_stated": "Accepted to ACL 2025"
+ },
+ {
+  "arxiv_id": "2410.04055",
+  "version": "v3",
+  "title": "Self-Correction is More than Refinement: A Learning Framework for Visual and Language Reasoning Tasks",
+  "comment": "Accepted by ACL 2025 Findings",
+  "journal_ref": "",
+  "published": "2024-10-05",
+  "venue_stated": "Accepted by ACL 2025 Findings"
+ },
+ {
+  "arxiv_id": "2506.09902",
+  "version": "v1",
+  "title": "PersonaLens: A Benchmark for Personalization Evaluation in Conversational AI Assistants",
+  "comment": "Accepted to ACL 2025 Findings",
+  "journal_ref": "",
+  "published": "2025-06-11",
+  "venue_stated": "Accepted to ACL 2025 Findings"
+ },
+ {
+  "arxiv_id": "2506.14302",
+  "version": "v1",
+  "title": "Expectation Confirmation Preference Optimization for Multi-Turn Conversational Recommendation Agent",
+  "comment": "Accepted to Findings of ACL 2025",
+  "journal_ref": "",
+  "published": "2025-06-17",
+  "venue_stated": "Accepted to Findings of ACL 2025"
+ },
+ {
+  "arxiv_id": "2409.04617",
+  "version": "v3",
+  "title": "Sparse Rewards Can Self-Train Dialogue Agents",
+  "comment": "Accepted to ACL 2025 (Findings)",
+  "journal_ref": "",
+  "published": "2024-09-06",
+  "venue_stated": "Accepted to ACL 2025 (Findings)"
+ },
+ {
+  "arxiv_id": "2505.19112",
+  "version": "v1",
+  "title": "Self-Critique Guided Iterative Reasoning for Multi-hop Question Answering",
+  "comment": "ACL 2025 Findings",
+  "journal_ref": "",
+  "published": "2025-05-25",
+  "venue_stated": "ACL 2025 Findings"
+ },
+ {
+  "arxiv_id": "2506.04772",
+  "version": "v5",
+  "title": "Identifying Reliable Evaluation Metrics for Scientific Text Revision",
+  "comment": "V5 contains the English version, (ACL 2025 main, 26 pages) and V4 contains the French version (TALN 2025, 32 pages), both with corrected results for cramer's v and pairwise accuracy",
+  "journal_ref": "",
+  "published": "2025-06-05",
+  "venue_stated": "V5 contains the English version, (ACL 2025 main, 26 pages) and V4 contains the French version (TALN 2025, 32 pages), both with corrected results for cramer's v and pairwise accuracy"
+ },
+ {
+  "arxiv_id": "2507.07030",
+  "version": "v1",
+  "title": "UniConv: Unifying Retrieval and Response Generation for Large Language Models in Conversations",
+  "comment": "Accepted by ACL 2025 (main)",
+  "journal_ref": "",
+  "published": "2025-07-09",
+  "venue_stated": "Accepted by ACL 2025 (main)"
+ },
+ {
+  "arxiv_id": "2505.21940",
+  "version": "v1",
+  "title": "RISE: Reasoning Enhancement via Iterative Self-Exploration in Multi-hop Question Answering",
+  "comment": "ACL 2025 Findings",
+  "journal_ref": "",
+  "published": "2025-05-28",
+  "venue_stated": "ACL 2025 Findings"
+ },
+ {
+  "arxiv_id": "2506.19607",
+  "version": "v1",
+  "title": "Correcting Hallucinations in News Summaries: Exploration of Self-Correcting LLM Methods with External Knowledge",
+  "comment": "Accepted to FEVER @ ACL 2025",
+  "journal_ref": "",
+  "published": "2025-06-24",
+  "venue_stated": "Accepted to FEVER @ ACL 2025"
+ },
+ {
+  "arxiv_id": "2502.13031",
+  "version": "v2",
+  "title": "HPSS: Heuristic Prompting Strategy Search for LLM Evaluators",
+  "comment": "ACL 2025 Findings",
+  "journal_ref": "",
+  "published": "2025-02-18",
+  "venue_stated": "ACL 2025 Findings"
+ },
+ {
+  "arxiv_id": "2408.16326",
+  "version": "v3",
+  "title": "Critic-CoT: Boosting the reasoning abilities of large language model via Chain-of-thoughts Critic",
+  "comment": "Accepted at ACL 2025 Findings",
+  "journal_ref": "",
+  "published": "2024-08-29",
+  "venue_stated": "Accepted at ACL 2025 Findings"
+ },
+ {
+  "arxiv_id": "2503.10619",
+  "version": "v5",
+  "title": "Tempest: Autonomous Multi-Turn Jailbreaking of Large Language Models with Tree Search",
+  "comment": "Accepted to ACL 2025 Main",
+  "journal_ref": "",
+  "published": "2025-03-13",
+  "venue_stated": "Accepted to ACL 2025 Main"
+ },
+ {
+  "arxiv_id": "2505.20679",
+  "version": "v1",
+  "title": "SELF-PERCEPT: Introspection Improves Large Language Models' Detection of Multi-Person Mental Manipulation in Conversations",
+  "comment": "Accepted to ACL 2025 (Main)",
+  "journal_ref": "",
+  "published": "2025-05-27",
+  "venue_stated": "Accepted to ACL 2025 (Main)"
+ },
+ {
+  "arxiv_id": "2503.04856",
+  "version": "v3",
+  "title": "M2S: Multi-turn to Single-turn jailbreak in Red Teaming for LLMs",
+  "comment": "Accepted to ACL 2025 (Main Track). Camera-ready version",
+  "journal_ref": "Proc. ACL 2025 (Vol. 1: Long Papers), pp. 16489-16507, Vienna, Austria, 2025",
+  "published": "2025-03-06",
+  "venue_stated": "Accepted to ACL 2025 (Main Track). Camera-ready version Proc. ACL 2025 (Vol. 1: Long Papers), pp. 16489-16507, Vienna, Austria, 2025"
+ },
+ {
+  "arxiv_id": "2405.14314",
+  "version": "v4",
+  "title": "Towards Efficient LLM Grounding for Embodied Multi-Agent Collaboration",
+  "comment": "accepted by ACL'2025",
+  "journal_ref": "",
+  "published": "2024-05-23",
+  "venue_stated": "accepted by ACL'2025"
+ },
+ {
+  "arxiv_id": "2503.05328",
+  "version": "v2",
+  "title": "Dynamic Knowledge Integration for Evidence-Driven Counter-Argument Generation with Large Language Models",
+  "comment": "ACL 2025",
+  "journal_ref": "",
+  "published": "2025-03-07",
+  "venue_stated": "ACL 2025"
+ },
+ {
+  "arxiv_id": "2506.21252",
+  "version": "v1",
+  "title": "Agent-RewardBench: Towards a Unified Benchmark for Reward Modeling across Perception, Planning, and Safety in Real-World Multimodal Agents",
+  "comment": "ACL 2025 Main",
+  "journal_ref": "",
+  "published": "2025-06-26",
+  "venue_stated": "ACL 2025 Main"
+ },
+ {
+  "arxiv_id": "2503.04381",
+  "version": "v2",
+  "title": "TRACT: Regression-Aware Fine-tuning Meets Chain-of-Thought Reasoning for LLM-as-a-Judge",
+  "comment": "ACL 2025 camera-ready Codes and models are available at https://github.com/d223302/TRACT",
+  "journal_ref": "",
+  "published": "2025-03-06",
+  "venue_stated": "ACL 2025 camera-ready Codes and models are available at https://github.com/d223302/TRACT"
+ },
+ {
+  "arxiv_id": "2506.17693",
+  "version": "v1",
+  "title": "Zero-Shot Conversational Stance Detection: Dataset and Approaches",
+  "comment": "ACL 2025 (Findings)",
+  "journal_ref": "",
+  "published": "2025-06-21",
+  "venue_stated": "ACL 2025 (Findings)"
+ },
+ {
+  "arxiv_id": "2506.03785",
+  "version": "v3",
+  "title": "Knockout LLM Assessment: Using Large Language Models for Evaluations through Iterative Pairwise Comparisons",
+  "comment": "Accepted to GEM @ ACL 2025",
+  "journal_ref": "",
+  "published": "2025-06-04",
+  "venue_stated": "Accepted to GEM @ ACL 2025"
+ },
+ {
+  "arxiv_id": "2401.14640",
+  "version": "v2",
+  "title": "Can LLMs Evaluate Complex Attribution in QA? Automatic Benchmarking using Knowledge Graphs",
+  "comment": "Accepted to ACL 2025 (Main Conference)",
+  "journal_ref": "",
+  "published": "2024-01-26",
+  "venue_stated": "Accepted to ACL 2025 (Main Conference)"
+ },
+ {
+  "arxiv_id": "2506.00319",
+  "version": "v1",
+  "title": "SkillVerse : Assessing and Enhancing LLMs with Tree Evaluation",
+  "comment": "Accepted to ACL 2025",
+  "journal_ref": "",
+  "published": "2025-05-31",
+  "venue_stated": "Accepted to ACL 2025"
+ },
+ {
+  "arxiv_id": "2412.11716",
+  "version": "v2",
+  "title": "LLMs Can Simulate Standardized Patients via Agent Coevolution",
+  "comment": "Accepted to ACL 2025",
+  "journal_ref": "",
+  "published": "2024-12-16",
+  "venue_stated": "Accepted to ACL 2025"
+ },
+ {
+  "arxiv_id": "2502.17163",
+  "version": "v4",
+  "title": "MEMERAG: A Multilingual End-to-End Meta-Evaluation Benchmark for Retrieval Augmented Generation",
+  "comment": "ACL 2025",
+  "journal_ref": "",
+  "published": "2025-02-24",
+  "venue_stated": "ACL 2025"
+ },
+ {
+  "arxiv_id": "2506.05598",
+  "version": "v1",
+  "title": "SynthesizeMe! Inducing Persona-Guided Prompts for Personalized Reward Models in LLMs",
+  "comment": "ACL 2025 Main Conference",
+  "journal_ref": "",
+  "published": "2025-06-05",
+  "venue_stated": "ACL 2025 Main Conference"
+ },
+ {
+  "arxiv_id": "2406.12221",
+  "version": "v6",
+  "title": "On-Policy Self-Alignment with Fine-grained Knowledge Feedback for Hallucination Mitigation",
+  "comment": "Accepted as ACL 2025 Findings",
+  "journal_ref": "",
+  "published": "2024-06-18",
+  "venue_stated": "Accepted as ACL 2025 Findings"
+ },
+ {
+  "arxiv_id": "2502.18448",
+  "version": "v2",
+  "title": "Disambiguate First, Parse Later: Generating Interpretations for Ambiguity Resolution in Semantic Parsing",
+  "comment": "Findings of ACL 2025",
+  "journal_ref": "",
+  "published": "2025-02-25",
+  "venue_stated": "Findings of ACL 2025"
+ },
+ {
+  "arxiv_id": "2506.10877",
+  "version": "v1",
+  "title": "Enhancing Medical Dialogue Generation through Knowledge Refinement and Dynamic Prompt Adjustment",
+  "comment": "ACL 2025 Findings",
+  "journal_ref": "",
+  "published": "2025-06-12",
+  "venue_stated": "ACL 2025 Findings"
+ },
+ {
+  "arxiv_id": "2409.17458",
+  "version": "v2",
+  "title": "RED QUEEN: Safeguarding Large Language Models against Concealed Multi-Turn Jailbreaking",
+  "comment": "Accepted in ACL 2025 Findings",
+  "journal_ref": "",
+  "published": "2024-09-26",
+  "venue_stated": "Accepted in ACL 2025 Findings"
+ },
+ {
+  "arxiv_id": "2505.06987",
+  "version": "v6",
+  "title": "Convert Language Model into a Value-based Strategic Planner",
+  "comment": "13 pages, 6 figures, ACL 2025 Industry Track",
+  "journal_ref": "",
+  "published": "2025-05-11",
+  "venue_stated": "13 pages, 6 figures, ACL 2025 Industry Track"
+ },
+ {
+  "arxiv_id": "2506.00391",
+  "version": "v1",
+  "title": "SHARE: An SLM-based Hierarchical Action CorREction Assistant for Text-to-SQL",
+  "comment": "Accepted to ACL 2025 Main",
+  "journal_ref": "",
+  "published": "2025-05-31",
+  "venue_stated": "Accepted to ACL 2025 Main"
+ },
+ {
+  "arxiv_id": "2506.01262",
+  "version": "v1",
+  "title": "Exploring the Potential of LLMs as Personalized Assistants: Dataset, Evaluation, and Analysis",
+  "comment": "ACL 2025",
+  "journal_ref": "",
+  "published": "2025-06-02",
+  "venue_stated": "ACL 2025"
+ },
+ {
+  "arxiv_id": "2407.03181",
+  "version": "v2",
+  "title": "Fine-Tuning on Diverse Reasoning Chains Drives Within-Inference CoT Refinement in LLMs",
+  "comment": "ACL 2025 Main",
+  "journal_ref": "",
+  "published": "2024-07-03",
+  "venue_stated": "ACL 2025 Main"
+ },
+ {
+  "arxiv_id": "2402.12649",
+  "version": "v3",
+  "title": "Bias in Language Models: Beyond Trick Tests and Toward RUTEd Evaluation",
+  "comment": "Published in ACL 2025",
+  "journal_ref": "",
+  "published": "2024-02-20",
+  "venue_stated": "Published in ACL 2025"
+ },
+ {
+  "arxiv_id": "2502.14494",
+  "version": "v2",
+  "title": "StructFlowBench: A Structured Flow Benchmark for Multi-turn Instruction Following",
+  "comment": "ACL 2025 Findings camera-ready version",
+  "journal_ref": "",
+  "published": "2025-02-20",
+  "venue_stated": "ACL 2025 Findings camera-ready version"
+ },
+ {
+  "arxiv_id": "2502.18968",
+  "version": "v4",
+  "title": "Know You First and Be You Better: Modeling Human-Like User Simulators via Implicit Profiles",
+  "comment": "9 pages. Accepted to ACL 2025. Camera-ready version",
+  "journal_ref": "",
+  "published": "2025-02-26",
+  "venue_stated": "9 pages. Accepted to ACL 2025. Camera-ready version"
+ },
+ {
+  "arxiv_id": "2407.05674",
+  "version": "v3",
+  "title": "Controllable and Reliable Knowledge-Intensive Task-Oriented Conversational Agents with Declarative Genie Worksheets",
+  "comment": "Accepted at ACL 2025",
+  "journal_ref": "",
+  "published": "2024-07-08",
+  "venue_stated": "Accepted at ACL 2025"
+ },
+ {
+  "arxiv_id": "2506.01859",
+  "version": "v1",
+  "title": "CONFETTI: Conversational Function-Calling Evaluation Through Turn-Level Interactions",
+  "comment": "ACL 2025 (main conference)",
+  "journal_ref": "",
+  "published": "2025-06-02",
+  "venue_stated": "ACL 2025 (main conference)"
+ },
+ {
+  "arxiv_id": "2601.13115",
+  "version": "v2",
+  "title": "Agentic Conversational Search with Contextualized Reasoning via Reinforcement Learning",
+  "comment": "Accepted by ACL 2026 (Findings)",
+  "journal_ref": "",
+  "published": "2026-01-19",
+  "venue_stated": "Accepted by ACL 2026 (Findings)"
+ },
+ {
+  "arxiv_id": "2508.19227",
+  "version": "v3",
+  "title": "Generative Interfaces for Language Models",
+  "comment": "ACL 2026 Findings",
+  "journal_ref": "",
+  "published": "2025-08-26",
+  "venue_stated": "ACL 2026 Findings"
+ },
+ {
+  "arxiv_id": "2510.04214",
+  "version": "v3",
+  "title": "Teaching LLM to be Persuasive: Reward-Enhanced Policy Optimization for Alignment from Heterogeneous Rewards",
+  "comment": "accepted by ACL 2026 indusry track",
+  "journal_ref": "",
+  "published": "2025-10-05",
+  "venue_stated": "accepted by ACL 2026 indusry track"
+ },
+ {
+  "arxiv_id": "2603.09723",
+  "version": "v2",
+  "title": "RbtAct: Rebuttal as Supervision for Actionable Review Feedback Generation",
+  "comment": "ACL 2026 Findings",
+  "journal_ref": "",
+  "published": "2026-03-10",
+  "venue_stated": "ACL 2026 Findings"
+ },
+ {
+  "arxiv_id": "2601.02179",
+  "version": "v2",
+  "title": "Confidence Estimation for LLMs in Multi-turn Interactions",
+  "comment": "ACL 2026 Findings",
+  "journal_ref": "",
+  "published": "2026-01-05",
+  "venue_stated": "ACL 2026 Findings"
+ },
+ {
+  "arxiv_id": "2606.03189",
+  "version": "v2",
+  "title": "SenseJudge: Human-Centric Preference-Driven Judgment Framework",
+  "comment": "ACL 2026 Findings",
+  "journal_ref": "",
+  "published": "2026-06-02",
+  "venue_stated": "ACL 2026 Findings"
+ },
+ {
+  "arxiv_id": "2510.12831",
+  "version": "v3",
+  "title": "MTSQL-R1: Towards Long-Horizon Multi-Turn Text-to-SQL via Agentic Training",
+  "comment": "ACL 2026 Main camera-ready version",
+  "journal_ref": "",
+  "published": "2025-10-12",
+  "venue_stated": "ACL 2026 Main camera-ready version"
+ },
+ {
+  "arxiv_id": "2604.08256",
+  "version": "v2",
+  "title": "HyperMem: Hypergraph Memory for Long-Term Conversations",
+  "comment": "ACL 2026 Main",
+  "journal_ref": "",
+  "published": "2026-04-09",
+  "venue_stated": "ACL 2026 Main"
+ },
+ {
+  "arxiv_id": "2604.10159",
+  "version": "v2",
+  "title": "ODUTQA-MDC: A Task for Open-Domain Underspecified Tabular QA with Multi-turn Dialogue-based Clarification",
+  "comment": "This paper has been accepted by ACL 2026 (main conference)",
+  "journal_ref": "",
+  "published": "2026-04-11",
+  "venue_stated": "This paper has been accepted by ACL 2026 (main conference)"
+ },
+ {
+  "arxiv_id": "2604.11096",
+  "version": "v1",
+  "title": "Efficient Training for Cross-lingual Speech Language Models",
+  "comment": "Accepted to Findings of ACL 2026",
+  "journal_ref": "",
+  "published": "2026-04-13",
+  "venue_stated": "Accepted to Findings of ACL 2026"
+ },
+ {
+  "arxiv_id": "2606.08471",
+  "version": "v1",
+  "title": "More Yap Less Meaning: Uncovering Self-Improvement Behavior in SLMs",
+  "comment": "GEM Workshop at ACL 2026",
+  "journal_ref": "",
+  "published": "2026-06-07",
+  "venue_stated": "GEM Workshop at ACL 2026"
+ },
+ {
+  "arxiv_id": "2510.27052",
+  "version": "v5",
+  "title": "VISTA: Verification In Sequential Turn-based Assessment",
+  "comment": "Accepted to ACL 2026",
+  "journal_ref": "",
+  "published": "2025-10-30",
+  "venue_stated": "Accepted to ACL 2026"
+ },
+ {
+  "arxiv_id": "2605.23932",
+  "version": "v1",
+  "title": "When Correct Beliefs Collapse: Epistemic Resilience of LLMs under Clinical Pressure",
+  "comment": "ACL 2026",
+  "journal_ref": "",
+  "published": "2026-04-23",
+  "venue_stated": "ACL 2026"
+ },
+ {
+  "arxiv_id": "2511.01014",
+  "version": "v3",
+  "title": "IF-CRITIC: Towards a Fine-Grained LLM Critic for Instruction-Following Evaluation",
+  "comment": "ACL 2026",
+  "journal_ref": "",
+  "published": "2025-11-02",
+  "venue_stated": "ACL 2026"
+ },
+ {
+  "arxiv_id": "2408.15549",
+  "version": "v4",
+  "title": "WildFeedback: Aligning LLMs With In-situ User Interactions And Feedback",
+  "comment": "ACL 2026 Camera-ready. 25 pages, 6 figures, 9 tables",
+  "journal_ref": "",
+  "published": "2024-08-28",
+  "venue_stated": "ACL 2026 Camera-ready. 25 pages, 6 figures, 9 tables"
+ },
+ {
+  "arxiv_id": "2606.11945",
+  "version": "v1",
+  "title": "uva-irlab-conv at SemEval-2026 Task 8: Multi-Turn RAG with Learned Sparse Retrieval and Listwise Reranking",
+  "comment": "SemEval-2026, The 20th International Workshop on Semantic Evaluation, collocated with ACL 2026, 9 pages, 5 figures, 6 tables",
+  "journal_ref": "",
+  "published": "2026-06-10",
+  "venue_stated": "SemEval-2026, The 20th International Workshop on Semantic Evaluation, collocated with ACL 2026, 9 pages, 5 figures, 6 tables"
+ },
+ {
+  "arxiv_id": "2605.13292",
+  "version": "v1",
+  "title": "IndicMedDialog: A Parallel Multi-Turn Medical Dialogue Dataset for Accessible Healthcare in Indic Languages",
+  "comment": "Accepted in BioNLP @ ACL 2026 Conference",
+  "journal_ref": "",
+  "published": "2026-05-13",
+  "venue_stated": "Accepted in BioNLP @ ACL 2026 Conference"
+ },
+ {
+  "arxiv_id": "2604.25135",
+  "version": "v1",
+  "title": "FAMA: Failure-Aware Meta-Agentic Framework for Open-Source LLMs in Interactive Tool Use Environments",
+  "comment": "Accepted to ACL 2026 Findings",
+  "journal_ref": "",
+  "published": "2026-04-28",
+  "venue_stated": "Accepted to ACL 2026 Findings"
+ },
+ {
+  "arxiv_id": "2601.21278",
+  "version": "v2",
+  "title": "GeoRC: A Benchmark for Geolocation Reasoning Chains",
+  "comment": "Accepted to ACL 2026",
+  "journal_ref": "",
+  "published": "2026-01-29",
+  "venue_stated": "Accepted to ACL 2026"
+ },
+ {
+  "arxiv_id": "2603.14889",
+  "version": "v2",
+  "title": "SDiaReward: Modeling and Benchmarking Spoken Dialogue Rewards with Modality and Colloquialness",
+  "comment": "Accepted to ACL 2026 Main Conference",
+  "journal_ref": "",
+  "published": "2026-03-16",
+  "venue_stated": "Accepted to ACL 2026 Main Conference"
+ },
+ {
+  "arxiv_id": "2506.07180",
+  "version": "v3",
+  "title": "Flattery in Motion: Benchmarking and Analyzing Sycophancy in Video-LLMs",
+  "comment": "27 Pages, Accepted by ACL 2026 Main Conference",
+  "journal_ref": "",
+  "published": "2025-06-08",
+  "venue_stated": "27 Pages, Accepted by ACL 2026 Main Conference"
+ },
+ {
+  "arxiv_id": "2601.07516",
+  "version": "v2",
+  "title": "Controlling Multimodal Conversational Agents with Coverage-Enhanced Latent Actions",
+  "comment": "Accepted to ACL 2026 (Main), camera-ready version",
+  "journal_ref": "",
+  "published": "2026-01-12",
+  "venue_stated": "Accepted to ACL 2026 (Main), camera-ready version"
+ },
+ {
+  "arxiv_id": "2604.06771",
+  "version": "v1",
+  "title": "Multi-Faceted Self-Consistent Preference Alignment for Query Rewriting in Conversational Search",
+  "comment": "ACL 2026 Findings",
+  "journal_ref": "",
+  "published": "2026-04-08",
+  "venue_stated": "ACL 2026 Findings"
+ },
+ {
+  "arxiv_id": "2605.29475",
+  "version": "v2",
+  "title": "MOOSE-Copilot: A Web-Based Interactive Assistant for Unified Exploratory and Fine-Grained Scientific Hypothesis Discovery",
+  "comment": "Accepted to ACL 2026 (System Demonstrations)",
+  "journal_ref": "",
+  "published": "2026-05-28",
+  "venue_stated": "Accepted to ACL 2026 (System Demonstrations)"
+ },
+ {
+  "arxiv_id": "2604.05552",
+  "version": "v2",
+  "title": "Context-Agent: Dynamic Discourse Trees for Non-Linear Dialogue",
+  "comment": "14 pages, 7 figures, ACL 2026",
+  "journal_ref": "",
+  "published": "2026-04-07",
+  "venue_stated": "14 pages, 7 figures, ACL 2026"
+ },
+ {
+  "arxiv_id": "2601.13099",
+  "version": "v2",
+  "title": "Alexandria: A Multi-Domain Dialectal Arabic Machine Translation Dataset for Culturally Inclusive and Linguistically Diverse LLMs",
+  "comment": "Accepted to ACL 2026 Main; Project resources will be available here: https://github.com/UBC-NLP/Alexandria",
+  "journal_ref": "",
+  "published": "2026-01-19",
+  "venue_stated": "Accepted to ACL 2026 Main; Project resources will be available here: https://github.com/UBC-NLP/Alexandria"
+ },
+ {
+  "arxiv_id": "2503.02368",
+  "version": "v4",
+  "title": "Evolutionary Guided Decoding: Iterative Value Refinement for LLMs",
+  "comment": "Accepted to ACL 2026 (main conference)",
+  "journal_ref": "",
+  "published": "2025-03-04",
+  "venue_stated": "Accepted to ACL 2026 (main conference)"
+ },
+ {
+  "arxiv_id": "2602.20610",
+  "version": "v3",
+  "title": "SpecMind: Cognitively Inspired, Interactive Multi-Turn Framework for Postcondition Inference",
+  "comment": "Accepted in ACL 2026 Main",
+  "journal_ref": "",
+  "published": "2026-02-24",
+  "venue_stated": "Accepted in ACL 2026 Main"
+ },
+ {
+  "arxiv_id": "2510.19186",
+  "version": "v3",
+  "title": "When Users Are Happy but Agents Are Wrong: Multi-Dimensional Evaluation of Tool-Augmented Dialogue",
+  "comment": "The Fifth Generation, Evaluation & Metrics Workshop (GEM) at ACL 2026",
+  "journal_ref": "",
+  "published": "2025-10-22",
+  "venue_stated": "The Fifth Generation, Evaluation & Metrics Workshop (GEM) at ACL 2026"
+ },
+ {
+  "arxiv_id": "2505.06698",
+  "version": "v4",
+  "title": "SCAN: Structured Capability Assessment and Navigation for LLMs",
+  "comment": "Accepted by ACL 2026 Main",
+  "journal_ref": "",
+  "published": "2025-05-10",
+  "venue_stated": "Accepted by ACL 2026 Main"
+ },
+ {
+  "arxiv_id": "2604.19071",
+  "version": "v1",
+  "title": "HoWToBench: Holistic Evaluation for LLM's Capability in Human-level Writing using Tree of Writing",
+  "comment": "49 pages, 6 figures, 19 tables, ACL 2026 main",
+  "journal_ref": "",
+  "published": "2026-04-21",
+  "venue_stated": "49 pages, 6 figures, 19 tables, ACL 2026 main"
+ },
+ {
+  "arxiv_id": "2512.23578",
+  "version": "v3",
+  "title": "Style Amnesia: Investigating Speaking Style Degradation and Mitigation in Multi-Turn Spoken Language Models",
+  "comment": "ACL 2026 Findings",
+  "journal_ref": "",
+  "published": "2025-12-29",
+  "venue_stated": "ACL 2026 Findings"
+ },
+ {
+  "arxiv_id": "2604.05350",
+  "version": "v2",
+  "title": "DQA: Diagnostic Question Answering for IT Support",
+  "comment": "7 pages, 2 tables, submitted at ACL 2026 Industry Track",
+  "journal_ref": "",
+  "published": "2026-04-07",
+  "venue_stated": "7 pages, 2 tables, submitted at ACL 2026 Industry Track"
+ },
+ {
+  "arxiv_id": "2604.17658",
+  "version": "v1",
+  "title": "Towards Self-Improving Error Diagnosis in Multi-Agent Systems",
+  "comment": "15 pages, 3 figures; accepted at ACL 2026 Findings",
+  "journal_ref": "",
+  "published": "2026-04-19",
+  "venue_stated": "15 pages, 3 figures; accepted at ACL 2026 Findings"
+ },
+ {
+  "arxiv_id": "2604.23051",
+  "version": "v1",
+  "title": "Evaluating Temporal Consistency in Multi-Turn Language Models",
+  "comment": "Accepted at ACL 2026",
+  "journal_ref": "",
+  "published": "2026-04-24",
+  "venue_stated": "Accepted at ACL 2026"
+ },
+ {
+  "arxiv_id": "2510.15313",
+  "version": "v2",
+  "title": "Capabilities and Evaluation Biases of Large Language Models in Classical Chinese Poetry Generation: A Case Study on Tang Poetry",
+  "comment": "ACL 2026 Findings",
+  "journal_ref": "",
+  "published": "2025-10-17",
+  "venue_stated": "ACL 2026 Findings"
+ },
+ {
+  "arxiv_id": "2604.23002",
+  "version": "v1",
+  "title": "FormalScience: Scalable Human-in-the-Loop Autoformalisation of Science with Agentic Code Generation in Lean",
+  "comment": "ACL 2026",
+  "journal_ref": "",
+  "published": "2026-04-24",
+  "venue_stated": "ACL 2026"
+ },
+ {
+  "arxiv_id": "2606.17449",
+  "version": "v1",
+  "title": "MODE-RAG: Manifold Outlier Diagnosis and Energy-based Retrieval-Augmented Generation Evaluation",
+  "comment": "To be presented at ACL 2026",
+  "journal_ref": "",
+  "published": "2026-06-16",
+  "venue_stated": "To be presented at ACL 2026"
+ },
+ {
+  "arxiv_id": "2504.11972",
+  "version": "v3",
+  "title": "Reassessing Extractive QA Datasets at Scale: LLM-as-a-Judge and In-Depth Analyses",
+  "comment": "GEM Workshop at ACL 2026; code and data are available at https://github.com/Alab-NII/llm-judge-extract-qa",
+  "journal_ref": "",
+  "published": "2025-04-16",
+  "venue_stated": "GEM Workshop at ACL 2026; code and data are available at https://github.com/Alab-NII/llm-judge-extract-qa"
+ },
+ {
+  "arxiv_id": "2601.05877",
+  "version": "v3",
+  "title": "iReasoner: Trajectory-Aware Intrinsic Reasoning Supervision for Self-Evolving Large Multimodal Models",
+  "comment": "ACL 2026 (Findings)",
+  "journal_ref": "",
+  "published": "2026-01-09",
+  "venue_stated": "ACL 2026 (Findings)"
+ },
+ {
+  "arxiv_id": "2406.11370",
+  "version": "v2",
+  "title": "Fairer Preferences Elicit Improved Human-Aligned Large Language Model Judgments",
+  "comment": "EMNLP 2024",
+  "journal_ref": "",
+  "published": "2024-06-17",
+  "venue_stated": "EMNLP 2024"
+ },
+ {
+  "arxiv_id": "2410.01363",
+  "version": "v1",
+  "title": "PCQPR: Proactive Conversational Question Planning with Reflection",
+  "comment": "Accepted by EMNLP 2024 Main",
+  "journal_ref": "Proceedings of the 2024 Conference on Empirical Methods in Natural Language Processing",
+  "published": "2024-10-02",
+  "venue_stated": "Accepted by EMNLP 2024 Main Proceedings of the 2024 Conference on Empirical Methods in Natural Language Processing"
+ },
+ {
+  "arxiv_id": "2411.04424",
+  "version": "v1",
+  "title": "Bayesian Calibration of Win Rate Estimation with LLM Evaluators",
+  "comment": "Accepted by EMNLP 2024",
+  "journal_ref": "",
+  "published": "2024-11-07",
+  "venue_stated": "Accepted by EMNLP 2024"
+ },
+ {
+  "arxiv_id": "2410.08058",
+  "version": "v1",
+  "title": "Closing the Loop: Learning to Generate Writing Feedback via Language Model Simulated Student Revisions",
+  "comment": "Accepted to EMNLP 2024",
+  "journal_ref": "",
+  "published": "2024-10-10",
+  "venue_stated": "Accepted to EMNLP 2024"
+ },
+ {
+  "arxiv_id": "2305.00450",
+  "version": "v3",
+  "title": "SMILE: Single-turn to Multi-turn Inclusive Language Expansion via ChatGPT for Mental Health Support",
+  "comment": "accepted to the EMNLP 2024 Findings",
+  "journal_ref": "https://aclanthology.org/2024.findings-emnlp.34/",
+  "published": "2023-04-30",
+  "venue_stated": "accepted to the EMNLP 2024 Findings https://aclanthology.org/2024.findings-emnlp.34/"
+ },
+ {
+  "arxiv_id": "2409.03256",
+  "version": "v2",
+  "title": "E2CL: Exploration-based Error Correction Learning for Embodied Agents",
+  "comment": "Accepted by EMNLP 2024",
+  "journal_ref": "",
+  "published": "2024-09-05",
+  "venue_stated": "Accepted by EMNLP 2024"
+ },
+ {
+  "arxiv_id": "2405.20215",
+  "version": "v4",
+  "title": "TS-Align: A Teacher-Student Collaborative Framework for Scalable Iterative Finetuning of Large Language Models",
+  "comment": "EMNLP-2024 Findings",
+  "journal_ref": "",
+  "published": "2024-05-30",
+  "venue_stated": "EMNLP-2024 Findings"
+ },
+ {
+  "arxiv_id": "2405.14092",
+  "version": "v3",
+  "title": "Large Language Models Can Self-Correct with Key Condition Verification",
+  "comment": "EMNLP 2024 - Camera Ready",
+  "journal_ref": "",
+  "published": "2024-05-23",
+  "venue_stated": "EMNLP 2024 - Camera Ready"
+ },
+ {
+  "arxiv_id": "2410.21784",
+  "version": "v1",
+  "title": "MARCO: Multi-Agent Real-time Chat Orchestration",
+  "comment": "EMNLP 2024 Industry Track",
+  "journal_ref": "",
+  "published": "2024-10-29",
+  "venue_stated": "EMNLP 2024 Industry Track"
+ },
+ {
+  "arxiv_id": "2406.17626",
+  "version": "v1",
+  "title": "CoSafe: Evaluating Large Language Model Safety in Multi-Turn Dialogue Coreference",
+  "comment": "Submitted to EMNLP 2024",
+  "journal_ref": "",
+  "published": "2024-06-25",
+  "venue_stated": "Submitted to EMNLP 2024"
+ },
+ {
+  "arxiv_id": "2406.14868",
+  "version": "v5",
+  "title": "Direct Multi-Turn Preference Optimization for Language Agents",
+  "comment": "Accepted by EMNLP 2024 Main",
+  "journal_ref": "",
+  "published": "2024-06-21",
+  "venue_stated": "Accepted by EMNLP 2024 Main"
+ },
+ {
+  "arxiv_id": "2407.05131",
+  "version": "v2",
+  "title": "RULE: Reliable Multimodal RAG for Factuality in Medical Vision Language Models",
+  "comment": "EMNLP 2024 main",
+  "journal_ref": "",
+  "published": "2024-07-06",
+  "venue_stated": "EMNLP 2024 main"
+ },
+ {
+  "arxiv_id": "2406.01171",
+  "version": "v3",
+  "title": "Two Tales of Persona in LLMs: A Survey of Role-Playing and Personalization",
+  "comment": "Accepted to EMNLP 2024 Findings",
+  "journal_ref": "",
+  "published": "2024-06-03",
+  "venue_stated": "Accepted to EMNLP 2024 Findings"
+ },
+ {
+  "arxiv_id": "2407.03211",
+  "version": "v2",
+  "title": "How Does Quantization Affect Multilingual LLMs?",
+  "comment": "Findings of EMNLP 2024 Camera-Ready",
+  "journal_ref": "",
+  "published": "2024-07-03",
+  "venue_stated": "Findings of EMNLP 2024 Camera-Ready"
+ },
+ {
+  "arxiv_id": "2410.12891",
+  "version": "v2",
+  "title": "Multi-trait User Simulation with Adaptive Decoding for Conversational Task Assistants",
+  "comment": "Preprint from EMNLP 2024 Findings",
+  "journal_ref": "",
+  "published": "2024-10-16",
+  "venue_stated": "Preprint from EMNLP 2024 Findings"
+ },
+ {
+  "arxiv_id": "2402.11409",
+  "version": "v3",
+  "title": "Multi-dimensional Evaluation of Empathetic Dialog Responses",
+  "comment": "Findings of EMNLP 2024",
+  "journal_ref": "",
+  "published": "2024-02-18",
+  "venue_stated": "Findings of EMNLP 2024"
+ },
+ {
+  "arxiv_id": "2406.14952",
+  "version": "v3",
+  "title": "ESC-Eval: Evaluating Emotion Support Conversations in Large Language Models",
+  "comment": "EMNLP 2024",
+  "journal_ref": "",
+  "published": "2024-06-21",
+  "venue_stated": "EMNLP 2024"
+ },
+ {
+  "arxiv_id": "2402.11142",
+  "version": "v2",
+  "title": "Grasping the Essentials: Tailoring Large Language Models for Zero-Shot Relation Extraction",
+  "comment": "25 pages, 20 Tables, 9 Figures; Accepted to EMNLP 2024",
+  "journal_ref": "",
+  "published": "2024-02-17",
+  "venue_stated": "25 pages, 20 Tables, 9 Figures; Accepted to EMNLP 2024"
+ },
+ {
+  "arxiv_id": "2410.12284",
+  "version": "v2",
+  "title": "Fool Me Once? Contrasting Textual and Visual Explanations in a Clinical Decision-Support Setting",
+  "comment": "EMNLP 2024",
+  "journal_ref": "",
+  "published": "2024-10-16",
+  "venue_stated": "EMNLP 2024"
+ },
+ {
+  "arxiv_id": "2407.04151",
+  "version": "v2",
+  "title": "Securing Multi-turn Conversational Language Models From Distributed Backdoor Triggers",
+  "comment": "Findings of EMNLP 2024",
+  "journal_ref": "",
+  "published": "2024-07-04",
+  "venue_stated": "Findings of EMNLP 2024"
+ },
+ {
+  "arxiv_id": "2407.16970",
+  "version": "v3",
+  "title": "Towards Aligning Language Models with Textual Feedback",
+  "comment": "Accepted to EMNLP 2024",
+  "journal_ref": "",
+  "published": "2024-07-24",
+  "venue_stated": "Accepted to EMNLP 2024"
+ },
+ {
+  "arxiv_id": "2409.16783",
+  "version": "v1",
+  "title": "Holistic Automated Red Teaming for Large Language Models through Top-Down Test Case Generation and Multi-turn Interaction",
+  "comment": "EMNLP 2024 camera ready version",
+  "journal_ref": "",
+  "published": "2024-09-25",
+  "venue_stated": "EMNLP 2024 camera ready version"
+ },
+ {
+  "arxiv_id": "2406.05013",
+  "version": "v2",
+  "title": "CHIQ: Contextual History Enhancement for Improving Query Rewriting in Conversational Search",
+  "comment": "Accepted by EMNLP 2024",
+  "journal_ref": "",
+  "published": "2024-06-07",
+  "venue_stated": "Accepted by EMNLP 2024"
+ },
+ {
+  "arxiv_id": "2406.15948",
+  "version": "v3",
+  "title": "Teaching LLMs to Abstain across Languages via Multilingual Feedback",
+  "comment": "EMNLP 2024",
+  "journal_ref": "",
+  "published": "2024-06-22",
+  "venue_stated": "EMNLP 2024"
+ },
+ {
+  "arxiv_id": "2402.13253",
+  "version": "v2",
+  "title": "BiMediX: Bilingual Medical Mixture of Experts LLM",
+  "comment": "Accepted to EMNLP 2024 (Findings)",
+  "journal_ref": "Findings of the Association for Computational Linguistics: EMNLP 2024, pages 16984-17002",
+  "published": "2024-02-20",
+  "venue_stated": "Accepted to EMNLP 2024 (Findings) Findings of the Association for Computational Linguistics: EMNLP 2024, pages 16984-17002"
+ },
+ {
+  "arxiv_id": "2410.01555",
+  "version": "v1",
+  "title": "ACE: A LLM-based Negotiation Coaching System",
+  "comment": "EMNLP 2024",
+  "journal_ref": "",
+  "published": "2024-10-02",
+  "venue_stated": "EMNLP 2024"
+ },
+ {
+  "arxiv_id": "2402.13550",
+  "version": "v3",
+  "title": "Are LLMs Effective Negotiators? Systematic Evaluation of the Multifaceted Capabilities of LLMs in Negotiation Dialogues",
+  "comment": "Accepted to Findings of EMNLP 2024",
+  "journal_ref": "",
+  "published": "2024-02-21",
+  "venue_stated": "Accepted to Findings of EMNLP 2024"
+ },
+ {
+  "arxiv_id": "2407.12857",
+  "version": "v2",
+  "title": "Automated Peer Reviewing in Paper SEA: Standardization, Evaluation, and Analysis",
+  "comment": "Accepted by EMNLP 2024",
+  "journal_ref": "",
+  "published": "2024-07-09",
+  "venue_stated": "Accepted by EMNLP 2024"
+ },
+ {
+  "arxiv_id": "2406.10421",
+  "version": "v3",
+  "title": "SciEx: Benchmarking Large Language Models on Scientific Exams with Human Expert Grading and Automatic Grading",
+  "comment": "Accepted to EMNLP 2024 Main Conference",
+  "journal_ref": "",
+  "published": "2024-06-14",
+  "venue_stated": "Accepted to EMNLP 2024 Main Conference"
+ },
+ {
+  "arxiv_id": "2410.06458",
+  "version": "v2",
+  "title": "LLM Self-Correction with DeCRIM: Decompose, Critique, and Refine for Enhanced Following of Instructions with Multiple Constraints",
+  "comment": "EMNLP 2024, see https://aclanthology.org/2024.findings-emnlp.458/",
+  "journal_ref": "",
+  "published": "2024-10-09",
+  "venue_stated": "EMNLP 2024, see https://aclanthology.org/2024.findings-emnlp.458/"
+ },
+ {
+  "arxiv_id": "2411.05383",
+  "version": "v1",
+  "title": "Towards Low-Resource Harmful Meme Detection with LMM Agents",
+  "comment": "EMNLP 2024",
+  "journal_ref": "",
+  "published": "2024-11-08",
+  "venue_stated": "EMNLP 2024"
+ },
+ {
+  "arxiv_id": "2409.18618",
+  "version": "v3",
+  "title": "Model-based Preference Optimization in Abstractive Summarization without Human Feedback",
+  "comment": "Accepted by EMNLP 2024",
+  "journal_ref": "",
+  "published": "2024-09-27",
+  "venue_stated": "Accepted by EMNLP 2024"
+ },
+ {
+  "arxiv_id": "2406.15352",
+  "version": "v2",
+  "title": "A SMART Mnemonic Sounds like \"Glue Tonic\": Mixing LLMs with Student Feedback to Make Mnemonic Learning Stick",
+  "comment": "EMNLP 2024",
+  "journal_ref": "",
+  "published": "2024-06-21",
+  "venue_stated": "EMNLP 2024"
+ },
+ {
+  "arxiv_id": "2407.00087",
+  "version": "v2",
+  "title": "ARES: Alternating Reinforcement Learning and Supervised Fine-Tuning for Enhanced Multi-Modal Chain-of-Thought Reasoning Through Diverse AI Feedback",
+  "comment": "Accepted to EMNLP 2024",
+  "journal_ref": "",
+  "published": "2024-06-25",
+  "venue_stated": "Accepted to EMNLP 2024"
+ },
+ {
+  "arxiv_id": "2407.04069",
+  "version": "v2",
+  "title": "A Systematic Survey and Critical Review on Evaluating Large Language Models: Challenges, Limitations, and Recommendations",
+  "comment": "Accepted at EMNLP 2024 (Main Conference)",
+  "journal_ref": "",
+  "published": "2024-07-04",
+  "venue_stated": "Accepted at EMNLP 2024 (Main Conference)"
+ },
+ {
+  "arxiv_id": "2407.03103",
+  "version": "v2",
+  "title": "Cactus: Towards Psychological Counseling Conversations using Cognitive Behavioral Theory",
+  "comment": "Published at EMNLP 2024 Findings",
+  "journal_ref": "",
+  "published": "2024-07-03",
+  "venue_stated": "Published at EMNLP 2024 Findings"
+ },
+ {
+  "arxiv_id": "2406.18164",
+  "version": "v4",
+  "title": "Nebula: A discourse aware Minecraft Builder",
+  "comment": "EMNLP 2024 Findings",
+  "journal_ref": "",
+  "published": "2024-06-26",
+  "venue_stated": "EMNLP 2024 Findings"
+ },
+ {
+  "arxiv_id": "2410.08623",
+  "version": "v1",
+  "title": "Retrieving Contextual Information for Long-Form Question Answering using Weak Supervision",
+  "comment": "Accepted at EMNLP 2024 (Findings)",
+  "journal_ref": "",
+  "published": "2024-10-11",
+  "venue_stated": "Accepted at EMNLP 2024 (Findings)"
+ },
+ {
+  "arxiv_id": "2410.03145",
+  "version": "v2",
+  "title": "Margin Matching Preference Optimization: Enhanced Model Alignment with Granular Feedback",
+  "comment": "EMNLP 2024 Findings",
+  "journal_ref": "",
+  "published": "2024-10-04",
+  "venue_stated": "EMNLP 2024 Findings"
+ },
+ {
+  "arxiv_id": "2406.13692",
+  "version": "v2",
+  "title": "Synchronous Faithfulness Monitoring for Trustworthy Retrieval-Augmented Generation",
+  "comment": "EMNLP 2024",
+  "journal_ref": "",
+  "published": "2024-06-19",
+  "venue_stated": "EMNLP 2024"
+ },
+ {
+  "arxiv_id": "2505.23060",
+  "version": "v3",
+  "title": "Self-Correcting Code Generation Using Small Language Models",
+  "comment": "Accepted at EMNLP 2025 (Findings, long paper)",
+  "journal_ref": "",
+  "published": "2025-05-29",
+  "venue_stated": "Accepted at EMNLP 2025 (Findings, long paper)"
+ },
+ {
+  "arxiv_id": "2505.23840",
+  "version": "v4",
+  "title": "Measuring Sycophancy of Language Models in Multi-turn Dialogues",
+  "comment": "Accepted to Findings of EMNLP 2025",
+  "journal_ref": "Findings of the Association for Computational Linguistics: EMNLP 2025, pages 2239-2259",
+  "published": "2025-05-28",
+  "venue_stated": "Accepted to Findings of EMNLP 2025 Findings of the Association for Computational Linguistics: EMNLP 2025, pages 2239-2259"
+ },
+ {
+  "arxiv_id": "2509.16533",
+  "version": "v1",
+  "title": "Challenging the Evaluator: LLM Sycophancy Under User Rebuttal",
+  "comment": "Accepted to EMNLP 2025 Findings",
+  "journal_ref": "",
+  "published": "2025-09-20",
+  "venue_stated": "Accepted to EMNLP 2025 Findings"
+ },
+ {
+  "arxiv_id": "2505.22823",
+  "version": "v2",
+  "title": "Self-Critique and Refinement for Faithful Natural Language Explanations",
+  "comment": "EMNLP 2025 Main",
+  "journal_ref": "",
+  "published": "2025-05-28",
+  "venue_stated": "EMNLP 2025 Main"
+ },
+ {
+  "arxiv_id": "2411.16594",
+  "version": "v7",
+  "title": "From Generation to Judgment: Opportunities and Challenges of LLM-as-a-judge",
+  "comment": "EMNLP 2025",
+  "journal_ref": "",
+  "published": "2024-11-25",
+  "venue_stated": "EMNLP 2025"
+ },
+ {
+  "arxiv_id": "2503.03064",
+  "version": "v2",
+  "title": "Improving LLM-as-a-Judge Inference with the Judgment Distribution",
+  "comment": "EMNLP 2025 Findings",
+  "journal_ref": "",
+  "published": "2025-03-04",
+  "venue_stated": "EMNLP 2025 Findings"
+ },
+ {
+  "arxiv_id": "2507.21105",
+  "version": "v2",
+  "title": "AgentMaster: A Multi-Agent Conversational Framework Using A2A and MCP Protocols for Multimodal Information Retrieval and Analysis",
+  "comment": "Accepted by EMNLP 2025",
+  "journal_ref": "",
+  "published": "2025-07-08",
+  "venue_stated": "Accepted by EMNLP 2025"
+ },
+ {
+  "arxiv_id": "2508.17450",
+  "version": "v3",
+  "title": "Persuasion Dynamics in LLMs: Investigating Robustness and Adaptability in Knowledge and Safety with DuET-PD",
+  "comment": "To appear at EMNLP 2025",
+  "journal_ref": "",
+  "published": "2025-08-24",
+  "venue_stated": "To appear at EMNLP 2025"
+ },
+ {
+  "arxiv_id": "2508.21476",
+  "version": "v1",
+  "title": "Igniting Creative Writing in Small Language Models: LLM-as-a-Judge versus Multi-Agent Refined Rewards",
+  "comment": "EMNLP 2025 Main",
+  "journal_ref": "",
+  "published": "2025-08-29",
+  "venue_stated": "EMNLP 2025 Main"
+ },
+ {
+  "arxiv_id": "2509.14651",
+  "version": "v1",
+  "title": "MUSE: MCTS-Driven Red Teaming Framework for Enhanced Multi-Turn Dialogue Safety in Large Language Models",
+  "comment": "EMNLP 2025 main conference",
+  "journal_ref": "",
+  "published": "2025-09-18",
+  "venue_stated": "EMNLP 2025 main conference"
+ },
+ {
+  "arxiv_id": "2506.03558",
+  "version": "v2",
+  "title": "ConsistentChat: Building Skeleton-Guided Consistent Multi-Turn Dialogues for Large Language Models from Scratch",
+  "comment": "EMNLP 2025 Main Conference (Oral Presentation)",
+  "journal_ref": "",
+  "published": "2025-06-04",
+  "venue_stated": "EMNLP 2025 Main Conference (Oral Presentation)"
+ },
+ {
+  "arxiv_id": "2409.14664",
+  "version": "v3",
+  "title": "Direct Judgement Preference Optimization",
+  "comment": "EMNLP 2025",
+  "journal_ref": "",
+  "published": "2024-09-23",
+  "venue_stated": "EMNLP 2025"
+ },
+ {
+  "arxiv_id": "2505.15389",
+  "version": "v3",
+  "title": "Are Vision-Language Models Safe in the Wild? A Meme-Based Benchmark Study",
+  "comment": "Accepted to EMNLP 2025",
+  "journal_ref": "",
+  "published": "2025-05-21",
+  "venue_stated": "Accepted to EMNLP 2025"
+ },
+ {
+  "arxiv_id": "2508.16456",
+  "version": "v1",
+  "title": "A Probabilistic Inference Scaling Theory for LLM Self-Correction",
+  "comment": "EMNLP 2025 Main",
+  "journal_ref": "",
+  "published": "2025-08-22",
+  "venue_stated": "EMNLP 2025 Main"
+ },
+ {
+  "arxiv_id": "2409.12147",
+  "version": "v2",
+  "title": "MAgICoRe: Multi-Agent, Iterative, Coarse-to-Fine Refinement for Reasoning",
+  "comment": "EMNLP 2025 (Camera-Ready)",
+  "journal_ref": "",
+  "published": "2024-09-18",
+  "venue_stated": "EMNLP 2025 (Camera-Ready)"
+ },
+ {
+  "arxiv_id": "2506.21532",
+  "version": "v3",
+  "title": "\"What's Up, Doc?\": Analyzing How Users Seek Health Information in Large-Scale Conversational AI Datasets",
+  "comment": "Accepted to EMNLP 2025 Findings - 25 pages, 6 figures, 4 tables",
+  "journal_ref": "",
+  "published": "2025-06-26",
+  "venue_stated": "Accepted to EMNLP 2025 Findings - 25 pages, 6 figures, 4 tables"
+ },
+ {
+  "arxiv_id": "2403.18771",
+  "version": "v3",
+  "title": "CheckEval: A reliable LLM-as-a-Judge framework for evaluating text generation using checklists",
+  "comment": "EMNLP 2025",
+  "journal_ref": "",
+  "published": "2024-03-27",
+  "venue_stated": "EMNLP 2025"
+ },
+ {
+  "arxiv_id": "2508.20931",
+  "version": "v2",
+  "title": "How Can Input Reformulation Improve Tool Usage Accuracy in a Complex Dynamic Environment? A Study on $\u03c4$-bench",
+  "comment": "Accepted to EMNLP 2025 Findings",
+  "journal_ref": "",
+  "published": "2025-08-28",
+  "venue_stated": "Accepted to EMNLP 2025 Findings"
+ },
+ {
+  "arxiv_id": "2503.02103",
+  "version": "v2",
+  "title": "Superficial Self-Improved Reasoners Benefit from Model Merging",
+  "comment": "EMNLP 2025",
+  "journal_ref": "",
+  "published": "2025-03-03",
+  "venue_stated": "EMNLP 2025"
+ },
+ {
+  "arxiv_id": "2502.12065",
+  "version": "v3",
+  "title": "Autoformalization in the Wild: Assessing LLMs on Real-World Mathematical Definitions",
+  "comment": "EMNLP 2025 Camera-Ready Version",
+  "journal_ref": "",
+  "published": "2025-02-17",
+  "venue_stated": "EMNLP 2025 Camera-Ready Version"
+ },
+ {
+  "arxiv_id": "2510.02665",
+  "version": "v1",
+  "title": "Self-Improvement in Multimodal Large Language Models: A Survey",
+  "comment": "EMNLP 2025",
+  "journal_ref": "",
+  "published": "2025-10-03",
+  "venue_stated": "EMNLP 2025"
+ },
+ {
+  "arxiv_id": "2510.23854",
+  "version": "v1",
+  "title": "Can LLMs Narrate Tabular Data? An Evaluation Framework for Natural Language Representations of Text-to-SQL System Outputs",
+  "comment": "Accepted at EMNLP 2025",
+  "journal_ref": "",
+  "published": "2025-10-27",
+  "venue_stated": "Accepted at EMNLP 2025"
+ },
+ {
+  "arxiv_id": "2510.05444",
+  "version": "v2",
+  "title": "SimulatorArena: Are User Simulators Reliable Proxies for Multi-Turn Evaluation of AI Assistants?",
+  "comment": "Accepted at EMNLP 2025 Main",
+  "journal_ref": "",
+  "published": "2025-10-06",
+  "venue_stated": "Accepted at EMNLP 2025 Main"
+ },
+ {
+  "arxiv_id": "2506.01341",
+  "version": "v2",
+  "title": "TurnBench-MS: A Benchmark for Evaluating Multi-Turn, Multi-Step Reasoning in Large Language Models",
+  "comment": "Accepted to Findings of the Association for Computational Linguistics: EMNLP 2025",
+  "journal_ref": "Findings of the ACL: EMNLP 2025, pp. 19892-19924, 2025",
+  "published": "2025-06-02",
+  "venue_stated": "Accepted to Findings of the Association for Computational Linguistics: EMNLP 2025 Findings of the ACL: EMNLP 2025, pp. 19892-19924, 2025"
+ },
+ {
+  "arxiv_id": "2508.21628",
+  "version": "v1",
+  "title": "Personality Matters: User Traits Predict LLM Preferences in Multi-Turn Collaborative Tasks",
+  "comment": "Accepted to EMNLP 2025 Main Conference",
+  "journal_ref": "",
+  "published": "2025-08-29",
+  "venue_stated": "Accepted to EMNLP 2025 Main Conference"
+ },
+ {
+  "arxiv_id": "2406.17962",
+  "version": "v7",
+  "title": "Crafting Customisable Characters with LLMs: A Persona-Driven Role-Playing Agent Framework",
+  "comment": "EMNLP 2025 Findings",
+  "journal_ref": "",
+  "published": "2024-06-25",
+  "venue_stated": "EMNLP 2025 Findings"
+ },
+ {
+  "arxiv_id": "2506.01381",
+  "version": "v2",
+  "title": "AdaRewriter: Unleashing the Power of Prompting-based Conversational Query Reformulation via Test-Time Adaptation",
+  "comment": "Accepted by EMNLP 2025",
+  "journal_ref": "",
+  "published": "2025-06-02",
+  "venue_stated": "Accepted by EMNLP 2025"
+ },
+ {
+  "arxiv_id": "2501.08613",
+  "version": "v3",
+  "title": "Assessing the Sensitivity and Alignment of FOL Closeness Metrics",
+  "comment": "EMNLP 2025",
+  "journal_ref": "",
+  "published": "2025-01-15",
+  "venue_stated": "EMNLP 2025"
+ },
+ {
+  "arxiv_id": "2509.20811",
+  "version": "v1",
+  "title": "Leveraging What's Overfixed: Post-Correction via LLM Grammatical Error Overcorrection",
+  "comment": "EMNLP 2025",
+  "journal_ref": "",
+  "published": "2025-09-25",
+  "venue_stated": "EMNLP 2025"
+ },
+ {
+  "arxiv_id": "2508.07616",
+  "version": "v2",
+  "title": "ThinkTuning: Instilling Cognitive Reflections without Distillation",
+  "comment": "EMNLP 2025 (Main Conference)",
+  "journal_ref": "",
+  "published": "2025-08-11",
+  "venue_stated": "EMNLP 2025 (Main Conference)"
+ },
+ {
+  "arxiv_id": "2510.02938",
+  "version": "v2",
+  "title": "Finding Diamonds in Conversation Haystacks: A Benchmark for Conversational Data Retrieval",
+  "comment": "Accepted by EMNLP 2025 Industry Track",
+  "journal_ref": "",
+  "published": "2025-10-03",
+  "venue_stated": "Accepted by EMNLP 2025 Industry Track"
+ },
+ {
+  "arxiv_id": "2509.25818",
+  "version": "v1",
+  "title": "VELA: An LLM-Hybrid-as-a-Judge Approach for Evaluating Long Image Captions",
+  "comment": "EMNLP 2025 Main Conference",
+  "journal_ref": "",
+  "published": "2025-09-30",
+  "venue_stated": "EMNLP 2025 Main Conference"
+ },
+ {
+  "arxiv_id": "2505.17267",
+  "version": "v3",
+  "title": "GreekBarBench: A Challenging Benchmark for Free-Text Legal Reasoning and Citations",
+  "comment": "19 pages, 17 figures, accepted in EMNLP 2025",
+  "journal_ref": "",
+  "published": "2025-05-22",
+  "venue_stated": "19 pages, 17 figures, accepted in EMNLP 2025"
+ },
+ {
+  "arxiv_id": "2505.24683",
+  "version": "v3",
+  "title": "Should I Share this Translation? Evaluating Quality Feedback for User Reliance on Machine Translation",
+  "comment": "EMNLP 2025",
+  "journal_ref": "",
+  "published": "2025-05-30",
+  "venue_stated": "EMNLP 2025"
+ },
+ {
+  "arxiv_id": "2505.24858",
+  "version": "v2",
+  "title": "MetaFaith: Faithful Natural Language Uncertainty Expression in LLMs",
+  "comment": "EMNLP 2025",
+  "journal_ref": "",
+  "published": "2025-05-30",
+  "venue_stated": "EMNLP 2025"
+ },
+ {
+  "arxiv_id": "2506.02659",
+  "version": "v2",
+  "title": "Are Economists Always More Introverted? Analyzing Consistency in Persona-Assigned LLMs",
+  "comment": "Accepted to EMNLP 2025 findings",
+  "journal_ref": "",
+  "published": "2025-06-03",
+  "venue_stated": "Accepted to EMNLP 2025 findings"
+ },
+ {
+  "arxiv_id": "2410.13456",
+  "version": "v3",
+  "title": "Unlocking Legal Knowledge: A Multilingual Dataset for Judicial Summarization in Switzerland",
+  "comment": "Accepted to EMNLP 2025 Findings",
+  "journal_ref": "",
+  "published": "2024-10-17",
+  "venue_stated": "Accepted to EMNLP 2025 Findings"
+ },
+ {
+  "arxiv_id": "2510.07000",
+  "version": "v1",
+  "title": "Pragyaan: Designing and Curating High-Quality Cultural Post-Training Datasets for Indian Languages",
+  "comment": "EMNLP 2025",
+  "journal_ref": "",
+  "published": "2025-10-08",
+  "venue_stated": "EMNLP 2025"
+ },
+ {
+  "arxiv_id": "2509.16107",
+  "version": "v1",
+  "title": "It Depends: Resolving Referential Ambiguity in Minimal Contexts with Commonsense Knowledge",
+  "comment": "Accepted by UncertaiNLP workshop @ EMNLP 2025",
+  "journal_ref": "",
+  "published": "2025-09-19",
+  "venue_stated": "Accepted by UncertaiNLP workshop @ EMNLP 2025"
+ },
+ {
+  "arxiv_id": "2510.01239",
+  "version": "v1",
+  "title": "CIFLEX: Contextual Instruction Flow for Sub-task Execution in Multi-Turn Interactions with a Single On-Device LLM",
+  "comment": "accepted at EMNLP 2025 (main)",
+  "journal_ref": "",
+  "published": "2025-09-24",
+  "venue_stated": "accepted at EMNLP 2025 (main)"
+ },
+ {
+  "arxiv_id": "2310.13522",
+  "version": "v2",
+  "title": "Teaching Language Models to Self-Improve through Interactive Demonstrations",
+  "comment": "NAACL 2024 main",
+  "journal_ref": "",
+  "published": "2023-10-20",
+  "venue_stated": "NAACL 2024 main"
+ },
+ {
+  "arxiv_id": "2311.09144",
+  "version": "v2",
+  "title": "Grounding Gaps in Language Model Generations",
+  "comment": "NAACL 2024; 18 pages, 2 figures",
+  "journal_ref": "",
+  "published": "2023-11-15",
+  "venue_stated": "NAACL 2024; 18 pages, 2 figures"
+ },
+ {
+  "arxiv_id": "2403.09738",
+  "version": "v4",
+  "title": "Evaluating Large Language Models as Generative User Simulators for Conversational Recommendation",
+  "comment": "NAACL 2024",
+  "journal_ref": "",
+  "published": "2024-03-13",
+  "venue_stated": "NAACL 2024"
+ },
+ {
+  "arxiv_id": "2311.10781",
+  "version": "v2",
+  "title": "Can Language Model Moderators Improve the Health of Online Discourse?",
+  "comment": "9 pages, NAACL 2024 Main",
+  "journal_ref": "Proceedings of the 2024 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies",
+  "published": "2023-11-16",
+  "venue_stated": "9 pages, NAACL 2024 Main Proceedings of the 2024 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies"
+ },
+ {
+  "arxiv_id": "2403.18341",
+  "version": "v1",
+  "title": "IterAlign: Iterative Constitutional Alignment of Large Language Models",
+  "comment": "NAACL 2024",
+  "journal_ref": "",
+  "published": "2024-03-27",
+  "venue_stated": "NAACL 2024"
+ },
+ {
+  "arxiv_id": "2310.12558",
+  "version": "v2",
+  "title": "Large Language Models Help Humans Verify Truthfulness -- Except When They Are Convincingly Wrong",
+  "comment": "NAACL 2024",
+  "journal_ref": "",
+  "published": "2023-10-19",
+  "venue_stated": "NAACL 2024"
+ },
+ {
+  "arxiv_id": "2311.09447",
+  "version": "v2",
+  "title": "How Trustworthy are Open-Source LLMs? An Assessment under Malicious Demonstrations Shows their Vulnerabilities",
+  "comment": "NAACL 2024",
+  "journal_ref": "",
+  "published": "2023-11-15",
+  "venue_stated": "NAACL 2024"
+ },
+ {
+  "arxiv_id": "2410.09999",
+  "version": "v1",
+  "title": "Leveraging Customer Feedback for Multi-modal Insight Extraction",
+  "comment": "NAACL 2024",
+  "journal_ref": "",
+  "published": "2024-10-13",
+  "venue_stated": "NAACL 2024"
+ },
+ {
+  "arxiv_id": "2401.12873",
+  "version": "v3",
+  "title": "Improving Machine Translation with Human Feedback: An Exploration of Quality Estimation as a Reward Model",
+  "comment": "NAACL 2024",
+  "journal_ref": "",
+  "published": "2024-01-23",
+  "venue_stated": "NAACL 2024"
+ },
+ {
+  "arxiv_id": "2402.13043",
+  "version": "v3",
+  "title": "Effective and Efficient Conversation Retrieval for Dialogue State Tracking with Implicit Text Summaries",
+  "comment": "NAACL 2024",
+  "journal_ref": "",
+  "published": "2024-02-20",
+  "venue_stated": "NAACL 2024"
+ },
+ {
+  "arxiv_id": "2304.14364",
+  "version": "v2",
+  "title": "CONSCENDI: A Contrastive and Scenario-Guided Distillation Approach to Guardrail Models for Virtual Assistants",
+  "comment": "To appear in NAACL 2024",
+  "journal_ref": "",
+  "published": "2023-04-27",
+  "venue_stated": "To appear in NAACL 2024"
+ },
+ {
+  "arxiv_id": "2401.05952",
+  "version": "v2",
+  "title": "LLM-as-a-Coauthor: Can Mixed Human-Written and Machine-Generated Text Be Detected?",
+  "comment": "Accepted by NAACL 2024",
+  "journal_ref": "",
+  "published": "2024-01-11",
+  "venue_stated": "Accepted by NAACL 2024"
+ },
+ {
+  "arxiv_id": "2404.08155",
+  "version": "v1",
+  "title": "Graph Integrated Language Transformers for Next Action Prediction in Complex Phone Calls",
+  "comment": "Published in NAACL 2024 Industry Track",
+  "journal_ref": "",
+  "published": "2024-04-11",
+  "venue_stated": "Published in NAACL 2024 Industry Track"
+ },
+ {
+  "arxiv_id": "2402.09283",
+  "version": "v3",
+  "title": "Attacks, Defenses and Evaluations for LLM Conversation Safety: A Survey",
+  "comment": "Accepted to NAACL 2024",
+  "journal_ref": "",
+  "published": "2024-02-14",
+  "venue_stated": "Accepted to NAACL 2024"
+ },
+ {
+  "arxiv_id": "2311.07884",
+  "version": "v2",
+  "title": "Fair Abstractive Summarization of Diverse Perspectives",
+  "comment": "NAACL 2024",
+  "journal_ref": "",
+  "published": "2023-11-14",
+  "venue_stated": "NAACL 2024"
+ },
+ {
+  "arxiv_id": "2305.13068",
+  "version": "v3",
+  "title": "Making Language Models Better Tool Learners with Execution Feedback",
+  "comment": "NAACL 2024",
+  "journal_ref": "",
+  "published": "2023-05-22",
+  "venue_stated": "NAACL 2024"
+ },
+ {
+  "arxiv_id": "2311.09336",
+  "version": "v5",
+  "title": "LLMRefine: Pinpointing and Refining Large Language Models via Fine-Grained Actionable Feedback",
+  "comment": "Accepted to NAACL 2024",
+  "journal_ref": "",
+  "published": "2023-11-15",
+  "venue_stated": "Accepted to NAACL 2024"
+ },
+ {
+  "arxiv_id": "2404.07851",
+  "version": "v2",
+  "title": "Guiding Large Language Models to Post-Edit Machine Translation with Error Annotations",
+  "comment": "NAACL 2024 Findings",
+  "journal_ref": "",
+  "published": "2024-04-11",
+  "venue_stated": "NAACL 2024 Findings"
+ },
+ {
+  "arxiv_id": "2311.09558",
+  "version": "v2",
+  "title": "What if you said that differently?: How Explanation Formats Affect Human Feedback Efficacy and User Perception",
+  "comment": "Accepted to NAACL 2024. Code & data available at https://github.com/chaitanyamalaviya/rationale_formats",
+  "journal_ref": "",
+  "published": "2023-11-16",
+  "venue_stated": "Accepted to NAACL 2024. Code & data available at https://github.com/chaitanyamalaviya/rationale_formats"
+ },
+ {
+  "arxiv_id": "2402.14207",
+  "version": "v2",
+  "title": "Assisting in Writing Wikipedia-like Articles From Scratch with Large Language Models",
+  "comment": "27 pages, NAACL 2024 Main Conference",
+  "journal_ref": "",
+  "published": "2024-02-22",
+  "venue_stated": "27 pages, NAACL 2024 Main Conference"
+ },
+ {
+  "arxiv_id": "2404.01652",
+  "version": "v1",
+  "title": "Towards Better Generalization in Open-Domain Question Answering by Mitigating Context Memorization",
+  "comment": "Accepted to NAACL 2024 Findings",
+  "journal_ref": "",
+  "published": "2024-04-02",
+  "venue_stated": "Accepted to NAACL 2024 Findings"
+ },
+ {
+  "arxiv_id": "2311.08921",
+  "version": "v3",
+  "title": "Self-Improving for Zero-Shot Named Entity Recognition with Large Language Models",
+  "comment": "Accepted to NAACL 2024 (Main Conference)",
+  "journal_ref": "",
+  "published": "2023-11-15",
+  "venue_stated": "Accepted to NAACL 2024 (Main Conference)"
+ },
+ {
+  "arxiv_id": "2404.00557",
+  "version": "v1",
+  "title": "DivTOD: Unleashing the Power of LLMs for Diversifying Task-Oriented Dialogue Representations",
+  "comment": "NAACL 2024 (Findings)",
+  "journal_ref": "",
+  "published": "2024-03-31",
+  "venue_stated": "NAACL 2024 (Findings)"
+ },
+ {
+  "arxiv_id": "2305.10314",
+  "version": "v2",
+  "title": "LeTI: Learning to Generate from Textual Interactions",
+  "comment": "NAACL 2024 Findings",
+  "journal_ref": "",
+  "published": "2023-05-17",
+  "venue_stated": "NAACL 2024 Findings"
+ },
+ {
+  "arxiv_id": "2310.15147",
+  "version": "v2",
+  "title": "S3Eval: A Synthetic, Scalable, Systematic Evaluation Suite for Large Language Models",
+  "comment": "NAACL 2024",
+  "journal_ref": "",
+  "published": "2023-10-23",
+  "venue_stated": "NAACL 2024"
+ },
+ {
+  "arxiv_id": "2406.07739",
+  "version": "v1",
+  "title": "UICoder: Finetuning Large Language Models to Generate User Interface Code through Automated Feedback",
+  "comment": "Accepted to NAACL 2024",
+  "journal_ref": "",
+  "published": "2024-06-11",
+  "venue_stated": "Accepted to NAACL 2024"
+ },
+ {
+  "arxiv_id": "2404.13764",
+  "version": "v1",
+  "title": "Using Adaptive Empathetic Responses for Teaching English",
+  "comment": "Accepted to BEA workshop at NAACL 2024",
+  "journal_ref": "",
+  "published": "2024-04-21",
+  "venue_stated": "Accepted to BEA workshop at NAACL 2024"
+ },
+ {
+  "arxiv_id": "2401.12987",
+  "version": "v2",
+  "title": "TelME: Teacher-leading Multimodal Fusion Network for Emotion Recognition in Conversation",
+  "comment": "NAACL 2024 main conference",
+  "journal_ref": "",
+  "published": "2024-01-16",
+  "venue_stated": "NAACL 2024 main conference"
+ },
+ {
+  "arxiv_id": "2309.16583",
+  "version": "v6",
+  "title": "GPT-Fathom: Benchmarking Large Language Models to Decipher the Evolutionary Path towards GPT-4 and Beyond",
+  "comment": "Accepted by NAACL 2024",
+  "journal_ref": "",
+  "published": "2023-09-28",
+  "venue_stated": "Accepted by NAACL 2024"
+ },
+ {
+  "arxiv_id": "2410.14026",
+  "version": "v1",
+  "title": "Generating Signed Language Instructions in Large-Scale Dialogue Systems",
+  "comment": "2024 Annual Conference of the North American Chapter of the Association for Computational Linguistics (NAACL 2024) Industry Track",
+  "journal_ref": "",
+  "published": "2024-10-17",
+  "venue_stated": "2024 Annual Conference of the North American Chapter of the Association for Computational Linguistics (NAACL 2024) Industry Track"
+ },
+ {
+  "arxiv_id": "2303.16854",
+  "version": "v2",
+  "title": "AnnoLLM: Making Large Language Models to Be Better Crowdsourced Annotators",
+  "comment": "Accepted to NAACL 2024",
+  "journal_ref": "",
+  "published": "2023-03-29",
+  "venue_stated": "Accepted to NAACL 2024"
+ },
+ {
+  "arxiv_id": "2404.08156",
+  "version": "v1",
+  "title": "Multimodal Contextual Dialogue Breakdown Detection for Conversational AI Models",
+  "comment": "Published in NAACL 2024 Industry Track",
+  "journal_ref": "",
+  "published": "2024-04-11",
+  "venue_stated": "Published in NAACL 2024 Industry Track"
+ },
+ {
+  "arxiv_id": "2305.12280",
+  "version": "v3",
+  "title": "Contextualizing Argument Quality Assessment with Relevant Knowledge",
+  "comment": "Accepted at NAACL 2024",
+  "journal_ref": "",
+  "published": "2023-05-20",
+  "venue_stated": "Accepted at NAACL 2024"
+ },
+ {
+  "arxiv_id": "2404.02444",
+  "version": "v1",
+  "title": "The Promises and Pitfalls of Using Language Models to Measure Instruction Quality in Education",
+  "comment": "NAACL 2024",
+  "journal_ref": "",
+  "published": "2024-04-03",
+  "venue_stated": "NAACL 2024"
+ },
+ {
+  "arxiv_id": "2403.11092",
+  "version": "v1",
+  "title": "Lost in Translation? Translation Errors and Challenges for Fair Assessment of Text-to-Image Models on Multilingual Concepts",
+  "comment": "NAACL 2024 Main Conference",
+  "journal_ref": "",
+  "published": "2024-03-17",
+  "venue_stated": "NAACL 2024 Main Conference"
+ },
+ {
+  "arxiv_id": "2403.20289",
+  "version": "v1",
+  "title": "Emotion-Anchored Contrastive Learning Framework for Emotion Recognition in Conversation",
+  "comment": "Accepted by Findings of NAACL 2024",
+  "journal_ref": "",
+  "published": "2024-03-29",
+  "venue_stated": "Accepted by Findings of NAACL 2024"
+ },
+ {
+  "arxiv_id": "2403.09057",
+  "version": "v3",
+  "title": "A Continued Pretrained LLM Approach for Automatic Medical Note Generation",
+  "comment": "Accepted to NAACL 2024",
+  "journal_ref": "",
+  "published": "2024-03-14",
+  "venue_stated": "Accepted to NAACL 2024"
+ },
+ {
+  "arxiv_id": "2403.13592",
+  "version": "v2",
+  "title": "Llama meets EU: Investigating the European Political Spectrum through the Lens of LLMs",
+  "comment": "accepted to NAACL 2024 as a short paper",
+  "journal_ref": "",
+  "published": "2024-03-20",
+  "venue_stated": "accepted to NAACL 2024 as a short paper"
+ },
+ {
+  "arxiv_id": "2311.05074",
+  "version": "v2",
+  "title": "GRASP: A Disagreement Analysis Framework to Assess Group Associations in Perspectives",
+  "comment": "Presented as a long paper at NAACL 2024 main conference",
+  "journal_ref": "2024 Annual Conference of the North American Chapter of the Association for Computational Linguistics",
+  "published": "2023-11-09",
+  "venue_stated": "Presented as a long paper at NAACL 2024 main conference 2024 Annual Conference of the North American Chapter of the Association for Computational Linguistics"
+ },
+ {
+  "arxiv_id": "2310.14855",
+  "version": "v2",
+  "title": "Contextual Refinement of Translations: Large Language Models for Sentence and Document-Level Post-Editing",
+  "comment": "NAACL 2024",
+  "journal_ref": "",
+  "published": "2023-10-23",
+  "venue_stated": "NAACL 2024"
+ },
+ {
+  "arxiv_id": "2408.08144",
+  "version": "v3",
+  "title": "MIDAS: Multi-level Intent, Domain, And Slot Knowledge Distillation for Multi-turn NLU",
+  "comment": "Accepted by NAACL 2025",
+  "journal_ref": "",
+  "published": "2024-08-15",
+  "venue_stated": "Accepted by NAACL 2025"
+ },
+ {
+  "arxiv_id": "2410.13716",
+  "version": "v2",
+  "title": "MIRAGE-Bench: Automatic Multilingual Benchmark Arena for Retrieval-Augmented Generation Systems",
+  "comment": "Accepted at NAACL 2025 (Main Conference)",
+  "journal_ref": "",
+  "published": "2024-10-17",
+  "venue_stated": "Accepted at NAACL 2025 (Main Conference)"
+ },
+ {
+  "arxiv_id": "2503.12556",
+  "version": "v1",
+  "title": "From Guessing to Asking: An Approach to Resolving the Persona Knowledge Gap in LLMs during Multi-Turn Conversations",
+  "comment": "12 pages, 1 Figure, Oral Presentation at NAACL 2025",
+  "journal_ref": "",
+  "published": "2025-03-16",
+  "venue_stated": "12 pages, 1 Figure, Oral Presentation at NAACL 2025"
+ },
+ {
+  "arxiv_id": "2402.11827",
+  "version": "v2",
+  "title": "Ask Optimal Questions: Aligning Large Language Models with Retriever's Preference in Conversation",
+  "comment": "NAACL 2025 (findings)",
+  "journal_ref": "",
+  "published": "2024-02-19",
+  "venue_stated": "NAACL 2025 (findings)"
+ },
+ {
+  "arxiv_id": "2404.07738",
+  "version": "v2",
+  "title": "ResearchAgent: Iterative Research Idea Generation over Scientific Literature with Large Language Models",
+  "comment": "NAACL 2025",
+  "journal_ref": "",
+  "published": "2024-04-11",
+  "venue_stated": "NAACL 2025"
+ },
+ {
+  "arxiv_id": "2410.17485",
+  "version": "v2",
+  "title": "VoiceTextBlender: Augmenting Large Language Models with Speech Capabilities via Single-Stage Joint Speech-Text Supervised Fine-Tuning",
+  "comment": "Accepted at NAACL 2025 main conference",
+  "journal_ref": "",
+  "published": "2024-10-23",
+  "venue_stated": "Accepted at NAACL 2025 main conference"
+ },
+ {
+  "arxiv_id": "2504.03174",
+  "version": "v1",
+  "title": "Multi-lingual Multi-turn Automated Red Teaming for LLMs",
+  "comment": "Accepted at TrustNLP@NAACL 2025",
+  "journal_ref": "",
+  "published": "2025-04-04",
+  "venue_stated": "Accepted at TrustNLP@NAACL 2025"
+ },
+ {
+  "arxiv_id": "2502.08972",
+  "version": "v3",
+  "title": "Tuning-Free Personalized Alignment via Trial-Error-Explain In-Context Learning",
+  "comment": "NAACL 2025 Findings",
+  "journal_ref": "",
+  "published": "2025-02-13",
+  "venue_stated": "NAACL 2025 Findings"
+ },
+ {
+  "arxiv_id": "2404.05966",
+  "version": "v2",
+  "title": "THOUGHTSCULPT: Reasoning with Intermediate Revision and Search",
+  "comment": "Accepted to NAACL 2025 Findings. Code and data available at https://github.com/cyzus/thoughtsculpt",
+  "journal_ref": "",
+  "published": "2024-04-09",
+  "venue_stated": "Accepted to NAACL 2025 Findings. Code and data available at https://github.com/cyzus/thoughtsculpt"
+ },
+ {
+  "arxiv_id": "2410.09580",
+  "version": "v3",
+  "title": "SAPIENT: Mastering Multi-turn Conversational Recommendation with Strategic Planning and Monte Carlo Tree Search",
+  "comment": "Accepted to NAACL 2025 Main Conference",
+  "journal_ref": "",
+  "published": "2024-10-12",
+  "venue_stated": "Accepted to NAACL 2025 Main Conference"
+ },
+ {
+  "arxiv_id": "2503.23371",
+  "version": "v1",
+  "title": "FeRG-LLM : Feature Engineering by Reason Generation Large Language Models",
+  "comment": "Accepted to NAACL 2025 Findings",
+  "journal_ref": "",
+  "published": "2025-03-30",
+  "venue_stated": "Accepted to NAACL 2025 Findings"
+ },
+ {
+  "arxiv_id": "2410.20941",
+  "version": "v4",
+  "title": "Fine-Grained and Multi-Dimensional Metrics for Document-Level Machine Translation",
+  "comment": "Accepted at NAACL 2025 Student Research Workshop",
+  "journal_ref": "",
+  "published": "2024-10-28",
+  "venue_stated": "Accepted at NAACL 2025 Student Research Workshop"
+ },
+ {
+  "arxiv_id": "2503.04141",
+  "version": "v1",
+  "title": "HEISIR: Hierarchical Expansion of Inverted Semantic Indexing for Training-free Retrieval of Conversational Data using LLMs",
+  "comment": "Accepted by NAACL 2025 (Findings)",
+  "journal_ref": "",
+  "published": "2025-03-06",
+  "venue_stated": "Accepted by NAACL 2025 (Findings)"
+ },
+ {
+  "arxiv_id": "2412.02549",
+  "version": "v2",
+  "title": "Patent-CR: A Dataset for Patent Claim Revision",
+  "comment": "Accepted to NAACL 2025. 15 pages, 6 tables, 3 figures",
+  "journal_ref": "Proceedings of the 2025 Conference of the Nations of the Americas Chapter of the Association for Computational Linguistics: Human Language Technologies (Volume 1: Long Papers), pages 2300-2314",
+  "published": "2024-12-03",
+  "venue_stated": "Accepted to NAACL 2025. 15 pages, 6 tables, 3 figures Proceedings of the 2025 Conference of the Nations of the Americas Chapter of the Association for Computational Linguistics: Human Language Technologies (Volume 1: Long Papers), pages 2300-2314"
+ },
+ {
+  "arxiv_id": "2405.15973",
+  "version": "v4",
+  "title": "Enhancing Visual-Language Modality Alignment in Large Vision Language Models via Self-Improvement",
+  "comment": "NAACL 2025 Findings",
+  "journal_ref": "",
+  "published": "2024-05-24",
+  "venue_stated": "NAACL 2025 Findings"
+ },
+ {
+  "arxiv_id": "2411.04585",
+  "version": "v2",
+  "title": "The State and Fate of Summarization Datasets: A Survey",
+  "comment": "Accepted to NAACL 2025",
+  "journal_ref": "",
+  "published": "2024-11-07",
+  "venue_stated": "Accepted to NAACL 2025"
+ },
+ {
+  "arxiv_id": "2409.15861",
+  "version": "v3",
+  "title": "A Zero-Shot Open-Vocabulary Pipeline for Dialogue Understanding",
+  "comment": "Accepted to NAACL 2025",
+  "journal_ref": "",
+  "published": "2024-09-24",
+  "venue_stated": "Accepted to NAACL 2025"
+ },
+ {
+  "arxiv_id": "2409.00358",
+  "version": "v2",
+  "title": "Predicting the Target Word of Game-playing Conversations using a Low-Rank Dialect Adapter for Decoder Models",
+  "comment": "Accepted to NAACL 2025",
+  "journal_ref": "",
+  "published": "2024-08-31",
+  "venue_stated": "Accepted to NAACL 2025"
+ },
+ {
+  "arxiv_id": "2502.07544",
+  "version": "v1",
+  "title": "Grammar Control in Dialogue Response Generation for Language Learning Chatbots",
+  "comment": "Accepted to NAACL 2025",
+  "journal_ref": "",
+  "published": "2025-02-11",
+  "venue_stated": "Accepted to NAACL 2025"
+ },
+ {
+  "arxiv_id": "2502.14765",
+  "version": "v1",
+  "title": "Step-by-Step Fact Verification System for Medical Claims with Explainable Reasoning",
+  "comment": "Accepted to NAACL 2025 (Main)",
+  "journal_ref": "",
+  "published": "2025-02-20",
+  "venue_stated": "Accepted to NAACL 2025 (Main)"
+ },
+ {
+  "arxiv_id": "2406.08446",
+  "version": "v2",
+  "title": "OLMES: A Standard for Language Model Evaluations",
+  "comment": "Findings of NAACL 2025",
+  "journal_ref": "",
+  "published": "2024-06-12",
+  "venue_stated": "Findings of NAACL 2025"
+ },
+ {
+  "arxiv_id": "2502.06298",
+  "version": "v1",
+  "title": "SeaExam and SeaBench: Benchmarking LLMs with Local Multilingual Questions in Southeast Asia",
+  "comment": "Accepted to Findings of NAACL 2025",
+  "journal_ref": "",
+  "published": "2025-02-10",
+  "venue_stated": "Accepted to Findings of NAACL 2025"
+ },
+ {
+  "arxiv_id": "2502.05887",
+  "version": "v1",
+  "title": "MTPChat: A Multimodal Time-Aware Persona Dataset for Conversational Agents",
+  "comment": "NAACL 2025 Findings",
+  "journal_ref": "",
+  "published": "2025-02-09",
+  "venue_stated": "NAACL 2025 Findings"
+ },
+ {
+  "arxiv_id": "2609.04539",
+  "version": "v1",
+  "title": "A Calibrated Reflection Approach for Enhancing Confidence Estimation in LLMs",
+  "comment": "Published at TrustNLP 2025 (NAACL 2025 Workshop)",
+  "journal_ref": "Proceedings of the 5th Workshop on Trustworthy Natural Language Processing (TrustNLP 2025), pages 399-411, Albuquerque, New Mexico. Association for Computational Linguistics, 2025",
+  "published": "2026-09-03",
+  "venue_stated": "Published at TrustNLP 2025 (NAACL 2025 Workshop) Proceedings of the 5th Workshop on Trustworthy Natural Language Processing (TrustNLP 2025), pages 399-411, Albuquerque, New Mexico. Association for Computational Linguistics, 2025"
+ },
+ {
+  "arxiv_id": "2402.01878",
+  "version": "v3",
+  "title": "LiPO: Listwise Preference Optimization through Learning-to-Rank",
+  "comment": "Accepted at NAACL 2025",
+  "journal_ref": "",
+  "published": "2024-02-02",
+  "venue_stated": "Accepted at NAACL 2025"
+ },
+ {
+  "arxiv_id": "2503.04675",
+  "version": "v1",
+  "title": "LLM-guided Plan and Retrieval: A Strategic Alignment for Interpretable User Satisfaction Estimation in Dialogue",
+  "comment": "Accepted by NAACL 2025",
+  "journal_ref": "",
+  "published": "2025-03-06",
+  "venue_stated": "Accepted by NAACL 2025"
+ },
+ {
+  "arxiv_id": "2410.13116",
+  "version": "v2",
+  "title": "Learning to Summarize from LLM-generated Feedback",
+  "comment": "Accepted at NAACL 2025 (main, long)",
+  "journal_ref": "",
+  "published": "2024-10-17",
+  "venue_stated": "Accepted at NAACL 2025 (main, long)"
+ },
+ {
+  "arxiv_id": "2410.18652",
+  "version": "v7",
+  "title": "$C^2$: Scalable Auto-Feedback for LLM-based Chart Generation",
+  "comment": "NAACL 2025 Main (Long)",
+  "journal_ref": "",
+  "published": "2024-10-24",
+  "venue_stated": "NAACL 2025 Main (Long)"
+ },
+ {
+  "arxiv_id": "2502.04790",
+  "version": "v2",
+  "title": "S$^2$-MAD: Breaking the Token Barrier to Enhance Multi-Agent Debate Efficiency",
+  "comment": "Accepted to NAACL 2025 Main",
+  "journal_ref": "",
+  "published": "2025-02-07",
+  "venue_stated": "Accepted to NAACL 2025 Main"
+ },
+ {
+  "arxiv_id": "2501.16235",
+  "version": "v2",
+  "title": "Echoes of Discord: Forecasting Hater Reactions to Counterspeech",
+  "comment": "NAACL 2025 Findings",
+  "journal_ref": "",
+  "published": "2025-01-27",
+  "venue_stated": "NAACL 2025 Findings"
+ },
+ {
+  "arxiv_id": "2502.08458",
+  "version": "v1",
+  "title": "Examining Spanish Counseling with MIDAS: a Motivational Interviewing Dataset in Spanish",
+  "comment": "To appear in NAACL 2025 Main Conference",
+  "journal_ref": "",
+  "published": "2025-02-12",
+  "venue_stated": "To appear in NAACL 2025 Main Conference"
+ },
+ {
+  "arxiv_id": "2411.15927",
+  "version": "v3",
+  "title": "Generative Prompt Internalization",
+  "comment": "NAACL 2025 (Main Conference)",
+  "journal_ref": "NAACL 2025",
+  "published": "2024-11-24",
+  "venue_stated": "NAACL 2025 (Main Conference) NAACL 2025"
+ },
+ {
+  "arxiv_id": "2603.05996",
+  "version": "v1",
+  "title": "Track-SQL: Enhancing Generative Language Models with Dual-Extractive Modules for Schema and Context Tracking in Multi-turn Text-to-SQL",
+  "comment": "Accepted at the 2025 Conference of the Nations of the Americas Chapter of the Association for Computational Linguistics (NAACL 2025), Long Paper, 19 pages",
+  "journal_ref": "Proceedings of the 2025 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long Papers), pp. 10690-10708. Association for Computational Linguistics, 2025",
+  "published": "2026-03-06",
+  "venue_stated": "Accepted at the 2025 Conference of the Nations of the Americas Chapter of the Association for Computational Linguistics (NAACL 2025), Long Paper, 19 pages Proceedings of the 2025 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long Papers), pp. 10690-10708. Association for Computational Linguistics, 2025"
+ },
+ {
+  "arxiv_id": "2505.13006",
+  "version": "v1",
+  "title": "Evaluating the Performance of RAG Methods for Conversational AI in the Airport Domain",
+  "comment": "Accepted by NAACL 2025 industry track",
+  "journal_ref": "In Proc. NAACL-HLT 2025 Industry Track, pp. 794-808. Albuquerque, NM, 2025",
+  "published": "2025-05-19",
+  "venue_stated": "Accepted by NAACL 2025 industry track In Proc. NAACL-HLT 2025 Industry Track, pp. 794-808. Albuquerque, NM, 2025"
+ },
+ {
+  "arxiv_id": "2501.15260",
+  "version": "v1",
+  "title": "Breaking the Stigma! Unobtrusively Probe Symptoms in Depression Disorder Diagnosis Dialogue",
+  "comment": "Findings of NAACL 2025",
+  "journal_ref": "",
+  "published": "2025-01-25",
+  "venue_stated": "Findings of NAACL 2025"
+ },
+ {
+  "arxiv_id": "2502.06858",
+  "version": "v1",
+  "title": "LLM-Supported Natural Language to Bash Translation",
+  "comment": "13 pages, NAACL 2025",
+  "journal_ref": "",
+  "published": "2025-02-07",
+  "venue_stated": "13 pages, NAACL 2025"
+ },
+ {
+  "arxiv_id": "2503.19540",
+  "version": "v1",
+  "title": "FLEX: A Benchmark for Evaluating Robustness of Fairness in Large Language Models",
+  "comment": "Accepted to NAACL 2025 findings",
+  "journal_ref": "",
+  "published": "2025-03-25",
+  "venue_stated": "Accepted to NAACL 2025 findings"
+ },
+ {
+  "arxiv_id": "2501.00233",
+  "version": "v2",
+  "title": "Zero-Shot Strategies for Length-Controllable Summarization",
+  "comment": "Accepted to NAACL 2025 Findings",
+  "journal_ref": "",
+  "published": "2024-12-31",
+  "venue_stated": "Accepted to NAACL 2025 Findings"
+ },
+ {
+  "arxiv_id": "2503.06534",
+  "version": "v1",
+  "title": "SafeSpeech: A Comprehensive and Interactive Tool for Analysing Sexist and Abusive Language in Conversations",
+  "comment": "NAACL 2025 system demonstration camera-ready",
+  "journal_ref": "",
+  "published": "2025-03-09",
+  "venue_stated": "NAACL 2025 system demonstration camera-ready"
+ },
+ {
+  "arxiv_id": "2410.23605",
+  "version": "v2",
+  "title": "Dynamic Uncertainty Ranking: Enhancing Retrieval-Augmented In-Context Learning for Long-Tail Knowledge in LLMs",
+  "comment": "Accepted by NAACL 2025",
+  "journal_ref": "",
+  "published": "2024-10-31",
+  "venue_stated": "Accepted by NAACL 2025"
+ },
+ {
+  "arxiv_id": "2402.00143",
+  "version": "v1",
+  "title": "Making a Long Story Short in Conversation Modeling",
+  "comment": "This paper was accepted by TEICAI workshop at EACL 2024",
+  "journal_ref": "",
+  "published": "2024-01-31",
+  "venue_stated": "This paper was accepted by TEICAI workshop at EACL 2024"
+ },
+ {
+  "arxiv_id": "2402.01495",
+  "version": "v1",
+  "title": "A Comparative Analysis of Conversational Large Language Models in Knowledge-Based Text Generation",
+  "comment": "Accepted to EACL 2024",
+  "journal_ref": "",
+  "published": "2024-02-02",
+  "venue_stated": "Accepted to EACL 2024"
+ },
+ {
+  "arxiv_id": "2401.17039",
+  "version": "v1",
+  "title": "Taking Action Towards Graceful Interaction: The Effects of Performing Actions on Modelling Policies for Instruction Clarification Requests",
+  "comment": "Accepted to UnImplicit workshop at EACL 2024",
+  "journal_ref": "",
+  "published": "2024-01-30",
+  "venue_stated": "Accepted to UnImplicit workshop at EACL 2024"
+ },
+ {
+  "arxiv_id": "2304.10750",
+  "version": "v2",
+  "title": "Improving Grounded Language Understanding in a Collaborative Environment by Interacting with Agents Through Help Feedback",
+  "comment": "Findings of EACL 2024",
+  "journal_ref": "",
+  "published": "2023-04-21",
+  "venue_stated": "Findings of EACL 2024"
+ },
+ {
+  "arxiv_id": "2307.14117",
+  "version": "v2",
+  "title": "Leveraging Implicit Feedback from Deployment Data in Dialogue",
+  "comment": "EACL 2024",
+  "journal_ref": "",
+  "published": "2023-07-26",
+  "venue_stated": "EACL 2024"
+ },
+ {
+  "arxiv_id": "2306.13588",
+  "version": "v3",
+  "title": "System-Level Natural Language Feedback",
+  "comment": "Accepted by EACL 2024",
+  "journal_ref": "",
+  "published": "2023-06-23",
+  "venue_stated": "Accepted by EACL 2024"
+ },
+ {
+  "arxiv_id": "2305.12815",
+  "version": "v2",
+  "title": "Investigating Agency of LLMs in Human-AI Collaboration Tasks",
+  "comment": "EACL 2024",
+  "journal_ref": "",
+  "published": "2023-05-22",
+  "venue_stated": "EACL 2024"
+ },
+ {
+  "arxiv_id": "2401.14215",
+  "version": "v3",
+  "title": "Commonsense-augmented Memory Construction and Management in Long-term Conversations via Context-aware Persona Refinement",
+  "comment": "Accepted to EACL 2024",
+  "journal_ref": "",
+  "published": "2024-01-25",
+  "venue_stated": "Accepted to EACL 2024"
+ },
+ {
+  "arxiv_id": "2402.02695",
+  "version": "v2",
+  "title": "Exploiting Class Probabilities for Black-box Sentence-level Attacks",
+  "comment": "EACL 2024 Findings",
+  "journal_ref": "",
+  "published": "2024-02-05",
+  "venue_stated": "EACL 2024 Findings"
+ },
+ {
+  "arxiv_id": "2402.14200",
+  "version": "v1",
+  "title": "Towards Understanding Counseling Conversations: Domain Knowledge and Large Language Models",
+  "comment": "Findings of EACL 2024, 10 pages",
+  "journal_ref": "",
+  "published": "2024-02-22",
+  "venue_stated": "Findings of EACL 2024, 10 pages"
+ },
+ {
+  "arxiv_id": "2304.01904",
+  "version": "v2",
+  "title": "REFINER: Reasoning Feedback on Intermediate Representations",
+  "comment": "Accepted at EACL 2024",
+  "journal_ref": "",
+  "published": "2023-04-04",
+  "venue_stated": "Accepted at EACL 2024"
+ },
+ {
+  "arxiv_id": "2304.01295",
+  "version": "v4",
+  "title": "Efficiently Aligned Cross-Lingual Transfer Learning for Conversational Tasks using Prompt-Tuning",
+  "comment": "Accepted to the Finding of the ACL: EACL 2024",
+  "journal_ref": "",
+  "published": "2023-04-03",
+  "venue_stated": "Accepted to the Finding of the ACL: EACL 2024"
+ },
+ {
+  "arxiv_id": "2401.10352",
+  "version": "v2",
+  "title": "Bridging Cultural Nuances in Dialogue Agents through Cultural Value Surveys",
+  "comment": "17pages, 7 figures, EACL 2024 findings",
+  "journal_ref": "",
+  "published": "2024-01-18",
+  "venue_stated": "17pages, 7 figures, EACL 2024 findings"
+ },
+ {
+  "arxiv_id": "2402.04477",
+  "version": "v1",
+  "title": "Detecting Mode Collapse in Language Models via Narration",
+  "comment": "To appear in the proceedings of the first Workshop on the Scaling Behavior of Large Language Models (EACL 2024)",
+  "journal_ref": "https://aclanthology.org/2024.scalellm-1.5/",
+  "published": "2024-02-06",
+  "venue_stated": "To appear in the proceedings of the first Workshop on the Scaling Behavior of Large Language Models (EACL 2024) https://aclanthology.org/2024.scalellm-1.5/"
+ },
+ {
+  "arxiv_id": "2311.14465",
+  "version": "v2",
+  "title": "DP-NMT: Scalable Differentially-Private Machine Translation",
+  "comment": "Accepted at EACL 2024",
+  "journal_ref": "",
+  "published": "2023-11-24",
+  "venue_stated": "Accepted at EACL 2024"
+ },
+ {
+  "arxiv_id": "2402.03519",
+  "version": "v1",
+  "title": "Resolving Transcription Ambiguity in Spanish: A Hybrid Acoustic-Lexical System for Punctuation Restoration",
+  "comment": "Accepted to UnImplicit workshop at EACL 2024",
+  "journal_ref": "",
+  "published": "2024-02-05",
+  "venue_stated": "Accepted to UnImplicit workshop at EACL 2024"
+ },
+ {
+  "arxiv_id": "2402.02975",
+  "version": "v1",
+  "title": "Putting Context in Context: the Impact of Discussion Structure on Text Classification",
+  "comment": "Accepted to EACL 2024 main conference",
+  "journal_ref": "",
+  "published": "2024-02-05",
+  "venue_stated": "Accepted to EACL 2024 main conference"
+ },
+ {
+  "arxiv_id": "2307.07164",
+  "version": "v2",
+  "title": "Learning to Retrieve In-Context Examples for Large Language Models",
+  "comment": "Accepted by EACL 2024",
+  "journal_ref": "",
+  "published": "2023-07-14",
+  "venue_stated": "Accepted by EACL 2024"
+ },
+ {
+  "arxiv_id": "2402.18031",
+  "version": "v1",
+  "title": "Corpus-Steered Query Expansion with Large Language Models",
+  "comment": "EACL 2024 (Short)",
+  "journal_ref": "",
+  "published": "2024-02-28",
+  "venue_stated": "EACL 2024 (Short)"
+ },
+ {
+  "arxiv_id": "2401.16454",
+  "version": "v1",
+  "title": "KAUCUS: Knowledge Augmented User Simulators for Training Language Model Assistants",
+  "comment": "Simulation of Conversational Intelligence in Chat, EACL 2024",
+  "journal_ref": "",
+  "published": "2024-01-29",
+  "venue_stated": "Simulation of Conversational Intelligence in Chat, EACL 2024"
+ },
+ {
+  "arxiv_id": "2305.02483",
+  "version": "v2",
+  "title": "Personalized Abstractive Summarization by Tri-agent Generation Pipeline",
+  "comment": "Accepted at EACL 2024 Findings",
+  "journal_ref": "",
+  "published": "2023-05-04",
+  "venue_stated": "Accepted at EACL 2024 Findings"
+ },
+ {
+  "arxiv_id": "2402.02056",
+  "version": "v1",
+  "title": "AnthroScore: A Computational Linguistic Measure of Anthropomorphism",
+  "comment": "EACL 2024 Main Conference",
+  "journal_ref": "",
+  "published": "2024-02-03",
+  "venue_stated": "EACL 2024 Main Conference"
+ },
+ {
+  "arxiv_id": "2401.15717",
+  "version": "v1",
+  "title": "Check News in One Click: NLP-Empowered Pro-Kremlin Propaganda Detection",
+  "comment": "Accepted to EACL 2024 System Demonstrations",
+  "journal_ref": "",
+  "published": "2024-01-28",
+  "venue_stated": "Accepted to EACL 2024 System Demonstrations"
+ },
+ {
+  "arxiv_id": "2402.07513",
+  "version": "v1",
+  "title": "The Balancing Act: Unmasking and Alleviating ASR Biases in Portuguese",
+  "comment": "EACL-2024 LT-EDI Workshop",
+  "journal_ref": "",
+  "published": "2024-02-12",
+  "venue_stated": "EACL-2024 LT-EDI Workshop"
+ },
+ {
+  "arxiv_id": "2307.10172",
+  "version": "v3",
+  "title": "DialogStudio: Towards Richest and Most Diverse Unified Dataset Collection for Conversational AI",
+  "comment": "17 pages, accepted by EACL 2024 Findings as a long paper. All datasets, licenses, codes, and models are available at at https://github.com/salesforce/DialogStudio",
+  "journal_ref": "",
+  "published": "2023-07-19",
+  "venue_stated": "17 pages, accepted by EACL 2024 Findings as a long paper. All datasets, licenses, codes, and models are available at at https://github.com/salesforce/DialogStudio"
+ },
+ {
+  "arxiv_id": "2312.03523",
+  "version": "v2",
+  "title": "Sig-Networks Toolkit: Signature Networks for Longitudinal Language Modelling",
+  "comment": "To appear in EACL 2024: System Demonstrations",
+  "journal_ref": "",
+  "published": "2023-12-06",
+  "venue_stated": "To appear in EACL 2024: System Demonstrations"
+ },
+ {
+  "arxiv_id": "2402.01423",
+  "version": "v1",
+  "title": "Different Tastes of Entities: Investigating Human Label Variation in Named Entity Annotations",
+  "comment": "9 pages; Accepted at UnImplicit workshop at EACL 2024",
+  "journal_ref": "",
+  "published": "2024-02-02",
+  "venue_stated": "9 pages; Accepted at UnImplicit workshop at EACL 2024"
+ },
+ {
+  "arxiv_id": "2401.10040",
+  "version": "v1",
+  "title": "Large Language Models for Scientific Information Extraction: An Empirical Study for Virology",
+  "comment": "8 pages, 6 figures, Accepted as Findings of the ACL: EACL 2024",
+  "journal_ref": "",
+  "published": "2024-01-18",
+  "venue_stated": "8 pages, 6 figures, Accepted as Findings of the ACL: EACL 2024"
+ },
+ {
+  "arxiv_id": "2402.02896",
+  "version": "v1",
+  "title": "LLM Agents in Interaction: Measuring Personality Consistency and Linguistic Alignment in Interacting Populations of Large Language Models",
+  "comment": "To appear in Proceedings of the 1st Personalization of Generative AI Workshop, EACL 2024",
+  "journal_ref": "",
+  "published": "2024-02-05",
+  "venue_stated": "To appear in Proceedings of the 1st Personalization of Generative AI Workshop, EACL 2024"
+ },
+ {
+  "arxiv_id": "2401.14194",
+  "version": "v3",
+  "title": "Parameter-Efficient Conversational Recommender System as a Language Processing Task",
+  "comment": "9 pages, 4 figures, 8 tables, EACL 2024 conference, fixed typo",
+  "journal_ref": "",
+  "published": "2024-01-25",
+  "venue_stated": "9 pages, 4 figures, 8 tables, EACL 2024 conference, fixed typo"
+ },
+ {
+  "arxiv_id": "2402.02077",
+  "version": "v1",
+  "title": "Investigating Content Planning for Navigating Trade-offs in Knowledge-Grounded Dialogue",
+  "comment": "Accepted at EACL 2024 Main Conference (Long)",
+  "journal_ref": "",
+  "published": "2024-02-03",
+  "venue_stated": "Accepted at EACL 2024 Main Conference (Long)"
+ },
+ {
+  "arxiv_id": "2402.04609",
+  "version": "v1",
+  "title": "Improving Cross-Domain Low-Resource Text Generation through LLM Post-Editing: A Programmer-Interpreter Approach",
+  "comment": "EACL 2024 (findings), short paper, 5 pages",
+  "journal_ref": "",
+  "published": "2024-02-07",
+  "venue_stated": "EACL 2024 (findings), short paper, 5 pages"
+ },
+ {
+  "arxiv_id": "2401.10353",
+  "version": "v1",
+  "title": "Inconsistent dialogue responses and how to recover from them",
+  "comment": "Accepted in EACL 2024. Code and dataset available at https://github.com/mianzhang/CIDER",
+  "journal_ref": "",
+  "published": "2024-01-18",
+  "venue_stated": "Accepted in EACL 2024. Code and dataset available at https://github.com/mianzhang/CIDER"
+ },
+ {
+  "arxiv_id": "2403.03956",
+  "version": "v1",
+  "title": "Backtracing: Retrieving the Cause of the Query",
+  "comment": "Code: https://github.com/rosewang2008/backtracing; EACL 2024 Findings, Long Paper",
+  "journal_ref": "",
+  "published": "2024-03-06",
+  "venue_stated": "Code: https://github.com/rosewang2008/backtracing; EACL 2024 Findings, Long Paper"
+ },
+ {
+  "arxiv_id": "2406.01297",
+  "version": "v3",
+  "title": "When Can LLMs Actually Correct Their Own Mistakes? A Critical Survey of Self-Correction of LLMs",
+  "comment": "TACL 2024",
+  "journal_ref": "Transactions of the Association for Computational Linguistics (2024) 12: 1417-1440",
+  "published": "2024-06-03",
+  "venue_stated": "TACL 2024 Transactions of the Association for Computational Linguistics (2024) 12: 1417-1440"
+ },
+ {
+  "arxiv_id": "2110.00768",
+  "version": "v3",
+  "title": "TopiOCQA: Open-domain Conversational Question Answering with Topic Switching",
+  "comment": "accepted at TACL",
+  "journal_ref": "",
+  "published": "2021-10-02",
+  "venue_stated": "accepted at TACL"
+ },
+ {
+  "arxiv_id": "1808.07042",
+  "version": "v2",
+  "title": "CoQA: A Conversational Question Answering Challenge",
+  "comment": "TACL (presented at NAACL 2019)",
+  "journal_ref": "",
+  "published": "2018-08-21",
+  "venue_stated": "TACL (presented at NAACL 2019)"
+ },
+ {
+  "arxiv_id": "2203.04857",
+  "version": "v2",
+  "title": "Neuro-symbolic Natural Logic with Introspective Revision for Natural Language Inference",
+  "comment": "To appear at TACL 2022, MIT Press",
+  "journal_ref": "",
+  "published": "2022-03-09",
+  "venue_stated": "To appear at TACL 2022, MIT Press"
+ },
+ {
+  "arxiv_id": "2207.00746",
+  "version": "v2",
+  "title": "INSCIT: Information-Seeking Conversations with Mixed-Initiative Interactions",
+  "comment": "TACL 2023",
+  "journal_ref": "",
+  "published": "2022-07-02",
+  "venue_stated": "TACL 2023"
+ },
+ {
+  "arxiv_id": "1902.00164",
+  "version": "v1",
+  "title": "DREAM: A Challenge Dataset and Models for Dialogue-Based Reading Comprehension",
+  "comment": "To appear in TACL",
+  "journal_ref": "",
+  "published": "2019-02-01",
+  "venue_stated": "To appear in TACL"
+ },
+ {
+  "arxiv_id": "2104.00640",
+  "version": "v4",
+  "title": "AmbiFC: Fact-Checking Ambiguous Claims with Evidence",
+  "comment": "Accepted at TACL; pre-MIT Press publication version",
+  "journal_ref": "",
+  "published": "2021-04-01",
+  "venue_stated": "Accepted at TACL; pre-MIT Press publication version"
+ },
+ {
+  "arxiv_id": "1704.02080",
+  "version": "v1",
+  "title": "Conversation Modeling on Reddit using a Graph-Structured LSTM",
+  "comment": "Submitted to TACL",
+  "journal_ref": "",
+  "published": "2017-04-07",
+  "venue_stated": "Submitted to TACL"
+ },
+ {
+  "arxiv_id": "2310.03477",
+  "version": "v1",
+  "title": "Tik-to-Tok: Translating Language Models One Token at a Time: An Embedding Initialization Strategy for Efficient Language Adaptation",
+  "comment": "As first reviewed at TACL",
+  "journal_ref": "",
+  "published": "2023-10-05",
+  "venue_stated": "As first reviewed at TACL"
+ },
+ {
+  "arxiv_id": "2002.11893",
+  "version": "v2",
+  "title": "CrossWOZ: A Large-Scale Chinese Cross-Domain Task-Oriented Dialogue Dataset",
+  "comment": "Accepted by TACL",
+  "journal_ref": "",
+  "published": "2020-02-27",
+  "venue_stated": "Accepted by TACL"
+ },
+ {
+  "arxiv_id": "2409.05199",
+  "version": "v1",
+  "title": "Interactive Machine Teaching by Labeling Rules and Instances",
+  "comment": "Accepted to TACL 2024",
+  "journal_ref": "",
+  "published": "2024-09-08",
+  "venue_stated": "Accepted to TACL 2024"
+ },
+ {
+  "arxiv_id": "1605.04462",
+  "version": "v3",
+  "title": "Large-scale Analysis of Counseling Conversations: An Application of Natural Language Processing to Mental Health",
+  "comment": "preprint of paper accepted to TACL, Transactions of the Association for Computational Linguistics, 2016",
+  "journal_ref": "",
+  "published": "2016-05-14",
+  "venue_stated": "preprint of paper accepted to TACL, Transactions of the Association for Computational Linguistics, 2016"
+ },
+ {
+  "arxiv_id": "2404.04728",
+  "version": "v2",
+  "title": "Navigating the Landscape of Hint Generation Research: From the Past to the Future",
+  "comment": "Submitted to TACL'24",
+  "journal_ref": "",
+  "published": "2024-04-06",
+  "venue_stated": "Submitted to TACL'24"
+ },
+ {
+  "arxiv_id": "2208.04163",
+  "version": "v2",
+  "title": "Abstractive Meeting Summarization: A Survey",
+  "comment": "pre-MIT Press publication version for TACL journal",
+  "journal_ref": "",
+  "published": "2022-08-08",
+  "venue_stated": "pre-MIT Press publication version for TACL journal"
+ },
+ {
+  "arxiv_id": "2405.07765",
+  "version": "v3",
+  "title": "TANQ: An open domain dataset of table answered questions",
+  "comment": "12 pages, accepted at TACL",
+  "journal_ref": "",
+  "published": "2024-05-13",
+  "venue_stated": "12 pages, accepted at TACL"
+ },
+ {
+  "arxiv_id": "2009.11321",
+  "version": "v1",
+  "title": "Improving Dialog Evaluation with a Multi-reference Adversarial Dataset and Large Scale Pretraining",
+  "comment": "Accepted for publication in TACL",
+  "journal_ref": "",
+  "published": "2020-09-23",
+  "venue_stated": "Accepted for publication in TACL"
+ },
+ {
+  "arxiv_id": "2104.15135",
+  "version": "v3",
+  "title": "Explanation-Based Human Debugging of NLP Models: A Survey",
+  "comment": "Accepted for publication at TACL. This version is a pre-MIT Press publication version",
+  "journal_ref": "",
+  "published": "2021-04-30",
+  "venue_stated": "Accepted for publication at TACL. This version is a pre-MIT Press publication version"
+ },
+ {
+  "arxiv_id": "2508.11133",
+  "version": "v2",
+  "title": "MoNaCo: More Natural and Complex Questions for Reasoning Across Dozens of Documents",
+  "comment": "Accepted for publication in Transactions of the Association for Computational Linguistics (TACL), 2025. Authors pre-print",
+  "journal_ref": "",
+  "published": "2025-08-15",
+  "venue_stated": "Accepted for publication in Transactions of the Association for Computational Linguistics (TACL), 2025. Authors pre-print"
+ },
+ {
+  "arxiv_id": "2405.05938",
+  "version": "v3",
+  "title": "DOLOMITES: Domain-Specific Long-Form Methodical Tasks",
+  "comment": "Accepted to TACL; to be presented at EMNLP 2024. Dataset available at https://dolomites-benchmark.github.io",
+  "journal_ref": "",
+  "published": "2024-05-09",
+  "venue_stated": "Accepted to TACL; to be presented at EMNLP 2024. Dataset available at https://dolomites-benchmark.github.io"
+ },
+ {
+  "arxiv_id": "1805.03162",
+  "version": "v1",
+  "title": "Polite Dialogue Generation Without Parallel Data",
+  "comment": "To Appear in TACL Journal (16 pages) (first submission cycle: Oct1 2017)",
+  "journal_ref": "",
+  "published": "2018-05-08",
+  "venue_stated": "To Appear in TACL Journal (16 pages) (first submission cycle: Oct1 2017)"
+ },
+ {
+  "arxiv_id": "2512.09066",
+  "version": "v2",
+  "title": "ORCA: Open-ended Response Correctness Assessment for Audio Question Answering",
+  "comment": "Accepted to TACL; pre-MIT Press publication version",
+  "journal_ref": "",
+  "published": "2025-11-28",
+  "venue_stated": "Accepted to TACL; pre-MIT Press publication version"
+ },
+ {
+  "arxiv_id": "2401.15471",
+  "version": "v1",
+  "title": "ConvoSense: Overcoming Monotonous Commonsense Inferences for Conversational AI",
+  "comment": "accepted to TACL 2024; final author's version of paper; pre-MIT Press publication version",
+  "journal_ref": "",
+  "published": "2024-01-27",
+  "venue_stated": "accepted to TACL 2024; final author's version of paper; pre-MIT Press publication version"
+ },
+ {
+  "arxiv_id": "2204.10757",
+  "version": "v3",
+  "title": "FaithDial: A Faithful Benchmark for Information-Seeking Dialogue",
+  "comment": "TACL 2022 (20 pages, 3 figures, 10 tables)",
+  "journal_ref": "",
+  "published": "2022-04-22",
+  "venue_stated": "TACL 2022 (20 pages, 3 figures, 10 tables)"
+ },
+ {
+  "arxiv_id": "2604.01671",
+  "version": "v1",
+  "title": "PRCCF: A Persona-guided Retrieval and Causal-aware Cognitive Filtering Framework for Emotional Support Conversation",
+  "comment": "14 pages, 6 figures, 5 tables. Submitted to Transactions of the Association for Computational Linguistics (TACL)",
+  "journal_ref": "",
+  "published": "2026-04-02",
+  "venue_stated": "14 pages, 6 figures, 5 tables. Submitted to Transactions of the Association for Computational Linguistics (TACL)"
+ },
+ {
+  "arxiv_id": "2308.03253",
+  "version": "v2",
+  "title": "PaniniQA: Enhancing Patient Education Through Interactive Question Answering",
+  "comment": "Accepted to TACL 2023. Equal contribution for the first two authors. This arXiv version is a pre-MIT Press publication version",
+  "journal_ref": "",
+  "published": "2023-08-07",
+  "venue_stated": "Accepted to TACL 2023. Equal contribution for the first two authors. This arXiv version is a pre-MIT Press publication version"
+ },
+ {
+  "arxiv_id": "2206.14796",
+  "version": "v2",
+  "title": "On the Robustness of Dialogue History Representation in Conversational Question Answering: A Comprehensive Study and a New Prompt-based Method",
+  "comment": "Accepted for publication at TACL in December 2022. First two authors contributed equally to this work. Our code and data will be released at: https://github.com/zorikg/MarCQAp",
+  "journal_ref": "",
+  "published": "2022-06-29",
+  "venue_stated": "Accepted for publication at TACL in December 2022. First two authors contributed equally to this work. Our code and data will be released at: https://github.com/zorikg/MarCQAp"
+ },
+ {
+  "arxiv_id": "2411.09539",
+  "version": "v2",
+  "title": "Fine-tuning Large Language Models with Limited Data: A Survey and Practical Guide",
+  "comment": "Accepted to TACL. Pre-MIT Press version. Major restructuring; added preference alignment section and additional tables. 36 pages",
+  "journal_ref": "",
+  "published": "2024-11-14",
+  "venue_stated": "Accepted to TACL. Pre-MIT Press version. Major restructuring; added preference alignment section and additional tables. 36 pages"
+ }
+]

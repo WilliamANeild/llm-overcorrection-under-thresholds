@@ -6,3 +6,12 @@ __pycache__/
 # Raw trial data (large JSONL files)
 data/raw_responses/trials.jsonl
 data/processed/scored_trials.jsonl
+
+# Cached third-party sources, fetched by scripts/introduction_corpus/ and regenerable.
+# Not committed: these are full copies of other authors' papers and figures, and this
+# repository is public.
+.workspace/reference/intro_corpus/html/
+.workspace/reference/figure_examples/
+
+# Build outputs, regenerable with tectonic
+paper/builds/

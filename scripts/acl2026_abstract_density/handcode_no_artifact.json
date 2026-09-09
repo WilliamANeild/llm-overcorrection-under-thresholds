@@ -1,0 +1,690 @@
+{
+ "_coding_rules": {
+  "inclusion": "An abstract drawn by 05 is kept as artifact-free only if all three hold: (i) no release language and no URL, which 05 checks mechanically; (ii) it gives no coined name to anything it built; (iii) its stated principal contribution is a finding, not a resource or a performance-improving method. An unnamed instrument built to obtain the finding (an unnamed benchmark, an unnamed measure, an unnamed evaluation framework) does not disqualify it and is recorded in instrument_built.",
+  "name_kinds": "named_model = a released model or model family named as an object of study; evaluated_dataset = an existing dataset or lexical resource the paper runs on; prior_work = a named prior method, architecture or theoretical construct the paper tests or uses; standard_metric = a field-standard metric abbreviation (F1, ICC); field_acronym = an abbreviation for a task or subfield (LLM, SLU, M2MS); introduced_task = a task the paper introduces under a borrowed name; language = a natural language. names_capitalised is true only when at least one name is of kind named_model, evaluated_dataset, prior_work or introduced_task; field acronyms, standard metric abbreviations and language names do not count.",
+  "coins_own_term": "true when the abstract introduces a noun phrase as its own construct and reuses it as the object of the finding. Recorded whether or not the term is capitalised, because the coinages of interest (sycophancy, lost in conversation) are lowercase. Borrowed terms the paper merely defines for the reader are recorded with borrowed=true and are not counted as coinages.",
+  "closing_move": "knowledge_claim = the last sentence states what is now known about the object studied; call_to_community = it tells the field what to do (a call, a stated need, recommendations, guidelines); future_work = it names what should be studied next; contribution_restatement = it restates what the paper offers without stating a finding; resource_release = it points at a released artifact.",
+  "numeral_role": "SETUP = the numeral states the size or extent of what was tested (models, parameters, datasets, participants, items, or the denominator of a scale). OUTCOME = it states how something performed or how large an effect was. One row per quantitative numeral as counted by 03_measure."
+ },
+ "dropped_after_hand_adjudication": {
+  "2024.eacl-long.124": "names and releases a corpus it built (the BEAR-FACT corpus)",
+  "2024.emnlp-main.8": "method paper; principal claim is that the proposed approach reaches state-of-the-art on DAIC-WOZ",
+  "2024.emnlp-main.679": "names a test suite it built (Shortcut Suite)",
+  "2025.acl-long.193": "introduces new metrics, a curated benchmark and an alignment method; closes on the method's improvements",
+  "2025.acl-short.92": "method paper; principal claim is that the proposed aggregation improves metric results on SEEDA",
+  "2025.emnlp-main.10": "names a metric it defines and offers for use (Ambiguity Rewrite Metric, ARM)",
+  "2025.emnlp-main.504": "names a method it built (Faithfulness by Unlearning Reasoning steps, FUR)",
+  "2025.emnlp-main.1184": "survey of prior methods, not an empirical study",
+  "2025.findings-acl.1069": "systematic literature review, not an empirical study of model behaviour",
+  "2025.findings-acl.1317": "names a framework it built (HyFairCRS); principal claim is state-of-the-art performance",
+  "2025.findings-emnlp.1173": "principal contribution is a constructed text-image corpus plus fine-tuned detectors",
+  "2026.acl-long.45": "names a method it built (weighted in-context influence, wICI); principal claim is that it outperforms baselines",
+  "2026.findings-acl.81": "names a framework it built (Thought Template Augmented LCLMs, ToTAL)",
+  "2026.findings-acl.1795": "names a benchmark it introduces (the Cross-Cultural, Cross-Modal, Cross-lingual Multimodal (3XCM) benchmark); missed by the mechanical screen because the acronym begins with a digit"
+ },
+ "papers": {
+  "2024.acl-long.544": {
+   "names": [],
+   "names_capitalised": false,
+   "instrument_built": "none",
+   "closing_move": "call_to_community",
+   "coins_own_term": null,
+   "coinage_sentence": null,
+   "coinage_borrowed": false,
+   "digit_nouns": [],
+   "note": null
+  },
+  "2024.acl-long.813": {
+   "names": [
+    [
+     "ESConv",
+     "evaluated_dataset"
+    ],
+    [
+     "ESC",
+     "field_acronym"
+    ]
+   ],
+   "names_capitalised": true,
+   "instrument_built": "none",
+   "closing_move": "future_work",
+   "coins_own_term": "preference bias",
+   "coinage_sentence": "Our findings emphasize that (1) low preference for specific strategies hinders the progress of emotional support, (2) external assistance helps reduce preference bias, and (3) existing LLMs alone cannot become good emotional supporters.",
+   "coinage_borrowed": false,
+   "digit_nouns": [],
+   "note": "the coined term is first named only in the enumerated findings sentence, seventh of eight"
+  },
+  "2024.acl-short.26": {
+   "names": [],
+   "names_capitalised": false,
+   "instrument_built": "an unnamed generative evaluation approach",
+   "closing_move": "knowledge_claim",
+   "coins_own_term": null,
+   "coinage_sentence": null,
+   "coinage_borrowed": false,
+   "digit_nouns": [],
+   "note": null
+  },
+  "2024.emnlp-main.348": {
+   "names": [],
+   "names_capitalised": false,
+   "instrument_built": "an unnamed benchmark of self-knowledge enumeration",
+   "closing_move": "contribution_restatement",
+   "coins_own_term": null,
+   "coinage_sentence": null,
+   "coinage_borrowed": false,
+   "digit_nouns": [],
+   "note": null
+  },
+  "2024.emnlp-main.1009": {
+   "names": [
+    [
+     "English",
+     "language"
+    ],
+    [
+     "Mandarin Chinese",
+     "language"
+    ]
+   ],
+   "names_capitalised": false,
+   "instrument_built": "an unnamed measure of informativeness for words and lexical systems",
+   "closing_move": "knowledge_claim",
+   "coins_own_term": null,
+   "coinage_sentence": null,
+   "coinage_borrowed": false,
+   "digit_nouns": [],
+   "note": null
+  },
+  "2024.findings-acl.316": {
+   "names": [
+    [
+     "MDS",
+     "field_acronym"
+    ]
+   ],
+   "names_capitalised": false,
+   "instrument_built": "an unnamed characterisation approach built on partial information decomposition",
+   "closing_move": "knowledge_claim",
+   "coins_own_term": null,
+   "coinage_sentence": null,
+   "coinage_borrowed": false,
+   "digit_nouns": [],
+   "note": null
+  },
+  "2024.findings-acl.724": {
+   "names": [
+    [
+     "BLOOM",
+     "named_model"
+    ]
+   ],
+   "names_capitalised": true,
+   "instrument_built": "cross-lingual neuron overlap, an unnamed measure",
+   "closing_move": "knowledge_claim",
+   "coins_own_term": null,
+   "coinage_sentence": null,
+   "coinage_borrowed": false,
+   "digit_nouns": [],
+   "note": null
+  },
+  "2024.findings-emnlp.191": {
+   "names": [
+    [
+     "LVLMs",
+     "field_acronym"
+    ]
+   ],
+   "names_capitalised": false,
+   "instrument_built": "none",
+   "closing_move": "contribution_restatement",
+   "coins_own_term": null,
+   "coinage_sentence": null,
+   "coinage_borrowed": false,
+   "digit_nouns": [],
+   "note": null
+  },
+  "2024.findings-emnlp.467": {
+   "names": [],
+   "names_capitalised": false,
+   "instrument_built": "an unnamed evaluation method for the phenomenon",
+   "closing_move": "call_to_community",
+   "coins_own_term": "implicit ranking unfairness",
+   "coinage_sentence": "Worse still, in this paper, we identify a subtler form of discrimination in LLMs, termed implicit ranking unfairness, where LLMs exhibit discriminatory ranking patterns based solely on non-sensitive user profiles, such as user names.",
+   "coinage_borrowed": false,
+   "digit_nouns": [],
+   "note": null
+  },
+  "2024.findings-emnlp.841": {
+   "names": [
+    [
+     "F1-score",
+     "standard_metric"
+    ],
+    [
+     "SD",
+     "standard_metric"
+    ]
+   ],
+   "names_capitalised": false,
+   "instrument_built": "a hand-built set of task-oriented constraints",
+   "closing_move": "knowledge_claim",
+   "coins_own_term": "task-oriented constraints",
+   "coinage_sentence": "In this paper, we reveal that even task-oriented constraints — constraints that would naturally be included in an instruction and are not related to detection-evasion — cause existing powerful detectors to have a large variance in detection performance.",
+   "coinage_borrowed": false,
+   "digit_nouns": [
+    "up to an SD of 14.4 F1-score"
+   ],
+   "note": null
+  },
+  "2024.naacl-long.4": {
+   "names": [
+    [
+     "Minesweeper",
+     "introduced_task"
+    ],
+    [
+     "GPT-4",
+     "named_model"
+    ]
+   ],
+   "names_capitalised": true,
+   "instrument_built": "the Minesweeper task",
+   "closing_move": "future_work",
+   "coins_own_term": null,
+   "coinage_sentence": null,
+   "coinage_borrowed": false,
+   "digit_nouns": [],
+   "note": null
+  },
+  "2024.naacl-long.266": {
+   "names": [
+    [
+     "Whisper",
+     "named_model"
+    ],
+    [
+     "MMS",
+     "named_model"
+    ]
+   ],
+   "names_capitalised": true,
+   "instrument_built": "an unsupervised reweighting step for debiasing",
+   "closing_move": "knowledge_claim",
+   "coins_own_term": null,
+   "coinage_sentence": null,
+   "coinage_borrowed": false,
+   "digit_nouns": [
+    "a range of 8 audio-classification datasets",
+    "by an average of 9%"
+   ],
+   "note": null
+  },
+  "2025.acl-long.555": {
+   "names": [
+    [
+     "GPT-4",
+     "named_model"
+    ],
+    [
+     "mBART",
+     "named_model"
+    ],
+    [
+     "M2MS",
+     "field_acronym"
+    ]
+   ],
+   "names_capitalised": true,
+   "instrument_built": "a reorganisation of eight existing datasets",
+   "closing_move": "future_work",
+   "coins_own_term": null,
+   "coinage_sentence": null,
+   "coinage_borrowed": false,
+   "digit_nouns": [
+    "The reorganized data contains 47.8K samples",
+    "we benchmark 18 LLMs"
+   ],
+   "note": null
+  },
+  "2025.acl-long.1010": {
+   "names": [],
+   "names_capitalised": false,
+   "instrument_built": "small bilingual models trained under controlled exposure",
+   "closing_move": "knowledge_claim",
+   "coins_own_term": null,
+   "coinage_sentence": null,
+   "coinage_borrowed": false,
+   "digit_nouns": [],
+   "note": null
+  },
+  "2025.acl-long.1449": {
+   "names": [
+    [
+     "SLU",
+     "field_acronym"
+    ]
+   ],
+   "names_capitalised": false,
+   "instrument_built": "an unnamed configurable framework for noisy-transcript assessment",
+   "closing_move": "knowledge_claim",
+   "coins_own_term": null,
+   "coinage_sentence": null,
+   "coinage_borrowed": false,
+   "digit_nouns": [],
+   "note": null
+  },
+  "2025.emnlp-main.828": {
+   "names": [
+    [
+     "GPT-4.1",
+     "named_model"
+    ],
+    [
+     "Claude-3.7-Sonnet",
+     "named_model"
+    ],
+    [
+     "Five-Factor",
+     "prior_work"
+    ]
+   ],
+   "names_capitalised": true,
+   "instrument_built": "matched personality-profile prompting",
+   "closing_move": "contribution_restatement",
+   "coins_own_term": null,
+   "coinage_sentence": null,
+   "coinage_borrowed": false,
+   "digit_nouns": [],
+   "note": null
+  },
+  "2025.emnlp-main.1499": {
+   "names": [
+    [
+     "FrameNet",
+     "evaluated_dataset"
+    ]
+   ],
+   "names_capitalised": true,
+   "instrument_built": "none",
+   "closing_move": "knowledge_claim",
+   "coins_own_term": null,
+   "coinage_sentence": null,
+   "coinage_borrowed": false,
+   "digit_nouns": [],
+   "note": null
+  },
+  "2025.findings-acl.293": {
+   "names": [],
+   "names_capitalised": false,
+   "instrument_built": "none",
+   "closing_move": "contribution_restatement",
+   "coins_own_term": null,
+   "coinage_sentence": null,
+   "coinage_borrowed": false,
+   "digit_nouns": [],
+   "note": null
+  },
+  "2025.findings-acl.806": {
+   "names": [],
+   "names_capitalised": false,
+   "instrument_built": "synthetic emotion-labelled dialogue data",
+   "closing_move": "knowledge_claim",
+   "coins_own_term": "emotion neurons",
+   "coinage_sentence": "This study comprehensively explores whether there actually exist “emotion neurons” within large language models (LLMs) that selectively process and express certain emotions, and what functional role they play.",
+   "coinage_borrowed": false,
+   "digit_nouns": [],
+   "note": null
+  },
+  "2025.findings-emnlp.1380": {
+   "names": [],
+   "names_capitalised": false,
+   "instrument_built": "two LLM-generated explanation types",
+   "closing_move": "call_to_community",
+   "coins_own_term": null,
+   "coinage_sentence": null,
+   "coinage_borrowed": false,
+   "digit_nouns": [
+    "a controlled study (n=95)"
+   ],
+   "note": "the token CITATION in this abstract is the Anthology's placeholder for a reference, not a name"
+  },
+  "2025.findings-emnlp.445": {
+   "names": [
+    [
+     "o3-mini",
+     "named_model"
+    ],
+    [
+     "o4-mini",
+     "named_model"
+    ],
+    [
+     "GPT-4o mini",
+     "named_model"
+    ],
+    [
+     "OpenAI",
+     "named_model"
+    ],
+    [
+     "TOEFL11",
+     "evaluated_dataset"
+    ],
+    [
+     "ICC",
+     "standard_metric"
+    ]
+   ],
+   "names_capitalised": true,
+   "instrument_built": "none",
+   "closing_move": "knowledge_claim",
+   "coins_own_term": null,
+   "coinage_sentence": null,
+   "coinage_borrowed": false,
+   "digit_nouns": [
+    "Intraclass Correlation Coefficients (ICC) of approximately 0.7",
+    "compared to GPT-4o mini’s 0.95"
+   ],
+   "note": null
+  },
+  "2025.findings-emnlp.801": {
+   "names": [
+    [
+     "GPT-2",
+     "named_model"
+    ],
+    [
+     "KD",
+     "field_acronym"
+    ]
+   ],
+   "names_capitalised": true,
+   "instrument_built": "none",
+   "closing_move": "knowledge_claim",
+   "coins_own_term": null,
+   "coinage_sentence": null,
+   "coinage_borrowed": false,
+   "digit_nouns": [
+    "datasets ranging from 10K to 5M sentences"
+   ],
+   "note": null
+  },
+  "2025.naacl-long.119": {
+   "names": [],
+   "names_capitalised": false,
+   "instrument_built": "perspective-taking annotation protocols",
+   "closing_move": "knowledge_claim",
+   "coins_own_term": "perspective taking",
+   "coinage_sentence": "In this paper, using toxicity evaluation as an example, we explore the feasibility of using perspective taking—that is, asking annotators to take the point of views of a certain subgroup and estimate opinions within that subgroup—as a way to achieve this objective cost-efficiently.",
+   "coinage_borrowed": true,
+   "digit_nouns": [],
+   "note": null
+  },
+  "2025.naacl-long.485": {
+   "names": [],
+   "names_capitalised": false,
+   "instrument_built": "none",
+   "closing_move": "call_to_community",
+   "coins_own_term": null,
+   "coinage_sentence": null,
+   "coinage_borrowed": false,
+   "digit_nouns": [],
+   "note": null
+  },
+  "2026.acl-long.436": {
+   "names": [
+    [
+     "GRADIEND",
+     "prior_work"
+    ],
+    [
+     "German",
+     "language"
+    ]
+   ],
+   "names_capitalised": true,
+   "instrument_built": "none",
+   "closing_move": "knowledge_claim",
+   "coins_own_term": null,
+   "coinage_sentence": null,
+   "coinage_borrowed": false,
+   "digit_nouns": [],
+   "note": null
+  },
+  "2026.acl-long.853": {
+   "names": [
+    [
+     "Transformer",
+     "prior_work"
+    ],
+    [
+     "Query, Key, and Value",
+     "prior_work"
+    ],
+    [
+     "Hadamard",
+     "prior_work"
+    ]
+   ],
+   "names_capitalised": true,
+   "instrument_built": "a simple multi-branch MLP built to isolate the structure",
+   "closing_move": "knowledge_claim",
+   "coins_own_term": "multi-branch feature extraction",
+   "coinage_sentence": "This leads to our central hypothesis: the effectiveness of self-attention in this task stems not from the dynamic attention matrix, but from the multi-branch feature extraction inherent in the parallel projections to Query, Key, and Value matrices and their fusion.",
+   "coinage_borrowed": false,
+   "digit_nouns": [],
+   "note": null
+  },
+  "2026.acl-long.1444": {
+   "names": [
+    [
+     "Qwen2.5",
+     "named_model"
+    ]
+   ],
+   "names_capitalised": true,
+   "instrument_built": "none",
+   "closing_move": "call_to_community",
+   "coins_own_term": null,
+   "coinage_sentence": null,
+   "coinage_borrowed": false,
+   "digit_nouns": [
+    "the Qwen2.5 series (0.5B to 72B)"
+   ],
+   "note": null
+  },
+  "2026.acl-long.1860": {
+   "names": [],
+   "names_capitalised": false,
+   "instrument_built": "an unnamed multiple-choice consistency evaluation method",
+   "closing_move": "knowledge_claim",
+   "coins_own_term": "belief consistency",
+   "coinage_sentence": "We propose a new evaluation method to assess the consistency of LLMs in a multiple-choice question answering format, designed so that any option chosen is correct, allowing for the evaluation of the proposed belief consistency.",
+   "coinage_borrowed": false,
+   "digit_nouns": [],
+   "note": null
+  },
+  "2026.acl-short.56": {
+   "names": [
+    [
+     "FL",
+     "field_acronym"
+    ],
+    [
+     "CL",
+     "field_acronym"
+    ]
+   ],
+   "names_capitalised": false,
+   "instrument_built": "an unnamed framework quantifying intra- and inter-client memorization",
+   "closing_move": "knowledge_claim",
+   "coins_own_term": "intra- and inter-client memorization",
+   "coinage_sentence": "We bridge this gap by proposing a framework that quantifies both intra- and inter-client memorization in FL using fine-grained cross-sample memorization measurement across all clients.",
+   "coinage_borrowed": false,
+   "digit_nouns": [],
+   "note": "the title's phrasing, cross-client memorization, does not appear in the abstract; the abstract's own term is intra- and inter-client memorization"
+  },
+  "2026.eacl-long.12": {
+   "names": [],
+   "names_capitalised": false,
+   "instrument_built": "none",
+   "closing_move": "future_work",
+   "coins_own_term": "jailbreak vector",
+   "coinage_sentence": "We find that it is possible to extract a jailbreak vector from a single class of jailbreaks that works to mitigate jailbreak effectiveness from other, semantically-dissimilar classes.",
+   "coinage_borrowed": false,
+   "digit_nouns": [],
+   "note": null
+  },
+  "2026.findings-acl.1284": {
+   "names": [
+    [
+     "OLMo",
+     "named_model"
+    ],
+    [
+     "OPT",
+     "named_model"
+    ],
+    [
+     "SmolLM",
+     "named_model"
+    ]
+   ],
+   "names_capitalised": true,
+   "instrument_built": "none",
+   "closing_move": "knowledge_claim",
+   "coins_own_term": null,
+   "coinage_sentence": null,
+   "coinage_borrowed": false,
+   "digit_nouns": [],
+   "note": null
+  },
+  "2026.findings-acl.616": {
+   "names": [
+    [
+     "Gemini-2.5-Pro",
+     "named_model"
+    ],
+    [
+     "o3",
+     "named_model"
+    ],
+    [
+     "Chinese",
+     "language"
+    ]
+   ],
+   "names_capitalised": true,
+   "instrument_built": "a manually annotated dataset of 200 short videos, unnamed",
+   "closing_move": "knowledge_claim",
+   "coins_own_term": null,
+   "coinage_sentence": null,
+   "coinage_borrowed": false,
+   "digit_nouns": [
+    "a high-quality, manually annotated dataset of 200 short videos",
+    "a belief score of 71.5/100",
+    "while o3 performs the worst at 35.2"
+   ],
+   "note": null
+  }
+ },
+ "numeral_roles": [
+  [
+   "2024.findings-emnlp.841",
+   "14.4",
+   "up to an SD of 14.4 F1-score",
+   "OUTCOME"
+  ],
+  [
+   "2024.naacl-long.266",
+   "8",
+   "a range of 8 audio-classification datasets",
+   "SETUP"
+  ],
+  [
+   "2024.naacl-long.266",
+   "9",
+   "by an average of 9%",
+   "OUTCOME"
+  ],
+  [
+   "2025.acl-long.555",
+   "47.8K",
+   "The reorganized data contains 47.8K samples",
+   "SETUP"
+  ],
+  [
+   "2025.acl-long.555",
+   "18",
+   "we benchmark 18 LLMs",
+   "SETUP"
+  ],
+  [
+   "2025.findings-emnlp.1380",
+   "95",
+   "a controlled study (n=95)",
+   "SETUP"
+  ],
+  [
+   "2025.findings-emnlp.445",
+   "0.7",
+   "Intraclass Correlation Coefficients (ICC) of approximately 0.7",
+   "OUTCOME"
+  ],
+  [
+   "2025.findings-emnlp.445",
+   "0.95",
+   "compared to GPT-4o mini’s 0.95",
+   "OUTCOME"
+  ],
+  [
+   "2025.findings-emnlp.801",
+   "10K",
+   "datasets ranging from 10K to 5M sentences",
+   "SETUP"
+  ],
+  [
+   "2025.findings-emnlp.801",
+   "5M",
+   "datasets ranging from 10K to 5M sentences",
+   "SETUP"
+  ],
+  [
+   "2026.acl-long.1444",
+   "0.5B",
+   "the Qwen2.5 series (0.5B to 72B)",
+   "SETUP"
+  ],
+  [
+   "2026.acl-long.1444",
+   "72B",
+   "the Qwen2.5 series (0.5B to 72B)",
+   "SETUP"
+  ],
+  [
+   "2026.findings-acl.616",
+   "200",
+   "manually annotated dataset of 200 short videos",
+   "SETUP"
+  ],
+  [
+   "2026.findings-acl.616",
+   "71.5",
+   "a belief score of 71.5/100",
+   "OUTCOME"
+  ],
+  [
+   "2026.findings-acl.616",
+   "100",
+   "a belief score of 71.5/100",
+   "SETUP"
+  ],
+  [
+   "2026.findings-acl.616",
+   "35.2",
+   "while o3 performs the worst at 35.2",
+   "OUTCOME"
+  ]
+ ]
+}

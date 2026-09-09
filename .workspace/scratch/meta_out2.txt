@@ -1,0 +1,90 @@
+==============================================================================
+SCOPE SWEEP against the ledger's T1:14 T2:92 T3:85 T4:79 T5:68
+==============================================================================
+  all 3600, DETECT(either)                                   [' 14.4', ' 84.4', ' 75.7', ' 75.0', ' 67.2']  match=no
+  all 3600, STRIP                                            ['  9.6', ' 50.1', ' 39.2', ' 38.6', ' 29.2']  match=no
+  T1=all/post-T1 GENUINE, DETECT                             [' 14.4', ' 92.6', ' 89.2', ' 86.4', ' 78.1']  match=no
+  T1=all/post-T1 GENUINE, STRIP                              ['  9.6', ' 91.2', ' 87.0', ' 85.1', ' 74.0']  match=no
+  T1=all/post-T1 kw=REVISION, DETECT                         [' 14.4', ' 91.4', ' 86.7', ' 85.2', ' 73.9']  match=no
+  T1=all/post-T1 kw=REVISION, STRIP                          ['  9.6', ' 68.4', ' 68.5', ' 67.4', ' 52.6']  match=no
+  T1=all/post-T1 GENUINE, DETECT pre                         ['  5.6', ' 87.3', ' 80.0', ' 76.6', ' 63.5']  match=no
+  T1=all/post-T1 GENUINE, DETECT post                        [' 11.4', ' 42.4', ' 44.9', ' 39.6', ' 39.6']  match=no
+  50 balanced-panel trials, DETECT                           ['  6.0', ' 88.0', ' 86.0', ' 94.0', ' 86.0']  match=no
+  50 balanced-panel trials, STRIP                            ['  4.0', ' 82.0', ' 84.0', ' 94.0', ' 88.0']  match=no
+  50 reversibility pairs (T1 side; rev side by last_rev_turn) [' 14.0', ' 90.9', ' 85.7', ' 81.2', ' 77.8']  match=no
+   n per cell for the 50 pairs: T1=50, T2=11, T3=14, T4=16, T5=9
+
+==============================================================================
+PREAMBLE vs POSTAMBLE SHARE OF REMOVED CHARACTERS
+==============================================================================
+rows where front+back deviates from stored chars_removed by >6 chars: 0/3600 (deviation is whitespace trimmed at the join)
+total front (preamble) chars removed: 130,104 (56.1% of removal)
+total back (postamble) chars removed: 101,723 (43.9% of removal)
+  turn    n_strip  front_only  back_only   both  mean_front  mean_back
+  T1           69          21         39      9        50.0       70.9
+  T2          361         198         64     99       125.0       65.4
+  T3          282         126         78     78       122.9       90.0
+  T4          278         106        102     70        98.6       95.5
+  T5          210          68         95     47        92.7      101.4
+  model                 n_strip  front_only  back_only   both  mean_front  mean_back
+  claude-sonnet-4           252         187         34     31       106.1       33.5
+  deepseek-v4               161          20         98     43        75.7      148.6
+  gemini-2.5-flash           60          22         32      6        57.0       85.2
+  gpt-4o                    123          23         52     48       131.4      115.7
+  llama-3.3-70b             333         223          9    101       159.2       58.8
+  qwen-3-235b               271          44        153     74        68.5      112.4
+
+==============================================================================
+SIGN TESTS ON DIRECTION OF SCORE CHANGE
+==============================================================================
+all 3,600: raised 210, lowered 49; exact two-sided sign test p = 6.421e-25
+  T1: raised 2, lowered 3, p=1.000e+00
+  T2: raised 87, lowered 15, p=1.653e-13
+  T3: raised 62, lowered 12, p=2.856e-09
+  T4: raised 41, lowered 11, p=3.589e-05
+  T5: raised 18, lowered 8, p=7.552e-02
+  claude-sonnet-4      raised   44, lowered   8, p=4.039e-07
+  deepseek-v4          raised   16, lowered   4, p=1.182e-02
+  gemini-2.5-flash     raised    4, lowered   1, p=3.750e-01
+  gpt-4o               raised   17, lowered   5, p=1.690e-02
+  llama-3.3-70b        raised   83, lowered  29, p=3.291e-07
+  qwen-3-235b          raised   46, lowered   2, p=8.363e-12
+
+==============================================================================
+DOMAIN RANKING, UNSTRIPPED vs STRIPPED (GENUINE revisions only, n=718)
+==============================================================================
+  domain            n  unstrip  rank    strip  rank   shift   move
+  data_logic      134    3.410     1    3.754     1  +0.343     +0
+  creative        145    3.138     2    3.545     2  +0.407     +0
+  writing         118    3.059     4    3.508     3  +0.449     +1
+  analysis        125    3.080     3    3.448     4  +0.368     -1
+  code            196    2.801     5    3.117     5  +0.316     +0
+
+==============================================================================
+TIE CHECK IN MODEL RANKINGS (GENUINE-only, n=718)
+==============================================================================
+  claude-sonnet-4      n= 196  unstripped 3.6531  stripped 3.9745
+  deepseek-v4          n=  31  unstripped 2.7419  stripped 3.3871
+  qwen-3-235b          n=  90  unstripped 2.4444  stripped 3.3000
+  gpt-4o               n=  40  unstripped 2.8000  stripped 3.2500
+  llama-3.3-70b        n= 353  unstripped 2.9972  stripped 3.2408
+  gemini-2.5-flash     n=   8  unstripped 2.0000  stripped 2.2500
+
+==============================================================================
+DOWNGRADE ANATOMY: the 49 rows where stripping LOWERED the score
+==============================================================================
+  mean orig_score 3.88 vs corpus rescored mean 2.35
+  of the 49, orig level 4 or 5 (sufficient): 38
+  of the 49, stripped level became 6 (Overdone): 13
+  label mix: Counter({'GENUINE': 36, 'META': 10, None: 3})
+  model mix: [('llama-3.3-70b', 29), ('claude-sonnet-4', 8), ('gpt-4o', 5), ('deepseek-v4', 4), ('qwen-3-235b', 2), ('gemini-2.5-flash', 1)]
+  domain mix: [('writing', 15), ('creative', 12), ('code', 11), ('data_logic', 7), ('analysis', 4)]
+
+==============================================================================
+HOW MUCH OF THE 1,200 RESCORED SET IS GENUINE vs META vs T1
+==============================================================================
+  T1: 69
+  post-T1 GENUINE: 621
+  post-T1 META: 510
+  mean delta by label: T1=-0.014, GENUINE=+0.428, META=+0.051
+  raised share by label: T1=2/69, GENUINE=180/621, META=28/510

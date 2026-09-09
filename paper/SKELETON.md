@@ -48,7 +48,7 @@ Every beat below is a phrased topic sentence + its grounding.
 2. **Fragility.** Without external feedback, models struggle to correct reasoning and sometimes degrade it; apparent gains trace to oracle labels or more informative prompts. `[C: huang2024large]`
 3. **Mechanism (error location).** Models cannot reliably find their own errors but can fix them when the location is supplied externally. `[C: tyen2024llms, tsui2025selfcorrection]`
 4. **Verifier dependence.** Reliable self-correction depends on a strong external verifier or on training, not on intrinsic prompting. `[C: zhang2024small, qu2024recursive]`
-5. **Survey + synthesis.** A critical survey locates the bottleneck in feedback generation rather than revision capacity, the exact seam our result sits on. `[C: kamoi2024selfcorrection, kim2024language, shinn2023reflexion]`
+5. **Survey + synthesis.** A critical survey locates the bottleneck in feedback generation rather than revision capacity, the exact seam our result sits on. `[C: kamoi2024selfcorrection, shinn2023reflexion]`  <!-- kim2024language removed 2026-09-05: fabricated citation, no such paper; arXiv:2401.12294 is a hep-th superfluid paper and the author list was Prometheus 2's -->
 
 ### 2.4 Termination and overthinking (knowing when to stop)
 1. **Single-response analog.** Reasoning models continue past a completion point and degrade their own answers, a failure to terminate. `[C: chen2024overthinking, chen2025overthinking, ghosal2025overthinking]`
