@@ -34,10 +34,8 @@ When prompted with undirected revision requests (``Can you improve this?''), mod
 \end{table}
 
 \paragraph{Decline behavior is verbose and content-shaped.}
-The distinction between genuine revisions and declines is non-trivial to automate. A keyword-based classifier (checking for phrases like ``no changes needed'') yielded 135 ``balanced panel'' trials with apparent revision at all five turns. A validated LLM classifier, checked against human judgment on a stratified sample, classified only 24.9\% of post-Turn~1 outputs as genuine revisions (718/2,880), yielding 50 balanced-panel trials. The 85-trial gap reflects verbose decline-with-restatement responses: outputs that restate the original content (sometimes verbatim) while declining to change it, giving the surface appearance of revision without substantive modification.
-
 \paragraph{Survival varies by model.}
-Genuine-revision survival to Turn~5 ranges from 0.8\% (Gemini~2.5 Flash: 1/120 trials) to 53.3\% (Llama~3.3~70B: 64/120). Gemini declines in 98.3\% of post-Turn~1 observations, the most extreme case. Figure~\ref{fig:survival-curves} shows the per-model survival curves; only Llama sustains revision to the final turn. The balanced panel of 50 trials with genuine revision at all turns is composed of 45 Llama trials (90\%), 3 Qwen, and 2 Claude; GPT-4o, DeepSeek, and Gemini contribute zero trials each.
+Genuine-revision survival to Turn~5 ranges from 0.8\% (Gemini~2.5 Flash: 1/120 trials) to 53.3\% (Llama~3.3~70B: 64/120). Gemini declines in 98.3\% of post-Turn~1 observations, the most extreme case. Figure~\ref{fig:survival-curves} shows the per-model survival curves; only Llama sustains revision to the final turn. The balanced panel of 50 trials with genuine revision at all turns is composed of 45 Llama trials (90\%), 3 Qwen, and 2 Claude; GPT-4o, DeepSeek, and Gemini contribute zero trials each. This subset conditions on a post-treatment variable (revision persistence), introducing potential selection bias; we triangulate it against the pooled estimates below.
 
 \FloatBarrier
 \begin{figure}[!tbp]
@@ -47,12 +45,8 @@ Genuine-revision survival to Turn~5 ranges from 0.8\% (Gemini~2.5 Flash: 1/120 t
     \label{fig:survival-curves}
 \end{figure}
 
-\paragraph{Probe phrasing, not output quality, controls whether a model revises.}
-Across five probe wordings tested in Study~1 (3 models; $n = 3{,}932$; see \S\ref{sec:gate-experiments} and Appendix~\ref{sec:appendix-study1}), the revision gate is bimodal. The two probes that request change (``Can this be improved?'' and ``Is there anything you would change?'') trigger near-universal revision (99.9\%, $n = 1{,}920$; 100\%, $n = 18$). The three probes that request assessment (``Take another look and let me know if it's ready,'' ``Does it meet the bar?,'' and ``What do you think?'') produce single-digit to low-double-digit revision rates (23.2\%, $n = 1{,}920$; 12.5\%, $n = 24$; 2.0\%, $n = 50$). No probe falls in the 40--99\% range; the gate is semantic, not graded. Study~3's balanced probe (``Would you like to keep this as your final version, or would you like to revise it?''), measured with a different instrument (validated GENUINE/META classifier rather than the Study~1 evaluator gate), lands in the assessment range at 39.3\% at Turn~2 ($n = 720$), consistent with this pattern.
+\paragraph{Probe phrasing, not output quality, controls whether a model revises.} Across five probe wordings the revision gate is bimodal rather than graded; Appendix~\ref{sec:appendix-study1} reports the breakdown. Study~3's balanced probe lands in the assessment range at 39.3\% at Turn~2.
 
-%% ═══════════════════════════════════════════════════════════════════
-%% BLOCK 2: QUALITY DEGRADATION
-%% ═══════════════════════════════════════════════════════════════════
 
 \subsection{Quality Degrades Under Undirected Revision}
 
@@ -65,95 +59,43 @@ cases, lowers it in 27.7\%, and raises it in 12.1\%. Restricting to the 286 revi
 the level at all, 199 move it down and 87 move it up, a share of 69.6\% (exact binomial
 95\% CI $[63.9\%, 74.9\%]$; sign test $p = 1.48 \times 10^{-11}$). Of the 411 revisions whose input was already at or above the sufficiency
 threshold, 113 (27.5\%) end below it. The asymmetry is present in
-every model and in every domain (Table~\ref{tab:direction}). It is significant in four of the
+every model and in every domain (Appendix~\ref{sec:secondary-tables}). It is significant in four of the
 six models individually; Claude Sonnet~4 does not reach significance ($p = 0.11$) and
 Gemini~2.5~Flash contributes only eight genuine revisions. Unstripped, the same share is 76.6\%
 (245 against 75, $p = 1.7 \times 10^{-22}$).
 
-\begin{table}[t]
-    \centering
-    \footnotesize
-    \setlength{\tabcolsep}{4pt}
-    \begin{tabular}{@{}lrrr@{}}
-    \toprule
-    & $n$ & \% down & $p$ \\
-    \midrule
-    \multicolumn{4}{@{}l}{\emph{By model}} \\
-    Llama 3.3 70B    & 353 & 68.9 & $<0.001$ \\
-    Claude Sonnet 4  & 196 & 58.5 & 0.11 \\
-    Qwen 3 235B      & 90  & 74.5 & $<0.001$ \\
-    GPT-4o           & 40  & 80.0 & 0.006 \\
-    DeepSeek-V4      & 31  & 85.7 & 0.007 \\
-    Gemini 2.5 Flash & 8   & 100.0 & 0.062 \\
-    \midrule
-    \multicolumn{4}{@{}l}{\emph{By domain}} \\
-    Writing          & 118 & 79.1 & $<0.001$ \\
-    Creative         & 145 & 73.1 & $<0.001$ \\
-    Code             & 196 & 67.0 & $<0.001$ \\
-    Analysis         & 125 & 65.9 & 0.024 \\
-    Data logic       & 134 & 65.9 & 0.024 \\
-    \bottomrule
-    \end{tabular}
-    \caption{Direction of genuine revisions on stripped content. $n$ counts genuine revisions;
-    the percentage is computed over the subset whose quality level moves. Sign test, one-sided.
-    A $\chi^2$ test of homogeneity across the five domains does not reject uniformity
-    ($\chi^2 = 3.02$, $\mathrm{df} = 4$, $p = 0.555$).}
-    \label{tab:direction}
-\end{table}
+\paragraph{The effect depends on the quality of the input.} In an exploratory analysis
+that was not among our registered predictions, the expected change from a single undirected
+revision varies with the level of the input being revised
+(Figure~\ref{fig:input-level}): revision raises quality when the input falls below the
+sufficiency threshold ($+0.41$, $n = 194$) and lowers it when the input is already
+sufficient ($-0.56$, $n = 524$).
 
-This estimator uses every genuine revision rather than the balanced panel, and so does not
-depend on trials that sustain revision to Turn~5. The balanced-panel cliff below measures the
-cumulative effect on the subset that does.
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/fig_input_level.pdf}
+    \caption{Expected change in quality from one undirected revision, by the quality level
+    of the input. Bars are 95\% confidence intervals. Level~1 ($n = 1$) is omitted. This
+    analysis is exploratory and was not pre-registered.}
+    \label{fig:input-level}
+\end{figure}
 
 \paragraph{The revision cliff.}
-In the 50 balanced-panel trials (genuine revision at all turns), mean quality on stripped content drops from 3.66 at Turn~1 to 2.92 at Turn~5, a decline of $-0.74$ levels (Wilcoxon signed-rank $p = 1.01 \times 10^{-4}$; unstripped: $-0.94$, $p = 3.3 \times 10^{-6}$; Table~\ref{tab:cliff}). This is a drop from between ``Functional'' and ``Sufficient'' to just below ``Functional.''
-
-\begin{table}[t]
-    \centering
-    \small
-    \setlength{\tabcolsep}{4pt}
-    \begin{tabular}{lrrrr}
-    \toprule
-    & \multicolumn{2}{c}{Stripped} & Unstr. & Meta \\
-    \cmidrule(lr){2-3}
-    & $\Delta$ & $p$ & $\Delta$ & share \\
-    \midrule
-    All ($n{=}50$) & $\mathbf{-0.74}$ & $1.01{\times}10^{-4}$ & $-0.94$ & 21\% \\
-    Llama ($n{=}45$) & $\mathbf{-0.69}$ & $3.76{\times}10^{-4}$ & $-0.82$ & 16\% \\
-    \bottomrule
-    \end{tabular}
-    \caption{Quality cliff (Turn~1 minus Turn~5) on balanced-panel trials. Stripped values are primary. The unstripped declines are significant at $p = 3.3 \times 10^{-6}$ (all) and $p = 1.8 \times 10^{-5}$ (Llama). Meta share indicates the fraction of the unstripped decline attributable to meta-commentary artifact rather than content degradation.}
-    \label{tab:cliff}
-\end{table}
+In the 50 balanced-panel trials (genuine revision at all turns), mean quality on stripped content drops from 3.66 at Turn~1 to 2.92 at Turn~5, a decline of $-0.74$ levels (Wilcoxon signed-rank $p = 1.01 \times 10^{-4}$; unstripped: $-0.94$, $p = 3.3 \times 10^{-6}$), of which 21\% is attributable to meta-commentary rather than to content. This is a drop from between ``Functional'' and ``Sufficient'' to just below ``Functional.''
 
 \paragraph{Per-model caveats.}
-The balanced panel is dominated by Llama~3.3~70B ($n = 45$), which is the only model with sufficient power to detect a within-model cliff. Its stripped cliff of $-0.69$ is significant at $p = 3.76 \times 10^{-4}$ ($r = 0.53$). Qwen ($n = 3$, $\Delta = -3.00$) and Claude ($n = 2$, $\Delta = -0.50$) show directional degradation but are too small for inference. GPT-4o, DeepSeek, and Gemini contribute zero balanced-panel trials, not because they maintain quality, but because they stop producing genuine revisions before Turn~5. We do not claim ``all models degrade''; we claim that among models that continue revising, the only powered comparison (Llama, $n = 45$) shows significant degradation.
+The balanced panel is dominated by Llama~3.3~70B ($n = 45$), the only model with power
+to detect a within-model cliff; its stripped cliff of $-0.69$ is significant at
+$p = 3.76 \times 10^{-4}$. GPT-4o, DeepSeek and Gemini contribute no balanced-panel trials,
+not because they hold quality but because they stop revising before Turn~5. We do not claim
+all models degrade; we claim that among models that continue revising, the only powered
+comparison shows significant degradation.
 
-\paragraph{Over-elaboration rises with revision.}
-Among genuine revisions, the Level~6 (``Overdone'') rate rises from 5.7\% at T1 to 47.9\% at T5 (34.4\% after meta-commentary stripping), confirming that the evaluator assigns ``Overdone'' increasingly at later turns. This recode corrects an artifact in which Llama~3.3~70B appeared to improve with revision: the apparent improvement was driven by Level~6 scores that inflated the raw mean at later turns.
-
-\paragraph{Pooled trajectory across all genuine revisions.}
-Relaxing the balanced-panel requirement and pooling all genuine revisions (with shifting $n$ at each turn), mean quality on stripped content declines from 4.11 at Turn~1 to 3.07 at Turn~5 ($\Delta = -1.04$; unstripped: $-1.26$; Table~\ref{tab:pooled-trajectory}). This trajectory has known compositional bias: models with higher decline rates (Gemini, GPT-4o) exit the revision pool earlier, leaving models with lower decline rates (Llama) overrepresented at later turns. The direction is nevertheless consistent with the balanced-panel estimate, and Figure~\ref{fig:quality-trajectory} plots the two series together.
-
-\begin{table}[t]
-    \centering
-    \small
-    \begin{tabular}{lcccc}
-    \toprule
-    Turn & Stripped & (Unstripped) & Shift & $n$ \\
-    \midrule
-    T1 & 4.11 & (4.11) & 0 & 720 \\
-    T2 & 3.66 & (3.25) & +0.41 & 283 \\
-    T3 & 3.40 & (3.01) & +0.39 & 185 \\
-    T4 & 3.34 & (2.97) & +0.37 & 154 \\
-    T5 & 3.07 & (2.85) & +0.22 & 96 \\
-    \midrule
-    $\Delta$ (T1--T5) & $\mathbf{-1.04}$ & ($-1.26$) & & \\
-    \bottomrule
-    \end{tabular}
-    \caption{Pooled mean quality by turn, restricted to genuine revisions (GENUINE-only at T2--T5, all 720 at T1). Stripped scores are primary. $n$ declines as models exit the revision pool.}
-    \label{tab:pooled-trajectory}
-\end{table}
+\paragraph{Pooled trajectory.} Pooling all genuine revisions with shifting $n$, stripped
+quality falls from 4.11 at Turn~1 to 3.07 at Turn~5 ($\Delta = -1.04$). This estimator uses
+every genuine revision rather than the balanced panel, but carries a compositional bias:
+models with higher decline rates exit the pool earlier. The direction agrees with the
+balanced-panel estimate, and Figure~\ref{fig:quality-trajectory} plots both.
 
 \FloatBarrier
 \begin{figure}[!tbp]
@@ -164,28 +106,12 @@ Relaxing the balanced-panel requirement and pooling all genuine revisions (with 
 \end{figure}
 
 \paragraph{Domain variation.}
-With probe phrasing held constant in Study~3, model identity explains far more variation in genuine-revision rate than task domain: the model range is 71.9 percentage points (Llama~3.3~70B 73.5\% to Gemini~2.5 Flash 1.7\%, $n = 480$ per model) while the domain range is 13.5 percentage points ($n = 576$ per domain). Which model is asked to revise matters roughly 4--5$\times$ more than what it is asked to revise. Within that smaller domain effect, code tasks elicit significantly more genuine revision: 34.0\% of post-Turn~1 code outputs are genuine revisions vs.\ 20.5--25.2\% for the four other domains ($\chi^2 = 35.63$, $df = 4$, $p = 3.4 \times 10^{-7}$). Code is the highest-revision domain for every model except DeepSeek ($n = 96$ per domain-model cell), which is near floor on all domains (3--10\%). This is consistent with the targeted-feedback mechanism (Section~\ref{sec:targeted}): code tasks carry built-in directed signals (a failing test, a type error, a clear specification to check against) that function as implicit critique, the same evaluative input that targeted feedback provides explicitly. The domain effect is additive rather than interactive: code is boosted roughly 10--15 percentage points above each model's own baseline revision rate, and domain$\times$model cells ($n = 96$) are large enough to detect a crossover interaction if one existed; none does.
-
-All five domains show negative stripped deltas on the pooled genuine trajectory (Table~\ref{tab:domain-variation}), and four of five reach significance on paired Wilcoxon tests ($p < 0.05$; data\_logic is marginal at $p = 0.058$). This is a different quantity from the direction asymmetry in Table~\ref{tab:direction}, which is significant in all five domains: the trajectory measures how far quality falls, the asymmetry measures how often a revision moves it downward. Creative writing shows the largest sensitivity to stripping (stripped $\Delta = -0.82$ vs.\ unstripped $-1.22$), consistent with higher meta-commentary prevalence in creative tasks. Code shows the least sensitivity ($-1.05$ vs.\ $-1.15$). However, per-domain Turn~5 cells range from $n = 13$ (writing) to $n = 30$ (code), and balanced-panel cells from $n = 5$ (writing) to $n = 22$ (code); only code clears $n \geq 10$ in the balanced panel. The aggregate degradation pattern is well-powered; per-domain cliff magnitudes should be read as directional estimates, not precise per-domain measurements. (Creative writing shows the smallest balanced-panel cliff estimate, $\Delta = -0.17$ at $n = 6$, but this cell is too small to interpret; whether creative tasks genuinely resist degradation under undirected revision is an open question requiring more genuine-revision data.)
-
-\begin{table}[t]
-    \centering
-    \small
-    \setlength{\tabcolsep}{4pt}
-    \begin{tabular}{lrrrr}
-    \toprule
-    Domain & Stripped & Unstr. & Shift & $n_{\text{T5}}$ \\
-    \midrule
-    analysis & $-1.16$ & ($-1.21$) & +0.05 & 17 \\
-    code & $-1.05$ & ($-1.15$) & +0.10 & 30 \\
-    creative & $-0.82$ & ($-1.22$) & +0.40 & 19 \\
-    data\_logic & $-1.01$ & ($-1.35$) & +0.34 & 17 \\
-    writing & $-1.06$ & ($-1.31$) & +0.25 & 13 \\
-    \bottomrule
-    \end{tabular}
-    \caption{Quality decline (T1--T5) by domain on stripped content. All domains show negative deltas; 4/5 are significant ($p < 0.05$), data\_logic marginal ($p = 0.058$). Per-domain $n$(T5) limits precision.}
-    \label{tab:domain-variation}
-\end{table}
+With probe phrasing held constant, model identity explains far more variation in
+genuine-revision rate than task domain: a model range of 71.9 percentage points against a
+domain range of 13.5. All five domains show negative stripped deltas and four of five reach
+significance on paired Wilcoxon tests ($p < 0.05$; data\_logic marginal at $p = 0.058$);
+per-domain Turn~5 cells run from $n = 13$ to $n = 30$, so these are directional estimates
+(Appendix~\ref{sec:secondary-tables}).
 
 \paragraph{Revision despite sufficiency.}
 The evaluator rated 87.6\% of first-turn outputs as sufficient (631/720), so most trials begin
@@ -200,23 +126,7 @@ time (368/938 sufficient turns, 95\% CI [36.1\%, 42.3\%]; stripped: 39.6\%, 411/
 \subsection{Targeted Feedback Restores Quality}
 \label{sec:targeted}
 
-The preceding sections show that undirected revision degrades quality. Directed revision, providing specific critique before requesting a revision, substantially improves it. On stripped content, targeted revisions score 1.16 levels above the model's own generic next-turn revision ($p = 5.7 \times 10^{-19}$, $n = 177$; unstripped: $+0.25$, $p = 0.004$; Table~\ref{tab:targeted-feedback}). The unstripped comparison understates the real effect because meta-commentary on generic revisions inflates their scores; targeted revisions carry minimal meta-commentary (9/177 = 5\%).
-
-\begin{table}[t]
-    \centering
-    \small
-    \setlength{\tabcolsep}{4pt}
-    \begin{tabular}{lrrrr}
-    \toprule
-    & Targeted & Generic & $\Delta$ & $p$ \\
-    \midrule
-    Stripped & 4.68 & 3.53 & $\mathbf{+1.16}$ & $5.7{\times}10^{-19}$ \\
-    Unstripped & 4.68 & 4.43 & $+0.25$ & $3.8{\times}10^{-3}$ \\
-    \bottomrule
-    \end{tabular}
-    \caption{Targeted vs.\ generic revision quality ($n = 177$ matched pairs). Stripped scores are primary. The unstripped comparison understates the effect because meta-commentary inflates generic revision scores.}
-    \label{tab:targeted-feedback}
-\end{table}
+The preceding sections show that undirected revision degrades quality. Directed revision, providing specific critique before requesting a revision, substantially improves it. On stripped content, targeted revisions score 4.68 against 3.53 for the model's own generic next-turn revision, a gain of 1.16 levels ($p = 5.7 \times 10^{-19}$, $n = 177$; unstripped: 4.68 against 4.43, $+0.25$, $p = 0.004$). The unstripped comparison understates the real effect because meta-commentary on generic revisions inflates their scores; targeted revisions carry minimal meta-commentary (9/177 = 5\%).
 
 This effect is significant for all five models with sufficient sample size (Table~\ref{tab:targeted-per-model}). On unstripped text, only Claude and DeepSeek showed significant effects; stripping reveals that Llama, Qwen, and GPT-4o also benefit substantially, but their generic baselines were inflated by meta-commentary.
 
@@ -249,30 +159,16 @@ The contrast between undirected and directed revision is the central practical f
 
 \subsection{The Revision Tax}
 
-The quality-optimal stopping point ($t^*$) is Turn~1 for all six models: no model benefits from undirected revision on the genuine-revision quality trajectory. All tokens generated after Turn~1 are therefore waste under a quality-maximizing criterion. Our revision tax is adjacent to the independently coined ``YapTax'' of \citet{borisov2026yapbench}, which measures single-turn over-generation on brevity-ideal prompts (excess tokens above a minimal-sufficient baseline $\times$ output price); our metric instead captures multi-turn revision waste, where the model is asked to improve an already-sufficient output and the excess accumulates across turns.
+The quality-optimal stopping point ($t^*$) is Turn~1 for all six models: no model benefits from undirected revision on the genuine-revision quality trajectory. All tokens generated after Turn~1 are therefore waste under a quality-maximizing criterion. Across all 720 trials, 62.1\% of output tokens are spent past $t^*$ (aggregate tax: 164.2\%; Figure~\ref{fig:revision-tax}). Per-model waste ranges from 23.4\% (Gemini, which declines early and generates few post-T1 tokens) to 81.3\% (Llama, which continues revising and generates substantial post-T1 content). 
 
-Across all 720 trials, 62.1\% of output tokens are spent past $t^*$ (aggregate tax: 164.2\%; Table~\ref{tab:revision-tax}). Per-model waste ranges from 23.4\% (Gemini, which declines early and generates few post-T1 tokens) to 81.3\% (Llama, which continues revising and generates substantial post-T1 content). Translated to deployment cost at 2025 API prices, these post-$t^*$ tokens project to between \$323 per year (Gemini~2.5 Flash) and \$65{,}678 per year (Claude Sonnet~4) for a 500-person organization; the range is dominated by model choice, combining a roughly 37-fold spread in output price with the models' differing revision volumes, and should be read as an order-of-magnitude indication rather than a precise forecast.
-
-\begin{table}[t]
+\begin{figure}[t]
     \centering
-    \small
-    \begin{tabular}{lcccc}
-    \toprule
-    Model & $t^*$ & Tax \% & Waste \% \\
-    \midrule
-    Gemini 2.5 Flash & T1 & 30.6 & 23.4 \\
-    DeepSeek V4 & T1 & 118.9 & 54.3 \\
-    GPT-4o & T1 & 125.8 & 55.7 \\
-    Qwen 3 235B & T1 & 198.6 & 66.5 \\
-    Claude Sonnet 4 & T1 & 251.6 & 71.6 \\
-    Llama 3.3 70B & T1 & 436.0 & 81.3 \\
-    \midrule
-    Aggregate & T1 & 164.2 & 62.1 \\
-    \bottomrule
-    \end{tabular}
-    \caption{Revision tax by model. $t^* = $ Turn~1 for all models. Tax~\% $= (\text{waste tokens} / \text{baseline tokens}) \times 100$. Waste~\% $= \text{waste tokens} / \text{total tokens}$. Meta-response tokens are counted as waste (Interpretation~A).}
-    \label{tab:revision-tax}
-\end{table}
+    \includegraphics[width=\columnwidth]{figures/fig_revision_tax.pdf}
+    \caption{Share of each model's output tokens generated after the quality-optimal turn,
+    which is Turn~1 for all six. Meta-response tokens count as waste. The dashed line is
+    the all-trials aggregate.}
+    \label{fig:revision-tax}
+\end{figure}
 
 % ═══════════════════════════════════════════════════════════════════
 % FLAGS: Spec-data misalignments
