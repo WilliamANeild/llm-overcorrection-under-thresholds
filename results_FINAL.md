@@ -257,6 +257,39 @@ data. It is the basis for the paper's headline claim as of 2026-09-03.
 
 ---
 
+## 4c. EXPECTED CHANGE BY INPUT LEVEL (added 2026-09-14)
+
+**POST-HOC. Not among the registered predictions.** Computed 2026-09-14 while preparing
+figures; it was not part of the pre-registered analysis plan and must be reported as
+exploratory wherever it appears.
+
+Expected change in quality level from a single undirected revision, conditioned on the
+quality level of the input being revised.
+
+| Input level | n | E[change] | P(down) | P(up) |
+|---|---:|---:|---:|---:|
+| 2 | 116 | +0.69 | 0.00 | 0.35 |
+| 3 | 77 | -0.03 | 0.30 | 0.27 |
+| 4 | 394 | -0.43 | 0.28 | 0.06 |
+| 5 | 130 | -0.98 | 0.49 | 0.00 |
+| **input insufficient (< 4)** | 194 | **+0.41** | | |
+| **input sufficient (>= 4)** | 524 | **-0.56** | | |
+
+Level 1 has n = 1 and is omitted from the figure.
+
+- **Filter:** the same 718 genuine revisions as Section 4b. For each trial, walk turns 2-5;
+  where `genuine_meta_labels.jsonl` gives GENUINE and `stripped_rescore_full.jsonl` has a
+  score, record (baseline level, new level) and advance the baseline. Baseline starts at the
+  Turn 1 stripped score. 6 -> 2 recode applied throughout.
+- **Sources:** `data/study3/raw_responses/genuine_meta_labels.jsonl`,
+  `stripped_rescore_full.jsonl`.
+- **Caveat:** conditions on a judge-assigned level, so it inherits the evaluator's error.
+  The reliability figures in Section 11 apply.
+- **Relation to 4b:** these are the row means of the 4b transition matrix, not an
+  independent result. Reporting both would be reporting one analysis twice.
+
+---
+
 ## 5. TARGETED FEEDBACK
 
 | Metric | Value |

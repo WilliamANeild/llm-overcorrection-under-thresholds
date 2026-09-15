@@ -15,3 +15,9 @@ data/processed/scored_trials.jsonl
 
 # Build outputs, regenerable with tectonic
 paper/builds/
+
+# Section .bak safety copies taken mid-edit; the committed history is the real record
+paper/sections/.*.bak*
+
+# Exploratory figure candidates, regenerable from paper/figures/gen_*.py
+.workspace/scratch/*.png

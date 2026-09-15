@@ -560,9 +560,20 @@ background occurs in only two papers (Tyen, Wang), both dataset papers whose §1
 the contribution. *Check: either the section precedes the method, or a Background section defining
 the paper's terms precedes it and the related work sits late.*
 
-**R2. Target 550 to 900 words for an NLP venue.** NLP mean is 543 and the longest is Chen at 1155,
-placed late. The HCI mean of 1262 does not transfer to an eight-page ACL submission. *Check: the
-compiled section is under 900 words of prose.*
+**R2. Target 310 to 530 words for an NLP venue. SUPERSEDED 2026-09-14, see the correction below.**
+*Check: the compiled section is between 310 and 530 words of prose.*
+
+> **Correction, 2026-09-14.** R2 originally read "target 550 to 900 words," and that floor was
+> wrong in two ways. It contradicted its own evidence: the NLP mean stated in the same sentence is
+> 543, below the floor it sets, and four of the NLP sections measured here (Kamoi 303, Kwan 236,
+> Tyen 268, Stechly 193) sit far below it. And it rested on 22 sections, of which 14 were NLP.
+> `scripts/introduction_corpus/06_section_census.py` now measures related-work length across the
+> 69 cached papers: n=62, p25 310, median 402, p75 526. Ali's own 24 papers give a median of 397.
+> The floor was roughly 150 words above the field median and was set from a small sample.
+>
+> This is not a cosmetic revision. Acting on the old floor would have meant padding a section that
+> already sits above the median, against an 8-page limit. A task to do exactly that was logged on
+> 2026-09-14 and has been withdrawn.
 
 **R3. Use three to five thematic clusters, not more.** Median 3, mean 3.1, maximum 5 across the 15
 thematically organised sections. Nothing in the corpus exceeds five. *Check: count the
