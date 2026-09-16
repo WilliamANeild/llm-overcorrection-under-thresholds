@@ -37,11 +37,6 @@ checklist). The introduction is now the head of the chain.
   - **Done when:** every citation in the live build has been checked against its source for whether the source says what the sentence says it says
   - The metadata audit did NOT do this. `claudecode2025loop` proves the failure mode is present: a real source cited for something it does not say.
 
-- [ ] Anonymise the rater names in the appendix before submission — added 2026-09-08
-  - **Done when:** `sections/appendix.tex` names no real person, and an anonymised build contains no author-identifying string
-  - `appendix.tex:224-226` names the three annotators as "Liam", "Sophie" and "Troy" in Table 13. Swapping the author block on `main.tex` will NOT catch this: the first name matches the author, so the table de-anonymises the submission on its own. Replace with Rater A/B/C
-  - Also check `results_v2.tex:59` and `introduction_v2.tex:3`, which carry "Liam" in LaTeX comments. Comments do not print, but they ship in the source if source is uploaded
-
 - [ ] Resolve the duplicate model labels in the Study 2 dose-response figure — added 2026-09-08
   - **Done when:** the legend names each model once
   - `data/figures/momentum/dose_response_curve.png` legend lists both "claude-sonnet" and "claude-sonnet-4", and both "gemini-flash" and "gemini-2.5-flash". The short-named series carry only a dose-0 point, so the data appears to use two naming conventions for the same models. This is a data question, not a plotting one
@@ -74,10 +69,6 @@ checklist). The introduction is now the head of the chain.
   - **Done when:** r appears in the ledger's stripped-cliff section and in `paper/sections/results_v2.tex` Table 3, and `RECOMPUTE_TODO.md` is deleted
   - The stripped p-value (1.01e-4) is already in the paper but was never written back to the ledger
 
-- [ ] Move the blind pairwise reversibility result out of Limitations and into Results — added 2026-09-02
-  - **Done when:** `paper/sections/results_v2.tex` reports the 56.2% figure with its CI and the pre-set 65% bar under its own heading, and the Limitations entry becomes a restatement rather than the only appearance
-  - Two independent grounds: ARR desk-rejects a Limitations section used to introduce new analysis or results, and 0 of 31 surveyed papers report a pre-registered threshold at all, so ours is a strength currently presented as a failure
-
 - [ ] Record that the design document's domain prediction is not supported — added 2026-09-02
   - **Done when:** the outcome of the "Key prediction" at `experiment/study3_revision_yield_design.md:117` is stated in the paper, and `results_FINAL.md` records that the objectivity gradient holds unstripped (p=0.019) and disappears stripped (p=0.151)
 
@@ -95,9 +86,32 @@ checklist). The introduction is now the head of the chain.
 - [ ] ARR submission mechanics — added 2026-09-02 — blocked on: all section rewrites
   - **Done when:** `paper/main.tex` compiles anonymised with no author name or affiliation, Limitations sits unnumbered after the Conclusion, the body is within the ARR long-paper page limit, and the Responsible NLP Research checklist is completed
   - `main.tex` currently carries "Liam Neild, Emory University, liam.neild@emory.edu" and must be anonymised for review
+  - The rater table is already anonymised (2026-09-16, key at `.workspace/reference/rater_key.md`). What remains is source-level only and does not print: the author block above, a `TKTK Liam` comment at `results_v2.tex:53`, a comment crediting Tania's rewrite at `introduction_v2.tex:3`, and absolute paths containing the username in `figures/gen_fig3_model_trajectories.py:174` and `gen_fig4_revision_tax.py:81`. Neither of those two scripts is referenced by any live section, so they may simply be dead
+  - `sections/introduction.tex` is the retired v1 file. It is not in `main.tex` and it includes `figures/fig1_combined_v3.pdf`, one of the retired fabricated teasers, which no longer exists on disk. Harmless to the build but a trap for a later session
   - The exact ARR requirements are being retrieved verbatim into `paper/rules/09_limitations_ethics.md`; use that file, not memory
 
+- [ ] Clear the 11 orphan section backups — added 2026-09-16
+  - **Done when:** `paper/sections/` holds no `.bak` file, and any whose content is not in git history has been checked first
+  - Found while verifying the reversibility item. The 2026-09-14 batch was removed at commit e7d228b; these 11 predate it: `.appendix.tex.bak_2026-09-08`, `.introduction_v2.tex.bak`, `.introduction_v2.tex.bak2`, `.methods.tex.bak`, `.related_work.tex.bak`, `.related_work_v2.tex.bak`, `.related_work_v2.tex.bak2`, `.related_work_v2.tex.bak4`, `.results_v2.tex.bak3`, `.results_v2.tex.bak_2026-09-08`, `results_OLD_DO_NOT_USE.tex.bak`
+  - The last one carries no leading dot, so the `.gitignore` pattern added at e7d228b does not catch it
+
+- [ ] Merge the paragraph stubs in related work and results — added 2026-09-16 — blocked on: Tania's notes on those sections
+  - **Done when:** both sections sit inside the corpus band for words per paragraph, with no words added or cut
+  - Related work averages 65 words per paragraph against a corpus p25 of 102 (paragraphs run 120, 66, 62, 59, 49, 35); results averages 64 against 78. Both pass length and fail paragraph length, which is what trimming every paragraph a little instead of cutting whole claims produces
+  - Measured in `paper/reference/prose_census.md`. Merging related work's six run-in clusters to four puts it near 111 words per paragraph
+  - Blocked deliberately: she is reading these two sections now, and her notes would collide with the merge
+
 ## Completed
+
+- [x] Anonymise the rater names in the appendix before submission — added 2026-09-08, done 2026-09-16
+  - `appendix.tex` Table 13 now reads Rater A/B/C. Mapping recorded outside the submitted source at `.workspace/reference/rater_key.md`: A is Liam, B is Sophie, C is Troy. Agreement figures unchanged
+  - Swept the whole live build rather than the three flagged lines. Nothing identifying prints in the PDF now except the author block, which is the submission-mechanics item
+
+- [x] Move the blind pairwise reversibility result out of Limitations and into Results — added 2026-09-02, done 2026-09-16
+  - New subsection `sec:reversibility` in Results reports 41 of 73 decided comparisons (56.2%, bootstrap 95% CI [45.2%, 67.1%], 27 ties of 100 pooled, kappa 0.703) and the pre-set 65% bar that was not cleared. Numbers taken from `results_FINAL.md`, not from the stale backup that also held them
+  - `methods.tex` had said "The outcome is reported in the Limitations." It now points at the Results subsection
+  - The Limitations entry is reduced to a restatement that refers back, so Limitations no longer introduces a result
+  - Paid for on the page budget by moving the post-hoc input-level figure to Appendix Supplementary Figures (its paragraph already states both numbers, so only the visual moved) and by cutting 16 words where the Discussion defined revision robustness a second time. Body still ends page 8 and every section benchmark still passes; figures per table improved from 1.67 to 1.33 against a median of 1.25
 
 - [x] Withdrawn: restore Related Work to its own length benchmark — added 2026-09-14, withdrawn 2026-09-14
   - The task was based on a wrong benchmark. `rules/04` R2 set a 550-word floor from 22 sections, above its own stated NLP mean of 543. A 62-section measurement puts the median at 402 and Ali's at 397, so Related Work at 445 words is above both, not 105 below a floor. R2 is corrected in place with the reasoning recorded.
