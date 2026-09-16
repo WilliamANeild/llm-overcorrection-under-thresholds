@@ -21,3 +21,7 @@ paper/sections/.*.bak*
 
 # Exploratory figure candidates, regenerable from paper/figures/gen_*.py
 .workspace/scratch/*.png
+
+# Maps the anonymised rater labels back to real names. Must never be committed:
+# this repository is public, and the paper is anonymised for review.
+.workspace/reference/rater_key.md

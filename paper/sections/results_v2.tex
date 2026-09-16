@@ -67,18 +67,9 @@ Gemini~2.5~Flash contributes only eight genuine revisions. Unstripped, the same 
 \paragraph{The effect depends on the quality of the input.} In an exploratory analysis
 that was not among our registered predictions, the expected change from a single undirected
 revision varies with the level of the input being revised
-(Figure~\ref{fig:input-level}): revision raises quality when the input falls below the
+(Figure~\ref{fig:input-level}, Appendix~\ref{sec:supp-figures}): revision raises quality when the input falls below the
 sufficiency threshold ($+0.41$, $n = 194$) and lowers it when the input is already
 sufficient ($-0.56$, $n = 524$).
-
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=\columnwidth]{figures/fig_input_level.pdf}
-    \caption{Expected change in quality from one undirected revision, by the quality level
-    of the input. Bars are 95\% confidence intervals. Level~1 ($n = 1$) is omitted. This
-    analysis is exploratory and was not pre-registered.}
-    \label{fig:input-level}
-\end{figure}
 
 \paragraph{The revision cliff.}
 In the 50 balanced-panel trials (genuine revision at all turns), mean quality on stripped content drops from 3.66 at Turn~1 to 2.92 at Turn~5, a decline of $-0.74$ levels (Wilcoxon signed-rank $p = 1.01 \times 10^{-4}$; unstripped: $-0.94$, $p = 3.3 \times 10^{-6}$), of which 21\% is attributable to meta-commentary rather than to content. This is a drop from between ``Functional'' and ``Sufficient'' to just below ``Functional.''
@@ -122,6 +113,25 @@ time (368/938 sufficient turns, 95\% CI [36.1\%, 42.3\%]; stripped: 39.6\%, 411/
 %% ═══════════════════════════════════════════════════════════════════
 %% BLOCK 3: TARGETED FEEDBACK
 %% ═══════════════════════════════════════════════════════════════════
+
+% TKTK: assembled 2026-09-16 from the sentence that was in limitations.tex and the
+% numbers in methods.tex, so no figure here is new. Voice pass yours. Placed after the
+% degradation finding because it qualifies that finding directly; move it if you would
+% rather the section keep closing on the revision tax.
+\subsection{Readers Cannot Reliably Tell the Drafts Apart}
+\label{sec:reversibility}
+
+Two annotators compared stripped first drafts against stripped final revisions. Turn~1
+was preferred in 41 of 73 decided
+comparisons (56.2\%, bootstrap 95\% CI [45.2\%, 67.1\%]; 27 of the 100 pooled judgments
+were ties, $\kappa = 0.703$). We set a bar in advance of $\geq$65\% Turn~1 preference with
+a confidence interval excluding 50\%. That bar was not cleared, and the interval includes
+chance, so we do not claim a reader can reliably pick the first draft.
+
+This bounds what the degradation means in practice without touching what it measures. The
+drop of 0.74 levels is not large enough to reverse a blind pairwise preference once
+meta-commentary is removed: what declines is measured quality against the stated task, not
+the impression the text leaves on a reader.
 
 \subsection{Targeted Feedback Restores Quality}
 \label{sec:targeted}
