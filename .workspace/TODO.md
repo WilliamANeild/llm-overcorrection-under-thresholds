@@ -24,7 +24,11 @@ checklist). The introduction is now the head of the chain.
   - **Done when:** every one of the 36 flagged claim-source pairs is either corrected in the prose, re-cited, or deliberately left with a recorded reason
   - Consolidated list: `paper/reference/claim_audit_SUMMARY.md`. Per-pair evidence in `claim_audit_chunk1-4.md`
   - DONE so far: the Laban accumulation claim, which appeared in four sentences across the introduction and related work
-  - Highest remaining severity: the four sentences with no surviving support (vendor guidance; judges favouring confident framing; multi-turn coherence degrading with length; enterprise spending), then the four remaining Class A cases where the cited paper tested the claim and found the opposite (fanous2025syceval, perez2023discovering, tsui2025selfcorrection, bucinca2021trust with bansal2021whole)
+  - RE-TRIAGED 2026-09-16 against the live sentences rather than the 2026-09-05 ones. Full record appended to `paper/reference/claim_audit_SUMMARY.md`
+  - The severe pass is DONE. 8 keys were retired outright by the page cut (`tsui2025selfcorrection`, the three industry sources, both overthinking papers, `sui2025efficient`, `claudecode2025loop`). 3 sentences were repaired by the intro and related-work rewrites (vendor guidance, fluent presentation, sustained pressure). 2 were fixed 2026-09-16: the instruction-tuning attribution that `perez2023discovering` contradicts, and the topic-drift clause that neither `zhang2020dialogpt` nor `thoppilan2022lamda` supports, which was cut at Liam's direction
+  - `panickssery2024llm` with `koo2024benchmarking` was checked and is clean: CoBBLEr carries the position-bias half, so one key per bias in a shared bracket is fair
+  - WHAT REMAINS is three mild decisions, none of which puts a claim in danger: `singhal2023long` studies RLHF reward models under a sentence whose subject is judges; `skitka1999automation` is unreachable but `parasuraman2010complacency` carries the clause verbatim; `ye2024justice` supports "stylistic" but not "formatting", since none of CALM's 12 biases is a formatting bias
+  - `zhang2020dialogpt` and `thoppilan2022lamda` are now cited only by the retired `sections/related_work.tex`, which is not in `main.tex`
 
 - [ ] Decide the four bibliography items left open by the audit — added 2026-09-05
   - **Done when:** each of the four has a decision recorded and, where needed, an edit made

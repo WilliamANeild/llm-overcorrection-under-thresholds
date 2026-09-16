@@ -33,7 +33,7 @@ the complementary question of what happens when the signal is absent entirely an
 output to be revised is already adequate.
 
 \paragraph{Sycophancy and compliance under pressure.}
-Instruction-tuned models comply and avoid disagreement even when holding firm would help
+Models comply and avoid disagreement even when holding firm would help
 \cite{perez2023discovering, sharma2024towards, wei2024simple, openai2025sycophancy}, and
 under sustained pressure correct answers get revised toward worse ones
 \cite{xu2024earth, fanous2025syceval}. Our repeated probe is a weak instance of that
@@ -48,9 +48,8 @@ ye2024justice}. Meta-commentary is precisely such a cue, and we find it biases a
 strongly enough to reverse the measured direction of the effect.
 
 \paragraph{Multi-turn degradation and closest work.}
-Quality loss across multiple turns has been observed before through different mechanisms:
-early dialogue systems lose coherence through topic drift rather than revision
-\cite{zhang2020dialogpt, thoppilan2022lamda}. Closest to our work, \citet{laban2025lost}
+Quality loss across multiple turns has been observed before through different mechanisms.
+Closest to our work, \citet{laban2025lost}
 show that models lose accuracy when a task's requirements arrive piecewise, and find the
 effect threshold-shaped rather than cumulative. Our setting isolates a different cause: the
 task is fully specified from the first turn and the initial output is already sufficient,
