@@ -137,3 +137,75 @@ paper ran the experiment and got the opposite answer.
 This is not fixable by re-citing. The sentences have to change to what the sources
 actually establish, which in several cases is a weaker or different claim than the
 argument currently leans on.
+
+
+---
+
+# Re-triage, 2026-09-16
+
+The audit above was run 2026-09-05. The page cut and the introduction and related-work rewrites
+have both happened since, so each flagged pair was re-checked against the **live** sentence
+rather than the sentence that was audited. Evidence was re-read from the chunk files; nothing
+below rests on inference about what a source says.
+
+## Retired by the page cut (8 keys, no longer cited anywhere in the live build)
+
+`tsui2025selfcorrection`, `deloitte2026stateofai`, `gartner2026agentic`, `mckinsey2025stateofai`,
+`chen2025overthinking`, `chen2024overthinking`, `sui2025efficient`, `claudecode2025loop`.
+
+This removes the whole of Class B item 4.4 (enterprise spending), the Class D industry pair, and
+the `claudecode2025loop` miscitation. Those three TODO entries are discharged by deletion.
+
+## Resolved by the rewrites (3 sentences)
+
+**Intro, vendor guidance.** Audited as "vendor guidance encourages users to iterate toward a
+better result," which both sources contradict. The live sentence now reads that this is "the
+request vendor guidance is written against," which is what Anthropic ("explicitly request it
+rather than relying on the model to infer this from vague prompts") and OpenAI (vague prompts
+are "more damaging to GPT-5") actually say. The rewrite moved the claim onto the evidence.
+
+**Related work, fluent presentation.** Audited as "displayed confidence raises acceptance," where
+displayed confidence is the control rather than the manipulation in both papers. The live
+sentence says "fluent presentation raises acceptance without improving discrimination," which is
+Bansal's abstract almost verbatim: "explanations increased the chance that humans will accept the
+AI's recommendation, regardless of its correctness." Buçinca's simple-explanation condition
+performed worse than no AI on incorrect predictions, which is the same finding.
+
+**Related work, sustained pressure.** Audited as "under sustained multi-turn pressure the effect
+strengthens," which `fanous2025syceval` points against. The live sentence drops "strengthens."
+What remains is carried: `xu2024earth` runs four-turn escalation with cumulative belief
+alteration from 20.7% to 78.2%, and `fanous2025syceval` defines and measures regressive
+sycophancy at 14.66%.
+
+## Live and severe (1 sentence)
+
+**Related work, multi-turn degradation.** "Early dialogue systems lose coherence through topic
+drift rather than revision" `\cite{zhang2020dialogpt, thoppilan2022lamda}`. Both keys are NOT
+SUPPORTED and the rewrite did not touch the part that fails. DialoGPT is evaluated single-turn by
+its own abstract, never uses "topic drift," and on multi-turn behaviour points the other way
+("able to deal with multi-turn generation better than an RNN counterpart"). Its coherence line is
+its own introduction's motivation, attributed to Serban et al. 2017. LaMDA defines a
+sensibleness metric but never measures it against conversation length, evaluates on dialogs of up
+to 3 turns, and does not contain "topic drift." No re-citing of these two keys fixes this.
+
+## Live and mild (3 decisions, no claim in danger)
+
+**`singhal2023long` under a "judges" subject.** The paper studies RLHF reward models and training
+dynamics, not LLM judges. It does use LLM annotators for win rates, so the scope shift is real
+but narrow. Either move the key or let the sentence name reward models alongside judges.
+
+**`skitka1999automation` unreachable.** Elsevier closed, no repository copy. `parasuraman2010complacency`,
+cited in the same bracket, supports both the "experts and novices alike" and "decades of studies"
+clauses verbatim and describes Skitka as testing nonpilots. Keeping it costs nothing; dropping it
+costs nothing either.
+
+**`ye2024justice` for formatting.** CALM quantifies 12 biases and none is a formatting bias,
+though Verbosity Bias ("favor longer responses") is stylistic. Supported for "stylistic," not for
+"formatting."
+
+## Checked and clean
+
+**`panickssery2024llm` with `koo2024benchmarking` for "self-preference and position biases."** The
+2026-09-05 note that panickssery does not study position bias is correct, but `koo2024benchmarking`
+carries it: CoBBLEr defines order bias and finds 11 of 15 models drawn to the first or last
+option. One key per bias in a shared bracket is fair. No change needed.
