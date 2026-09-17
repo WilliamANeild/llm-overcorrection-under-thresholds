@@ -136,7 +136,7 @@ the impression the text leaves on a reader.
 \subsection{Targeted Feedback Restores Quality}
 \label{sec:targeted}
 
-The preceding sections show that undirected revision degrades quality. Directed revision, providing specific critique before requesting a revision, substantially improves it. On stripped content, targeted revisions score 4.68 against 3.53 for the model's own generic next-turn revision, a gain of 1.16 levels ($p = 5.7 \times 10^{-19}$, $n = 177$; unstripped: 4.68 against 4.43, $+0.25$, $p = 0.004$). The unstripped comparison understates the real effect because meta-commentary on generic revisions inflates their scores; targeted revisions carry minimal meta-commentary (9/177 = 5\%).
+The preceding sections show that undirected revision degrades quality. Directed revision, providing specific critique before requesting a revision, substantially improves it; we call these targeted revisions. On stripped content, targeted revisions score 4.68 against 3.53 for the model's own generic next-turn revision, a gain of 1.16 levels ($p = 5.7 \times 10^{-19}$, $n = 177$; unstripped: 4.68 against 4.43, $+0.25$, $p = 0.004$). The unstripped comparison understates the real effect because meta-commentary on generic revisions inflates their scores; targeted revisions carry minimal meta-commentary (9/177 = 5\%).
 
 This effect is significant for all five models with sufficient sample size (Table~\ref{tab:targeted-per-model}). On unstripped text, only Claude and DeepSeek showed significant effects; stripping reveals that Llama, Qwen, and GPT-4o also benefit substantially, but their generic baselines were inflated by meta-commentary.
 
@@ -174,7 +174,7 @@ The quality-optimal stopping point ($t^*$) is Turn~1 for all six models: no mode
 \begin{figure}[t]
     \centering
     \includegraphics[width=\columnwidth]{figures/fig_revision_tax.pdf}
-    \caption{Share of each model's output tokens generated after the quality-optimal turn,
+    \caption{Share of each model's output tokens generated after the quality-optimal stopping point,
     which is Turn~1 for all six. Meta-response tokens count as waste. The dashed line is
     the all-trials aggregate.}
     \label{fig:revision-tax}

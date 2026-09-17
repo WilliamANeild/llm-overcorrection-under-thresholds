@@ -46,9 +46,9 @@ Level~4 (``Sufficient'') is the threshold for task completion.
 \paragraph{Scale Non-Monotonicity and 6$\to$2 Recode.}
 Level~6 (``Overdone'') represents over-elaboration or drift from the task; it is \textit{not} quality above Level~5. Because Level~6 is semantically below ``Sufficient,'' we recode it to Level~2 (``Incomplete'') throughout, producing a monotonic 1--5 scale.
 
-\paragraph{Judge Calibration.} Six candidate evaluators were scored against three human
+\paragraph{Evaluator Calibration.} Six candidate evaluators were scored against three human
 raters on 64 stratified samples; Claude Sonnet~4 had the highest human correlation
-(Spearman $r = 0.505$, $p < 0.001$) and was selected. Appendix~\ref{sec:judge-calibration}
+(Spearman $r = 0.505$, $p < 0.001$) and was selected. Appendix~\ref{sec:evaluator-calibration}
 reports all six.
 
 \paragraph{Human Validation.}
@@ -57,9 +57,9 @@ Three raters independently scored 64 stratified samples on the same scale (with 
 \subsection{Meta-Commentary Stripping}
 \label{sec:methods-stripping}
 
-Models frequently add boilerplate preambles (``Here's my revised version...'') and postambles (``Let me know if you'd like any changes'') to revision outputs. In our 50 balanced-panel pairs, 84\% of revision-side outputs contain at least one such wrapper, compared to 14\% of Turn~1 outputs. This asymmetry creates a measurement confound: LLM judges can identify the revision side by its meta-wrapping, and pointwise evaluators may trigger the ``Overdone'' criterion on boilerplate rather than content.
+Models frequently add boilerplate preambles (``Here's my revised version...'') and postambles (``Let me know if you'd like any changes'') to revision outputs. In our 50 balanced-panel pairs, 84\% of revision-side outputs contain at least one such wrapper, compared to 14\% of Turn~1 outputs. This asymmetry creates a measurement confound: LLM judges can identify the revision side by its meta-commentary, and pointwise evaluators may trigger the ``Overdone'' criterion on boilerplate rather than content.
 
-To control for this, we strip meta-commentary from all 3,600 outputs using validated regex patterns matching common preamble and postamble phrases. Of the 3,600 outputs, 1,200 (33.3\%) were modified by stripping and rescored by Claude Sonnet~4 at temperature~0 using the identical evaluation prompt. Validation: on the 50 balanced-panel pairs, two human annotators rating stripped content agreed with the LLM judge at $\kappa = 0.569$, compared to near-chance agreement ($\kappa$ between $-0.07$ and $+0.02$) on unstripped content. All quality results in Section~\ref{sec:results} report stripped scores as primary estimates.
+To control for this, we strip meta-commentary from all 3,600 outputs using validated regex patterns matching common preamble and postamble phrases. Of the 3,600 outputs, 1,200 (33.3\%) were modified by stripping and rescored by Claude Sonnet~4 at temperature~0 using the identical evaluation prompt. Validation: on the 50 balanced-panel pairs, two human annotators rating stripped content agreed with the evaluator at $\kappa = 0.569$, compared to near-chance agreement ($\kappa$ between $-0.07$ and $+0.02$) on unstripped content. All quality results in Section~\ref{sec:results} report stripped scores as primary estimates.
 
 \subsection{Metrics}
 
@@ -70,7 +70,7 @@ genuinely new; the comparison is made against the last genuinely new content bec
 immediately preceding turn is frequently a meta-response restating the output it
 accompanies. \textbf{Revision-despite-sufficiency} is the fraction of turns rated
 $\geq 4$ where the model revised at the next turn. The \textbf{revision tax} is the extra
-tokens spent past the quality-optimal turn $t^*$ as a percentage of optimal tokens,
+tokens spent past the quality-optimal stopping point $t^*$ as a percentage of optimal tokens,
 $(T_{\text{full}} - T_{t^*}) / T_{t^*} \times 100$.
 
 \subsection{Sub-experiments}

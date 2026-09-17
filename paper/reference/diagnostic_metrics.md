@@ -117,7 +117,10 @@ The abstract promises "a single targeted critique"; the Discussion's lead paragr
 **3. The stopping point carries four names:** "quality-optimal stopping point" (3),
 "quality-maximizing stopping point" (1), "quality-optimal turn" (1), "optimal turn" (1).
 
-**4. "sufficient threshold"** appears once where the paper otherwise says "sufficiency threshold".
+**4. WITHDRAWN 2026-09-17, false positive.** Reported as "sufficient threshold" appearing once
+against "sufficiency threshold". The string is "the sufficient/not-sufficient threshold", which is
+correct English; the detector matched "sufficient threshold" inside "not-sufficient threshold".
+There is no variant. Nothing was changed.
 
 **5. "meta-wrapping"** appears once at `methods.tex:60` for what is otherwise meta-commentary.
 
@@ -150,3 +153,34 @@ subsection and "two human annotators" in another and cannot tell whether there a
 three, or five. Only the Ethics Statement resolves it, by saying the raters are "the first author and
 two research assistants", from which the two annotators can be inferred to be a subset. The body
 never says so.
+
+
+## Fixes applied 2026-09-17
+
+Five of the six were real and are fixed. Both builds still end the body on page 8 with no
+warnings, and the sweep re-run reports the scorer split clean.
+
+- **Scorer naming.** "Evaluator" now names our own scorer throughout (12 uses); "judge" is left
+  only where the paper discusses the field's LLM-as-judge practice or uses the verb (9 uses, all
+  re-read in context). Renamed the Methods subsection to Evaluator Calibration, the appendix
+  section to Evaluator Calibration Details, and the label to `sec:evaluator-calibration`.
+  Changed "the highest human-correlation judge" and "agreed with the LLM judge" to "evaluator".
+- **The intervention's two names are now connected** where the term first arrives in Results:
+  "Directed revision ... substantially improves it; we call these targeted revisions." Both names
+  stay, because "undirected/directed" is the conceptual contrast and "targeted" is the name of the
+  condition, but the reader is no longer left to infer the mapping.
+- **The stopping point has one name.** "Quality-optimal stopping point" at all six occurrences;
+  "quality-maximizing stopping point" and "quality-optimal turn" are gone. "Waste under a
+  quality-maximizing criterion" is left alone: that phrase names the criterion, not the point.
+- **"meta-wrapping"** is now meta-commentary.
+- **The appendix heading** reads Turn~1.
+
+Hits in `sections/related_work.tex`, `sections/introduction.tex` and
+`sections/_formalization_variants.tex` were not touched. None of those three is in `main.tex`.
+`sections/_fig1_appendix.tex` is live, via `appendix.tex:291`, and was fixed.
+
+## Still open
+
+The body never says the two annotators are a subset of the three raters, so a reader cannot tell
+whether there are two people, three, or five. This was recorded above as a clarity gap rather than
+an inconsistency, was not one of the six, and is unchanged.
