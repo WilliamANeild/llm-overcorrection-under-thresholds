@@ -9,6 +9,19 @@ checklist). The introduction is now the head of the chain.
 
 ## Pending
 
+- [ ] Settle who the qualified service contributor is for the October 2026 submission — added 2026-09-17
+  - **Done when:** a named qualified contributor is agreed with Ali, and either he is a co-author or he has agreed to be nominated as a non-author designated contributor
+  - This is the highest-consequence open item and it is not about the paper. The sustainable reviewing policy applies from the October 2026 cycle, which is this one. Every submission must provide a qualified service contributor; those without one "go into a lottery for whatever spare capacity remains"
+  - The qualifications page names "Doctoral students (but not bachelor and master students)" as able to qualify, and says those who do not qualify "cannot be designated service contributors by themselves." The paper lists one author
+  - Ali is faculty with well over two major-CL publications, so he qualifies automatically either as a co-author or as a nominated non-author contributor who vouches for the work
+  - A contributor may serve for at most 2 submissions, and if they have an emergency without providing a replacement, "any submissions they are serving for, and any they co-author, will be desk rejected"
+  - Policy quoted verbatim with sources in `paper/rules/09_limitations_ethics.md`, re-verified 2026-09-17
+
+- [ ] Complete the OpenReview profile before submission — added 2026-09-17
+  - **Done when:** the profile carries affiliation history, career status, email, ORCID, and DBLP or ACL Anthology links where they exist
+  - "All authors and service contributors MUST have OpenReview profiles with accurate affiliation history, career status, emails, ORCID and, where applicable, DBLP and ACL Anthology links. Violations will lead to desk rejection." An ORCID takes minutes to register and is named explicitly
+  - Reviewer registration for ALL authors is due October 15, three days after submission. The dates page says non-compliance "may result in desk rejection or sanctions"
+
 - [ ] Resolve two discrepancies exposed by recomputing the stripped cliff — added 2026-09-07
   - **Done when:** the paper states which N the effect size divides by, and Table 3 no longer mixes two rescore bases
   - The p-values are VERIFIED: 1.01e-4 and 3.76e-4 both reproduce exactly, and are now recorded in `results_FINAL.md`

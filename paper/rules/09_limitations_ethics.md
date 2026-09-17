@@ -978,3 +978,68 @@ English-only coverage, model versions and the dates the API calls were made, and
 single-temperature setting (temperature 1.0 is disclosed; the language and the dates are
 not). All three are ARR checklist A1 items and each costs one clause. Combine with the
 existing convenience-sample and probe-neutrality items into the third paragraph.
+
+
+---
+
+## Sustainable reviewing policy, October 2026 cycle. Re-verified 2026-09-17
+
+**Sources.** `https://aclrollingreview.org/cfp`, `https://aclrollingreview.org/sustainable-reviewing-2026`,
+`https://aclrollingreview.org/qualifications`, `https://aclrollingreview.org/dates`. All four fetched
+2026-09-17. The AI-assistance policy quoted earlier in this file was re-fetched the same day and is
+byte-identical in substance to the 2026-09-02 copy. This section is new: the 2026-09-02 retrieval did
+not carry it.
+
+This policy applies **from the October 2026 cycle**, which is the cycle this paper is being submitted to.
+
+> ACL has adopted sustainable reviewing policy, which will apply from October 2026. Submissions will
+> now be capped to reviewer capacity. Submissions will only be guaranteed review if they bring a
+> qualified service contributor (who can serve for 2 submissions max, and is responsible for finding
+> qualified replacements in case of any emergencies). There are now caps on maximum submissions by a
+> single author (20) and first or joint-first authors (5), and penalties for system abuse including
+> systematic spamming and account manipulation. All authors and service contributors MUST have
+> OpenReview profiles with accurate affiliation history, career status, emails, ORCID and, where
+> applicable, DBLP and ACL Anthology links. Violations will lead to desk rejection.
+
+From the announcement:
+
+> Each submission must "pay" for itself by providing a qualified service contributor (reviewer or
+> chair). Submissions without service capacity go into a lottery for whatever spare capacity remains.
+> [...] If a qualified service contributor is not available among the authors, non-author designated
+> contributors can be nominated, but must vouch for the work (arXiv-endorsement style).
+
+> If [the] designated service contributor has any emergencies, the responsibility to notify about that
+> and to provide a suitable and willing replacement is now on them. Otherwise any submissions they are
+> serving for, and any they co-author, will be desk rejected.
+
+### Who qualifies, quoted verbatim from the qualifications page
+
+> Those who have obtained their PhDs and/or have senior academic positions (postdoc/faculty),
+> automatically qualify if they have at least 2 publications in major CL events, Findings of the ACL,
+> or other major relevant venues.
+
+> Doctoral students (but not bachelor and master students), as well as industry researchers with at
+> least a Masters degree, automatically qualify if they have at least 2 publications in major ACL
+> events or Findings or major ML venues and a total of >= 3 publications in total.
+
+> Those who do not automatically qualify by these criteria can serve as secondary reviewers, mentored
+> by a qualified primary reviewer, but cannot be designated service contributors by themselves.
+
+Venues counted as major CL: ACL, CL, COLING, CoNLL, EACL, EMNLP, HLT, IJCNLP/AACL, LREC, NAACL, TACL,
+*SEM. Major ML venues include AAAI, COLM, ICLR, ICML, NeurIPS, JMLR, TMLR and others.
+
+### What this means for this submission
+
+The paper currently lists one author. Bachelor's and master's students are named in the policy as
+explicitly unable to be designated service contributors on their own. Without a qualified contributor
+the submission is not desk rejected, but it enters a lottery for spare capacity rather than being
+guaranteed review. The two routes are a qualified co-author, or a non-author designated contributor who
+vouches for the work.
+
+### Dates, from the dates page as fetched 2026-09-17
+
+October 2026 cycle: submission **October 12**, reviewer registration **October 15**, reviews due
+November 16, author response November 24 to 30, meta-reviews December 17, cycle end December 23. The
+page states that non-compliance with the listed action points "may result in desk rejection or
+sanctions." Note the registration deadline is October 15, not the "within 48h" wording quoted earlier
+in this file from the older page text.
