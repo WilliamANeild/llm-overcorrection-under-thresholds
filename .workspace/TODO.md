@@ -9,13 +9,13 @@ checklist). The introduction is now the head of the chain.
 
 ## Pending
 
-- [ ] Settle who the qualified service contributor is for the October 2026 submission — added 2026-09-17
-  - **Done when:** a named qualified contributor is agreed with Ali, and either he is a co-author or he has agreed to be nominated as a non-author designated contributor
-  - This is the highest-consequence open item and it is not about the paper. The sustainable reviewing policy applies from the October 2026 cycle, which is this one. Every submission must provide a qualified service contributor; those without one "go into a lottery for whatever spare capacity remains"
-  - The qualifications page names "Doctoral students (but not bachelor and master students)" as able to qualify, and says those who do not qualify "cannot be designated service contributors by themselves." The paper lists one author
-  - Ali is faculty with well over two major-CL publications, so he qualifies automatically either as a co-author or as a nominated non-author contributor who vouches for the work
-  - A contributor may serve for at most 2 submissions, and if they have an emergency without providing a replacement, "any submissions they are serving for, and any they co-author, will be desk rejected"
-  - Policy quoted verbatim with sources in `paper/rules/09_limitations_ethics.md`, re-verified 2026-09-17
+- [ ] Confirm the co-authorship with Ali before 2026-10-12 — added 2026-09-17
+  - **Done when:** he has agreed in writing to be listed as second author, and the affiliation and email in `main.tex` are confirmed by him
+  - DECIDED 2026-09-17: Ali Emami is second author. `main.tex` now carries him. This also resolves the service-contributor requirement, since faculty with two or more major-CL publications qualify automatically
+  - He has NOT been asked yet. The author list cannot be changed after submission ("no changes to the list of authors are allowed"), and every listed author is notified of the submission and reviews, so his agreement has to come first
+  - Affiliation and email were inferred, not supplied: his 2026 papers (arXiv 2607.05113, 2504.07385) give Emory University and the pattern `aemami@emory.edu`, while his 2025 papers give Brock, so he has moved institutions. Both fields need his confirmation
+  - He must also have an OpenReview profile with affiliation history, career status, email and ORCID. The policy says violations "will lead to desk rejection"
+  - Reviewer registration for ALL authors is due 2026-10-15, three days after submission
 
 - [ ] Complete the OpenReview profile before submission — added 2026-09-17
   - **Done when:** the profile carries affiliation history, career status, email, ORCID, and DBLP or ACL Anthology links where they exist
