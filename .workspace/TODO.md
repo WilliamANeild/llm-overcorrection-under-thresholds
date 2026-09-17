@@ -104,11 +104,20 @@ checklist). The introduction is now the head of the chain.
   - Measured in `paper/reference/prose_census.md`. Merging related work's six run-in clusters to four puts it near 111 words per paragraph
   - Blocked deliberately: she is reading these two sections now, and her notes would collide with the merge
 
-- [ ] Make the anonymised review build a switch rather than a submission-day edit — added 2026-09-16
-  - **Done when:** the review build can be produced without hand-editing `main.tex`, and `build_check.py` reports its body page count too
-  - VERIFIED 2026-09-16: `\usepackage[review,hyperref]{acl}` compiles clean, suppresses the author block (zero name hits in the extracted text), prints line numbers, and the body still ends on page 8. The submission format is not a risk; only the manual edit is
+- [ ] Draft the Responsible NLP Checklist answers on AI assistance — added 2026-09-17
+  - **Done when:** the checklist answers exist in `.workspace/notes/` for Liam to paste into OpenReview, naming the scope of coding assistance and the locations of any AI-drafted text
+  - Policy re-verified live 2026-09-17 at `https://aclrollingreview.org/cfp`, section "AI Writing/Coding Assistance Policy", and it is word-for-word what `rules/09_limitations_ethics.md` recorded on 2026-09-02. Binding sentence: generative AI "use for writing or coding, as well as its scope, must be disclosed in the Responsible NLP Checklist"
+  - Cases (a) language polishing and (b) short-form input assistance are explicitly exempt and cover most prose help. The obligations that bite here are the opening sentence on coding, case (c) literature search (which asks for citation accuracy rather than a disclosure line, and the bibliography and claim audits are that work), and case (d) low-novelty text, which asks authors to "specify where such automatically generated text was used"
+  - Case (d) locations in the live build: the `TKTK` block above `results_v2.tex:53` and the reversibility subsection assembled 2026-09-16. Both are marked in the source
+  - CORRECTION to the 2026-09-17 plan: it said an Acknowledgements section was required and missing. The checklist disclosure is required at submission; the Acknowledgements detail is camera-ready, and acknowledgements come out of an anonymous submission anyway. There is no missing section in the submitted draft
+  - Liam's call on case (e), new ideas. The design, research questions and framing are his
 
 ## Completed
+
+- [x] Make the anonymised review build a switch rather than a submission-day edit — added 2026-09-17, done 2026-09-17
+  - `main.tex` now carries `\newif\ifreview \reviewfalse` driving the acl package options, so the submission build is a one-word edit rather than a hand-modified package line
+  - `build_check.py` rewritten to compile and report BOTH builds. Line numbers and the suppressed author block change the layout, so the two can disagree and the review build is the one the limit must hold against. Both currently report body ends p8, 16 pages, no warnings
+  - It fails loudly if `main.tex` stops carrying the switch, rather than silently checking one build twice
 
 - [x] Anonymise the rater names in the appendix before submission — added 2026-09-08, done 2026-09-16
   - `appendix.tex` Table 13 now reads Rater A/B/C. Mapping recorded outside the submitted source at `.workspace/reference/rater_key.md`: A is Liam, B is Sophie, C is Troy. Agreement figures unchanged
