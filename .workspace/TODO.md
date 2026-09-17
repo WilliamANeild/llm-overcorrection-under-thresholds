@@ -32,14 +32,13 @@ checklist). The introduction is now the head of the chain.
 
 - [ ] Decide the four bibliography items left open by the audit — added 2026-09-05
   - **Done when:** each of the four has a decision recorded and, where needed, an edit made
-  - `mckinsey2025stateofai`: UNVERIFIABLE. The URL is a rolling annual landing page now serving the 2026 survey, so the link no longer reaches the report cited. Either find a stable PDF link or drop the citation.
-  - `gartner2026agentic`: UNVERIFIABLE. No URL, no document ID, and the 5-30x figure never terminates at a Gartner document in any source chain. Gartner.com blocks automated access.
-  - `claudecode2025loop`: the cited Claude Code issue #27281 is real but describes restated intent with no tool call, not "editing the same file". VSCode #257885 does support the claim and has no entry at all. One key currently stands in for two citations.
+  - REDUCED TO ONE 2026-09-16: `mckinsey2025stateofai`, `gartner2026agentic` and `claudecode2025loop` are all uncited in the live build now. The page cut removed the paragraphs that carried them, so all three decisions are moot. Only the key rename below remains
   - `laban2025lost` key: the entry is now correct (Fourteenth ICLR, 2026, Outstanding Paper Award) but the key still says 2025. Renaming touches 8 call sites.
 
-- [ ] Verify that each cited work supports the claim the paper attaches to it — added 2026-09-05
-  - **Done when:** every citation in the live build has been checked against its source for whether the source says what the sentence says it says
-  - The metadata audit did NOT do this. `claudecode2025loop` proves the failure mode is present: a real source cited for something it does not say.
+- [ ] Check the two citations the claim audit never covered — added 2026-09-05, narrowed 2026-09-16
+  - **Done when:** `mizrahi2024state` and `sclar2024quantifying` have been read and the sentence citing them either stands or is corrected
+  - NARROWED 2026-09-16: the original item assumed the live build was largely unverified. It is not. All 49 citation instances in the live build sit in the introduction and related work, and the claim audit's 60 pairs cover every one of them except these two. Methods, results, discussion, conclusion, limitations and the appendix carry no citations at all
+  - Both are cited in the introduction's opening sentence for "benchmarks are built around that single turn". Both titles are about multi-PROMPT and prompt-FORMAT variation rather than turn count, so the sentence may be resting them on a claim about turns that they make about prompts. Neither has been read, so this is a flag and not a finding
 
 - [ ] Resolve the duplicate model labels in the Study 2 dose-response figure — added 2026-09-08
   - **Done when:** the legend names each model once
@@ -104,6 +103,10 @@ checklist). The introduction is now the head of the chain.
   - Related work averages 65 words per paragraph against a corpus p25 of 102 (paragraphs run 120, 66, 62, 59, 49, 35); results averages 64 against 78. Both pass length and fail paragraph length, which is what trimming every paragraph a little instead of cutting whole claims produces
   - Measured in `paper/reference/prose_census.md`. Merging related work's six run-in clusters to four puts it near 111 words per paragraph
   - Blocked deliberately: she is reading these two sections now, and her notes would collide with the merge
+
+- [ ] Make the anonymised review build a switch rather than a submission-day edit — added 2026-09-16
+  - **Done when:** the review build can be produced without hand-editing `main.tex`, and `build_check.py` reports its body page count too
+  - VERIFIED 2026-09-16: `\usepackage[review,hyperref]{acl}` compiles clean, suppresses the author block (zero name hits in the extracted text), prints line numbers, and the body still ends on page 8. The submission format is not a risk; only the manual edit is
 
 ## Completed
 
