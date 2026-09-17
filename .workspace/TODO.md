@@ -35,11 +35,6 @@ checklist). The introduction is now the head of the chain.
   - REDUCED TO ONE 2026-09-16: `mckinsey2025stateofai`, `gartner2026agentic` and `claudecode2025loop` are all uncited in the live build now. The page cut removed the paragraphs that carried them, so all three decisions are moot. Only the key rename below remains
   - `laban2025lost` key: the entry is now correct (Fourteenth ICLR, 2026, Outstanding Paper Award) but the key still says 2025. Renaming touches 8 call sites.
 
-- [ ] Check the two citations the claim audit never covered — added 2026-09-05, narrowed 2026-09-16
-  - **Done when:** `mizrahi2024state` and `sclar2024quantifying` have been read and the sentence citing them either stands or is corrected
-  - NARROWED 2026-09-16: the original item assumed the live build was largely unverified. It is not. All 49 citation instances in the live build sit in the introduction and related work, and the claim audit's 60 pairs cover every one of them except these two. Methods, results, discussion, conclusion, limitations and the appendix carry no citations at all
-  - Both are cited in the introduction's opening sentence for "benchmarks are built around that single turn". Both titles are about multi-PROMPT and prompt-FORMAT variation rather than turn count, so the sentence may be resting them on a claim about turns that they make about prompts. Neither has been read, so this is a flag and not a finding
-
 - [ ] Resolve the duplicate model labels in the Study 2 dose-response figure — added 2026-09-08
   - **Done when:** the legend names each model once
   - `data/figures/momentum/dose_response_curve.png` legend lists both "claude-sonnet" and "claude-sonnet-4", and both "gemini-flash" and "gemini-2.5-flash". The short-named series carry only a dose-0 point, so the data appears to use two naming conventions for the same models. This is a data question, not a plotting one
@@ -113,6 +108,13 @@ checklist). The introduction is now the head of the chain.
   - Liam's call on case (e), new ideas. The design, research questions and framing are his
 
 ## Completed
+
+- [x] Check the two citations the claim audit never covered — added 2026-09-05, done 2026-09-17
+  - Both abstracts fetched and read. `mizrahi2024state` studies benchmarks that "rely on a single instruction template" and the brittleness of "single-prompt evaluations"; `sclar2024quantifying` studies "prompt formatting" against "the currently-standard practice of reporting performance on a single format". Both are about one prompt, not one turn, so neither supported the sentence citing them
+  - The audit had also classified `liang2023holistic` NOT SUPPORTED for "current models perform well", quoting HELM reporting "essentially chance accuracy at 50.1%" and declining "the universal claim that models that perform well are always desirable". HELM does support the single-answer reference-scored form, which the other two keys were carrying, so the citations were effectively swapped
+  - Opening sentence rewritten 2026-09-17 at Liam's direction: HELM now carries the single-turn reference-scored form, the paper's own first-turn sufficiency (631 of 720, matching `results_v2.tex:108` and `results_FINAL.md:120`) carries the performance half, and both prompt-format keys are retired from the live build
+  - Introduction is 767 words against a p75 of 768, so the addition was tightened rather than allowed to push the section out of band. Both builds still end the body on page 8
+  - The claim audit now covers every citation in the live build with nothing outstanding above the three mild scope decisions
 
 - [x] Make the anonymised review build a switch rather than a submission-day edit — added 2026-09-17, done 2026-09-17
   - `main.tex` now carries `\newif\ifreview \reviewfalse` driving the acl package options, so the submission build is a one-word edit rather than a hand-modified package line
