@@ -5,9 +5,9 @@
 % before installing; each is noted at the line it affects.
 
 Large language models can draft a policy memo, debug a function, or summarize a quarter of
-sales in one turn, and benchmarks are built around that single turn
-\cite{mizrahi2024state, sclar2024quantifying}, on which current models perform well
-\cite{liang2023holistic}. Yet the same models, asked four times to improve a sales summary
+sales in one turn, and evaluation is built around that single turn, one answer scored
+against a reference \cite{liang2023holistic}. Our own evaluator rated 631 of 720 first
+attempts sufficient. Yet the same models, asked four times to improve a sales summary
 that was already adequate, strip out the very explanations the prompt requested
 (Figure~\ref{fig:teaser}). This contrast exposes a gap in how we evaluate capability: when
 a model is handed its own sufficient output and asked to make it better, does it know to
