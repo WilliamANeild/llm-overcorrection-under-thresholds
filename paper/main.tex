@@ -6,7 +6,15 @@
 \documentclass[11pt]{article}
 
 % --- ACL style (comment out the fallback block below when using real acl.sty) ---
-\usepackage[hyperref]{acl}
+% Flip this one line for the anonymised ARR submission. \reviewtrue suppresses the author
+% block and prints line numbers; \reviewfalse is the camera-ready form. build_check.py
+% compiles both, so the page limit is checked against the version reviewers actually see.
+\newif\ifreview \reviewfalse
+\ifreview
+  \usepackage[review,hyperref]{acl}
+\else
+  \usepackage[hyperref]{acl}
+\fi
 
 \usepackage{times}
 \usepackage{latexsym}
