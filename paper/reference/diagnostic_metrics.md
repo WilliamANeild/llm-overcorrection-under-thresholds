@@ -88,3 +88,65 @@ One concept should carry one name. Counts across the live build:
 three variants of one concept. Those are two distinct concepts in this paper: a meta-response is a
 reply carrying no new task content, meta-commentary is the boilerplate wrapper around a revision
 that the stripping procedure removes. Only "meta-wrapping" is a genuine third name.
+
+---
+
+# Terminology sweep, whole build, 2026-09-17
+
+Run by `scripts/introduction_corpus/09_terminology_sweep.py` across all nine live section files
+including the appendix. Four detection routes rather than a list of suspects: modifier phrases
+sharing a technical head noun, hyphen and spacing variants, capitalisation of defined terms, and
+which word names each role. Every flag below was then read in context, because three of the four
+routes produced false positives worth recording so they are not chased again.
+
+## Genuine inconsistencies
+
+**1. The LLM scorer is called both "evaluator" and "judge".** A principled split is available and
+mostly honoured: "evaluator" for our own selected scorer, "judge" for the general practice the
+related work discusses. The paper crosses it in four places. The Methods subsection titled
+**Judge Calibration** opens "Six candidate **evaluators** were scored against three human raters."
+Limitations says "the highest human-correlation **judge**". The stripping validation says human
+annotators "agreed with the LLM **judge**". And one appendix sentence uses both for the same thing:
+"selecting our **evaluator** empirically through a six-model **judge** calibration."
+
+**2. The intervention is called both "targeted" and "directed", with the mapping never stated.**
+"targeted" 11 times (abstract, methods, results, conclusion); "directed" 4 (results, discussion).
+The abstract promises "a single targeted critique"; the Discussion's lead paragraph is titled
+"Evaluate, then direct". The negative pole is consistent: "undirected" 16, "generic" 6.
+
+**3. The stopping point carries four names:** "quality-optimal stopping point" (3),
+"quality-maximizing stopping point" (1), "quality-optimal turn" (1), "optimal turn" (1).
+
+**4. "sufficient threshold"** appears once where the paper otherwise says "sufficiency threshold".
+
+**5. "meta-wrapping"** appears once at `methods.tex:60` for what is otherwise meta-commentary.
+
+**6. Lowercase "turn 1"** in the heading `\paragraph{The task, as given at turn 1.}` at
+`sections/_fig1_appendix.tex`, where the paper otherwise writes Turn~1 throughout.
+
+## Checked and clean, so do not chase these again
+
+**Scale-level capitalisation is principled.** Quoted and capitalised ("Sufficient", "Functional")
+names the level on the six-level scale; lowercase is the ordinary adjective or the threshold
+condition. Correct at every occurrence.
+
+**Hyphenation is correct English throughout.** Hyphenated when attributive ("five-turn design",
+"first-turn outputs"), open when the phrase is a noun ("each conversation runs five turns", "at the
+first turn"). The detector flagged this as a variant pair; it is not one.
+
+**"Turn" plus a number is capitalised everywhere** except the one appendix heading above. The other
+apparent lowercase hits are TikZ node names (`turn1`, `turn2`) in a figure and one sentence where a
+percentage happens to follow "at the next turn".
+
+**"raters" and "annotators" name two different groups doing two different tasks, consistently.**
+"Raters" is always the three humans who scored quality on the 1--5 scale over 64 stratified samples.
+"Annotators" is always the two humans who worked on stripped content, for the pairwise reversibility
+comparison and the stripping validation. Every one of the twelve occurrences respects the split.
+
+## A clarity gap rather than an inconsistency
+
+Because the split above is never declared, a reader meets "three human raters" in one Methods
+subsection and "two human annotators" in another and cannot tell whether there are two people,
+three, or five. Only the Ethics Statement resolves it, by saying the raters are "the first author and
+two research assistants", from which the two annotators can be inferred to be a subset. The body
+never says so.
