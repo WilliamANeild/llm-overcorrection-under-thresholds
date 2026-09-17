@@ -22,11 +22,24 @@ checklist). The introduction is now the head of the chain.
   - "All authors and service contributors MUST have OpenReview profiles with accurate affiliation history, career status, emails, ORCID and, where applicable, DBLP and ACL Anthology links. Violations will lead to desk rejection." An ORCID takes minutes to register and is named explicitly
   - Reviewer registration for ALL authors is due October 15, three days after submission. The dates page says non-compliance "may result in desk rejection or sanctions"
 
-- [ ] Resolve two discrepancies exposed by recomputing the stripped cliff — added 2026-09-07
-  - **Done when:** the paper states which N the effect size divides by, and Table 3 no longer mixes two rescore bases
-  - The p-values are VERIFIED: 1.01e-4 and 3.76e-4 both reproduce exactly, and are now recorded in `results_FINAL.md`
-  - r: paper prints 0.55 and 0.53; recomputation gives 0.536/0.514 dividing by N=trials, or 0.681/0.652 dividing by N=non-zero differences. Printed values match neither
-  - Llama delta: paper prints -0.69 from the 50-pair rescore; the full 3,600-output rescore gives -0.67. Table 3 mixes the two bases in one table
+- [ ] Decide which rescore basis the Llama cliff reports, and state the effect-size divisor — added 2026-09-07, narrowed 2026-09-17
+  - **Done when:** `results_v2.tex:78-80` reports a delta and a p-value from the same basis, and the paper says which N the effect-size z is divided by
+  - NARROWED 2026-09-17. This was logged as two discrepancies. The effect-size one is withdrawn: the paper's r = 0.55 is correct and the 2026-09-07 recomputation that called it unmatched had dropped the tie correction. Verified twice, independently; the reasoning is recorded in `results_FINAL.md` under the withdrawn item
+  - WHAT REMAINS IS REAL: `results_v2.tex:78-80` prints Llama's stripped cliff as -0.69 with p = 3.76e-4. The -0.69 is from the 50-pair rescore (whose own p is 2.98e-4) and the p-value is from the full 3,600-output rescore (whose own delta is -0.67). Either pairing is internally consistent; the current one is not. The preceding paragraph is entirely on the full rescore
+  - No longer a table defect. `tab:cliff` was removed in the page cut and both numbers moved into prose unchanged, so `FLAG 2` at `results_v2.tex:192-195` records the all-balanced switch and does not mention that the per-model figure was left on the old basis
+  - Also state the divisor: tie-corrected z over sqrt(trial count) gives 0.55; over sqrt(non-zero differences) gives 0.70. Same result, and a 270-paper survey found one paper that says which
+
+- [ ] Resolve the sample mismatch in the paper's central contrast — added 2026-09-17
+  - **Done when:** the abstract, introduction and `results_v2.tex:162` either compare quantities measured on the same population, or say plainly that they do not
+  - `scripts/study3/phase6_targeted_feedback.py:215` filters to `level <= 3`, so the +1.16 targeted-feedback gain was measured ONLY on outputs the evaluator had rated not sufficient. `methods.tex:78` states this correctly
+  - The -0.74 cliff, the 27.5% figure and the abstract's framing are all about work that WAS sufficient. `results_v2.tex:162` sets the two against each other directly, and the abstract turns it into "naming the fault reverses the effect"
+  - The paper's own exploratory analysis cuts against that reading: section 4c reports undirected revision is already POSITIVE on insufficient input (+0.41, n = 194), which is the population +1.16 was measured in
+  - The +1.16 remains a valid like-for-like comparison against the model's own generic revision on those same level 1-3 items. What it cannot carry is the claim about already-sufficient work. This is Liam's call on framing, not a number to change
+
+- [ ] Fix the two float captions that describe a different computation than the one printed — added 2026-09-17
+  - **Done when:** `tab:domain-variation` and `tab:pairwise` describe what they contain
+  - `tab:domain-variation` (`appendix.tex:355-362`) prints UNPAIRED per-domain deltas while the caption and `results_v2.tex:102-105` attach paired-Wilcoxon p-values to them. The magnitudes differ materially: data_logic prints -1.01 and the tested decline is -0.53; creative prints -0.82 against -0.58. The printed T1 mean is all 144 trials per domain, the tested T1 mean is only trials reaching T5
+  - `tab:pairwise` (`appendix.tex:186-197`) captions itself "Significant pairwise comparisons (Bonferroni-corrected, q < 0.05)" and prints six of the nine comparisons that meet that rule. The three omitted are Claude numeric 70 vs 100, Claude qualitative 70 vs 100, and Gemini numeric 0 vs 70 (r = +0.21, the only positive sign among the nine, and the one running against the claim two lines above). Those three are exactly the ones that lose significance under the Benjamini-Hochberg pass in `stats_report.txt:185-190`, which is a defensible reason to drop them, but then the caption should say FDR rather than Bonferroni. Also "q" conventionally denotes an FDR value and these are Bonferroni
 
 - [ ] Rewrite the §4b direction-analysis prose in your own voice — added 2026-09-06, rescoped 2026-09-08
   - **Done when:** the `TKTK Liam` comment block above `paper/sections/results_v2.tex:63` is gone and the paragraph reads in your register
