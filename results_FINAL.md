@@ -70,10 +70,31 @@ here. `RECOMPUTE_TODO.md` asked for exactly this and was closed in error on 2026
 
 **TWO DISCREPANCIES, both requiring a decision:**
 
-1. **Effect size.** The paper prints r = 0.55 (all) and r = 0.53 (Llama). Recomputation gives
-   0.536 and 0.514 dividing by N = all trials, or 0.681 and 0.652 dividing by N = non-zero
-   differences. The printed values match neither. The formula must be stated in the paper;
-   a survey of 270 papers found only one that states which N it divides by.
+1. **Effect size. WITHDRAWN 2026-09-17. This discrepancy was an artifact of the 2026-09-07
+   recomputation, not a defect in the paper.** The note below is kept for the record.
+
+   > The paper prints r = 0.55 (all) and r = 0.53 (Llama). Recomputation gives 0.536 and 0.514
+   > dividing by N = all trials, or 0.681 and 0.652 dividing by N = non-zero differences. The
+   > printed values match neither.
+
+   Both candidate values came from an **uncorrected** Wilcoxon z. With the tie-corrected z,
+   which is the statistic this ledger's own accepted unstripped figures already use, r = |z|/sqrt(n)
+   gives **0.5498 for the all-balanced stripped cliff and 0.5301 for Llama**, which are exactly
+   the printed 0.55 and 0.53.
+
+   The consistency check that settles it: the unstripped r of 0.658 recorded at line 34 and
+   0.639 at line 42 are not in dispute. Tie-corrected they recompute as 0.6576 and 0.6391, which
+   round to the recorded values. Uncorrected they give 0.6416 and 0.6193, which do not. So the
+   convention in use throughout is the tie-corrected z over the square root of the trial count,
+   and the stripped values follow it precisely.
+
+   Verified twice on 2026-09-17, independently, from `stripped_rescore_full.jsonl` and
+   `evaluator_results.jsonl` with the 6->2 recode and the balanced-panel filter as specified
+   above. The p-values reproduce exactly as already recorded (1.011e-4 and 3.760e-4).
+
+   **What does survive:** the paper states r without saying which N the z is divided by, and the
+   two defensible divisors give 0.55 against 0.70 for the same result. Stating the formula is
+   still worth doing. That is a disclosure point, not an error.
 
 2. **Llama delta.** This computation gives -0.67 from the full 3,600-output rescore. The paper
    prints -0.69, which comes from the 50-pair rescore in `stripped_rescore_results.json`. Table 3
