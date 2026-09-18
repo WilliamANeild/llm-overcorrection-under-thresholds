@@ -33,7 +33,6 @@ When prompted with undirected revision requests (``Can you improve this?''), mod
     \label{tab:revision-rate}
 \end{table}
 
-\paragraph{Decline behavior is verbose and content-shaped.}
 \paragraph{Survival varies by model.}
 Genuine-revision survival to Turn~5 ranges from 0.8\% (Gemini~2.5 Flash: 1/120 trials) to 53.3\% (Llama~3.3~70B: 64/120). Gemini declines in 98.3\% of post-Turn~1 observations, the most extreme case. Figure~\ref{fig:survival-curves} shows the per-model survival curves; only Llama sustains revision to the final turn. The balanced panel of 50 trials with genuine revision at all turns is composed of 45 Llama trials (90\%), 3 Qwen, and 2 Claude; GPT-4o, DeepSeek, and Gemini contribute zero trials each. This subset conditions on a post-treatment variable (revision persistence), introducing potential selection bias; we triangulate it against the pooled estimates below.
 
@@ -44,8 +43,7 @@ Genuine-revision survival to Turn~5 ranges from 0.8\% (Gemini~2.5 Flash: 1/120 t
     \caption{Per-model genuine-revision survival. Fraction of each model's 120 trials still producing genuine revised content at each turn. Llama~3.3~70B sustains revision through Turn~5 (53.3\%); all other models drop below 15\% by Turn~5. Gemini~2.5 Flash is near floor throughout (0.8\% at T5).}
     \label{fig:survival-curves}
 \end{figure}
-
-\paragraph{Probe phrasing, not output quality, controls whether a model revises.} Across five probe wordings the revision gate is bimodal rather than graded; Appendix~\ref{sec:appendix-study1} reports the breakdown. Study~3's balanced probe lands in the assessment range at 39.3\% at Turn~2.
+Across five probe wordings the revision gate is bimodal rather than graded; Appendix~\ref{sec:appendix-study1} reports the breakdown. Study~3's balanced probe lands in the assessment range at 39.3\% at Turn~2.
 
 
 \subsection{Quality Degrades Under Undirected Revision}
@@ -73,8 +71,6 @@ sufficient ($-0.56$, $n = 524$).
 
 \paragraph{The revision cliff.}
 In the 50 balanced-panel trials (genuine revision at all turns), mean quality on stripped content drops from 3.66 at Turn~1 to 2.92 at Turn~5, a decline of $-0.74$ levels (Wilcoxon signed-rank $p = 1.01 \times 10^{-4}$; unstripped: $-0.94$, $p = 3.3 \times 10^{-6}$), of which 21\% is attributable to meta-commentary rather than to content. This is a drop from between ``Functional'' and ``Sufficient'' to just below ``Functional.''
-
-\paragraph{Per-model caveats.}
 The balanced panel is dominated by Llama~3.3~70B ($n = 45$), the only model with power
 to detect a within-model cliff; its stripped cliff of $-0.69$ is significant at
 $p = 3.76 \times 10^{-4}$. GPT-4o, DeepSeek and Gemini contribute no balanced-panel trials,
@@ -95,8 +91,6 @@ balanced-panel estimate, and Figure~\ref{fig:quality-trajectory} plots both.
     \caption{Quality trajectory under undirected revision (stripped scores). Solid blue: balanced panel ($n = 50$, genuine revision at all turns), showing the headline cliff of $\Delta = -0.74$ (3.66$\to$2.92). Dashed gray: pooled genuine-only trajectory (shifting $n$, compositional bias from differential dropout), $\Delta = -1.04$. Both estimators decline monotonically. The dashed horizontal line marks the sufficiency threshold (level~4).}
     \label{fig:quality-trajectory}
 \end{figure}
-
-\paragraph{Domain variation.}
 With probe phrasing held constant, model identity explains far more variation in
 genuine-revision rate than task domain: a model range of 71.9 percentage points against a
 domain range of 13.5. All five domains show negative stripped deltas and four of five reach
@@ -127,7 +121,6 @@ comparisons (56.2\%, bootstrap 95\% CI [45.2\%, 67.1\%]; 27 of the 100 pooled ju
 were ties, $\kappa = 0.703$). We set a bar in advance of $\geq$65\% Turn~1 preference with
 a confidence interval excluding 50\%. That bar was not cleared, and the interval includes
 chance, so we do not claim a reader can reliably pick the first draft.
-
 This bounds what the degradation means in practice without touching what it measures. The
 drop of 0.74 levels is not large enough to reverse a blind pairwise preference once
 meta-commentary is removed: what declines is measured quality against the stated task, not
@@ -137,7 +130,6 @@ the impression the text leaves on a reader.
 \label{sec:targeted}
 
 The preceding sections show that undirected revision degrades quality. Directed revision, providing specific critique before requesting a revision, substantially improves it; we call these targeted revisions. On stripped content, targeted revisions score 4.68 against 3.53 for the model's own generic next-turn revision, a gain of 1.16 levels ($p = 5.7 \times 10^{-19}$, $n = 177$; unstripped: 4.68 against 4.43, $+0.25$, $p = 0.004$). The unstripped comparison understates the real effect because meta-commentary on generic revisions inflates their scores; targeted revisions carry minimal meta-commentary (9/177 = 5\%).
-
 This effect is significant for all five models with sufficient sample size (Table~\ref{tab:targeted-per-model}). On unstripped text, only Claude and DeepSeek showed significant effects; stripping reveals that Llama, Qwen, and GPT-4o also benefit substantially, but their generic baselines were inflated by meta-commentary.
 
 \begin{table}[t]

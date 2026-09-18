@@ -21,6 +21,15 @@ OURS = {"related work": "related_work_v2", "method": "methods", "results": "resu
         "discussion": "discussion", "conclusion": "conclusion", "introduction": "introduction_v2"}
 
 
+def live_sections():
+    """Sections main.tex actually inputs. A hardcoded list reports sections that have been
+    cut: the Discussion was dropped on 2026-09-18 and kept being measured for a day."""
+    main = (ROOT / "paper/main.tex").read_text()
+    body = re.sub(r'(?<!\\)%.*', '', main)
+    return {m.group(1).split("/")[-1]
+            for m in re.finditer(r'\\input\{([^}]+)\}', body)}
+
+
 def syll(w):
     w = re.sub(r'[^a-z]', '', w.lower())
     if not w:
@@ -92,6 +101,8 @@ def main():
                 tgt.setdefault(kind, []).append(m)
 
     order = ["introduction", "related work", "method", "results", "discussion", "conclusion"]
+    live = live_sections()
+    order = [k for k in order if OURS[k] in live]
     print("FLESCH READING EASE, by section\n")
     print(f"{'section':<15}{'ours':>7}{'n':>5}{'p25':>7}{'med':>7}{'p75':>7}{'   Emami med':>13}{'  n':>4}   band?")
     flags = []
