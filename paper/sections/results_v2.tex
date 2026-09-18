@@ -62,9 +62,10 @@ six models individually; Claude Sonnet~4 does not reach significance ($p = 0.11$
 Gemini~2.5~Flash contributes only eight genuine revisions. Unstripped, the same share is 76.6\%
 (245 against 75, $p = 1.7 \times 10^{-22}$).
 
-\paragraph{The effect depends on the quality of the input.} In an exploratory analysis
-that was not among our registered predictions, the expected change from a single undirected
-revision varies with the level of the input being revised
+\paragraph{The effect depends on the quality of the input.} Revision behaves like a pull toward the mean: it helps work that is broken and harms work
+that is already fine. In an exploratory analysis that was not among our registered
+predictions, the expected change from a single undirected revision varies with the level of
+the input being revised
 (Figure~\ref{fig:input-level}, Appendix~\ref{sec:supp-figures}): revision raises quality when the input falls below the
 sufficiency threshold ($+0.41$, $n = 194$) and lowers it when the input is already
 sufficient ($-0.56$, $n = 524$).
@@ -161,7 +162,10 @@ The contrast between undirected and directed revision is the central practical f
 
 \subsection{The Revision Tax}
 
-The quality-optimal stopping point ($t^*$) is Turn~1 for all six models: no model benefits from undirected revision on the genuine-revision quality trajectory. All tokens generated after Turn~1 are therefore waste under a quality-maximizing criterion. Across all 720 trials, 62.1\% of output tokens are spent past $t^*$ (aggregate tax: 164.2\%; Figure~\ref{fig:revision-tax}). Per-model waste ranges from 23.4\% (Gemini, which declines early and generates few post-T1 tokens) to 81.3\% (Llama, which continues revising and generates substantial post-T1 content). 
+The quality-optimal stopping point ($t^*$) is Turn~1 for all six models: no model benefits from undirected revision on the genuine-revision quality trajectory. All tokens generated after Turn~1 are therefore waste under a quality-maximizing criterion. There are two views of the same waste. As a share of all output, 62.1\% of tokens across the
+720 trials are spent past $t^*$ (Figure~\ref{fig:revision-tax}); measured against only the
+tokens needed to reach $t^*$, the waste is 164.2\%, so continuing past peak quality produces
+roughly 1.6 times more text than reaching the optimum took. Per-model waste ranges from 23.4\% (Gemini, which declines early and generates few post-T1 tokens) to 81.3\% (Llama, which continues revising and generates substantial post-T1 content). 
 
 \begin{figure}[t]
     \centering
