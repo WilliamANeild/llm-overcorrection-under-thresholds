@@ -1,0 +1,790 @@
+                        Worse on Request, Better on Critique:
+                  Self-Correction on Work That Is Already Sufficient
+                                                                Liam Neild
+                                                            Emory University
+                                                        liam.neild@emory.edu
+
+
+
+                                                                   Abstract
+                  Do language models know when a good answer should be left alone? They are increasingly handed work their
+              users cannot judge, and a user who cannot name the fault resorts to undirected requests that say nothing about
+              what to change. Self-correction research finds that a model can repair a wrong response given a specific critique
+              and largely cannot without one, leaving unexamined the work that is already sufficient and gets revised anyway.
+              We run five-turn revision conversations with 6 models on 40 tasks across 5 domains, contrasting undirected
+              requests with a single targeted critique. First drafts are sufficient in 88% of trials, and most replies contain
+              no revision at all, with models restating the draft or declining while presenting it as compliance. When they
+              do revise, the change makes quality worse 70% of the time: revision behaves like a pull toward the mean,
+              helping work that fell below the bar and harming work already above it, so that 27% of revisions to already-
+              sufficient drafts leave them insufficient. For every model the first draft rates highest; blind readers show no
+              reliable preference between it and the last. We name the tokens spent past that optimum the revision tax, and
+              find it consumes 62% of all output generated. Strikingly, the failure is one of direction rather than capacity: a
+              single targeted critique reverses the decline, lifting quality 1.16 levels above undirected iteration. We release the
+              tasks, protocol, and scoring as STET, a benchmark that scores whether a model leaves sufficient work alone;
+              across six models its revision tax ranges from 23% to 81% of output. Undirected revision lowers the quality of
+              work that was already sufficient; naming the fault reverses it.
+
+
+1 Introduction                                                             a model allowed to critique and rewrite its work can raise its
+   Large language models can draft a policy memo, debug a                  quality, and locate the benefit in feedback that is actionable
+function, or summarize a quarter of sales in one turn, and                 and specific. Subsequent work finds the benefit fragile: with-
+benchmarks are built around that single turn (Mizrahi et al.,              out external feedback, models struggle to correct their own
+2024; Sclar et al., 2024), on which current models perform                 reasoning and at times degrade it, with apparent gains often
+well (Liang et al., 2023). Yet the same models, asked four                 traceable to leaked oracle labels (Huang et al., 2024). A criti-
+times to improve a sales summary that was already adequate,                cal survey locates the bottleneck in feedback generation rather
+strip out the very explanations the prompt requested (Figure 1).           than in the capacity to revise (Kamoi et al., 2024), and Tyen et
+This contrast exposes a gap in how we evaluate capability:                 al. (2024) isolate that seam directly: models struggle to find
+when a model is handed its own sufficient output and asked                 their own reasoning errors but correct them reliably once the
+to make it better, does it know to leave it alone?                         location is supplied. Laban et al. (2026) show that accuracy
+   The question matters because deployed tasks are rarely                  falls across turns when requirements arrive piecewise.
+single-turn. They are workplace tasks carried out with a                      These results share a critical assumption: that the output be-
+user who supplies the goal, reacts to the output, and asks for             ing revised is wrong. Intrinsic self-correction, revision driven
+changes (Anthropic, 2025a; Laban et al., 2026), and the qual-              by the model’s own judgment with no outside signal (Huang
+ity that user receives depends on what they can contribute.                et al., 2024; Kamoi et al., 2024), is studied on outputs that
+Real prompts are frequently underspecified, and underspeci-                need repair, and multi-turn degradation on tasks whose re-
+fication degrades what follows (Yang et al., 2026). The con-               quirements are incomplete. No study measures the case a non-
+tribution that matters most is the ability to say what is wrong.           expert user actually creates: a fully specified task, an output
+A user who can name a weakness can direct the model to fix                 that is already adequate, and repeated requests to revise that
+it; a user who cannot has one move left. Scalable-oversight                carry no feedback at all. Measuring it also requires controlling
+research identifies exactly this condition: users unable to artic-         for an artifact the revision act itself introduces into automated
+ulate precise intent or validate a complex output (Zhou et al.,            evaluation.
+2026). They ask for the work to be improved without saying                    Is a sufficient output safe in a model’s hands once the user
+what improving it would mean, the request vendor guidance is               asks for more? We study this question directly. A model com-
+written against (OpenAI, 2025a; Anthropic, 2025b).                         pletes one of forty fully specified tasks, spanning code, data
+   Whether models can improve their own outputs has been                   logic, analysis, writing and creative writing, and is then of-
+studied as self-refinement. Madaan et al. (2023) show that                 fered, across four further turns, a neutral choice to keep its out-
+
+
+                                                                       1
+put or revise it, with no indication of what to change. Counting           Domain       n    Example tasks
+the initial draft, each conversation runs five turns. The design
+                                                                           Code         8    Debounce function, email validator
+spans six models, 720 conversations and 3,600 responses. We                Data logic   8    Discount stacking, scheduling
+ask whether a model revises at all (RQ1), whether the output               Analysis     8    Quarterly sales summary, policy memo
+improves or degrades when it does (RQ2), and whether fail-                 Writing      8    PTO request, LinkedIn announcement
+ure traces to capacity or to the absence of direction (RQ3).               Creative     8    Story opening, tone rewrite
+We strip the meta-commentary models attach to revisions and
+                                                                      Table 1: Task domains. Each domain contains 8 scenarios spanning
+validate every quality judgment against human raters, and we
+                                                                      typical enterprise and consumer AI use cases.
+release the resulting tasks, protocol, and scoring as STET —
+named for the editor’s mark to let text stand — so that any
+model can be scored on whether it leaves sufficient work alone.       et al., 2023). What that literature asks throughout is whether
+   Most of the work being revised did not need it: 88% of the         a given feedback signal suffices to improve an output. We ask
+720 first drafts are already sufficient. Asked to improve them        the complementary question of what happens when the signal
+without direction, models mostly do not revise: by the fifth          is absent entirely and the output to be revised is already ade-
+turn, 86.7% of replies are meta-responses, restatements and           quate.
+declines presented as compliance rather than new task content.        Sycophancy and compliance under pressure. Instruction-
+When they do revise, 70% of the changes that move quality             tuned models comply and avoid disagreement even when hold-
+move it down. On the 50 trials that revise at every turn, quality     ing firm would help (Perez et al., 2023; Sharma et al., 2024;
+falls 0.74 levels from first to fifth (p = 1.01 × 10−4 ), a decline   Wei et al., 2023; OpenAI, 2025b), and under sustained pres-
+that is negative in all five domains and significant in four. For     sure correct answers get revised toward worse ones (Xu et al.,
+all six models the first draft is the quality-maximizing stop-        2024; Fanous et al., 2025). Our repeated probe is a weak in-
+ping point, and we name the tokens spent past it the revision         stance of that pressure.
+tax, which accounts for 62.1% of all output generated. The
+                                                                      Biases in LLM-as-judge evaluation. Using LLMs to evalu-
+failure is one of direction rather than capacity: a single spe-
+                                                                      ate generated text is standard practice (Zheng et al., 2023; Li et
+cific critique reverses the decline, lifting revised output 1.16
+                                                                      al., 2025), but judges carry self-preference and position biases
+levels above undirected iteration (p = 5.7 × 10−19 ). Blind
+                                                                      (Panickssery et al., 2024; Koo et al., 2024) and reward stylistic
+readers shown the first and last drafts prefer the first in 56%
+                                                                      and formatting cues over substance (Singhal et al., 2024; Wu
+of decisions, an interval that includes chance. Intrinsic self-
+                                                                      and Aji, 2025; Zhang et al., 2025; Chen et al., 2024; Ye et
+correction, on its own, is not enough: it requires extrinsic di-
+                                                                      al., 2025). Meta-commentary is precisely such a cue, and we
+rection.
+                                                                      find it biases a judge strongly enough to reverse the measured
+2 Related Work                                                        direction of the effect.
+                                                                      Multi-turn degradation and closest work. Quality loss
+Human-AI interaction and user-side determinants of qual-              across multiple turns has been observed before through dif-
+ity. A growing body of work treats output quality as a prop-          ferent mechanisms: early dialogue systems lose coherence
+erty of the interaction rather than of the model alone (Laban et      through topic drift rather than revision (Zhang et al., 2020;
+al., 2026; Yang et al., 2026), and scalable-oversight research        Thoppilan et al., 2022). Closest to our work, Laban et al.
+identifies the condition we study: users who cannot articulate        (2026) show that models lose accuracy when a task’s require-
+precise intent or validate a complex output (Zhou et al., 2026).      ments arrive piecewise, and find the effect threshold-shaped
+We locate the revision request itself as the user-side variable       rather than cumulative. Our setting isolates a different cause:
+and ask what its most impoverished form does.                         the task is fully specified from the first turn and the initial
+Over-reliance and automation bias. Whether such degra-                output is already sufficient, so the degradation is produced by
+dation is noticed depends on the user’s ability to evaluate the       the revision act itself rather than by information arriving late.
+output. Decades of automation research find that people ac-           The two findings are complementary. Our revision tax is ad-
+cept automated output they cannot verify (Skitka et al., 1999;        jacent to the single-turn over-generation metric of Borisov et
+Parasuraman and Manzey, 2010), and in AI-assisted decisions           al. (2026) but captures a distinct multi-turn cost, the tokens
+fluent presentation raises acceptance without improving dis-          spent revising an already-sufficient output past the point of
+crimination (Bansal et al., 2021; Buçinca et al., 2021). Users        peak quality. Across these lines the constant is that quality has
+rely rather than pay the cost of verification (Vasconcelos et al.,    been treated as a property of the model, or of the feedback it is
+2023; Schemmer et al., 2023), which is why a quiet quality            given; we ask instead what the model does when the feedback
+decline is absorbed rather than caught.                               is empty and the work is already good enough.
+Intrinsic self-correction and self-refinement.             Self-      3 Methods
+refinement work converges on a single finding: intrinsic
+prompting alone is unreliable (Madaan et al., 2023; Huang et          3.1 Design
+al., 2024; Kamoi et al., 2024; Tyen et al., 2024). Reliable self-       STET comprises forty fully specified tasks across five do-
+correction depends instead on a strong external verifier or on        mains (Table 1), a five-turn revision protocol, and a validated
+additional training (Zhang et al., 2024; Qu et al., 2024; Shinn       scoring procedure. We use a five-turn conversational design
+    Llama 3.3 70B on a quarterly sales summary (analysis task)
+      Prompt (given once)
+     Can you write a concise summary that identifies the patterns, addresses the Q3 dip and Q4
+     spike, andsuggests a couple possible explanations for each?
+
+     Model initial response                                                   214 words   Model after four revisions                        79 words
+     [...] Q3 saw a 21% dip to $1.9M, which may be                                        [...] a notable dip in Q3 ($1.9M) and a
+     attributed to seasonal factors or increased                                          significant spike in Q4 ($3.1M). To build on
+     competition. [...] Q4 saw a significant spike                                        this momentum, we recommend: 1. Analyzing
+     to $3.1M. This surge could be due to successful                                      Q4's success factors [...] 2. Identifying
+     holiday season promotions, effective year-end                                        opportunities to mitigate future dips [...]
+     sales strategies, or a strong new product
+     launch. [...]
+
+
+     Quality level = (4) Sufficient                                                       Quality level = (2) Incomplete
+     Green: the two explanations the prompt asked for, present at Turn 1 and gone by Turn 5.
+    Each of the four requests, verbatim:"Would you like to keep this as your final version, or would you like to revise it?"
+    The judge, on the final response:"missing the explicitly requested specific explanations for the Q3 dip and Q4 spike,
+    providing only generic recommendations."
+
+
+                       4.0                                                                      Sufficiency
+                             3.66
+                       3.5                              3.40                  3.34
+
+       Quality level
+                                                                                             3.07
+                       3.0
+                       2.5
+                       2.0          All revisions (every model)
+                                    This trial
+                              1                          2                     3               4
+                                                               Revisions requested
+Figure 1: Undirected revision removes content the user asked for. One trial of the quarterly sales summary task (Llama 3.3 70B). The prompt
+asks for two explanations (green); they are present in the Turn-1 draft (Sufficient, level 4) and gone after four identical requests (Incomplete,
+level 2). The inset plots this trial (red) against the mean over every genuine revision at each index across all six models (black), on stripped
+content. The full exchange and every judge rationale appear in Appendix H.
+
+
+in which a model produces an initial output (Turn 1) and is                               code (8 tasks), data logic (8), analysis (8), writing (8), and
+then asked at each subsequent turn whether it would like to re-                           creative writing (8). Scenarios range from function implemen-
+vise (Figure 2). The working probe is deliberately balanced:                              tation to policy memos to story openings.
+“Would you like to keep this as your final version, or would
+you like to revise it?” This offers an explicit off-ramp at                               3.2 Response Classification
+every turn, unlike revision-implying probes that trigger near-
+universal compliance. Two preliminary experiments, reported                                  At each turn ≥ 2, the model’s response is classified as ei-
+in Appendices A and B, establish that this decision is con-                               ther a genuine revision (new task content produced) or a meta-
+trolled by the probe’s phrasing rather than by any assessment                             response (the model declines, restates, or comments without
+of quality, so a balanced probe makes the degradation we mea-                             substantive modification). An initial keyword-based classi-
+sure a conservative estimate of behaviour under the revision-                             fier (checking for decline phrases like “no changes needed”)
+implying prompts that dominate in practice.                                               systematically missed verbose decline-with-restatement re-
+  The experiment crosses 6 models × 40 scenarios × 3 runs                                 sponses: outputs that restate the original content while declin-
+= 720 trials (3,600 model-turn observations), all generated at                            ing to change it. A validated LLM classifier (Claude Sonnet 4
+temperature 1.0.                                                                          at temperature 0) replaced it, classifying 24.9% of post-Turn 1
+                                                                                          outputs as genuine revisions (718/2,880) compared to the key-
+Models. Claude Sonnet 4 (Anthropic), GPT-4o (OpenAI),
+                                                                                          word classifier’s higher rate. Ten classifications were manu-
+Gemini 2.5 Flash (Google), Llama 3.3 70B (Meta, via To-
+                                                                                          ally corrected after human review of a stratified sample (1.4%
+gether AI), Qwen 3 235B (Alibaba, via OpenRouter), and
+                                                                                          correction rate). The classifier gap itself is a finding: mod-
+DeepSeek V4 (DeepSeek).
+                                                                                          els frequently produce verbose responses that mimic revision
+Scenarios. Forty scenarios span five task domains (Table 1):                              without substantive content change.
+                                                                                           Turn    Genuine revisions     Rate
+                        Turn 1: initial draft            scored                            T2           283/720         39.3%
+                                                                                           T3           185/720         25.7%
+                                                                                           T4           154/720         21.4%
+                           balanced probe:
+                            "keep as final,                                                T5            96/720         13.3%
+                              or revise?"
+                                                                           Table 2: Genuine revision rate by turn. Classifications from a vali-
+          ×4                                               keep            dated LLM classifier. The majority of post-Turn 1 outputs are meta-
+      (Turns 2 5)                     revise                               responses, not revisions.
+
+                            revised draft                end
+                                                                           evaluators may trigger the “Overdone” criterion on boilerplate
+                                                                           rather than content.
+                Every turn is scored by the blind evaluator.                  We therefore strip meta-commentary from all 3,600 outputs
+               Turn 1 is the initial draft, not a revision. The            with validated regex patterns and rescore. On stripped content,
+                probe names no fault and gives an explicit
+                off-ramp at each of the four revision turns.               human annotators agree with the judge at κ = 0.569, against
+                                                                           near-chance agreement on unstripped content, so all quality
+                                                                           results in Section 4 use stripped scores as primary estimates.
+                                                                           3.5 Metrics
+                                                                              Revision yield is the mean evaluator level at each turn, re-
+                                                                           stricted to genuine revisions. Revision direction records, for
+                                                                           each genuine revision, whether its level is lower than, equal
+Figure 2: The five-turn revision protocol. A model produces an ini-
+tial draft at Turn 1 and is then offered, at each of four further turns,   to, or higher than the level of the most recent turn whose con-
+a neutral choice to keep its output or revise it. The probe is identical   tent was genuinely new. Revision-despite-sufficiency is the
+every turn and names no fault.                                             fraction of turns rated ≥ 4 where the model revised at the
+                                                                           next turn. The revision tax is the extra tokens spent past
+                                                                           the quality-optimal turn t∗ as a percentage of optimal tokens,
+3.3 Blind Evaluation                                                       (Tfull − Tt∗ )/Tt∗ × 100.
+   Each model-turn output is scored by a blind evaluator on a              3.6 Sub-experiments
+six-level quality scale: Inadequate (does not address the task),
+Incomplete (missing requested components), Functional (all                 Targeted feedback. For outputs rated level 1–3, a second
+components present, clear weaknesses), Sufficient (all compo-              model instance receives the output plus a specific critique and
+nents present and competently executed), Polished (thought-                produces a targeted revision, which is then blind-evaluated
+fulness beyond the minimum), and Overdone (unrequested                     (n = 177 paired comparisons).
+complexity or drift from the ask). Level 4 (“Sufficient”) is               Reversibility. Two human annotators independently com-
+the threshold for task completion.                                         pared stripped Turn 1 and last-genuine-revision outputs for the
+Scale non-monotonicity and 6→2 recode. Level 6 (“Over-                     50 balanced-panel trials, blind to turn identity and position-
+done”) represents over-elaboration or drift from the task; it is           randomised, with a success bar of ≥ 65% Turn 1 preference
+not quality above Level 5. Because Level 6 is semantically                 set in advance (κ = 0.703, n = 50). The outcome is reported
+below “Sufficient,” we recode it to Level 2 (“Incomplete”)                 in the Limitations.
+throughout, producing a monotonic 1–5 scale.
+                                                                           4 Results
+Judge calibration and human validation.            We selected
+Claude Sonnet 4 as the evaluator, the highest human-correlated               We report meta-commentary-stripped quality scores as pri-
+of six candidates (Spearman r = 0.505), and validated its                  mary estimates throughout; unstripped values are given in
+scores against three human raters (Krippendorff’s α = 0.529;               parentheses.
+binary sufficiency agreement 76.6–82.8%). The binary suffi-                4.1 Models Mostly Decline to Revise
+ciency threshold is better validated than the ordinal mean; full
+                                                                              When prompted with undirected revision requests, models
+calibration and agreement tables are in Appendices F and G.
+                                                                           produce genuine revised content at a declining rate across turns
+3.4 Meta-Commentary Stripping                                              (Table 2). By Turn 5, only 13.3% of trials contain a genuine
+   Models frequently add boilerplate preambles (“Here’s my                 revision; the remaining 86.7% are meta-responses: polite de-
+revised version. . . ”) and postambles (“Let me know if you’d              clines, restatements of the original, or commentary about the
+like any changes”) to revision outputs. In our 50 balanced-                work rather than new task content.
+panel pairs, 84% of revision-side outputs contain at least one             Survival varies by model. Genuine-revision survival to
+such wrapper, compared to 14% of Turn 1 outputs. This                      Turn 5 ranges from 0.8% (Gemini 2.5 Flash: 1/120) to 53.3%
+asymmetry creates a measurement confound: LLM judges can                   (Llama 3.3 70B: 64/120); Figure 3 shows the curves. The
+identify the revision side by its meta-wrapping, and pointwise             balanced panel of 50 trials with genuine revision at all turns
+                                           Llama 3.3 70B      GPT-4o                                            4.25                Pooled genuine (shifting n)
+                                           Claude Sonnet 4    DeepSeek V4                                                           Balanced panel (n = 50)
+
+
+
+
+                                                                                 Mean quality (1 5, stripped)
+                            80             Qwen 3 235B        Gemini 2.5 Flash                                  4.00                                            Sufficient
+
+
+
+
+Genuine revision rate (%)
+                                                                                                                3.75
+                            60
+                                                                                                                3.50
+                            40                                                                                                                          ∆ = −0.74
+                                                                                                                3.25
+                                                                                                                3.00
+                            20
+                                                                                                                2.75
+                             0                                                                                  2.50 n: 720   283   185        154          96
+                                                                                                                        T1    T2    T3         T4           T5
+                                 T2   T3                 T4                T5
+                                              Turn                                                                                  Turn
+Figure 3: Per-model genuine-revision survival: fraction of each                  Figure 4: Quality trajectory under undirected revision (stripped).
+model’s 120 trials still producing genuine revised content at each               Solid: balanced panel (n=50, genuine revision at all turns), the
+turn. Llama 3.3 70B sustains revision through Turn 5 (53.3%); all                cliff of ∆ = −0.74 (3.66→2.92). Dashed: pooled genuine-only
+other models drop below 15% by Turn 5. Gemini 2.5 Flash is near                  trajectory (shifting n; compositional bias from differential dropout),
+floor throughout (0.8% at T5).                                                   ∆ = −1.04. Both estimators decline monotonically.
+
+
+
+is 45 Llama trials (90%), 3 Qwen, and 2 Claude; GPT-4o,                          3.3 × 10−6 ), of which 21% is attributable to meta-commentary
+DeepSeek, and Gemini contribute zero. This subset conditions                     rather than to content (Figure 4).
+on a post-treatment variable (revision persistence), introducing                 Per-model caveats. The balanced panel is dominated by
+potential selection bias; we triangulate it against the pooled es-               Llama 3.3 70B (n = 45), the only model with power to de-
+timates below.                                                                   tect a cliff within a single model; the same cliff is −0.69 on
+Probe phrasing, not output quality, controls whether a                           stripped content, significant at p = 3.76 × 10−4 . GPT-4o,
+model revises. Across five probe wordings the revision gate                      DeepSeek and Gemini contribute no balanced-panel trials, not
+is bimodal rather than graded; Appendix A reports the break-                     because they hold quality but because they stop revising be-
+down. The balanced probe lands in the assessment range at                        fore Turn 5. We do not claim all models degrade; we claim
+39.3% at Turn 2.                                                                 that among models that continue revising, the only powered
+                                                                                 comparison shows significant degradation.
+4.2 Quality Degrades Under Undirected Revision                                   Pooled trajectory. Pooling all genuine revisions with shift-
+Revisions lower quality more often than they raise it.                           ing n, stripped quality falls from 4.11 at Turn 1 to 3.07 at
+Across all 718 genuine revisions, a revision leaves the level                    Turn 5 (∆ = −1.04). This estimator carries a compositional
+unchanged in 60.2% of cases, lowers it in 27.7%, and raises it                   bias — models with higher decline rates exit the pool earlier
+in 12.1%. Restricting to the 286 revisions that move the level,                  — but its direction agrees with the balanced panel (Figure 4).
+199 move it down and 87 up, a share of 69.6% (exact binomial                     Domain variation.         With probe phrasing held constant,
+95% CI [63.9%, 74.9%]; sign test p = 1.48 × 10−11 ). Of the                      model identity explains far more variation in genuine-revision
+411 revisions whose input was already at or above sufficiency,                   rate than task domain: a model range of 71.9 percentage points
+113 (27.5%) end below it. The asymmetry is present in every                      against a domain range of 13.5. All five domains show nega-
+model and in every domain (Appendix I). The direction is uni-                    tive stripped deltas and four of five reach significance on paired
+form across domains — every domain shows more downward                           Wilcoxon tests (p < 0.05; data_logic marginal at p = 0.058);
+than upward moves — but the magnitude does not differ sig-                       per-domain Turn 5 cells run from n = 13 to n = 30 (Appendix
+nificantly among them (χ2 = 3.02, df = 4, p = 0.555): no                         I).
+domain is reliably worse than another, only reliably negative.                   Revision despite sufficiency. The evaluator rated 87.6% of
+It is significant in four of the six models individually; Claude                 first-turn outputs as sufficient (631/720), so most trials be-
+Sonnet 4 does not reach significance (p = 0.11) and Gemini                       gin with work that needs no revision. Among all (trial, turn)
+contributes only eight genuine revisions.                                        pairs where the output was rated sufficient, the model pro-
+The balanced-panel drop. In the 50 balanced-panel trials,                        duced a genuine revision at the next turn 39.6% of the time
+mean quality on stripped content falls from 3.66 at Turn 1                       (411/1,038).
+to 2.92 at Turn 5 — a revision cliff steep enough to drop the                    The mechanism: revision pulls toward the mean. The
+work below sufficient — a decline of −0.74 levels (Wilcoxon                      findings above show that undirected revision degrades suffi-
+signed-rank p = 1.01 × 10−4 ; unstripped −0.94, p =                              cient work; this last analysis says why. In an exploratory
+                                Model                n     Stripped ∆                                                             all trials 62%
+                                Llama 3.3 70B
+                                Qwen 3 235B
+                                                     71
+                                                     21
+                                                             +1.62
+                                                             +1.48
+                                                                                    Llama 3.3 70B                                             81%
+                                                             +1.33
+                                GPT-4o
+                                DeepSeek V4
+                                                     12
+                                                     19      +1.05
+                                                                                  Claude Sonnet 4                                       72%
+                                Claude Sonnet 4      51      +0.31
+                                Gemini 2.5 Flash      3      +2.33                    Qwen 3 235B                                     66%
+Table 3: Targeted-feedback advantage by model on stripped content.                           GPT-4o                             56%
+All five powered models show significant improvement.
+                                                                                      DeepSeek V4                               54%
+                                                          sufficiency             Gemini 2.5 Flash           23%
+                                                          threshold
+                          1.0    +0.69
+                                                                                                      0         20         40         60           80
+                                                                                                      Output tokens after the optimal turn (%)
+
+
+
+
+Change in quality level
+                          0.5
+                                 improves                                       Figure 6: Share of each model’s output tokens generated after the
+                                                                                quality-optimal turn, which is Turn 1 for all six. Meta-response to-
+                          0.0                                                   kens count as waste. The dashed line is the all-trials aggregate (62%).
+                                             -0.03
+                          0.5                               -0.43                   Model                 Revision tax (%) ↓      Genuine-rev. (%)
+                                                                                    Gemini 2.5 Flash              23.4                   1.7
+                          1.0                                     damages
+                                                                                    DeepSeek V4                   54.3                   6.5
+                                                                        -0.98       GPT-4o                        55.7                   8.3
+                                                                                    Qwen 3 235B                   66.5                   18.8
+                                                                                    Claude Sonnet 4               71.6                   40.8
+                                   2
+                                 n=116
+                                               3
+                                              n=77
+                                                              4
+                                                            n=394
+                                                                         5
+                                                                        n=130       Llama 3.3 70B                 81.3                   73.5
+                                Quality level of the input being revised        Table 4: The STET leaderboard: six models scored by revision
+                                                                                tax (output spent past the optimal turn; lower is more robust), with
+Figure 5: Expected change in quality from one undirected revision,              genuine-revision rate reported alongside so that disengagement is not
+by the quality level of the input. Bars are 95% CIs; Level 1 (n=1)              read as restraint. Gemini’s low tax reflects near-total refusal to revise
+is omitted. Revision raises quality when the input is below suffi-              rather than calibrated stopping.
+ciency (+0.41, n=194) and lowers it when the input is already suffi-
+cient (−0.56, n=524). This analysis is exploratory and was not pre-
+registered; it is reported as the mechanism behind the pre-registered           effect is significant for all five powered models (Table 3).
+decline, not as the paper’s headline.
+                                                                                   The contrast between undirected and directed revision is the
+                                                                                central practical finding: undirected revision degrades quality
+analysis (not among our registered predictions), the expected                   by 0.74 levels over five turns, while a single directed revision
+change from a single undirected revision varies with the level                  improves it by 1.16 levels. The problem is not revision capac-
+of the input being revised (Figure 5): revision raises quality                  ity but the absence of evaluative direction.
+when the input falls below the sufficiency threshold (+0.41,                    4.4 The Revision Tax
+n = 194) and lowers it when the input is already sufficient
+                                                                                   The quality-optimal stopping point (t∗ ) is Turn 1 for all six
+(−0.56, n = 524). Revision behaves like a pull toward the
+                                                                                models: no model benefits from undirected revision on the
+mean — it helps what is broken and harms what is already
+                                                                                genuine-revision quality trajectory. All tokens generated after
+fine.
+                                                                                Turn 1 are therefore waste under a quality-maximizing crite-
+4.3 Targeted Feedback Restores Quality                                          rion. These are two views of the same waste. As a share of
+   The preceding sections show that undirected revision de-                     all output, 62.1% of tokens are spent past t∗ ; measured against
+grades quality. Strikingly, the same models improve it once                     only the tokens needed to reach t∗ , the waste is 164.2%, i.e.
+told what is wrong: directed revision, providing a specific                     continuing past peak quality produces roughly 1.6× more text
+critique before the request, substantially raises quality. On                   than it took to reach the optimum (Figure 6). Per-model waste
+stripped content, targeted revisions score 4.68 against 3.53 for                ranges from 23.4% (Gemini, which declines early and gener-
+the model’s own generic next-turn revision, a gain of 1.16 lev-                 ates few post-T1 tokens) to 81.3% (Llama, which continues
+els (p = 5.7 × 10−19 , n = 177; unstripped +0.25, p = 0.004).                   revising).
+The unstripped comparison understates the effect because                        A note on the score. STET ranks models by revision tax
+meta-commentary inflates generic-revision scores; targeted re-                  because it is the one figure that captures the cost of not stop-
+visions carry minimal meta-commentary (9/177 = 5%). The                         ping, but the two columns must be read together: a model that
+never revises (Gemini) wastes few tokens for the wrong rea-                 anced probe, though built to be neutral, may still prime
+son, while the most engaged model (Llama) pays the highest                  revision, making a no-probe control the stronger baseline
+tax. Revision robustness is low tax with appropriate engage-                for future work.
+ment, not either alone.
+                                                                       Ethics Statement
+5 Conclusion                                                              This study involved human evaluation by three raters (the
+   When large language models are handed their own sufficient          first author and two research assistants) who scored AI-
+work and asked to improve it without direction, most decline           generated outputs on a quality scale. The evaluation involved
+to genuinely revise, and those that do make it worse: quality          reading and rating synthetic text only; no personal data was
+falls 0.74 levels across five turns, the first draft is the quality-   collected, and raters participated voluntarily. All data was gen-
+maximizing stopping point for every model, and 62% of output           erated by commercial LLM APIs in response to synthetic sce-
+tokens are spent past it. The failure is not one of capacity. A        narios spanning code, data logic, analysis, and writing tasks,
+single targeted critique reverses the decline, lifting quality 1.16    and the scenarios contain no sensitive content. Pricing data
+levels above undirected iteration, so revision is a tool worth         referenced in any cost estimate is drawn from publicly avail-
+invoking only once there is a specific weakness to direct it at.       able API documentation.
+For users, the rule is to withhold the request to revise until they
+can name what is wrong; for systems that automate revision,            References
+the implication is architectural — an evaluation step belongs          • Anthropic. 2025a. The anthropic economic index.
+before the revision step, not after. We release STET so that           • Anthropic. 2025b. Prompting best practices.
+revision robustness, a model’s willingness to leave sufficient         • Gagan Bansal, Tongshuang Wu, Joyce Zhou, Raymond Fok, Be-
+work alone, can be measured alongside first-turn capability.               smira Nushi, Ece Kamar, Marco Tulio Ribeiro, and Daniel
+Intrinsic self-correction, on its own, is not enough: it requires          Weld. 2021. Does the whole exceed its parts? the effect of
+extrinsic direction.                                                       AI explanations on complementary team performance. In CHI.
+                                                                       • Vadim Borisov, Michael Gröger, Mina Mikhael, and Richard H.
+6 Limitations                                                              Schreiber. 2026. Do chatbot LLMs talk too much? the Yap-
+  Several limitations qualify these findings.                              Bench benchmark. arXiv:2601.00624.
+                                                                       • Zana Buçinca, Maja Barbara Malaya, and Krzysztof Z. Gajos.
+  1. Panel composition. The balanced panel is dominated by                 2021. To trust or to think: cognitive forcing functions can re-
+     Llama 3.3 70B (45 of 50 trials); other models exit the                duce overreliance on AI in AI-assisted decision-making. Proc.
+     revision pool before Turn 5, so the only well-powered                 ACM HCI (CSCW).
+     within-model estimate of the cliff is Llama’s. We do not          • Guiming Hardy Chen, Shunian Chen, Ziche Liu, Feng Jiang, and
+     claim all models degrade, only that among those that keep             Benyou Wang. 2024. Humans or LLMs as the judge? a study
+     revising the powered comparison is significant.                       on judgement bias. In EMNLP. arXiv:2402.10669.
+  2. A single judge. Quality is scored by one LLM judge                • Aaron Fanous, Jacob Goldberg, Ank A. Agarwal, Joanna Lin, An-
+     (Claude Sonnet 4), chosen for the highest human cor-                  son Zhou, Sonnet Xu, Vasiliki Bikia, Roxana Daneshjou, and
+     relation among six candidates but a single instrument                 Sanmi Koyejo. 2025. SycEval: evaluating LLM sycophancy.
+     nonetheless; human agreement is moderate (α = 0.529),                 In AIES, 8:893–900.
+     so ordinal means should defer to the better-validated bi-         • Jie Huang, Xinyun Chen, Swaroop Mishra, Huaixiu Steven Zheng,
+     nary sufficiency threshold.                                            Adams Wei Yu, Xinying Song, and Denny Zhou. 2024. Large
+  3. One temperature. All generation uses temperature 1.0;                  language models cannot self-correct reasoning yet. In ICLR.
+     revision behaviour may differ at lower temperatures.                   arXiv:2310.01798.
+  4. Task sample. The forty tasks are a convenience sam-               • Ryo Kamoi, Yusen Zhang, Nan Zhang, Jiawei Han, and Rui Zhang.
+     ple across five domains, and per-domain Turn-5 cells are              2024. When can LLMs actually correct their own mistakes?
+                                                                           a critical survey of self-correction of LLMs. TACL, 12:1417–
+     small (n = 13 to 30), so per-domain magnitudes are di-
+                                                                           1440.
+     rectional.
+                                                                       • Ryan Koo, Minhwa Lee, Vipul Raheja, Jong Inn Park, Zae Myung
+  5. Reversibility near chance. After stripping, blind human
+                                                                           Kim, and Dongyeop Kang. 2024. Benchmarking cognitive bi-
+     preference for the first draft is 56%, a confidence inter-
+                                                                           ases in large language models as evaluators. In Findings of ACL,
+     val that includes 50% and a pre-registered 65% bar that               517–545.
+     was not cleared; the pointwise degradation is real but not
+                                                                       • Philippe Laban, Hiroaki Hayashi, Yingbo Zhou, and Jennifer
+     large enough to flip a blind preference once boilerplate is
+                                                                            Neville. 2026. LLMs get lost in multi-turn conversation. In
+     removed.
+                                                                            ICLR. Outstanding Paper Award. arXiv:2505.06120.
+  6. An exploratory mechanism. The input-dependent anal-
+                                                                       • Dawei Li, Bohan Jiang, Liangjie Huang, Alimohammad Beigi,
+     ysis (Figure 5) was not pre-registered; we report it as a             Chengshuai Zhao, Zhen Tan, Amrita Bhattacharjee, Yuxuan
+     mechanism, not a confirmatory result.                                 Jiang, Canyu Chen, Tianhao Wu, Kai Shu, Lu Cheng, and Huan
+  7. No no-probe control. The design cannot fully separate                 Liu. 2025. From generation to judgment: opportunities and
+     the revision act from the prompt that offers it; the bal-             challenges of LLM-as-a-judge. In EMNLP, 2757–2791.
+• Percy Liang, Rishi Bommasani, Tony Lee, Dimitris Tsipras, Dilara          can correct them given the error location. In Findings of ACL.
+     Soylu, Michihiro Yasunaga, Yian Zhang, Deepak Narayanan,               arXiv:2311.08516.
+     Yuhuai Wu, Ananya Kumar, and 1 others. 2023. Holistic evalu-      • Helena Vasconcelos, Matthew Jörke, Madeleine Grunde-
+     ation of language models. TMLR.                                       McLaughlin, Tobias Gerstenberg, Michael S. Bernstein, and
+• Aman Madaan, Niket Tandon, Prakhar Gupta, Skyler Hallinan,               Ranjay Krishna. 2023. Explanations can reduce overreliance
+    Luyu Gao, Sarah Wiegreffe, Uri Alon, Nouha Dziri, Shrimai              on AI systems during decision-making. Proc. ACM HCI
+    Prabhumoye, Yiming Yang, and 1 others. 2023. Self-refine:              (CSCW). arXiv:2212.06823.
+    iterative refinement with self-feedback. In NeurIPS, 36:46534–     • Jerry Wei, Da Huang, Yifeng Lu, Denny Zhou, and Quoc V. Le.
+    46594.                                                                  2023. Simple synthetic data reduces sycophancy in large lan-
+• Moran Mizrahi, Guy Kaplan, Dan Malkin, Rotem Dror, Dafna                  guage models. arXiv:2308.03958.
+    Shahaf, and Gabriel Stanovsky. 2024. State of what art? a          • Minghao Wu and Alham Fikri Aji. 2025. Style over substance:
+    call for multi-prompt LLM evaluation. TACL, 12:933–949.                evaluation biases for large language models. In COLING.
+• OpenAI. 2025a. GPT-5 prompting guide.                                    arXiv:2307.03025.
+• OpenAI. 2025b. Sycophancy in GPT-4o: what happened and what          • Rongwu Xu, Brian S. Lin, Shujian Yang, Tianqi Zhang, Weiyan
+    we’re doing about it.                                                  Shi, Tianwei Zhang, Zhixuan Fang, Wei Xu, and Han Qiu.
+                                                                           2024. The earth is flat because...: investigating LLMs’ belief
+• Arjun Panickssery, Samuel R. Bowman, and Shi Feng. 2024.
+                                                                           towards misinformation via persuasive conversation. In ACL.
+     LLM evaluators recognize and favor their own generations. In
+                                                                           arXiv:2312.09085.
+     NeurIPS, 37:68772–68802.
+                                                                       • Chenyang Yang, Yike Shi, Qianou Ma, Michael Xieyang Liu,
+• Raja Parasuraman and Dietrich H. Manzey. 2010. Complacency               Christian Kästner, and Tongshuang Wu. 2026. What prompts
+    and bias in human use of automation: an attentional integration.       don’t say: understanding and managing underspecification in
+    Human Factors, 52(3):381–410.                                          LLM prompts. In Findings of ACL, 9072–9101.
+• Ethan Perez, Sam Ringer, Kamile Lukošiūtė, Karina Nguyen, Ed-      • Jiayi Ye, Yanbo Wang, Yue Huang, Dongping Chen, Qihui Zhang,
+     win Chen, Scott Heiner, Craig Pettit, Catherine Olsson, Sandi-         Nuno Moniz, Tian Gao, Werner Geyer, Chao Huang, Pin-Yu
+     pan Kundu, Saurav Kadavath, and 1 others. 2023. Discovering            Chen, Nitesh V. Chawla, and Xiangliang Zhang. 2025. Justice
+     language model behaviors with model-written evaluations. In            or prejudice? quantifying biases in LLM-as-a-judge. In ICLR.
+     Findings of ACL, 13387–13434.                                          arXiv:2410.02736.
+• Yuxiao Qu, Tianjun Zhang, Naman Garg, and Aviral Kumar. 2024.        • Xuanchang Zhang, Wei Xiong, Lichang Chen, Tianyi Zhou, Heng
+    Recursive introspection: teaching language model agents how            Huang, and Tong Zhang. 2025. From lists to emojis: how
+    to self-improve. In NeurIPS. arXiv:2407.18219.                         format bias affects model alignment. In ACL, 26940–26961.
+• Max Schemmer, Niklas Kuehl, Carina Benz, Andrea Bartos,                  arXiv:2409.11704.
+    and Gerhard Satzger. 2023. Appropriate reliance on AI ad-          • Yizhe Zhang, Siqi Sun, Michel Galley, Yen-Chun Chen, Chris
+    vice: conceptualization and the effect of explanations. In IUI.         Brockett, Xiang Gao, Jianfeng Gao, Jingjing Liu, and Bill
+    arXiv:2302.02187.                                                       Dolan. 2020. DialoGPT: large-scale generative pre-training for
+• Melanie Sclar, Yejin Choi, Yulia Tsvetkov, and Alane Suhr. 2024.          conversational response generation. In ACL: System Demon-
+    Quantifying language models’ sensitivity to spurious features in        strations, 270–278.
+    prompt design. In ICLR. arXiv:2310.11324.                          • Yunxiang Zhang, Muhammad Khalifa, Lajanugen Logeswaran,
+• Mrinank Sharma, Meg Tong, Tomasz Korbak, David Duvenaud,                 Jaekyeom Kim, Moontae Lee, Honglak Lee, and Lu Wang.
+    Amanda Askell, Samuel R. Bowman, Newton Cheng, Esin Dur-               2024. Small language models need strong verifiers to self-
+    mus, Zac Hatfield-Dodds, Scott R. Johnston, and 8 others. 2024.        correct reasoning. In Findings of ACL. arXiv:2404.17140.
+    Towards understanding sycophancy in language models. In            • Lianmin Zheng, Wei-Lin Chiang, Ying Sheng, Siyuan Zhuang,
+    ICLR. arXiv:2310.13548.                                                 Zhanghao Wu, Yonghao Zhuang, Zi Lin, Zhuohan Li, Dacheng
+• Noah Shinn, Federico Cassano, Ashwin Gopinath, Karthik                    Li, Eric P. Xing, Hao Zhang, Joseph E. Gonzalez, and Ion Sto-
+    Narasimhan, and Shunyu Yao. 2023. Reflexion: language                   ica. 2023. Judging LLM-as-a-judge with MT-bench and chatbot
+    agents with verbal reinforcement learning. In NeurIPS, 36.              arena. In NeurIPS, 36:46595–46623.
+
+• Prasann Singhal, Tanya Goyal, Jiacheng Xu, and Greg Durrett.         • Enyu Zhou, Zhiheng Xi, Long Ma, Zhihao Zhang, Shihan Dou,
+     2024. A long way to go: investigating length correlations in          Zhikai Lei, Guoteng Wang, Rui Zheng, Hang Yan, Tao Gui, Qi
+     RLHF. In COLM. arXiv:2310.03716.                                      Zhang, and Xuanjing Huang. 2026. Steering LLMs via scalable
+                                                                           interactive oversight. arXiv:2602.04210.
+• Linda J. Skitka, Kathleen L. Mosier, and Mark Burdick. 1999.
+     Does automation bias decision-making? Int. J. Human-
+     Computer Studies, 51(5):991–1006.
+• Romal Thoppilan, Daniel De Freitas, Jamie Hall, Noam Shazeer,
+    Apoorv Kulshreshtha, Heng-Tze Cheng, Alicia Jin, Taylor Bos,
+    Leslie Baker, Yu Du, and 1 others. 2022. LaMDA: language
+    models for dialog applications. arXiv:2201.08239.
+• Gladys Tyen, Hassan Mansoor, Victor Carbune, Peter Chen, and
+    Tony Mak. 2024. LLMs cannot find reasoning errors, but
+A Study 1: The Revision Gate
+  Study 1 tests whether user-stated quality thresholds constrain the decision to revise. In a fully factorial experiment (8 scenarios
+× 16 threshold conditions × 2 probes × 3 models × 5 runs = 3,840 trials), the follow-up probe’s phrasing dominates the revision
+gate. Under the leading probe (“Can this be improved?”), models revised 99.9% of the time regardless of threshold. Under the
+evaluative probe (“Take another look and let me know if it’s ready”), revision rates varied by model: Gemini 2.5 Flash declined
+99.7%, GPT-4o 68.6%, Claude Sonnet 4 62.0%.
+  Chi-squared tests confirm the revision gate distribution differs significantly by probe type (χ2 > 788, p < 0.0001 for all
+models). Quality thresholds do not significantly affect the gate (Kruskal-Wallis p > 0.40 for all models). Within the leading-
+probe condition, higher thresholds produce moderately less overcorrection (Spearman ρ: Gemini −0.50, Claude −0.35, GPT-4o
+−0.14), but this calibration is locked behind the phrasing-sensitive gate.
+
+                                          Predictor            Model A     Model B      Model C
+                                                                   ∗∗∗          ∗∗∗
+                                          is_leading            3.47      3.94              —
+                                          threshold            −0.93∗∗∗   −1.04∗∗∗      −1.65∗∗∗
+                                          is_qualitative       −0.74∗∗∗   −0.85∗∗∗      −1.05∗∗∗
+                                          Claude Sonnet           0.10      0.15         0.33∗∗
+                                          Gemini Flash          0.42∗∗∗   0.52∗∗∗        1.15∗∗∗
+                                          Scenario FEs             No       Yes            Yes
+                                          N                      3,840     3,840          1,920
+                                          AIC                    5,319     4,839          3,545
+  Table 5: Ordinal regression (overcorrection ∼ predictors). Model C: leading-probe only. ∗∗ p < 0.01, ∗∗∗ p < 0.001. Reference: GPT-4o.
+
+
+
+
+                8 Scenarios                    8 Thresholds                    2 Probes                      3 Models
+              formal, neutral,                0,70,75,80,85,                   leading /                   GPT-4o, Claude
+            informal, technical,                90,95,100                     evaluative                     Sonnet 4,
+                  creative                    (x2 framings)                                               Gemini 2.5 Flash
+
+
+
+                                    Fully factorial: 8 x 16 x 2 x 3 x 5 runs = 3,840 primary trials
+
+
+                                        Turn 1: scenario + threshold -> model -> initial draft
+
+                                         Turn 2: probe -> model -> revise / decline / suggest
+
+
+
+               Figure 7: Study 1 experimental pipeline. Four factors crossed in a fully factorial design produce 3,840 trials.
+
+
+Probe wordings and the shape of the revision gate. Across five probe wordings tested in Study 1 (3 models; n = 3,932),
+the revision gate is bimodal. The two probes that request change (“Can this be improved?” and “Is there anything you would
+change?”) trigger near-universal revision (99.9%, n = 1,920; 100%, n = 18). The three probes that request assessment produce
+single-digit to low-double-digit revision rates (23.2%, n = 1,920; 12.5%, n = 24; 2.0%, n = 50). No probe falls in the 40–99%
+range; the gate is semantic, not graded. The balanced probe, measured with a validated GENUINE/META classifier, lands in the
+assessment range at 39.3% at Turn 2 (n = 720).
+
+B Study 2: Momentum
+   Study 2 tests whether prior revision rounds shift the revision gate on a subsequent evaluative probe (1,728 trials). Without prior
+revision (dose 0), models revised 23.2%; after 1–3 prior rounds, this rises to 44.6% (χ2 = 376.54, p < 0.0001). Model-level
+divergence is dramatic: GPT-4o jumps 31.4% → 98.4% at dose 1 (near-total sycophantic shift); Claude Sonnet 4 declines 38.0%
+→ 24.5% at dose 3; Gemini 2.5 Flash shifts modestly 0.3% → 12.8% at dose 1. The momentum effect is a step function: the
+entire shift occurs between dose 0 and dose 1, with no additional gain at higher doses. Threshold level does not interact with
+momentum (p = 0.51).
+                                                                    100        100%       100%
+
+                                                                     80
+
+
+
+                                                Revision rate (%)
+                                                                     60
+
+                                                                     40
+                                                                                                         23%
+                                                                     20
+                                                                                                                    12%
+                                                                                                                                2%
+                                                                      0
+                                                                           "Can this"Isbethere "Take another"Review
+                                                                                               anything        look... against
+                                                                                                                          "What do you
+                                                                           improved?"
+                                                                                 you would change?"let me know
+                                                                                                            quality threshold"
+                                                                                                                             think?"
+                                                                                                     if ready"
+  Figure 8: Compliance cliff (Study 1 pilot). Revision rates drop from 100% to ≤25% across five pilot probes with no intermediate values.
+
+
+                                        Claude Sonnet 4                                          Gemini 2.5 Flash                          GPT-4o
+                         5.0
+                                                                      Numeric
+                         4.5                                          Qualitative
+
+
+
+
+   Mean overcorrection
+                         4.0
+                         3.5
+                         3.0
+                         2.5
+                         2.0
+                         1.5
+                         1.0
+                               0   20      40              60             80   100    0     20      40     60       80    100   0    20   40    60    80   100
+                                           Threshold                                                Threshold                             Threshold
+                                             Figure 9: Overcorrection by threshold level within leading-probe trials (Study 1).
+
+
+Reverse momentum. A single turn of affirming feedback (“This looks great, no changes needed”) suppresses full revision to
+near-zero across all models: Gemini 0.0%, GPT-4o 1.0%, Claude 21.9% (all minor suggestions). The gate tracks the most recent
+conversational signal in both directions.
+
+C Pipeline Diagrams
+  See Figure 7 and Figure 2.
+
+D Supplementary Figures
+  See Figures 8, 9, and 10.
+
+E Full Statistical Tables
+E.1 Pairwise Threshold Comparisons (Study 1)
+E.2 Power Analysis
+  Post-hoc power analysis at α = 0.05, 80% power. Study 1 RQ1 (N = 1,920 per probe): MDE for proportion difference
+= 0.032; observed ≈ 0.75, massively overpowered. Study 1 RQ2 (N = 1,920 leading-probe): MDE for |ρ| = 0.064; all
+observed correlations exceed this. Study 3 (N = 720, balanced panel n = 50): panel-level MDE = 0.5 levels; observed ∆ = 0.94
+unstripped (0.74 stripped), both exceeding the MDE. The balanced panel yields p = 3.32 × 10−6 (Wilcoxon, r = 0.658) on the
+unstripped cliff; the stripped cliff (∆ = 0.74) has p = 1.01 × 10−4 (r = 0.55).
+                                                                   1.0
+
+
+
+
+                               Revision rate at evaluative probe
+                                                                   0.8
+
+                                                                   0.6                                            GPT-4o
+                                                                                                                  Claude Sonnet 4
+                                                                                                                  Gemini 2.5 Flash
+                                                                   0.4
+
+                                                                   0.2
+
+                                                                   0.0
+                                                                         0                 1                  2                 3
+                                                                             Momentum dose (# prior leading probes)
+            Figure 10: Revision rate by momentum dose (Study 2). The momentum effect is a step function driven by GPT-4o.
+
+
+                                                                     Model            Comparison       U      padj       r
+                                                                     Gemini (num.)     70 vs. 100     4935   <0.001    −0.42
+                                                                     Gemini (num.)     85 vs. 100     4238   <0.001    −0.32
+                                                                     Gemini (num.)      0 vs. 100     4755    0.002    −0.25
+                                                                     Gemini (qual.)     0 vs. 100     4084    0.002    −0.28
+                                                                     Claude (num.)     85 vs. 100     4146   <0.001    −0.30
+                                                                     Claude (qual.)    85 vs. 100     3880    0.024    −0.21
+                               Table 6: Significant pairwise comparisons (Bonferroni-corrected, q < 0.05).
+
+
+F Judge Calibration Details
+
+                                                                             Candidate judge    Spearman r    QW κ
+                                                                             Claude Sonnet 4         0.505     0.526
+                                                                             DeepSeek V4             0.340     0.398
+                                                                             Qwen 3 235B             0.272     0.017
+                                                                             Llama 3.3 70B           0.181     0.022
+                                                                             GPT-4o                  0.140     0.065
+                                                                             Gemini 2.5 Flash       −0.036    −0.026
+Table 7: Judge calibration (n = 64 stratified samples; Spearman correlation against the human rater mean). Claude Sonnet 4 was selected
+(r = 0.505, p = 2.1 × 10−5 ).
+
+
+F.1 Human Rater Agreement
+G Study 1 Inter-Rater Reliability
+H The Trial Shown in Figure 1
+   The complete exchange for the quarterly sales trial (Llama 3.3 70B, run 3). Text is shown after meta-commentary stripping, the
+basis on which every quality score is computed; raw responses are longer at turns two through five. Judge rationales are quoted
+verbatim.
+Task (Turn 1). I need to write up our quarterly sales for a management meeting. Q1 revenue was $2.1M, Q2 $2.4M, Q3 $1.9M,
+Q4 $3.1M. Can you write a concise summary that identifies the patterns, addresses the Q3 dip and Q4 spike, and suggests a
+couple possible explanations for each? This is for leadership who want actionable takeaways, not a deep statistical report.
+Probe (repeated verbatim, Turns 2–5). Would you like to keep this as your final version, or would you like to revise it?
+Turn 1 (Level 4, 214 words). A full summary reporting each quarter, the 21% Q3 dip with two candidate explanations (seasonal
+slowdown; new-competitor share loss) and the 63% Q4 spike with three (holiday promotions; year-end strategies; product launch),
+                                          Rater pair              QW κ      Binary   Within 1
+                                          Liam – Sophie           0.578     78.1%     95.3%
+                                          Sophie – Troy           0.603     82.8%     87.5%
+                                          Liam – Troy             0.406     76.6%     81.2%
+                                          All three (α)           0.529       —         —
+                                          Evaluator – Human       0.526       —         —
+Table 8: Human rater agreement on 64 stratified samples (6→2 recode applied). Evaluator–Human mean: Spearman r = 0.505 (p < 0.001).
+
+                                            Dimension               QW κ      Interpretation
+                                            Revision magnitude      0.844       Excellent
+                                            Revision value          0.690        Good
+                                            Overcorrection          0.609      Acceptable
+                                            Threshold alignment     0.556       Marginal
+                           Table 9: Inter-rater reliability for Study 1 (GPT-4o vs. Claude Sonnet 4, n = 60).
+
+
+closing with recommendations. Judge: “addresses all requested components with appropriate tone for leadership, though the
+explanations are somewhat generic.”
+Turn 2 (Level 4, 125 words). A shorter version retaining both explanations but adding repetitive recommendation language.
+Judge: “exceeds the request for a concise summary by adding lengthy recommendations and repetitive language that drifts from
+the original ask.”
+Turn 3 (Level 3, 95 words). Further compressed; the specific explanations begin to thin. Judge: “lacks specificity in the
+explanations and doesn’t clearly present the actual quarterly numbers.”
+Turn 4 (Level 2, 79 words). The explicitly requested explanations for the Q3 dip and Q4 spike are gone, replaced by generic
+recommendations. Judge: “missing the explicitly requested explanations for the Q3 dip and Q4 spike, providing only generic
+recommendations.”
+Turn 5 (Level 2, 79 words). Essentially identical to Turn 4; the requested explanations do not return. Judge: “missing the
+explicitly requested specific explanations, providing only generic recommendations.”
+
+I Secondary Result Tables
+                                          Dimension                QW κ     % Agree       % Within 1
+                                          Revision magnitude       0.575        68.3               85.0
+                                          Revision value           0.669        76.7               88.3
+                                          Overcorrection           0.392        71.7               90.0
+                                          Threshold alignment      0.339        38.3               85.0
+                                            Table 10: Inter-rater reliability for Study 2 (n = 60).
+
+
+
+
+                                                                      n    % down              p
+                                               By model
+                                               Llama 3.3 70B         353      68.9       <0.001
+                                               Claude Sonnet 4       196      58.5         0.11
+                                               Qwen 3 235B            90      74.5       <0.001
+                                               GPT-4o                 40      80.0        0.006
+                                               DeepSeek V4            31      85.7        0.007
+                                               Gemini 2.5 Flash       8      100.0        0.062
+                                               By domain
+                                               Writing               118     79.1        <0.001
+                                               Creative              145     73.1        <0.001
+                                               Code                  196     67.0        <0.001
+                                               Analysis              125     65.9         0.024
+                                               Data logic            134     65.9         0.024
+Table 11: Direction of genuine revisions on stripped content. n counts genuine revisions; the percentage is over the subset whose level moves.
+Sign test, one-sided. A χ2 test of homogeneity across the five domains does not reject uniformity (χ2 = 3.02, df = 4, p = 0.555).
+
+
+
+
+                                            Turn            Stripped (Unstripped)      Shift          n
+                                            T1                   4.11 (4.11)             0           720
+                                            T2                   3.66 (3.25)           +0.41         283
+                                            T3                   3.40 (3.01)           +0.39         185
+                                            T4                   3.34 (2.97)           +0.37         154
+                                            T5                   3.07 (2.85)           +0.22         96
+                                            ∆ (T1–T5)           −1.04 (−1.26)
+Table 12: Pooled mean quality by turn, restricted to genuine revisions (all 720 at T1). Stripped scores primary. n declines as models exit the
+revision pool.
+
+
+
+
+                                                   Domain       Stripped    Unstr.      n(T5)
+                                                   analysis      −1.16     (−1.21)        17
+                                                   code          −1.05     (−1.15)        30
+                                                   creative      −0.82     (−1.22)        19
+                                                   data_logic    −1.01     (−1.35)        17
+                                                   writing       −1.06     (−1.31)        13
+Table 13: Quality decline (T1–T5) by domain on stripped content. All domains show negative deltas; 4/5 significant (p < 0.05), data_logic
+marginal (p = 0.058). Per-domain n(T5) limits precision.
+
