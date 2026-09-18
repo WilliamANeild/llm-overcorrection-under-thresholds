@@ -52,5 +52,8 @@ show that models lose accuracy when a task's requirements arrive piecewise, and 
 effect threshold-shaped rather than cumulative. Our setting isolates a different cause: the
 task is fully specified from the first turn and the initial output is already sufficient,
 so the degradation is produced by the revision act itself rather than by information
-arriving late. The two findings are complementary. Our revision tax is adjacent to the single-turn over-generation metric of \citet{borisov2026yapbench} but captures a distinct multi-turn cost, the tokens spent revising an already-sufficient output past the point of peak quality.
+arriving late. The two findings are complementary. Our revision tax is adjacent to the single-turn over-generation metric of \citet{borisov2026yapbench} but captures a distinct multi-turn cost, the tokens spent revising an already-sufficient
+output past the point of peak quality. Across these lines the constant is that quality has
+been treated as a property of the model, or of the feedback it is given; we ask instead what
+a model does when the feedback is empty and the work is already good enough.
 
