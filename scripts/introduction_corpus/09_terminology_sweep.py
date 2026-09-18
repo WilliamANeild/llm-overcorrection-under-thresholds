@@ -17,8 +17,15 @@ from collections import defaultdict
 from pathlib import Path
 
 SEC = Path(__file__).resolve().parents[2] / "paper/sections"
-FILES = ["abstract_v2", "introduction_v2", "related_work_v2", "methods", "results_v2",
-         "discussion", "conclusion", "limitations", "appendix"]
+def _live():
+    """Sections main.tex actually inputs. A hardcoded list keeps counting sections that
+    have been cut: the Discussion left the build on 2026-09-18 and was still being swept."""
+    body = re.sub(r'(?<!\\)%.*', '', (SEC.parent / "main.tex").read_text())
+    return [m.group(1).split("/")[-1]
+            for m in re.finditer(r'\\input\{(sections/[^}]+)\}', body)]
+
+
+FILES = _live()
 
 HEADS = """threshold point revision response commentary panel probe score level turn rate
 tax judge evaluator annotator rater trial output draft classifier estimator sample
