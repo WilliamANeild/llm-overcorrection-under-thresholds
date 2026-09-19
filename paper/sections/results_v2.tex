@@ -167,6 +167,43 @@ The quality-optimal stopping point ($t^*$) is Turn~1 for all six models: no mode
 tokens needed to reach $t^*$, the waste is 164.2\%, so continuing past peak quality produces
 roughly 1.6 times more text than reaching the optimum took. Per-model waste ranges from 23.4\% (Gemini, which declines early and generates few post-T1 tokens) to 81.3\% (Llama, which continues revising and generates substantial post-T1 content). 
 
+\subsection{Scoring Restraint}
+\label{sec:stet}
+
+The forty tasks, the five-turn protocol and the scoring procedure define a diagnostic we
+call STET, after the editor's mark that lets text stand. It scores one behaviour: the share
+of already-sufficient output a model leaves alone (Table~\ref{tab:stet}).
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{@{}lr@{}}
+\toprule
+Model & Sufficient output left alone \\
+\midrule
+Gemini 2.5 Flash & 97.8\% \\
+DeepSeek V4 & 96.3\% \\
+GPT-4o & 82.3\% \\
+Qwen 3 235B & 68.4\% \\
+Claude Sonnet 4 & 54.1\% \\
+Llama 3.3 70B & 18.4\% \\
+\bottomrule
+\end{tabular}
+\caption{Share of turns rated sufficient whose next turn is not a genuine revision,
+stripped basis, over 36 of the 40 tasks; four Gemini cells contain no sufficient turn and
+so no denominator.}
+\label{tab:stet}
+\end{table}
+
+Whether forty tasks rank six models stably is testable. Across 1,000 random splits of the tasks into halves, the halves agree at mean Spearman $\rho = 0.972$,
+every split clears $0.80$, and Llama is last in all of them. A generalizability
+decomposition gives $G = 0.995$ over forty tasks, where five would reach $0.95$, because
+variance between models is 4.6 times the model-by-task residual. Genuine-revision rate and
+the revision tax order the models identically ($\rho = 1.000$), so we report one of the
+three rather than three views of one quantity.
+
+The quality decline does not survive the same test and we do not score it: no construction of the Turn~1 to Turn~5 delta holds its ordering in more than 10\% of halves, and its $G$ of 0.780 would need 215 tasks. A meta-response strips to near-empty text and scores about 1, so that delta reflects first-turn quality rather than revision damage. It is a finding across 720 conversations rather than a score.
+
 \begin{figure}[t]
     \centering
     \includegraphics[width=\columnwidth]{figures/fig_revision_tax.pdf}
