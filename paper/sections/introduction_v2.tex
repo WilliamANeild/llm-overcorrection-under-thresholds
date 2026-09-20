@@ -55,8 +55,7 @@ arrive piecewise.
 These results share a critical assumption: that the output being revised is wrong.
 Intrinsic self-correction, revision driven by the model's own judgment with no outside
 signal \cite{huang2024large, kamoi2024selfcorrection}, is studied on outputs that need
-repair, and multi-turn degradation on tasks whose requirements are incomplete. No study
-measures the case a non-expert user actually creates: a fully specified task, an output
+repair, and multi-turn degradation on tasks whose requirements are incomplete. No study measures the case a non-expert user creates: a fully specified task, an output
 that is already adequate, and repeated requests to revise that contain no feedback at all.
 Measuring it also requires controlling for an artifact the revision act itself introduces
 into automated evaluation.
@@ -79,9 +78,7 @@ quality move it down. On the 50 trials that revise at every turn, quality falls 
 from first to fifth ($p = 1.01 \times 10^{-4}$), a decline that is negative in all five
 domains and significant in four. For all six models the first draft is the quality-optimal stopping point, and we
 name the tokens spent past it the \textbf{revision tax}, which accounts for 62.1\% of
-all output generated. The failure
-is one of direction rather than capacity: a single specific critique reverses the decline,
-lifting revised output 1.16 levels above undirected iteration
+all output generated. On outputs rated insufficient, a single critique naming the fault lifts the revision 1.16 levels above undirected iteration
 ($p = 5.7 \times 10^{-19}$). Blind readers shown the first and last drafts prefer the first
 in 56\% of decisions, an interval that includes chance. Intrinsic self-correction, on its
 own, is not enough: it requires extrinsic direction.

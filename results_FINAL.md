@@ -575,6 +575,31 @@ Meta-commentary prevalence by turn (genuine revisions only):
 
 ---
 
+### 10b. Per-domain decline, paired basis (added 2026-09-20)
+
+`tab:domain-variation` printed unpaired deltas while attaching paired-Wilcoxon p-values to
+them. The p-values were right; the deltas were a different quantity. The printed T1 mean was
+every trial in the domain, while the tested T1 mean is only the trials reaching Turn 5.
+
+| Domain | printed (withdrawn) | paired delta (now printed) | p | n(T5) |
+|--------|--------------------:|---------------------------:|----:|------:|
+| analysis | -1.16 | **-0.94** | 0.003 | 17 |
+| code | -1.05 | **-0.93** | 0.003 | 30 |
+| creative | -0.82 | **-0.58** | 0.031 | 19 |
+| data_logic | -1.01 | **-0.53** | 0.058 | 17 |
+| writing | -1.06 | **-0.77** | 0.008 | 13 |
+
+- **Filter (exact):** trials whose Turn-5 label is GENUINE in `genuine_meta_labels.jsonl`,
+  with stripped levels at turns 1 and 5 from `stripped_rescore_full.jsonl`, 6 -> 2 recode
+  applied first, domain from `worker_trials.jsonl`. Two-sided Wilcoxon signed-rank on the
+  paired values, and the delta reported is the mean paired difference from that same test.
+- data_logic was the worst affected: printed as -1.01 against a tested -0.53, an overstatement
+  of 91%. Signs and significance are unchanged for every domain, so no conclusion moves.
+- Section 10's own filter line records the unpaired basis ("T1 = all 144 per domain, T5 =
+  GENUINE at T5 only") and is left as the record of what was previously printed.
+
+---
+
 ## 11. RELIABILITY
 
 ### Human Inter-Rater Agreement (3 raters, 64 calibration items, 6->2 recode)

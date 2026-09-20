@@ -43,7 +43,7 @@ Genuine-revision survival to Turn~5 ranges from 0.8\% (Gemini~2.5 Flash: 1/120 t
     \caption{Per-model genuine-revision survival. Fraction of each model's 120 trials still producing genuine revised content at each turn. Llama~3.3~70B sustains revision through Turn~5 (53.3\%); all other models drop below 15\% by Turn~5. Gemini~2.5 Flash is near floor throughout (0.8\% at T5).}
     \label{fig:survival-curves}
 \end{figure}
-Across five probe wordings the revision gate is bimodal rather than graded; Appendix~\ref{sec:appendix-study1} reports the breakdown. Study~3's balanced probe lands in the assessment range at 39.3\% at Turn~2.
+Across five probe wordings the revision gate is bimodal rather than graded; Appendix~\ref{sec:appendix-study1} reports the breakdown. Study~3's balanced probe sits in the assessment range at 39.3\% at Turn~2.
 
 
 \subsection{Quality Degrades Under Undirected Revision}
@@ -126,10 +126,10 @@ drop of 0.74 levels is not large enough to reverse a blind pairwise preference o
 meta-commentary is removed: what declines is measured quality against the stated task, not
 the impression the text leaves on a reader.
 
-\subsection{Targeted Feedback Restores Quality}
+\subsection{Targeted Feedback Raises Quality on Insufficient Work}
 \label{sec:targeted}
 
-The preceding sections show that undirected revision degrades quality. Directed revision, providing specific critique before requesting a revision, substantially improves it; we call these targeted revisions. On stripped content, targeted revisions score 4.68 against 3.53 for the model's own generic next-turn revision, a gain of 1.16 levels ($p = 5.7 \times 10^{-19}$, $n = 177$; unstripped: 4.68 against 4.43, $+0.25$, $p = 0.004$). The unstripped comparison understates the real effect because meta-commentary on generic revisions inflates their scores; targeted revisions contain minimal meta-commentary (9/177 = 5\%).
+Where the evaluator rated an output below the sufficiency threshold, a second instance received that output plus a written critique and produced what we call a targeted revision. On stripped content, targeted revisions score 4.68 against 3.53 for the model's own generic next-turn revision, a gain of 1.16 levels ($p = 5.7 \times 10^{-19}$, $n = 177$; unstripped: 4.68 against 4.43, $+0.25$, $p = 0.004$). The unstripped comparison understates the real effect because meta-commentary on generic revisions inflates their scores; targeted revisions contain minimal meta-commentary (9/177 = 5\%).
 This effect is significant for all five models with sufficient sample size (Table~\ref{tab:targeted-per-model}). On unstripped text, only Claude and DeepSeek showed significant effects; stripping reveals that Llama, Qwen, and GPT-4o also benefit substantially, but their generic baselines were inflated by meta-commentary.
 
 \begin{table}[t]
@@ -147,11 +147,11 @@ This effect is significant for all five models with sufficient sample size (Tabl
     Gemini 2.5 Flash & 3 & $+2.33$ & -- ($n < 5$) \\
     \bottomrule
     \end{tabular}
-    \caption{Targeted-feedback advantage by model on stripped content. All five powered models show significant improvement.}
+    \caption{Targeted-feedback advantage by model on stripped content, over pairs whose input was rated below sufficiency. All five powered models show significant improvement.}
     \label{tab:targeted-per-model}
 \end{table}
 
-The contrast between undirected and directed revision is the central practical finding: undirected revision degrades quality by 0.74 levels over five turns, while a single directed revision improves it by 1.16 levels. The problem is not revision capacity but the absence of evaluative direction.
+Undirected revision lowers quality by 0.74 levels over five turns on work already rated sufficient. A critique naming the fault raises quality by 1.16 levels on work rated below the sufficiency threshold.
 
 \FloatBarrier
 

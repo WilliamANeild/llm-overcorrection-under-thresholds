@@ -1,7 +1,6 @@
 \section{Conclusion}
 
-When LLMs are given repeated undirected revision opportunities, most decline to genuinely revise (75\% of post-Turn~1 outputs are meta-responses), and those that do revise get worse. The revision cliff is real ($-0.74$ levels on stripped content, balanced panel, $p = 1.01 \times 10^{-4}$), consistent across task domains, and costly (62.1\% of output tokens wasted, with the quality-optimal stopping point at Turn~1 for all six models tested).
+When LLMs are given repeated undirected revision opportunities, most decline to genuinely revise (75\% of post-Turn~1 outputs are meta-responses), and those that do revise get worse. The revision cliff is real ($-0.74$ levels on stripped content, balanced panel, $p = 1.01 \times 10^{-4}$), consistent across task domains, and costly (62.1\% of output tokens wasted, with the quality-optimal stopping point at Turn~1 for all six models).
 
-The fix is targeted feedback, not more turns. When told what to fix, models produce
-revisions 1.16 quality levels higher than generic iteration ($p = 5.7 \times 10^{-19}$).
-For users, withhold the request to revise until you can name what is wrong; for systems, put an evaluation step before the revision step. Intrinsic self-correction, on its own, is not enough: it requires extrinsic direction, and revision robustness deserves evaluation alongside single-turn capability.
+More turns do not help. On work rated below the threshold, a model told what to fix produces revisions 1.16 levels higher than generic iteration ($p = 5.7 \times 10^{-19}$).
+For users, withhold the request to revise until you can name what is wrong; for systems, evaluate before revising. Intrinsic self-correction, on its own, is not enough: it requires extrinsic direction, and revision robustness deserves evaluation alongside single-turn capability.
