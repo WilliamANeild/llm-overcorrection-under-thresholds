@@ -14,7 +14,7 @@ We report meta-commentary-stripped quality scores as our primary estimates throu
 
 \subsection{Models Mostly Decline to Revise}
 
-When prompted with undirected revision requests (``Can you improve this?''), models produce genuine revised content at a declining rate across turns (Table~\ref{tab:revision-rate}). By Turn~5, only 13.3\% of trials contain a genuine revision; the remaining 86.7\% are meta-responses: polite declines, restatements of the original, or commentary about the work rather than new task content.
+Offered the balanced probe at each turn, models produce genuine revised content at a declining rate (Table~\ref{tab:revision-rate}). By Turn~5, only 13.3\% of trials contain a genuine revision; the remaining 86.7\% are meta-responses: polite declines, restatements of the original, or commentary about the work rather than new task content.
 
 \begin{table}[t]
     \centering
@@ -55,8 +55,7 @@ Across five probe wordings the revision gate is bimodal rather than graded; Appe
 Across all 718 genuine revisions, a revision leaves the quality level unchanged in 60.2\% of
 cases, lowers it in 27.7\%, and raises it in 12.1\%. Restricting to the 286 revisions that move
 the level at all, 199 move it down and 87 move it up, a share of 69.6\% (exact binomial
-95\% CI $[63.9\%, 74.9\%]$; sign test $p = 1.48 \times 10^{-11}$). Of the 411 revisions whose input was already at or above the sufficiency
-threshold, 113 (27.5\%) end below it. The asymmetry is present in
+95\% CI $[63.9\%, 74.9\%]$; sign test $p = 1.48 \times 10^{-11}$). Of the 524 revisions whose input was already at or above the sufficiency threshold, 144 (27.5\%) end below it. The asymmetry is present in
 every model and in every domain (Appendix~\ref{sec:secondary-tables}). It is significant in four of the
 six models individually; Claude Sonnet~4 does not reach significance ($p = 0.11$) and
 Gemini~2.5~Flash contributes only eight genuine revisions. Unstripped, the same share is 76.6\%
@@ -88,7 +87,7 @@ balanced-panel estimate, and Figure~\ref{fig:quality-trajectory} plots both.
 \begin{figure}[!tbp]
     \centering
     \includegraphics[width=\columnwidth]{figures/fig_quality_trajectory.pdf}
-    \caption{Quality trajectory under undirected revision (stripped scores). Solid blue: balanced panel ($n = 50$, genuine revision at all turns), showing the balanced-panel cliff of $\Delta = -0.74$ (3.66$\to$2.92). Dashed gray: pooled genuine-only trajectory (shifting $n$, compositional bias from differential dropout), $\Delta = -1.04$. Both estimators decline monotonically. The dashed horizontal line marks the sufficiency threshold (level~4).}
+    \caption{Quality trajectory under undirected revision (stripped scores). Solid blue: balanced panel ($n = 50$, genuine revision at all turns), showing the balanced-panel cliff of $\Delta = -0.74$ (3.66$\to$2.92). Dashed gray: pooled genuine-only trajectory, $\Delta = -1.04$; its $n$ falls from 283 at Turn~2 to 96 at Turn~5 as models stop revising, which is the compositional bias that estimator carries. Both estimators decline monotonically. The dashed horizontal line marks the sufficiency threshold (level~4).}
     \label{fig:quality-trajectory}
 \end{figure}
 With probe phrasing held constant, model identity explains far more variation in
@@ -101,8 +100,7 @@ per-domain Turn~5 cells run from $n = 13$ to $n = 30$, so these are directional 
 \paragraph{Revision despite sufficiency.}
 The evaluator rated 87.6\% of first-turn outputs as sufficient (631/720), so most trials begin
 with work that needs no revision. Among all (trial, turn) pairs where the output was rated
-sufficient (level $\geq 4$), the model produced a genuine revision at the next turn 39.2\% of the
-time (368/938 sufficient turns, 95\% CI [36.1\%, 42.3\%]; stripped: 39.6\%, 411/1,038).
+sufficient (level $\geq 4$), the model produced a genuine revision at the next turn 39.6\% of the time (411/1,038 sufficient turns; unstripped: 39.2\%, 368/938, 95\% CI [36.1\%, 42.3\%]).
 
 %% ═══════════════════════════════════════════════════════════════════
 %% BLOCK 3: TARGETED FEEDBACK
@@ -195,13 +193,11 @@ so no denominator.}
 \end{table}
 
 Whether forty tasks rank six models stably is testable. Across 1,000 random splits of the tasks into halves, the halves agree at mean Spearman $\rho = 0.972$,
-every split clears $0.80$, and Llama is last in all of them. A generalizability
-decomposition gives $G = 0.995$ over forty tasks, where five would reach $0.95$, because
-variance between models is 4.6 times the model-by-task residual. Genuine-revision rate and
+every split clears $0.80$, and Llama is last in all of them. A generalizability decomposition gives $G = 0.992$ over the 36 tasks that carry a denominator, where six would reach $0.95$, because variance between models is 3.2 times the model-by-task residual. Genuine-revision rate and
 the revision tax order the models identically ($\rho = 1.000$), so we report one of the
 three rather than three views of one quantity.
 
-The decline itself is not scoreable this way, and we do not score it. No construction of the Turn~1 to Turn~5 delta holds its \emph{ordering of models} across task halves in more than 10\% of draws, and its $G$ of 0.780 would need 215 tasks. The reason is specific to ranking: across the six models that delta correlates $-1.000$ with mean Turn~1 quality, because a meta-response strips to near-empty text and scores about 1, so it separates models by where they start rather than by how far they fall. This bears on using the decline as a per-model score, not on its magnitude, which Section~\ref{sec:results} establishes within the balanced panel and against the pooled estimator.
+The decline itself is not scoreable this way, and we do not score it. No construction of the Turn~1 to Turn~5 delta holds its \emph{ordering of models} across task halves in more than 11\% of draws, and its $G$ of 0.780 would need 215 tasks. The reason is specific to ranking: across the six models that delta correlates $-1.000$ with mean Turn~1 quality, because a meta-response strips to near-empty text and scores about 1, so it separates models by where they start rather than by how far they fall. This bears on using the decline as a per-model score, not on its magnitude, which Section~\ref{sec:results} establishes within the balanced panel and against the pooled estimator.
 
 \begin{figure}[t]
     \centering

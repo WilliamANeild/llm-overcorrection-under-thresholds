@@ -54,6 +54,7 @@ The momentum effect is a step function: the entire shift occurs between dose~0 a
 \paragraph{Reverse Momentum.} A single turn of affirming feedback (``This looks great, no changes needed'') drives full revision to zero in all three models. What revision remains is minor suggestion only: Gemini 0.0\%, GPT-4o 1.0\%, Claude 21.9\%. The gate follows the most recent conversational signal in both directions.
 
 \section{Procedure Diagrams}
+The two diagrams below show the Study~1 factorial design and the Study~3 turn structure.
 \label{sec:appendix-pipeline}
 
 \begin{figure*}[t]
@@ -140,6 +141,7 @@ The momentum effect is a step function: the entire shift occurs between dose~0 a
 \end{figure*}
 
 \section{Supplementary Figures}
+Figures referenced from the Results and from Appendices~\ref{sec:appendix-study1} and~\ref{sec:appendix-study2}.
 \label{sec:supp-figures}
 
 \begin{figure}[htbp]
@@ -193,7 +195,7 @@ Claude (num.) & 85 vs.\ 100 & 4146 & $<$0.001 & $-$0.30 \\
 Claude (qual.) & 85 vs.\ 100 & 3880 & 0.024 & $-$0.21 \\
 \bottomrule
 \end{tabular}
-\caption{Pairwise comparisons surviving Benjamini--Hochberg FDR correction at $q < 0.05$; the $p_{\text{adj}}$ column reports the Bonferroni-adjusted value. Three further comparisons clear Bonferroni but not FDR and are not listed.}
+\caption{Pairwise threshold comparisons. The $p_{\text{adj}}$ column is Bonferroni-corrected within each model's five comparisons; the rows listed are those that also survive Benjamini--Hochberg control across all tests in the analysis at $q < 0.05$. Because the two corrections are applied over different families, three comparisons clear the within-model Bonferroni threshold without clearing the study-wide FDR control, and are not listed.}
 \label{tab:pairwise}
 \end{table}
 
@@ -291,6 +293,7 @@ Threshold alignment & 0.339 & 38.3 & 85.0 \\
 \input{sections/_fig1_appendix}
 
 \section{Secondary Result Tables}
+Per-model and per-domain breakdowns supporting the aggregate figures in Section~\ref{sec:results}.
 \label{sec:secondary-tables}
 
 \begin{table}[t]

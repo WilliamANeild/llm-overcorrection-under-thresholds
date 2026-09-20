@@ -208,11 +208,9 @@ def make_fig_trajectory():
     ax.text(5.05, mid_y, f"$\\Delta$={bp_delta:.2f}", fontsize=8,
             fontweight="bold", color=RED, va="center")
 
-    # n labels for pooled (show shifting n)
-    for i, (t, n) in enumerate(zip(TURNS, pooled_ns)):
-        if t > 1:
-            ax.text(t, pooled_means[i] - 0.18, f"n={n}", fontsize=5,
-                    color=GRAY, ha="center", alpha=0.7)
+    # The per-turn n for the pooled series is given in the caption rather than
+    # in the figure: the balanced-panel line, the pooled line and the delta arrow
+    # all pass through the space those labels need, and every placement collided.
 
     ax.set_xlim(0.7, 5.6)
     ax.set_ylim(2.4, 4.5)
