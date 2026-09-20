@@ -311,6 +311,51 @@ Level 1 has n = 1 and is omitted from the figure.
 
 ---
 
+### 4d. Why the mean-reversion reading was withdrawn (POST-HOC, added 2026-09-20)
+
+**Post-hoc.** Proposed and run by the assistant on 2026-09-20 during a final verification pass,
+not pre-registered. It caused a claim to be removed from the paper rather than added.
+
+Section 4c reports that a single undirected revision raises quality on input below the
+sufficiency threshold (+0.41, n = 194) and lowers it on sufficient input (-0.56, n = 524). The
+paper briefly described this as revision behaving like a pull toward the mean, helping work
+that is broken and harming work that is already fine.
+
+A placebo shows the second half of that description holds and the first does not. Each (model,
+scenario) cell contains three independent Turn-1 drafts of the same prompt, generated at
+temperature 1.0 with no revision anywhere in the procedure. Treating one draft as the "input"
+and another as the "outcome" gives the change attributable to conditioning on a noisy judge
+plus generation variance alone:
+
+| Input level | Placebo change, no revision | n |
+|------------:|----------------------------:|--:|
+| 2 | +1.333 | 96 |
+| 3 | +0.537 | 80 |
+| 4 | -0.058 | 824 |
+| 5 | -0.290 | 438 |
+
+| Pooled | Placebo | Actual revision (4c) |
+|--------|--------:|---------------------:|
+| insufficient input | **+0.983** | +0.407 |
+| sufficient input | **-0.139** | -0.565 |
+
+- **Filter (exact):** all 720 Turn-1 stripped scores from `stripped_rescore_full.jsonl`, 6 -> 2
+  recode, grouped into the 240 (model, scenario) cells of 3 runs each; all ordered pairs within
+  a cell. No revision is involved on either side.
+- **What survives.** On sufficient input, revision costs -0.565 against a placebo of -0.139, so
+  revision harms roughly four times more than conditioning and generation noise alone explain.
+  The paper's harm finding is robust to this benchmark.
+- **What does not.** On insufficient input, revision gains +0.407 while simply redrawing the
+  first draft gains +0.983. Revising below-threshold work does *less* than generating it again.
+  The claim that revision "helps work that is broken" is therefore not supported, and it has
+  been removed from both the abstract and Section 4.2. The underlying measurements stay.
+- **Caveat on the benchmark.** The placebo mixes judge measurement error with temperature-1.0
+  generation variance, so it is an upper bound on the artifact rather than a clean estimate of
+  it, and its level marginals differ from the revision set. `scripts/evaluator_test_retest.py`
+  would separate the two and has never been run; no output file or ledger entry exists for it.
+
+---
+
 ## 5. TARGETED FEEDBACK
 
 | Metric | Value |

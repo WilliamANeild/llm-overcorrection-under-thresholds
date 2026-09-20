@@ -3,7 +3,7 @@
 
 Study~1 tests whether user-stated quality thresholds constrain the decision to revise. In a fully factorial experiment (8 scenarios $\times$ 16 threshold conditions $\times$ 2 probes $\times$ 3 models $\times$ 5 runs $=$ 3,840 trials), the follow-up probe's phrasing dominates the revision gate. Under the leading probe (``Can this be improved?''), models revised 99.9\% of the time regardless of threshold. Under the evaluative probe (``Take another look and let me know if it's ready''), revision rates varied by model: Gemini~2.5 Flash declined 99.7\%, GPT-4o 68.6\%, Claude Sonnet~4 62.0\%.
 
-Chi-squared tests confirm the revision gate distribution differs significantly by probe type ($\chi^2 > 788$, $p < 0.0001$ for all models). Quality thresholds barely move the gate. Coding the three gate outcomes ordinally, Kruskal-Wallis across the eight threshold levels gives $H = 1.42$, $p = 0.99$ for Gemini~2.5 Flash and $H = 2.01$, $p = 0.96$ for GPT-4o; only Claude Sonnet~4 reaches significance, at $H = 14.33$, $p = 0.046$. Set against a probe-type $\chi^2$ above 788, phrasing dominates the gate and the threshold does not.
+Chi-squared tests confirm the revision gate distribution differs significantly by probe type ($\chi^2 > 788$, $p < 0.0001$ for all models). Quality thresholds barely move the gate. Coding the three gate outcomes ordinally, Kruskal-Wallis across the eight threshold levels gives $H = 1.42$, $p = 0.99$ for Gemini~2.5 Flash and $H = 2.01$, $p = 0.96$ for GPT-4o; only Claude Sonnet~4 reaches significance, at $H = 14.33$, $p = 0.046$. On the same factorial scope the probe-type $\chi^2$ runs from 742 to 1,268, so phrasing moves the gate where the threshold barely does.
 
 Within the leading-probe condition, higher thresholds produce moderately less overcorrection (Spearman $\rho$: Gemini $-0.50$, Claude $-0.35$, GPT-4o $-0.14$), but this calibration is hidden behind the phrasing-sensitive gate.
 
@@ -40,7 +40,7 @@ Across five probe wordings tested in Study~1 (3 models; $n = 3{,}932$; Appendix~
 \section{Study 2: Momentum}
 \label{sec:appendix-study2}
 
-Study~2 tests whether prior revision rounds shift the revision gate on a subsequent evaluative probe (1,728 trials by design; 1,813 completed and analysed). Without prior revision (dose~0), models revised 23.2\%; after 1--3 prior rounds, this rises to 44.6\% ($\chi^2 = 376.54$, $p < 0.0001$).
+Study~2 tests whether prior revision rounds shift the revision gate on a subsequent evaluative probe (1,728 trials by design; 1,813 completed and analysed). The dose~0 baseline is the Study~1 evaluative-probe arm rather than a cell of this run. Without prior revision, models revised 23.2\% there; after 1--3 prior rounds, this rises to 44.6\% ($\chi^2 = 376.54$, $p < 0.0001$).
 
 Model-level divergence is dramatic:
 \begin{itemize}
