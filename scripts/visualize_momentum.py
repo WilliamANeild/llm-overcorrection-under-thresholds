@@ -39,6 +39,17 @@ def load_combined() -> pd.DataFrame:
     warm_cols = [c for c in cols if c in warm_df.columns]
 
     combined = pd.concat([cold_df[cold_cols], warm_df[warm_cols]], ignore_index=True)
+
+    # Study 1 and Study 2 record the same models under different identifier strings.
+    # Left unnormalised, the dose-0 points plot as separate series from doses 1-3, the
+    # legend shows five entries for three models, and two of the three curves are severed.
+    CANONICAL = {"claude-sonnet": "claude-sonnet-4", "gemini-flash": "gemini-2.5-flash"}
+    combined["model"] = combined["model"].replace(CANONICAL)
+    n_models = combined["model"].nunique()
+    if n_models != 3:
+        raise SystemExit(f"expected 3 models after normalisation, found {n_models}: "
+                         f"{sorted(combined['model'].unique())}")
+
     combined["revised"] = (combined["revision_gate"] != "decline").astype(int)
     return combined
 
@@ -91,7 +102,6 @@ def fig_dose_response_curve(df: pd.DataFrame):
 
     ax.set_xlabel("Momentum Dose (# prior leading probes)", fontsize=11)
     ax.set_ylabel("Revision Rate at Evaluative Probe", fontsize=11)
-    ax.set_title("Momentum Dose-Response Curve", fontsize=13, fontweight="bold")
     ax.set_xticks(sorted(df["dose"].unique()))
     ax.set_ylim(0, 1.05)
     ax.legend(title="Model")

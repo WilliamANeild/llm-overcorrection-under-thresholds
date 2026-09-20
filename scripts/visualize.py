@@ -140,9 +140,18 @@ def fig2_threshold_ladder(df):
     """Line plot: overcorrection across threshold levels, one panel per model, both framings."""
     models = ordered_models(df)
     n_models = len(models)
-    fig, axes = plt.subplots(1, n_models, figsize=(5.5 * n_models, 5.5), sharey=True)
+    fig, axes = plt.subplots(1, n_models, figsize=(3.2 * n_models, 2.8), sharey=True)
     if n_models == 1:
         axes = [axes]
+
+    # Data-driven shared limits. A hardcoded 0.5-5.5 axis compressed every series into the
+    # bottom of each panel, leaving most of the figure empty and flattening the gradient
+    # the figure exists to show.
+    _m = df.groupby(["model", "framing", "threshold_level"])["overcorrection"].agg(["mean", "sem"])
+    _lo = float((_m["mean"] - _m["sem"].fillna(0)).min())
+    _hi = float((_m["mean"] + _m["sem"].fillna(0)).max())
+    _pad = max(0.12, (_hi - _lo) * 0.15)
+    _ylim = (max(0.9, _lo - _pad), _hi + _pad)
 
     for ax, model in zip(axes, models):
         mdata = df[df["model"] == model]
@@ -156,20 +165,21 @@ def fig2_threshold_ladder(df):
             y_vals = [means.get(l, np.nan) for l in levels]
             y_errs = [sems.get(l, 0) for l in levels]
             ax.errorbar(x_pos, y_vals, yerr=y_errs,
-                        marker="o", label=framing.capitalize(), capsize=4, linewidth=2,
-                        markersize=8, color=FRAMING_COLORS[framing])
+                        marker="o", label=framing.capitalize(), capsize=2.5, linewidth=1.4,
+                        markersize=4, color=FRAMING_COLORS[framing])
 
         # Reference line at overcorrection = 1.0 (proportionate)
         ax.axhline(y=1.0, color="#CCCCCC", linestyle="--", linewidth=0.8, zorder=0)
 
         ax.set_title(get_label(model), fontsize=12, fontweight="600", color=get_color(model))
-        ax.set_xlabel("Threshold Level")
-        ax.set_ylabel("Mean Overcorrection" if model == models[0] else "")
+        ax.set_xlabel("Threshold Level", fontsize=11)
+        ax.set_ylabel("Mean Overcorrection" if model == models[0] else "", fontsize=11)
         levels = sorted(mdata["threshold_level"].unique())
         ax.set_xticks(np.arange(len(levels)))
         ax.set_xticklabels([str(int(l)) for l in levels])
-        ax.legend(frameon=True)
-        ax.set_ylim(0.5, 5.5)
+        ax.tick_params(labelsize=9.5)
+        ax.legend(frameon=True, fontsize=9)
+        ax.set_ylim(*_ylim)
 
         # GPT-4o annotation removed to avoid advertising weakest case
 
@@ -489,9 +499,9 @@ def fig10_probe_calibration_cliff(df):
     """Bar chart showing revision rate across all 5 probe wordings."""
     probe_labels = {
         "leading": '"Can this be improved?"',
-        "pilot_a": '"Is there anything you\nwould change?"',
+        "pilot_a": '"Is there anything\nyou would change?"',
         "pilot_c": '"Take another look...\nlet me know if it\'s ready."',
-        "pilot_b": '"Review this against the\nquality threshold..."',
+        "pilot_b": '"Review this against\nthe quality threshold..."',
         "neutral": '"What do you think?"',
     }
     probe_order = ["leading", "pilot_a", "pilot_c", "pilot_b", "neutral"]
@@ -500,7 +510,7 @@ def fig10_probe_calibration_cliff(df):
         print("  Skipping probe calibration cliff (fewer than 3 probe types)")
         return
 
-    fig, ax = plt.subplots(figsize=(10, 6))
+    fig, ax = plt.subplots(figsize=(5.2, 3.4))
 
     rates, ns = [], []
     for probe in available:
@@ -518,18 +528,20 @@ def fig10_probe_calibration_cliff(df):
         else:
             colors.append("#2ECC71")   # green for evaluative
 
-    bars = ax.bar(range(len(available)), rates, color=colors, edgecolor="white",
-                  width=0.65, linewidth=0.5)
+    # Top-to-bottom in the order `available` gives, which is descending revision rate
+    y_pos = np.arange(len(available))[::-1]
+    bars = ax.barh(y_pos, rates, color=colors, edgecolor="white",
+                   height=0.65, linewidth=0.5)
 
-    # Percentage labels on bars
     for bar, rate in zip(bars, rates):
-        ax.text(bar.get_x() + bar.get_width() / 2, rate + 1.5, f"{rate:.0f}%",
-                ha="center", va="bottom", fontsize=10, fontweight="600")
+        ax.text(rate + 1.5, bar.get_y() + bar.get_height() / 2, f"{rate:.0f}%",
+                ha="left", va="center", fontsize=11, fontweight="600")
 
-    ax.set_xticks(range(len(available)))
-    ax.set_xticklabels([probe_labels.get(p, p) for p in available], fontsize=9)
-    ax.set_ylabel("Revision Rate (%)", fontsize=11)
-    ax.set_ylim(0, 115)
+    ax.set_yticks(y_pos)
+    ax.set_yticklabels([probe_labels.get(p, p) for p in available], fontsize=11)
+    ax.set_xlabel("Revision Rate (%)", fontsize=12)
+    ax.tick_params(axis="x", labelsize=11)
+    ax.set_xlim(0, 115)
 
     fig.tight_layout()
     save_fig(fig, "10_probe_calibration_cliff")

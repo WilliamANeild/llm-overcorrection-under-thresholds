@@ -1436,3 +1436,55 @@ Consistent with the earlier 50-pair rescore (19-21% inflation range).
 - All judgment files written and verified
 - All rescore/judge API calls completed successfully
 - No uncommitted analysis artifacts that would be lost
+
+## 15. The ten hand-corrected classifier labels: scope and sensitivity
+
+Checked 2026-09-20 after an audit found the ten `[CORRECTED]` records in
+`data/study3/raw_responses/genuine_meta_labels.jsonl` have no code trace and no stated
+decision rule. All ten were confirmed correct in direction: each is an explicit refusal to
+revise ("I'd like to keep this as my final version", "No revision needed") that reproduces
+the model's earlier answer alongside the refusal, which the classifier read as new content.
+
+The description previously in Methods, "a decline that restated the prior output in full,"
+does not hold. Measured against the immediately preceding turn, four of the ten reproduce
+none of it (sentence containment 0.00 to 0.09); they restate Turn 1 content, not Turn N-1,
+and two restate it in condensed form rather than in full. Methods now says the model
+reproduced its earlier answer alongside the refusal, which holds for all ten.
+
+- **Filter:** all 2,880 post-Turn-1 rows in `genuine_meta_labels.jsonl` joined to
+  `worker_trials.jsonl` on `trial_id`, response text taken at `responses[turn-1]`.
+  Containment is the share of the earlier turn's sentences longer than 25 characters
+  appearing verbatim in the current response.
+
+### The ten are not an exhaustive pass
+
+Applying the discriminator that selects them, an explicit refusal phrase in the first 240
+characters, to the rows still labelled GENUINE returns **25 further rows**. Several restate
+more of the earlier turn than any corrected row does (containment up to 0.91 against a
+maximum of 0.71 among the ten). The ten are therefore 10 of at least 35 comparable cases,
+and the residual misclassification is one-directional: genuine-revision rate is an
+overestimate.
+
+- **Filter:** regex on the first 240 characters of the normalised response, matching
+  "I'd like to keep", "keep this/the original as final", "no revisions needed",
+  "this is my final". 718 GENUINE rows screened, 25 matched.
+
+### The central result does not depend on them
+
+Eight of the 25 sit inside balanced-panel trials, so applying the rule consistently would
+take the panel from 50 trials to 42. The cliff is unchanged.
+
+| Panel | n | T1 | T5 | delta | Wilcoxon W | p | non-zero |
+|-------|---|----|----|-------|-----------|---|----------|
+| As published | 50 | 3.66 | 2.92 | **-0.74** | 54.5 | 1.01e-4 | 31 |
+| Rule applied | 42 | 3.60 | 2.86 | **-0.74** | 51.0 | 3.75e-4 | 28 |
+| Llama only, as published | 45 | 3.53 | 2.87 | -0.67 | 51.5 | 3.76e-4 | 28 |
+| Llama only, rule applied | 38 | 3.47 | 2.76 | -0.71 | 48.0 | 8.45e-4 | 26 |
+
+- **Filter:** balanced panel is GENUINE at all of turns 2-5. Stripped levels at turns 1 and 5
+  from `stripped_rescore_full.jsonl` field `stripped_score`, 6 -> 2 recode applied first.
+  Two-sided Wilcoxon signed-rank on the paired values. The as-published row reproduces
+  section 4 exactly, which validates the reconstruction.
+
+The published sample is unchanged. Whether to apply the rule to all 35, or to remove the ten
+hand corrections entirely, is a sample decision and has not been made.

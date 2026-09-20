@@ -25,6 +25,8 @@ MOMENTUM_TRIALS_PATH = ROOT / "data" / "raw_responses" / "momentum_trials.jsonl"
 MOMENTUM_SCORED_PATH = ROOT / "data" / "processed" / "momentum_scored.jsonl"
 MOMENTUM_SCORED_CSV = ROOT / "data" / "processed" / "momentum_scored.csv"
 MOMENTUM_STATS_DIR = ROOT / "data" / "analysis" / "momentum"
+FIGURES_DIR = ROOT / "data" / "figures"          # Study 1 figures; restored 2026-09-20,
+                                                # four scripts import it and it had been dropped
 MOMENTUM_FIGURES_DIR = ROOT / "data" / "figures" / "momentum"
 
 # ── Momentum settings ──
