@@ -42,9 +42,9 @@ Across five probe wordings tested in Study~1 (3 models; $n = 3{,}932$; Appendix~
 
 Study~2 tests whether prior revision rounds shift the revision gate on a subsequent evaluative probe (1,728 trials by design; 1,813 completed and analysed). The dose~0 baseline is the Study~1 evaluative-probe arm rather than a cell of this run. Without prior revision, models revised 23.2\% there; after 1--3 prior rounds, this rises to 44.6\% ($\chi^2 = 376.54$, $p < 0.0001$).
 
-Model-level divergence is dramatic:
+The shift varies by model:
 \begin{itemize}
-    \item GPT-4o: 31.4\% $\to$ 98.4\% at dose~1 (near-total sycophantic shift)
+    \item GPT-4o: 31.4\% $\to$ 98.4\% at dose~1 (near-total compliance at dose~1)
     \item Claude Sonnet~4: 38.0\% $\to$ 24.5\% at dose~3 (declines under momentum)
     \item Gemini~2.5 Flash: 0.3\% $\to$ 12.8\% at dose~1 (modest shift from near-zero)
 \end{itemize}
@@ -203,7 +203,7 @@ Claude (qual.) & 85 vs.\ 100 & 3880 & 0.024 & $-$0.21 \\
 
 Post-hoc power analysis at $\alpha = 0.05$, 80\% power:
 \begin{itemize}
-    \item \textbf{Study~1 RQ1} ($N = 1{,}920$ per probe): MDE for proportion difference $= 0.032$. Observed $\approx 0.75$. Massively overpowered.
+    \item \textbf{Study~1 RQ1} ($N = 1{,}920$ per probe): MDE for proportion difference $= 0.032$. Observed $\approx 0.75$, over twenty times the minimum.
     \item \textbf{Study~1 RQ2} ($N = 1{,}920$ leading-probe): MDE for $|\rho| = 0.064$. All observed correlations exceed this.
     \item \textbf{Study~3} ($N = 720$ trials, balanced panel $n = 50$): Panel-level MDE $= 0.5$ levels. Observed $\Delta = 0.94$ unstripped ($0.74$ after meta-commentary stripping), both exceeding the MDE. The effective sample for the paired test is the balanced panel ($n = 50$ trials with genuine revision at all turns), which yields $p = 3.32 \times 10^{-6}$ (Wilcoxon, $r = 0.658$) on the unstripped cliff; the stripped cliff ($\Delta = 0.74$) has $p = 1.01 \times 10^{-4}$ ($r = 0.55$).
 \end{itemize}
@@ -255,6 +255,8 @@ Evaluator -- Human Mean & 0.526 & --- & --- \\
 
 \section{Study 1 Inter-Rater Reliability}
 \label{sec:appendix-irr}
+
+Tables~\ref{tab:irr} and~\ref{tab:irr-momentum} report quadratic-weighted agreement between two independent model judges on a stratified subsample of 60 outputs from each of Studies~1 and~2. Threshold alignment is the least reliable dimension in both.
 
 \begin{table}[h]
 \centering

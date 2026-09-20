@@ -1492,3 +1492,54 @@ not overlooked: applying the discriminator to all 35 gives -0.74 on 42 trials (p
 and removing the ten corrections gives -0.75 on 52 trials (p 5.47e-5). No number in the
 paper moves under any of the three. Methods states that the ten were corrected on
 inspection, which is what was done.
+
+## 16. Study 1 probe-type chi-squared on both scopes
+
+Recorded 2026-09-20. The appendix prints two probe-type chi-squared ranges and they look
+contradictory at a glance, because one minimum (788) is larger than the other (742). They are
+two scopes, both correct, and both reproduce.
+
+| Scope | n | claude-sonnet | gemini-flash | gpt-4o | printed as |
+|-------|---|--------------:|-------------:|-------:|------------|
+| All five probe types | 3,932 | 914.37 | 1326.89 | 788.96 | "$\chi^2 > 788$, $p < 0.0001$ for all models" |
+| Factorial scope, leading + evaluative | 3,840 | 857.49 | 1268.10 | 742.18 | "runs from 742 to 1,268" |
+
+- **Filter:** `data/study1/scored_trials.jsonl` as resolved by `scripts/config.SCORED_TRIALS_JSONL`.
+  Contingency table of `probe_type` against `revision_gate` per model, `scipy.stats.chi2_contingency`.
+  The factorial scope keeps `probe_type` in {leading, pilot_c}, which is the 8 scenarios x 16
+  threshold conditions x 2 probes x 3 models x 5 runs design; the three small pilot arms
+  (neutral n=50, pilot_b n=24, pilot_a n=18) are outside it. All p-values are below 1e-160.
+- The appendix says "on the same factorial scope" to mark the second range as the scope the
+  Kruskal-Wallis uses, which is what makes the smaller minimum consistent rather than a
+  contradiction.
+
+## 17. Study 1 pairwise threshold comparisons (appendix Table 6)
+
+Recorded 2026-09-20. These six rows were the one outstanding item from the number-ledger
+audit: they appeared in no ledger and so could not be checked against anything. All six
+reproduce exactly.
+
+| Model | Framing | Comparison | U | p | r |
+|-------|---------|-----------|--:|--:|--:|
+| Gemini 2.5 Flash | numeric | 70 vs 100 | 4935 | 4.0e-9 | -0.42 |
+| Gemini 2.5 Flash | numeric | 85 vs 100 | 4238 | 2.0e-5 | -0.32 |
+| Gemini 2.5 Flash | numeric | 0 vs 100 | 4755 | 3.8e-4 | -0.25 |
+| Gemini 2.5 Flash | qualitative | 0 vs 100 | 4084 | 3.9e-4 | -0.28 |
+| Claude Sonnet 4 | numeric | 85 vs 100 | 4146 | 1.8e-4 | -0.30 |
+| Claude Sonnet 4 | qualitative | 85 vs 100 | 3880 | 4.8e-3 | -0.21 |
+
+- **Filter:** `data/study1/scored_trials.jsonl` as resolved by `scripts.config.SCORED_TRIALS_JSONL`,
+  all five probe types, no probe restriction. Within model and framing, two-sided
+  Mann-Whitney U on `overcorrection` between the two threshold levels.
+  `scipy.stats.mannwhitneyu`. U is reported rounded; ties make it a half-integer in two rows
+  (4237.5 and 4083.5). The effect size is the rank-biserial correlation
+  `-(2U/(n1*n2) - 1)`, signed so that a higher threshold producing less overcorrection is
+  negative. It is not `z/sqrt(N)`, which gives different values.
+- **On the scope.** Four of the six rows are unaffected by the probe scope, because every
+  observation outside the two-probe factorial design sits in the numeric framing at thresholds
+  0, 70, 75 and 80 only. The two rows that are scope-sensitive (Gemini numeric 70 vs 100 and
+  0 vs 100) both use all five probe types, so the table is on one consistent basis. Computing
+  it on the factorial scope instead would change those two rows to U = 4580 and U = 4188 and
+  leave the other four unchanged.
+- The `p_adj` column in the paper is Bonferroni-corrected within each model's five comparisons;
+  the p-values above are uncorrected, which is why they differ from the printed column.
