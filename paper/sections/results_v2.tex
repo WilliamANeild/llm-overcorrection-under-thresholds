@@ -73,15 +73,14 @@ sufficient ($-0.56$, $n = 524$).
 \paragraph{The revision cliff.}
 In the 50 balanced-panel trials (genuine revision at all turns), mean quality on stripped content drops from 3.66 at Turn~1 to 2.92 at Turn~5, a decline of $-0.74$ levels (Wilcoxon signed-rank $p = 1.01 \times 10^{-4}$; unstripped: $-0.94$, $p = 3.3 \times 10^{-6}$), of which 21\% is attributable to meta-commentary rather than to content. This is a drop from between ``Functional'' and ``Sufficient'' to just below ``Functional.''
 The balanced panel is dominated by Llama~3.3~70B ($n = 45$), the only model with power
-to detect a within-model cliff; its stripped cliff of $-0.69$ is significant at
-$p = 3.76 \times 10^{-4}$. GPT-4o, DeepSeek and Gemini contribute no balanced-panel trials,
+to detect a within-model cliff; its stripped cliff of $-0.67$ is significant at $p = 3.76 \times 10^{-4}$. GPT-4o, DeepSeek and Gemini contribute no balanced-panel trials,
 not because they hold quality but because they stop revising before Turn~5. We do not claim
 all models degrade; we claim that among models that continue revising, the only powered
 comparison shows significant degradation.
 
 \paragraph{Pooled trajectory.} Pooling all genuine revisions with shifting $n$, stripped
 quality falls from 4.11 at Turn~1 to 3.07 at Turn~5 ($\Delta = -1.04$). This estimator uses
-every genuine revision rather than the balanced panel, but carries a compositional bias:
+every genuine revision rather than the balanced panel, but introduces a compositional bias:
 models with higher decline rates exit the pool earlier. The direction agrees with the
 balanced-panel estimate, and Figure~\ref{fig:quality-trajectory} plots both.
 
@@ -89,7 +88,7 @@ balanced-panel estimate, and Figure~\ref{fig:quality-trajectory} plots both.
 \begin{figure}[!tbp]
     \centering
     \includegraphics[width=\columnwidth]{figures/fig_quality_trajectory.pdf}
-    \caption{Quality trajectory under undirected revision (stripped scores). Solid blue: balanced panel ($n = 50$, genuine revision at all turns), showing the headline cliff of $\Delta = -0.74$ (3.66$\to$2.92). Dashed gray: pooled genuine-only trajectory (shifting $n$, compositional bias from differential dropout), $\Delta = -1.04$. Both estimators decline monotonically. The dashed horizontal line marks the sufficiency threshold (level~4).}
+    \caption{Quality trajectory under undirected revision (stripped scores). Solid blue: balanced panel ($n = 50$, genuine revision at all turns), showing the balanced-panel cliff of $\Delta = -0.74$ (3.66$\to$2.92). Dashed gray: pooled genuine-only trajectory (shifting $n$, compositional bias from differential dropout), $\Delta = -1.04$. Both estimators decline monotonically. The dashed horizontal line marks the sufficiency threshold (level~4).}
     \label{fig:quality-trajectory}
 \end{figure}
 With probe phrasing held constant, model identity explains far more variation in
@@ -130,7 +129,7 @@ the impression the text leaves on a reader.
 \subsection{Targeted Feedback Restores Quality}
 \label{sec:targeted}
 
-The preceding sections show that undirected revision degrades quality. Directed revision, providing specific critique before requesting a revision, substantially improves it; we call these targeted revisions. On stripped content, targeted revisions score 4.68 against 3.53 for the model's own generic next-turn revision, a gain of 1.16 levels ($p = 5.7 \times 10^{-19}$, $n = 177$; unstripped: 4.68 against 4.43, $+0.25$, $p = 0.004$). The unstripped comparison understates the real effect because meta-commentary on generic revisions inflates their scores; targeted revisions carry minimal meta-commentary (9/177 = 5\%).
+The preceding sections show that undirected revision degrades quality. Directed revision, providing specific critique before requesting a revision, substantially improves it; we call these targeted revisions. On stripped content, targeted revisions score 4.68 against 3.53 for the model's own generic next-turn revision, a gain of 1.16 levels ($p = 5.7 \times 10^{-19}$, $n = 177$; unstripped: 4.68 against 4.43, $+0.25$, $p = 0.004$). The unstripped comparison understates the real effect because meta-commentary on generic revisions inflates their scores; targeted revisions contain minimal meta-commentary (9/177 = 5\%).
 This effect is significant for all five models with sufficient sample size (Table~\ref{tab:targeted-per-model}). On unstripped text, only Claude and DeepSeek showed significant effects; stripping reveals that Llama, Qwen, and GPT-4o also benefit substantially, but their generic baselines were inflated by meta-commentary.
 
 \begin{table}[t]
