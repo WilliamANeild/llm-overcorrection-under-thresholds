@@ -61,15 +61,16 @@ checklist). The introduction is now the head of the chain.
   - REDUCED TO ONE 2026-09-16: `mckinsey2025stateofai`, `gartner2026agentic` and `claudecode2025loop` are all uncited in the live build now. The page cut removed the paragraphs that carried them, so all three decisions are moot. Only the key rename below remains
   - `laban2025lost` key: the entry is now correct (Fourteenth ICLR, 2026, Outstanding Paper Award) but the key still says 2025. Renaming touches 8 call sites.
 
-- [ ] Resolve the duplicate model labels in the Study 2 dose-response figure — added 2026-09-08
-  - **Done when:** the legend names each model once
-  - `data/figures/momentum/dose_response_curve.png` legend lists both "claude-sonnet" and "claude-sonnet-4", and both "gemini-flash" and "gemini-2.5-flash". The short-named series carry only a dose-0 point, so the data appears to use two naming conventions for the same models. This is a data question, not a plotting one
-  - Source: `scripts/visualize_momentum.py`
-
 - [ ] Regenerate the momentum PDFs or delete them — added 2026-09-08
   - **Done when:** no build points at a file in `data/figures/momentum/*.pdf`, or those PDFs are rebuilt correctly
   - `dose_response_curve.pdf` was corrupt: three overlaid panels with ghosted, repeated titles, rendering as unreadable grey mush in the appendix. `visualize_momentum.py` writes only PNG, and the PNG is correct. The PDFs are dated four hours after the PNGs and were made by some other process. The appendix now points at the PNG
   - The sibling PDFs in that directory were made the same way and are suspect
+
+- [ ] Decide what to do with the 25 uncorrected decline-phrase rows — added 2026-09-20
+  - **Done when:** the sample is either left as published with the decision recorded here, or the rule is applied to all 35 and every affected number is recomputed
+  - The ten hand corrections are correct in direction but are not an exhaustive pass. The same discriminator matches 25 rows still labelled GENUINE, so genuine-revision rate (24.9%, 718/2,880) is an overestimate by a known one-directional margin
+  - Applying the rule would take the balanced panel from 50 trials to 42, seven of the eight dropped being Llama. The cliff is unchanged at -0.74 (p 3.75e-4 against the published 1.01e-4), so nothing in the paper turns on it
+  - This is a sample decision and is Liam's to make. Evidence: `scripts/study3/audit_hand_corrections.py`, `results_FINAL.md` section 15
 
 - [ ] Reference or drop the ten unreferenced APPENDIX floats — added 2026-09-08, narrowed 2026-09-08
   - **Done when:** every appendix float is pointed at from prose, or removed
@@ -135,6 +136,13 @@ checklist). The introduction is now the head of the chain.
 
 ## Completed
 
+
+- [x] Resolve the duplicate model labels in the Study 2 dose-response figure — added 2026-09-08, done 2026-09-20
+  - `scripts/visualize_momentum.py` now maps the short names to the canonical ones before concat and asserts exactly three models survive, so the split series cannot come back silently. The in-figure title was removed at the same time
+- [x] Make Figures 7 and 8 legible in print — added 2026-09-20, done 2026-09-20
+  - Both drew canvases far wider than the column they are included at, scaling type under 4pt. Figure 8's canvas went 16.5in to 9.6in with type set explicitly; Figure 7 became a horizontal bar chart so five quoted probe wordings each get a full line
+- [x] Correct the Methods description of the ten hand-corrected labels — added 2026-09-20, done 2026-09-20
+  - It claimed each was "a decline that restated the prior output in full"; four reproduce none of the preceding turn. Now says the model reproduced its earlier answer alongside the refusal, which holds for all ten
 - [x] Check the two citations the claim audit never covered — added 2026-09-05, done 2026-09-17
   - Both abstracts fetched and read. `mizrahi2024state` studies benchmarks that "rely on a single instruction template" and the brittleness of "single-prompt evaluations"; `sclar2024quantifying` studies "prompt formatting" against "the currently-standard practice of reporting performance on a single format". Both are about one prompt, not one turn, so neither supported the sentence citing them
   - The audit had also classified `liang2023holistic` NOT SUPPORTED for "current models perform well", quoting HELM reporting "essentially chance accuracy at 50.1%" and declining "the universal claim that models that perform well are always desirable". HELM does support the single-answer reference-scored form, which the other two keys were carrying, so the citations were effectively swapped
