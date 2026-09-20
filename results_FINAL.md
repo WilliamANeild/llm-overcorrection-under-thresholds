@@ -347,8 +347,24 @@ input is the turn the targeted critique was written against; its GENUINE/META la
 with the drafts.
 
 **Composition of the 177:** 109 meta-response inputs (101 of them scored level 1), 37 genuine
-revisions, 31 turn-1 drafts. **Zero inputs were rated sufficient (level 4 or above)**, by
-construction: `scripts/study3/phase6_targeted_feedback.py:215` filters to `level <= 3`.
+revisions, 31 turn-1 drafts.
+
+**Sufficient inputs, corrected 2026-09-20.** An earlier version of this entry said zero inputs
+were rated sufficient. That is true on the UNSTRIPPED scale, which is the one
+`scripts/study3/phase6_targeted_feedback.py:215` filters on (`level <= 3`), and the unstripped
+input levels are 102 at level 1, 17 at level 2 and 58 at level 3. On the STRIPPED scale, which
+is the paper's primary basis, the distribution is 100 / 17 / 49 / **11 at level 4**. Stripping
+lifted eleven inputs over the threshold.
+
+Those eleven cannot carry an estimate and are not one. All eleven are Llama 3.3 70B, with none
+from the other five models. All eleven sit exactly at level 4 and none higher. Ten were rated
+level 3 unstripped and one level 2, so every one of them is a case where the two scorings
+disagree, which is to say where meta-commentary had depressed the raw score. They are selected
+by that disagreement rather than sampled from sufficient work. Their descriptive gain is +1.18,
+indistinguishable from the pooled figure and resting on eleven observations from one model.
+
+Measuring the remedy on work that is sufficient on both scales requires rerunning phase 6 with
+the filter inverted. Nothing in the existing files substitutes for it.
 
 Stripped basis, the paper's primary estimate. Targeted level against the stripped level of the
 model's own generic next-turn revision:
