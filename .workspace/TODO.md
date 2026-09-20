@@ -66,11 +66,6 @@ checklist). The introduction is now the head of the chain.
   - `dose_response_curve.pdf` was corrupt: three overlaid panels with ghosted, repeated titles, rendering as unreadable grey mush in the appendix. `visualize_momentum.py` writes only PNG, and the PNG is correct. The PDFs are dated four hours after the PNGs and were made by some other process. The appendix now points at the PNG
   - The sibling PDFs in that directory were made the same way and are suspect
 
-- [ ] Decide what to do with the 25 uncorrected decline-phrase rows — added 2026-09-20
-  - **Done when:** the sample is either left as published with the decision recorded here, or the rule is applied to all 35 and every affected number is recomputed
-  - The ten hand corrections are correct in direction but are not an exhaustive pass. The same discriminator matches 25 rows still labelled GENUINE, so genuine-revision rate (24.9%, 718/2,880) is an overestimate by a known one-directional margin
-  - Applying the rule would take the balanced panel from 50 trials to 42, seven of the eight dropped being Llama. The cliff is unchanged at -0.74 (p 3.75e-4 against the published 1.01e-4), so nothing in the paper turns on it
-  - This is a sample decision and is Liam's to make. Evidence: `scripts/study3/audit_hand_corrections.py`, `results_FINAL.md` section 15
 
 - [ ] Reference or drop the ten unreferenced APPENDIX floats — added 2026-09-08, narrowed 2026-09-08
   - **Done when:** every appendix float is pointed at from prose, or removed
@@ -137,6 +132,9 @@ checklist). The introduction is now the head of the chain.
 ## Completed
 
 
+
+- [x] Decide what to do with the 25 uncorrected decline-phrase rows — added 2026-09-20, done 2026-09-20
+  - DECIDED 2026-09-20: sample stays as published. Panel 50, genuine rate 24.9%. Applying the discriminator to all 35 gives -0.74 on 42 trials; removing the ten gives -0.75 on 52. No number in the paper moves under any of the three, so the published sample stands. Evidence: `scripts/study3/audit_hand_corrections.py`, `results_FINAL.md` section 15
 - [x] Resolve the duplicate model labels in the Study 2 dose-response figure — added 2026-09-08, done 2026-09-20
   - `scripts/visualize_momentum.py` now maps the short names to the canonical ones before concat and asserts exactly three models survive, so the split series cannot come back silently. The in-figure title was removed at the same time
 - [x] Make Figures 7 and 8 legible in print — added 2026-09-20, done 2026-09-20

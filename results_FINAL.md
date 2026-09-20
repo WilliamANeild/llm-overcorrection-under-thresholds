@@ -1486,5 +1486,9 @@ take the panel from 50 trials to 42. The cliff is unchanged.
   Two-sided Wilcoxon signed-rank on the paired values. The as-published row reproduces
   section 4 exactly, which validates the reconstruction.
 
-The published sample is unchanged. Whether to apply the rule to all 35, or to remove the ten
-hand corrections entirely, is a sample decision and has not been made.
+**Decided 2026-09-20: the sample stays as published.** The panel remains 50 trials and the
+genuine-revision rate remains 24.9% (718/2,880). The alternatives were costed and rejected,
+not overlooked: applying the discriminator to all 35 gives -0.74 on 42 trials (p 3.75e-4),
+and removing the ten corrections gives -0.75 on 52 trials (p 5.47e-5). No number in the
+paper moves under any of the three. Methods states that the ten were corrected on
+inspection, which is what was done.
