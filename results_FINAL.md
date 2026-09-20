@@ -911,17 +911,30 @@ reverse-momentum rates 0.0 / 1.0 / 21.9.
    The printed 0.5 is conservative, so the conclusion that the observed 0.74 and 0.94 exceed it
    holds with room. Left as printed; recorded here so it is no longer unsupported.
 
-**One claim could not be verified and is not a number I can settle.** The appendix states
-"Quality thresholds do not significantly affect the gate (Kruskal-Wallis $p > 0.40$ for all
-models)." No test of threshold against `revision_gate` exists anywhere in the repository. The
-only recorded Kruskal-Wallis tests are threshold against `overcorrection`, and four of those six
-are significant (claude numeric 0.014, claude qualitative 0.0015, gemini numeric 0.000, gemini
-qualitative 0.0014; only GPT-4o's two are not). Computing the gate version directly, the claim
-holds under 3 of 9 codings and scopes tried and fails under 6. It holds coding the gate as
-full-revision against not (p = 0.75 / 0.86 / 0.77 over all probes). It fails coding the gate
-ordinally as decline / suggest-minor / full-revision, where Claude gives p = 0.010, and fails
-coding it as any-revision against decline, where Claude gives p < 0.001. Which coding governs is
-a specification choice and is the author's to make.
+**The threshold-versus-gate claim, resolved 2026-09-20.** The appendix had stated "Quality
+thresholds do not significantly affect the gate (Kruskal-Wallis $p > 0.40$ for all models)."
+No test of threshold against `revision_gate` existed anywhere in the repository. The only
+recorded Kruskal-Wallis tests are threshold against `overcorrection`, and four of those six are
+significant (claude numeric 0.014, claude qualitative 0.0015, gemini numeric 0.000, gemini
+qualitative 0.0014).
+
+Computing the gate version directly, the claim held under 3 of 9 codings and scopes tried and
+failed under 6. Liam chose the ordinal coding, which is the natural one for a three-level
+outcome and which does **not** support the original sentence.
+
+| Model | H | df | p |
+|-------|--:|---:|--:|
+| Gemini 2.5 Flash | 1.42 | 7 | 0.985 |
+| GPT-4o | 2.01 | 7 | 0.960 |
+| Claude Sonnet 4 | **14.33** | 7 | **0.046** |
+
+- **Filter (exact):** `data/processed/scored_trials.jsonl`, factorial scope only (probe_type in
+  leading, pilot_c; n = 1,280 per model, 3,840 total). Gate coded 0 for decline, 1 for
+  suggest_minor, 2 for full_revision. Kruskal-Wallis across the eight `threshold_level` values.
+- The appendix now reports these three figures rather than the unsupported blanket claim, and
+  says only Claude reaches significance. The surrounding argument survives: the probe-type
+  chi-squared on the same data runs 788.96 to 1326.89, two orders of magnitude larger, so
+  phrasing still dominates the gate.
 
 ---
 
