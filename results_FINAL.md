@@ -334,6 +334,53 @@ Level 1 has n = 1 and is omitted from the figure.
 
 ---
 
+### 5b. Targeted feedback by input type (POST-HOC, added 2026-09-20)
+
+**Post-hoc and not pre-registered.** Proposed by the assistant on 2026-09-20 and authorised by
+Liam the same day, after the composition of the n=177 arm was found not to be disclosed
+anywhere. It is a split the analysis plan did not name, and any use of it in the paper carries
+that label.
+
+The 177 pairs of Section 5 were stratified by what the input to the revision actually was. The
+input is the turn the targeted critique was written against; its GENUINE/META label comes from
+`genuine_meta_labels.jsonl` at that same turn, and turn-1 inputs are unlabelled and counted
+with the drafts.
+
+**Composition of the 177:** 109 meta-response inputs (101 of them scored level 1), 37 genuine
+revisions, 31 turn-1 drafts. **Zero inputs were rated sufficient (level 4 or above)**, by
+construction: `scripts/study3/phase6_targeted_feedback.py:215` filters to `level <= 3`.
+
+Stripped basis, the paper's primary estimate. Targeted level against the stripped level of the
+model's own generic next-turn revision:
+
+| Input | n | Targeted | Generic (stripped) | Gain | Wilcoxon p |
+|-------|--:|---------:|-------------------:|-----:|-----------:|
+| Draft or genuine revision | 68 | 4.76 | 3.18 | **+1.59** | 5.44e-11 |
+| Meta-response | 109 | 4.63 | 3.74 | +0.89 | 1.04e-09 |
+| All (Section 5) | 177 | 4.68 | 3.53 | +1.16 | 5.74e-19 |
+
+Unstripped, for contrast, where the generic side keeps its meta-commentary:
+
+| Input | n | Targeted | Generic | Gain | Wilcoxon p |
+|-------|--:|---------:|--------:|-----:|-----------:|
+| Draft or genuine revision | 68 | 4.76 | 4.88 | -0.12 | 2.39e-01 |
+| Meta-response | 109 | 4.63 | 4.15 | +0.49 | 1.10e-04 |
+| All (Section 5) | 177 | 4.68 | 4.43 | +0.25 | 3.75e-03 |
+
+- **Filter (exact):** the Section 5 filter unchanged, then split on the classifier label at the
+  input turn. Level 6 recoded to 2 on both sides. Stripped generic level from
+  `stripped_rescore_full.jsonl` at turn + 1. All three pooled rows reproduce Section 5 exactly.
+- **What it settles.** The +1.16 is not an artefact of the meta-response inputs. It is larger on
+  real drafts (+1.59) than on meta-responses (+0.89), and the pooled figure is diluted by them
+  rather than carried by them. The unstripped stratification points the opposite way only
+  because unstripped generic revisions on real drafts score 4.88, inflated by the
+  meta-commentary the stripping procedure removes.
+- **What it does not settle.** No input in this arm was already sufficient. The repair is
+  demonstrated on work rated 1 to 3 and has never been measured on work rated 4 or above, which
+  is the population the paper's cliff, its 27.5% figure and the STET diagnostic all concern.
+
+---
+
 ## 6. REVISION TAX
 
 ### Method
