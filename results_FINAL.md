@@ -881,6 +881,50 @@ scores the same way.
 
 ---
 
+### 14. Appendix verification sweep (added 2026-09-20)
+
+Every Study 1 and Study 2 number printed in the appendix was recomputed from
+`data/processed/scored_trials.jsonl`, `momentum_scored.jsonl`,
+`reverse_momentum_scored.jsonl` and `data/analysis/`. Recorded here because Study 1 and
+Study 2 have no results ledger of their own.
+
+**Reproduced exactly.** Factorial 8 x 16 x 2 x 3 x 5 = 3,840 (leading 1,920 + pilot_c 1,920);
+leading-probe revision 99.9%; evaluative-probe declines Gemini 99.7, GPT-4o 68.6, Claude 62.0;
+chi-squared by probe type 914.37 / 1326.89 / 788.96 across all five probe types, so the printed
+"> 788" holds; Spearman within the leading probe -0.495 / -0.352 / -0.141; every coefficient,
+N and AIC in the ordinal regression table including its star pattern; Study 1 inter-rater
+kappas 0.8437 / 0.6899 / 0.6091 / 0.5561 at n = 60; power MDEs 0.032 and 0.0639, which appear
+verbatim in `stats_report.txt`; five probe wordings at n = 3,932; dose-0 rates 0.3 / 31.4 / 38.0
+pooling to 23.2%; dose 1-3 at 44.6%; chi-squared 376.54; GPT-4o 98.4% at dose 1, Claude 24.5% at
+dose 3, Gemini 12.8% at dose 1; the dose-by-threshold interaction at p = 0.51; and the
+reverse-momentum rates 0.0 / 1.0 / 21.9.
+
+**Three corrections made.**
+
+1. Study 2 was printed as 1,728 trials, which is the design count. The analysed sample is
+   1,813, and the chi-squared of 376.54 reproduces only on 1,813. The appendix now states both.
+2. Reverse momentum was printed as suppressing "full revision" to 0.0 / 1.0 / 21.9%. Those are
+   the minor-suggestion rates. `full_revision` is 0.0% for all three models. Relabelled.
+3. The Study 3 panel-level MDE is printed as 0.5 levels and no computation for it exists in the
+   repository. Computed here: the paired difference over the 50 balanced-panel trials has
+   sd 1.12 stripped and 1.08 unstripped, giving an MDE at 80% power of **0.44 and 0.43 levels**.
+   The printed 0.5 is conservative, so the conclusion that the observed 0.74 and 0.94 exceed it
+   holds with room. Left as printed; recorded here so it is no longer unsupported.
+
+**One claim could not be verified and is not a number I can settle.** The appendix states
+"Quality thresholds do not significantly affect the gate (Kruskal-Wallis $p > 0.40$ for all
+models)." No test of threshold against `revision_gate` exists anywhere in the repository. The
+only recorded Kruskal-Wallis tests are threshold against `overcorrection`, and four of those six
+are significant (claude numeric 0.014, claude qualitative 0.0015, gemini numeric 0.000, gemini
+qualitative 0.0014; only GPT-4o's two are not). Computing the gate version directly, the claim
+holds under 3 of 9 codings and scopes tried and fails under 6. It holds coding the gate as
+full-revision against not (p = 0.75 / 0.86 / 0.77 over all probes). It fails coding the gate
+ordinally as decline / suggest-minor / full-revision, where Claude gives p = 0.010, and fails
+coding it as any-revision against decline, where Claude gives p < 0.001. Which coding governs is
+a specification choice and is the author's to make.
+
+---
+
 # FILE INDEX
 
 ## Core Data Files
