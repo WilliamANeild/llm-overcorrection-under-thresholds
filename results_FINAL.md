@@ -397,6 +397,32 @@ Unstripped, for contrast, where the generic side keeps its meta-commentary:
 
 ---
 
+### 5c. Targeted feedback by model (added 2026-09-20)
+
+`tab:targeted-per-model` in the paper had no ledger entry. Recomputed 2026-09-20 and recorded.
+
+| Model | n | Stripped delta | p |
+|-------|--:|---------------:|--:|
+| Llama 3.3 70B | 71 | +1.62 | 9.2e-12 |
+| Qwen 3 235B | 21 | +1.48 | 4.5e-04 |
+| GPT-4o | 12 | +1.33 | 7.8e-03 |
+| DeepSeek V4 Flash | 19 | +1.05 | **1.5e-02** |
+| Claude Sonnet 4 | 51 | +0.31 | 1.2e-02 |
+| Gemini 2.5 Flash | 3 | +2.33 | not reported, n < 5 |
+
+- **Filter (exact):** the Section 5 selection, split by `model`. Targeted level against the
+  stripped level of the generic next-turn revision, 6 -> 2 recode on both sides. Two-sided
+  Wilcoxon signed-rank, scipy defaults (`method='auto'`, `zero_method='wilcox'`), which is the
+  convention the other five rows already match to the printed precision.
+- **Correction.** The paper printed 1.2e-02 for DeepSeek, which is the value on the Claude row
+  directly below it. No test variant reproduces it: exact/wilcox gives 1.34e-02, auto/wilcox
+  1.45e-02, pratt and zsplit further away. Corrected to 1.5e-02. The delta, the n and every
+  other row were already right, and the conclusion is unchanged since the row was and remains
+  significant.
+- n sums to 177, matching Section 5.
+
+---
+
 ## 6. REVISION TAX
 
 ### Method

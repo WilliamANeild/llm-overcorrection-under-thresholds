@@ -6,7 +6,7 @@ We use a five-turn conversational design in which a model produces an initial ou
 
 The experiment crosses 6 models $\times$ 40 scenarios $\times$ 3 runs $=$ \textbf{720 trials} (3,600 model-turn observations). All generation uses temperature~1.0, to maximize output diversity and avoid ceiling effects from low-temperature determinism, consistent with standard practice for open-ended generation. Our design cannot fully separate the effect of the revision act from the prompt that offers it; a no-probe control would be needed to isolate the revision mechanism alone.
 
-\paragraph{Models.} Claude Sonnet~4 (Anthropic), GPT-4o (OpenAI), Gemini~2.5 Flash (Google), Llama~3.3~70B (Meta, via Together AI), Qwen~3~235B (Alibaba, via Together AI), and DeepSeek~V4 (DeepSeek).
+\paragraph{Models.} Claude Sonnet~4 (Anthropic), GPT-4o (OpenAI), Gemini~2.5 Flash (Google), Llama~3.3~70B (Meta, via Together AI), Qwen~3~235B (Alibaba, via Together AI), and DeepSeek~V4 Flash (DeepSeek).
 
 \paragraph{Scenarios.} Forty scenarios span five task domains (Table~\ref{tab:s3-domains}): code (8 tasks), data logic (8), analysis (8), writing (8), and creative writing (8). Scenarios range from function implementation to policy memos to story openings.
 
