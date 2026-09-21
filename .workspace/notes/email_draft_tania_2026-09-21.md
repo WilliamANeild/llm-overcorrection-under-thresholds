@@ -7,7 +7,7 @@ Liam's to edit and send. Substance is checked; register is his call.
 
 ---
 
-Most of them, and one I had not, which you were right to ask about.
+Most of them, and one I had not, which you were right to raise.
 
 **The sections.** Your version runs Introduction, Related Work, Methods, Results, Conclusion,
 Limitations, Ethics Statement. The current draft is that same list. The one deliberate
