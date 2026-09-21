@@ -1543,3 +1543,44 @@ reproduce exactly.
   leave the other four unchanged.
 - The `p_adj` column in the paper is Bonferroni-corrected within each model's five comparisons;
   the p-values above are uncorrected, which is why they differ from the printed column.
+
+## 18. Targeted feedback: how far the repair goes, and on what
+
+Recorded 2026-09-21. These figures were computed in an earlier session and survived only in
+that session's terminal output and in `.workspace/TODO.md`. All reproduce exactly.
+
+### (a) Where targeted revisions land
+
+**169 of 177 targeted revisions reach level 4 or above (95.5%).** The repair does not merely
+improve the output, it clears the sufficiency threshold in almost every case.
+
+- **Filter:** the same 177 pairs as Section 5. Targeted level recoded 6 -> 2, counted at
+  `>= 4`.
+
+### (b) The subset where degradation is visible and the repair reverses it
+
+Of the 177 pairs, **113 had an input that had degraded from a sufficient Turn 1**: stripped
+Turn 1 at level 4 or above, and the input turn below it. That subset splits sharply:
+
+| Input at the revised turn | n | T1 | input | targeted | Wilcoxon p |
+|---|---:|---:|---:|---:|---:|
+| A genuine revision | 13 | 4.15 | 2.69 | **4.77** | 0.000488 |
+| A meta-response | 100 | -- | 1.06 | -- | -- |
+
+The 13-trial row is the cleanest statement of the paper's mechanism: work that was sufficient,
+was genuinely revised, got worse, and was restored above its original level by one critique.
+
+**The 100 meta-response rows are not evidence of repair and must not be reported as though
+they were.** A meta-response strips to near-empty text and scores about 1, so "improvement"
+there is an artefact of the input being scored as empty rather than of anything being fixed.
+This is the same mechanism that makes the raw stripped delta correlate -1.000 with mean Turn 1
+quality across models (Section 13), and it is why the headline +1.16 is reported on the full
+177 rather than on this subset.
+
+- **Filter:** `targeted_feedback_results.jsonl` joined to `genuine_meta_labels.jsonl` on
+  `(worker_trial_id, turn)` for the input's label and to `stripped_rescore_full.jsonl` for
+  stripped levels at turn 1 and at the input turn. 6 -> 2 recode on both sides. Degraded means
+  stripped T1 `>= 4` and stripped input `< 4`. Two-sided Wilcoxon signed-rank on the paired
+  input and targeted values.
+- Reproduce with the block in `.workspace/TODO.md` item history, or recompute from the filter
+  above; every value here was re-derived from the data files on 2026-09-21.

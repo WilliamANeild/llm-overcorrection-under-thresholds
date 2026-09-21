@@ -30,9 +30,7 @@ Ali's agreement -> his OpenReview profile -> author list frozen at submission.
 - [ ] State which N the effect-size r divides by, and record r in the ledger and Table 3 — added 2026-09-02, narrowed 2026-09-21
   - **Done when:** the paper says whether r divides by all 50 trials or by the non-zero differences, r appears in the ledger's stripped-cliff section and in Table 3, and `RECOMPUTE_TODO.md` is deleted
   - Verified 2026-09-21: the printed r = 0.55 is the tie-corrected value on N = 50 and is correct; the paper prints it and r = 0.658 without naming either divisor. `RECOMPUTE_TODO.md` still exists
-- [ ] Write the targeted-feedback repair findings into results_FINAL.md — added 2026-09-03
-  - **Done when:** the ledger's Section 5 carries (a) 169/177 = 95.5% of targeted revisions reaching level 4 or above, and (b) the 13-trial subset where a genuinely revised output had degraded from a sufficient turn 1 (4.15 to 2.69) and one critique restored it to 4.77, Wilcoxon p=0.000488, with the disclosure that the other 100 of those 113 cases had a meta-response as their input, which strips to near-empty text and scores 1.06
-  - Confirmed still missing 2026-09-21: none of 169/177, 95.5% or 4.77 appears in the ledger
+
 - [ ] Record that the design document's domain prediction is not supported — added 2026-09-02
   - **Done when:** the outcome of the "Key prediction" at `experiment/study3_revision_yield_design.md:117` is stated in the paper, and `results_FINAL.md` records that the objectivity gradient holds unstripped (p=0.019) and disappears stripped (p=0.151)
   - Half done 2026-09-21: the ledger records it; no live section mentions it. A pre-registered prediction that failed should be stated
@@ -69,6 +67,9 @@ Ali's agreement -> his OpenReview profile -> author list frozen at submission.
 
 ## Completed
 
+
+- [x] Write the targeted-feedback repair findings into results_FINAL.md — added 2026-09-03, done 2026-09-21
+  - `results_FINAL.md` section 18. All values re-derived from the data on 2026-09-21 and reproduce exactly: 169/177 = 95.5% reaching level 4+, the 113 degraded-from-sufficient inputs splitting 13 genuine / 100 meta, the 13-trial row 4.15 -> 2.69 -> 4.77 at p = 0.000488, and the meta inputs averaging 1.06. The section states plainly that the 100 meta rows are not evidence of repair
 - [x] Regenerate the momentum PDFs or delete them — added 2026-09-08, done 2026-09-20
   - Verified 2026-09-21: no live section points at any `data/figures/momentum/*.pdf`. The appendix uses the PNG, and the dose-response figure was regenerated with the model-name normalisation
 - [x] Resolve the sample mismatch in the paper's central contrast — added 2026-09-17, done 2026-09-21
