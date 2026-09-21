@@ -9,6 +9,13 @@ checklist). The introduction is now the head of the chain.
 
 ## Pending
 
+- [ ] Complete the Responsible NLP Research checklist — added 2026-09-21
+  - **Done when:** every one of the 18 subquestions has an answer that is true of the submitted paper, and no answer claims something the paper does not contain
+  - Draft with all 23 questions sourced: `.workspace/notes/responsible_nlp_checklist_draft.md`. Nine already Yes. Six are No and cheap: LICENSE and a licence sentence (B2), model citations with dated identifiers in Methods (B1), a compute paragraph (C1, numbers measured), requirements.txt (C4), one sentence each for B3/D3/D5, and the four-vs-five-domain error in the Ethics Statement
+  - Three are yours alone: the A2 risk scope, whether the RAs were compensated (D2), and the E disclosure of AI assistance
+  - One external: whether Emory requires an IRB determination (D4)
+  - An incomplete or misleading checklist is a named desk-reject ground, so this is not optional polish
+
 - [ ] Confirm the co-authorship with Ali before 2026-10-12 — added 2026-09-17
   - **Done when:** he has agreed in writing to be listed as second author, and the affiliation and email in `main.tex` are confirmed by him
   - DECIDED 2026-09-17: Ali Emami is second author. `main.tex` now carries him. This also resolves the service-contributor requirement, since faculty with two or more major-CL publications qualify automatically
