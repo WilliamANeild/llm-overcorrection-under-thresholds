@@ -52,7 +52,7 @@ logic, analysis, writing, and creative writing tasks", matching Table 1 and Meth
 five-turn conversations (3,600 model-turn outputs), human ratings on 64 stratified samples and
 50 pairwise comparisons, and the STET diagnostic.
 
-### B1. Did you cite the creators of artifacts you used? — **NO**
+### B1. Did you cite the creators of artifacts you used? — **YES as of 2026-09-21**
 
 `sections/methods.tex` contains **zero citations**. The six models are named with their
 providers in §3.1 (Claude Sonnet 4, GPT-4o, Gemini 2.5 Flash, Llama 3.3 70B, Qwen 3 235B,
@@ -121,7 +121,7 @@ no train/test/dev split because nothing is trained.
 
 ## C. Did you run computational experiments? — **YES**
 
-### C1. Did you report model parameters, computational budget, and infrastructure? — **NO**
+### C1. Did you report model parameters, computational budget, and infrastructure? — **YES as of 2026-09-21**
 
 Nothing on compute appears in the paper. It is all API inference, no training and no GPUs, so
 the honest report is small and worth stating plainly:
@@ -261,3 +261,26 @@ disclosure.
 Most of this lands in the appendix or the Ethics Statement, both outside the 8-page body, so
 the page budget is not at risk. The model citations in Methods are the exception and will cost
 a few lines inside the body.
+
+
+---
+
+## Update, 2026-09-21: B1 and C1 closed
+
+All six models are now cited in Methods from verified sources: the GPT-4o System Card
+(arXiv:2410.21276), the Claude Opus 4 and Sonnet 4 system card, the Gemini 2.5 report
+(arXiv:2507.06261), the Llama 3 Herd of Models (arXiv:2407.21783), the Qwen3 Technical Report
+(arXiv:2505.09388), and DeepSeek's V4 documentation. Each was checked against arXiv or the
+vendor's own page before the entry was written.
+
+Appendix `sec:appendix-compute` now carries the dated endpoints, the parameter counts that are
+published (three of six; the closed models do not publish them, and the appendix says so), the
+measured token budget with an explicit statement of what it excludes, the output caps, and the
+temperature settings with the note that no hyperparameter search was run.
+
+**One thing the dated-identifier exercise turned up.** Study 3 data collection completed
+2026-06-06. `DeepSeek-V4-Flash-0731` shipped 2026-07-31, so the runs used the preview released
+2026-04-24, not the current checkpoint. The vendor reports the 0731 build outperforming the
+preview substantially. DeepSeek's STET score of 96.3% is therefore a measurement of the
+preview, and Table `tab:endpoints` says so. This is exactly the failure that citing "GPT-4o"
+without a date would hide, and it is worth a sentence in Limitations if you agree.

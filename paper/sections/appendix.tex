@@ -371,3 +371,46 @@ Per-model and per-domain breakdowns supporting the aggregate figures in Section~
     \label{tab:domain-variation}
 \end{table}
 
+
+\section{Models, Compute and Reproducibility}
+\label{sec:appendix-compute}
+
+All generation and evaluation ran through hosted APIs. No model was trained or fine-tuned, and
+no local GPU was used, so the relevant budget is tokens purchased rather than GPU hours.
+
+\paragraph{Endpoints.} Model names move; the identifiers below are what was called.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Paper name} & \textbf{Identifier} \\
+\midrule
+GPT-4o & \texttt{gpt-4o-2024-11-20} \\
+Claude Sonnet~4 & \texttt{claude-sonnet-4-20250514} \\
+Gemini~2.5 Flash & \texttt{gemini-2.5-flash} \\
+Llama~3.3~70B & \texttt{Llama-3.3-70B-Instruct-Turbo} \\
+Qwen~3~235B & \texttt{Qwen3-235B-A22B-Instruct-2507} \\
+DeepSeek~V4 Flash & \texttt{deepseek-v4-flash} \\
+\bottomrule
+\end{tabular}
+\caption{Endpoints called. Study~3 data collection completed 2026-06-06, so the DeepSeek runs
+predate the \texttt{V4-Flash-0731} checkpoint of 2026-07-31 and used the preview released
+2026-04-24. Llama and Qwen were served through Together AI.}
+\label{tab:endpoints}
+\end{table}
+
+\paragraph{Parameters.} Published for three of the six: Llama~3.3~70B at 70B, Qwen~3~235B at
+235B total with 22B active, and DeepSeek~V4 Flash at 284B total with 13B active. GPT-4o,
+Claude Sonnet~4 and Gemini~2.5 Flash are closed and their parameter counts are not published.
+
+\paragraph{Budget.} The 720 Study~3 conversations consumed 3,016,008 input and 1,050,833
+output tokens. The evaluation, targeted-feedback and stripping stages did not record token
+counts, so the project total is higher than this and is not recoverable from what was saved.
+Study~1 ran 3,840 primary trials and Study~2 analysed 1,813. Generation was capped at 8,192
+output tokens per call and judging at 512.
+
+\paragraph{Settings.} Generation ran at temperature~1.0 and evaluation at temperature~0. No
+hyperparameter search was performed: nothing in the procedure is tuned, so there is no tuning
+set and no opportunity to select on the outcome.
