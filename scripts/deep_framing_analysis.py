@@ -3,13 +3,14 @@ Deep Framing Effects Analysis: Numeric vs Qualitative Thresholds
 Produces /data/analysis/deep_framing_effects.md
 """
 
+from pathlib import Path
 import pandas as pd
 import numpy as np
 from scipy import stats
 from itertools import product
 import os
 
-BASE = "/Users/liamneild/Desktop/School/llm-overcorrection-under-thresholds"
+BASE = str(Path(__file__).resolve().parents[1])
 df = pd.read_csv(f"{BASE}/data/processed/scored_trials.csv")
 
 models = sorted(df["model"].unique())

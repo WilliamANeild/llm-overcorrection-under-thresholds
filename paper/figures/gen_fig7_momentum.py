@@ -3,6 +3,7 @@ Figure 7: Momentum Step Function -- GPT-4o's Dramatic Shift
 ACL publication-ready figure.
 """
 
+from pathlib import Path
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
 import numpy as np
@@ -135,7 +136,7 @@ plt.tight_layout()
 # ---------------------------------------------------------------------------
 # Save
 # ---------------------------------------------------------------------------
-out_base = "/Users/liamneild/Desktop/School/llm-overcorrection-under-thresholds/paper/figures/fig7_momentum"
+out_base = str(Path(__file__).resolve().parent / "fig7_momentum")
 fig.savefig(out_base + ".pdf", dpi=300, bbox_inches="tight", facecolor="white")
 fig.savefig(out_base + ".png", dpi=300, bbox_inches="tight", facecolor="white")
 print(f"Saved {out_base}.pdf and .png")

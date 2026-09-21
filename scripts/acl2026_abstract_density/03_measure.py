@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Mechanical measurement of abstract quantitative density.
 Every count below is produced by regex/tokenizer, never by eye."""
+from pathlib import Path
 import re, json, statistics as st
 
 ABBR = r'(?:e\.g|i\.e|et al|vs|cf|Fig|Eq|Sec|Tab|approx|resp|Dr|Prof|St|No|Inc|etc|al)'
@@ -140,7 +141,7 @@ def cats_for(t, r):
 if __name__ == '__main__':
     new = json.load(open('/tmp/aclfetch/extracted.json'))
     rows = {a: dict(r, **measure(r['abstract'])) for a,r in new.items()}
-    old = json.load(open('/Users/liamneild/Desktop/School/llm-overcorrection-under-thresholds/paper/reference/acl2026_abstracts.json'))
+    old = json.load(open(str(Path(__file__).resolve().parents[2] / 'paper/reference/acl2026_abstracts.json')))
     oldrows = {}
     for k,v in old.items():
         a = re.sub(r'^>\s*Abstract\s*','',v).strip()

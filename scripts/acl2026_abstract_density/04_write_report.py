@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
+from pathlib import Path
 import json, statistics as st
 from collections import Counter
-OUT='/Users/liamneild/Desktop/School/llm-overcorrection-under-thresholds/paper/reference/acl2026_density.md'
+OUT=str(Path(__file__).resolve().parents[2] / 'paper/reference/acl2026_density.md')
 M=json.load(open('/tmp/aclfetch/measured.json')); new,prior=M['new'],M['prior9']
 code=json.load(open('/tmp/aclfetch/coding.json')); code.pop('_note')
 hc=json.load(open('/tmp/aclfetch/handcodes.json')); hc.pop('_note')

@@ -4,9 +4,10 @@
 # directory, so set the working directory before rerunning. Fetched abstracts and their
 # provenance are stored in paper/reference/acl2026_abstracts.json under the keys
 # sample_2026_09_06_wave2 and arxiv_cs_cl_2026_09_06.
+from pathlib import Path
 import json,re,os
 S=os.path.dirname(os.path.abspath(__file__))
-R='/Users/liamneild/Desktop/School/llm-overcorrection-under-thresholds/paper/reference/'
+R=str(Path(__file__).resolve().parents[2] / 'paper/reference/')
 J=json.load(open(R+'acl2026_abstracts.json'))
 corpus=[]
 for aid,d in J['sample_2026_09_06'].items():

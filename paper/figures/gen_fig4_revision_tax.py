@@ -3,6 +3,7 @@ Figure 4: The Revision Tax -- horizontal bar chart showing wasted tokens by mode
 Publication-ready for ACL.
 """
 
+from pathlib import Path
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
 import numpy as np
@@ -78,7 +79,7 @@ fig.text(0.125, 0.92, "Additional tokens spent for zero or negative quality retu
 plt.tight_layout(rect=[0, 0, 1, 0.90])
 
 # Save
-out_base = "/Users/liamneild/Desktop/School/llm-overcorrection-under-thresholds/paper/figures/fig4_revision_tax"
+out_base = str(Path(__file__).resolve().parent / "fig4_revision_tax")
 fig.savefig(f"{out_base}.pdf", dpi=300, bbox_inches="tight", facecolor="white")
 fig.savefig(f"{out_base}.png", dpi=300, bbox_inches="tight", facecolor="white")
 print(f"Saved to {out_base}.pdf and .png")

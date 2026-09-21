@@ -7,14 +7,14 @@ in readability_citations.md comes from this script.
 
 Run with the venv python that has textstat, numpy and scipy.
 """
+from pathlib import Path
 import importlib.util, json, math, re, sys
 import numpy as np
 from scipy import stats
 
-REF = "/Users/liamneild/Desktop/School/llm-overcorrection-under-thresholds/paper/reference/"
+REF = str(Path(__file__).resolve().parents[2] / "paper/reference/")
 spec = importlib.util.spec_from_file_location(
-    "m", "/Users/liamneild/Desktop/School/llm-overcorrection-under-thresholds/scripts/"
-         "readability_citations/02_metrics.py")
+    "m", str(Path(__file__).resolve().parent / "02_metrics.py"))
 M = importlib.util.module_from_spec(spec); spec.loader.exec_module(M)
 
 MEASURES = [("flesch", "Flesch reading ease"),

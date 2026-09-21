@@ -11,9 +11,10 @@ Citation counts: Semantic Scholar Graph API /paper/batch, 100 ids per request,
 paced. arXiv papers are looked up as arXiv:ID; Anthology papers as ACL:ID and, on
 a miss, as DOI:10.18653/v1/ID.
 """
+from pathlib import Path
 import json, time, urllib.request
 
-REF = "/Users/liamneild/Desktop/School/llm-overcorrection-under-thresholds/paper/reference/"
+REF = str(Path(__file__).resolve().parents[2] / "paper/reference/")
 S2 = "https://api.semanticscholar.org/graph/v1/paper/batch?fields=" \
      "title,year,venue,citationCount,externalIds,publicationTypes,publicationDate"
 

@@ -2,10 +2,11 @@
 multi-turn / human-AI interaction literature, verbatim abstracts, for the
 readability-vs-citations analysis. Systematic sample, fixed seed, per-phrase strata.
 """
+from pathlib import Path
 import json, random, re, time, urllib.parse, urllib.request, xml.etree.ElementTree as ET
 
 SEED = 20260906
-OUT = "/Users/liamneild/Desktop/School/llm-overcorrection-under-thresholds/paper/reference/.rc_arxiv_sample.json"
+OUT = str(Path(__file__).resolve().parents[2] / "paper/reference/.rc_arxiv_sample.json")
 API = "https://export.arxiv.org/api/query?"
 NS = {"a": "http://www.w3.org/2005/Atom"}
 

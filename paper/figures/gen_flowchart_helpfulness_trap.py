@@ -5,6 +5,7 @@ Shows the self-reinforcing loop where RLHF-trained models revise
 even when revision degrades quality.
 """
 
+from pathlib import Path
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 from matplotlib.patches import FancyBboxPatch, FancyArrowPatch
@@ -242,7 +243,7 @@ ax.text(5.0, 7.25,
         color=GRAY, fontstyle="italic", zorder=5)
 
 # ── Save ────────────────────────────────────────────────────────
-out_base = "/Users/liamneild/Desktop/School/llm-overcorrection-under-thresholds/paper/figures/flowchart_helpfulness_trap"
+out_base = str(Path(__file__).resolve().parent / "flowchart_helpfulness_trap")
 fig.savefig(out_base + ".pdf", dpi=300, bbox_inches="tight",
             facecolor=WHITE, edgecolor="none")
 fig.savefig(out_base + ".png", dpi=300, bbox_inches="tight",

@@ -3,6 +3,7 @@ Figure 6 -- The Compliance Cliff
 Study 1 probe compliance: revision rate by follow-up prompt phrasing.
 """
 
+from pathlib import Path
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 import numpy as np
@@ -80,7 +81,7 @@ ax.set_facecolor("white")
 fig.tight_layout(rect=[0, 0, 1, 0.89])
 
 # ── Save ──────────────────────────────────────────────────────────────
-out = "/Users/liamneild/Desktop/School/llm-overcorrection-under-thresholds/paper/figures/"
+out = str(Path(__file__).resolve().parent) + "/"
 fig.savefig(out + "fig6_compliance_cliff.pdf", dpi=300, bbox_inches="tight",
             facecolor="white")
 fig.savefig(out + "fig6_compliance_cliff.png", dpi=300, bbox_inches="tight",

@@ -4,6 +4,7 @@ Small multiples showing quality trajectory per model across turns 1-5.
 Data: user-specified T1/T5 endpoints with linear interpolation for T2-T4.
 """
 
+from pathlib import Path
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 import numpy as np
@@ -171,7 +172,7 @@ axes[0, 0].text(
 
 plt.tight_layout(rect=[0, 0, 1, 0.93])
 
-out_base = "/Users/liamneild/Desktop/School/llm-overcorrection-under-thresholds/paper/figures/fig3_model_trajectories"
+out_base = str(Path(__file__).resolve().parent / "fig3_model_trajectories")
 fig.savefig(f"{out_base}.pdf", dpi=300, bbox_inches="tight", facecolor="white")
 fig.savefig(f"{out_base}.png", dpi=300, bbox_inches="tight", facecolor="white")
 print(f"Saved {out_base}.pdf and .png")
