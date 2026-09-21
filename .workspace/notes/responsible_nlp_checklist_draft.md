@@ -74,14 +74,21 @@ in `scripts/config.py` and should go in the paper:
 Dated identifiers matter here beyond the checklist: "GPT-4o" without a date is not reproducible,
 because the endpoint moves.
 
-### B2. Did you discuss the license or terms for use/distribution? — **NO**
+### B2. Did you discuss the license or terms for use/distribution? — **NO, half fixed**
 
-`LICENSE` is 0 bytes. No licence is named for the created artifacts, and the models' terms of
-use are not discussed.
+**Decided 2026-09-21: CC BY 4.0 for the data, MIT for the code.** `LICENSE` now states the
+split (data under CC BY 4.0 with attribution and change indication; code under MIT; the
+manuscript under neither).
 
-To make this Yes: pick a licence (CC-BY 4.0 for the task set and data, MIT or Apache-2.0 for
-the code is the common split) and add one sentence on API terms. This is a decision for you,
-not a default I should pick.
+Two things still open:
+
+- **The copyright line reads "Copyright (c) 2026 Liam Neild".** If Ali's co-authorship is
+  confirmed, decide then whether he joins it. Do not change it before he has agreed to be an
+  author.
+- **The paper still says nothing about licensing**, which is what B2 actually asks. One
+  sentence in the Ethics Statement or the appendix covering both the released licences and
+  the fact that the six models were accessed through their providers' paid APIs under those
+  providers' terms. That sentence is yours to write; it also answers B3.
 
 ### B3. Did you discuss if use was consistent with intended use? — **NO**
 
