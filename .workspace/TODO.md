@@ -9,134 +9,76 @@ checklist). The introduction is now the head of the chain.
 
 ## Pending
 
+Dependency chain: Tania's notes -> abstract/intro close + paragraph stubs -> ARR mechanics.
+Ali's agreement -> his OpenReview profile -> author list frozen at submission.
+
+### Unblocked
+
 - [ ] Complete the Responsible NLP Research checklist — added 2026-09-21
   - **Done when:** every one of the 18 subquestions has an answer that is true of the submitted paper, and no answer claims something the paper does not contain
-  - Draft with all 23 questions sourced: `.workspace/notes/responsible_nlp_checklist_draft.md`. Nine already Yes. Six are No and cheap: LICENSE and a licence sentence (B2), model citations with dated identifiers in Methods (B1), a compute paragraph (C1, numbers measured), requirements.txt (C4), one sentence each for B3/D3/D5, and the four-vs-five-domain error in the Ethics Statement
+  - Draft with all answers sourced: `.workspace/notes/responsible_nlp_checklist_draft.md`. LICENSE, requirements.txt and the Ethics Statement domain count are done. Remaining: model citations with dated identifiers in Methods, a compute paragraph (numbers measured), and one sentence each for B2/B3 (licence and API terms), B5 (language is English), D3 (consent) and D5 (rater demographics)
   - Three are yours alone: the A2 risk scope, whether the RAs were compensated (D2), and the E disclosure of AI assistance
-  - One external: whether Emory requires an IRB determination (D4)
-  - An incomplete or misleading checklist is a named desk-reject ground, so this is not optional polish
-
-- [ ] Confirm the co-authorship with Ali before 2026-10-12 — added 2026-09-17
-  - **Done when:** he has agreed in writing to be listed as second author, and the affiliation and email in `main.tex` are confirmed by him
-  - DECIDED 2026-09-17: Ali Emami is second author. `main.tex` now carries him. This also resolves the service-contributor requirement, since faculty with two or more major-CL publications qualify automatically
-  - He has NOT been asked yet. The author list cannot be changed after submission ("no changes to the list of authors are allowed"), and every listed author is notified of the submission and reviews, so his agreement has to come first
-  - Affiliation and email were inferred, not supplied: his 2026 papers (arXiv 2607.05113, 2504.07385) give Emory University and the pattern `aemami@emory.edu`, while his 2025 papers give Brock, so he has moved institutions. Both fields need his confirmation
-  - He must also have an OpenReview profile with affiliation history, career status, email and ORCID. The policy says violations "will lead to desk rejection"
-  - Reviewer registration for ALL authors is due 2026-10-15, three days after submission
-
+- [ ] Decide whether to link an artifact in the submission, and anonymise it if so — added 2026-09-21
+  - **Done when:** either the submission links an anonymised mirror carrying no author name, or the decision not to link one is recorded here
+  - `github.com/WilliamANeild/stet` is public under your own name. ARR requires any artifact link in a submission to be anonymous, so this URL cannot go in the paper. An anonymised mirror is a separate job from the repo itself
 - [ ] Complete the OpenReview profile before submission — added 2026-09-17
   - **Done when:** the profile carries affiliation history, career status, email, ORCID, and DBLP or ACL Anthology links where they exist
-  - "All authors and service contributors MUST have OpenReview profiles with accurate affiliation history, career status, emails, ORCID and, where applicable, DBLP and ACL Anthology links. Violations will lead to desk rejection." An ORCID takes minutes to register and is named explicitly
-  - Reviewer registration for ALL authors is due October 15, three days after submission. The dates page says non-compliance "may result in desk rejection or sanctions"
-
-- [ ] Decide which rescore basis the Llama cliff reports, and state the effect-size divisor — added 2026-09-07, narrowed 2026-09-17
-  - **Done when:** `results_v2.tex:78-80` reports a delta and a p-value from the same basis, and the paper says which N the effect-size z is divided by
-  - NARROWED 2026-09-17. This was logged as two discrepancies. The effect-size one is withdrawn: the paper's r = 0.55 is correct and the 2026-09-07 recomputation that called it unmatched had dropped the tie correction. Verified twice, independently; the reasoning is recorded in `results_FINAL.md` under the withdrawn item
-  - WHAT REMAINS IS REAL: `results_v2.tex:78-80` prints Llama's stripped cliff as -0.69 with p = 3.76e-4. The -0.69 is from the 50-pair rescore (whose own p is 2.98e-4) and the p-value is from the full 3,600-output rescore (whose own delta is -0.67). Either pairing is internally consistent; the current one is not. The preceding paragraph is entirely on the full rescore
-  - No longer a table defect. `tab:cliff` was removed in the page cut and both numbers moved into prose unchanged, so `FLAG 2` at `results_v2.tex:192-195` records the all-balanced switch and does not mention that the per-model figure was left on the old basis
-  - Also state the divisor: tie-corrected z over sqrt(trial count) gives 0.55; over sqrt(non-zero differences) gives 0.70. Same result, and a 270-paper survey found one paper that says which
-
-- [ ] Resolve the sample mismatch in the paper's central contrast — added 2026-09-17
-  - **Done when:** the abstract, introduction and `results_v2.tex:162` either compare quantities measured on the same population, or say plainly that they do not
-  - `scripts/study3/phase6_targeted_feedback.py:215` filters to `level <= 3`, so the +1.16 targeted-feedback gain was measured ONLY on outputs the evaluator had rated not sufficient. `methods.tex:78` states this correctly
-  - The -0.74 cliff, the 27.5% figure and the abstract's framing are all about work that WAS sufficient. `results_v2.tex:162` sets the two against each other directly, and the abstract turns it into "naming the fault reverses the effect"
-  - The paper's own exploratory analysis cuts against that reading: section 4c reports undirected revision is already POSITIVE on insufficient input (+0.41, n = 194), which is the population +1.16 was measured in
-  - The +1.16 remains a valid like-for-like comparison against the model's own generic revision on those same level 1-3 items. What it cannot carry is the claim about already-sufficient work. This is Liam's call on framing, not a number to change
-
-- [ ] Fix the two float captions that describe a different computation than the one printed — added 2026-09-17
-  - **Done when:** `tab:domain-variation` and `tab:pairwise` describe what they contain
-  - `tab:domain-variation` (`appendix.tex:355-362`) prints UNPAIRED per-domain deltas while the caption and `results_v2.tex:102-105` attach paired-Wilcoxon p-values to them. The magnitudes differ materially: data_logic prints -1.01 and the tested decline is -0.53; creative prints -0.82 against -0.58. The printed T1 mean is all 144 trials per domain, the tested T1 mean is only trials reaching T5
-  - `tab:pairwise` (`appendix.tex:186-197`) captions itself "Significant pairwise comparisons (Bonferroni-corrected, q < 0.05)" and prints six of the nine comparisons that meet that rule. The three omitted are Claude numeric 70 vs 100, Claude qualitative 70 vs 100, and Gemini numeric 0 vs 70 (r = +0.21, the only positive sign among the nine, and the one running against the claim two lines above). Those three are exactly the ones that lose significance under the Benjamini-Hochberg pass in `stats_report.txt:185-190`, which is a defensible reason to drop them, but then the caption should say FDR rather than Bonferroni. Also "q" conventionally denotes an FDR value and these are Bonferroni
-
-- [ ] Rewrite the §4b direction-analysis prose in your own voice — added 2026-09-06, rescoped 2026-09-08
-  - **Done when:** the `TKTK Liam` comment block above `paper/sections/results_v2.tex:63` is gone and the paragraph reads in your register
-  - RESCOPED 2026-09-08: the reporting gap is closed. `results_v2.tex:63-72` now carries 199 down against 87 up among 286 movers, 69.6%, exact binomial 95% CI [63.9%, 74.9%], sign test p = 1.48e-11, the 411/113 (27.5%) sufficiency result, the per-model and per-domain table, and the unstripped 76.6% beside it. `methods.tex:82-84` defines the baseline as the most recent turn with genuinely new content
-  - What remains is voice only: the paragraph carries a `TKTK` note saying the statistical scaffolding was written to match the surrounding register and asks you to rewrite it without changing the numbers
-  - The stale note on this item claimed the analysis was absent from the body. That was true on 2026-09-07 and is not true now
+  - Yours regardless of what Ali decides. A missing ORCID is a desk rejection
 - [ ] Work through the remaining claim-audit findings sentence by sentence — added 2026-09-05
   - **Done when:** every one of the 36 flagged claim-source pairs is either corrected in the prose, re-cited, or deliberately left with a recorded reason
-  - Consolidated list: `paper/reference/claim_audit_SUMMARY.md`. Per-pair evidence in `claim_audit_chunk1-4.md`
-  - DONE so far: the Laban accumulation claim, which appeared in four sentences across the introduction and related work
-  - RE-TRIAGED 2026-09-16 against the live sentences rather than the 2026-09-05 ones. Full record appended to `paper/reference/claim_audit_SUMMARY.md`
-  - The severe pass is DONE. 8 keys were retired outright by the page cut (`tsui2025selfcorrection`, the three industry sources, both overthinking papers, `sui2025efficient`, `claudecode2025loop`). 3 sentences were repaired by the intro and related-work rewrites (vendor guidance, fluent presentation, sustained pressure). 2 were fixed 2026-09-16: the instruction-tuning attribution that `perez2023discovering` contradicts, and the topic-drift clause that neither `zhang2020dialogpt` nor `thoppilan2022lamda` supports, which was cut at Liam's direction
-  - `panickssery2024llm` with `koo2024benchmarking` was checked and is clean: CoBBLEr carries the position-bias half, so one key per bias in a shared bracket is fair
-  - WHAT REMAINS is three mild decisions, none of which puts a claim in danger: `singhal2023long` studies RLHF reward models under a sentence whose subject is judges; `skitka1999automation` is unreachable but `parasuraman2010complacency` carries the clause verbatim; `ye2024justice` supports "stylistic" but not "formatting", since none of CALM's 12 biases is a formatting bias
-  - `zhang2020dialogpt` and `thoppilan2022lamda` are now cited only by the retired `sections/related_work.tex`, which is not in `main.tex`
-
-- [ ] Decide the four bibliography items left open by the audit — added 2026-09-05
-  - **Done when:** each of the four has a decision recorded and, where needed, an edit made
-  - REDUCED TO ONE 2026-09-16: `mckinsey2025stateofai`, `gartner2026agentic` and `claudecode2025loop` are all uncited in the live build now. The page cut removed the paragraphs that carried them, so all three decisions are moot. Only the key rename below remains
-  - `laban2025lost` key: the entry is now correct (Fourteenth ICLR, 2026, Outstanding Paper Award) but the key still says 2025. Renaming touches 8 call sites.
-
-- [ ] Regenerate the momentum PDFs or delete them — added 2026-09-08
-  - **Done when:** no build points at a file in `data/figures/momentum/*.pdf`, or those PDFs are rebuilt correctly
-  - `dose_response_curve.pdf` was corrupt: three overlaid panels with ghosted, repeated titles, rendering as unreadable grey mush in the appendix. `visualize_momentum.py` writes only PNG, and the PNG is correct. The PDFs are dated four hours after the PNGs and were made by some other process. The appendix now points at the PNG
-  - The sibling PDFs in that directory were made the same way and are suspect
-
-
-- [ ] Reference or drop the ten unreferenced APPENDIX floats — added 2026-09-08, narrowed 2026-09-08
-  - **Done when:** every appendix float is pointed at from prose, or removed
-  - BODY IS DONE: all 12 body floats are now referenced. Figure 4 was cut; Figures 2 and 3 got the pointing sentences they never had (`results_v2.tex`, survival paragraph and pooled-trajectory paragraph)
-  - Remaining: `tab:regression`, `fig:pipeline`, `fig:probe-cliff`, `fig:threshold-ladder`, `fig:dose-response`, `tab:pairwise`, `tab:judge-calibration`, `tab:human-agreement`, `tab:irr`, `tab:irr-momentum`
-  - 10 of 23 floats are never referenced: `fig:survival-curves`, `fig:quality-trajectory`, `fig:targeted-dumbbell` in Results, plus 7 appendix floats. Audit and per-figure recommendation in `paper/reference/float_reference_audit.md`
-  - Placement is already correct; only the pointing sentence is missing. Without a `\ref` the float can drift pages from its prose
-
-- [ ] Decide whether the added emphasis in Figure 1 stays — added 2026-09-05
-  - RECOMMENDATION 2026-09-08: keep. Reasoning and the twelve-convention check are in `paper/reference/fig1_corpus_check.md`
-  - Figure redesigned 2026-09-08 against real corpus figures (`.workspace/reference/figure_examples/`): removed the coloured left accent bars, the level badges, the card fills, the rounded corners and the Apple UI font; chart height raised from 1.18in to 1.95in with direct end-of-line labels in place of a legend. Previous version at `paper/figures/versions/`
-  - Aspect went 1.43:1 to 1.29:1; the figure now occupies about half of page 2 rather than 60%
-  - **Done when:** the bold in the task and the highlighting in Turn 1 are either kept with the caption declaring them (current state) or removed
-  - Both are authorial marks on quoted text. They mark exactly the requested content that Turn 5 loses, and the caption now says they are added, but it is a judgment call
-
-- [ ] Update the ABSTRACT section of paper/SKELETON.md to describe the abstract that shipped — added 2026-09-08
-  - **Done when:** `paper/SKELETON.md` section ABSTRACT lists the beats and numbers of the final abstract
-  - It currently specifies a 150-180 word target and seven beats built on 0.74 levels, 1.16 levels, 39%->13% and 56%->92%. The final abstract is 189 words, eight sentences, and carries none of those four figures. The plan document no longer describes the paper
-
-- [ ] Record the stripped-cliff effect size r in results_FINAL.md and Table 3 — added 2026-09-02
-  - **Done when:** r appears in the ledger's stripped-cliff section and in `paper/sections/results_v2.tex` Table 3, and `RECOMPUTE_TODO.md` is deleted
-  - The stripped p-value (1.01e-4) is already in the paper but was never written back to the ledger
-
-- [ ] Record that the design document's domain prediction is not supported — added 2026-09-02
-  - **Done when:** the outcome of the "Key prediction" at `experiment/study3_revision_yield_design.md:117` is stated in the paper, and `results_FINAL.md` records that the objectivity gradient holds unstripped (p=0.019) and disappears stripped (p=0.151)
-
+  - The largest remaining body of work on the manuscript itself
+- [ ] State which N the effect-size r divides by, and record r in the ledger and Table 3 — added 2026-09-02, narrowed 2026-09-21
+  - **Done when:** the paper says whether r divides by all 50 trials or by the non-zero differences, r appears in the ledger's stripped-cliff section and in Table 3, and `RECOMPUTE_TODO.md` is deleted
+  - Verified 2026-09-21: the printed r = 0.55 is the tie-corrected value on N = 50 and is correct; the paper prints it and r = 0.658 without naming either divisor. `RECOMPUTE_TODO.md` still exists
 - [ ] Write the targeted-feedback repair findings into results_FINAL.md — added 2026-09-03
   - **Done when:** the ledger's Section 5 carries (a) 169/177 = 95.5% of targeted revisions reaching level 4 or above, and (b) the 13-trial subset where a genuinely revised output had degraded from a sufficient turn 1 (4.15 to 2.69) and one critique restored it to 4.77, Wilcoxon p=0.000488, with the disclosure that the other 100 of those 113 cases had a meta-response as their input, which strips to near-empty text and scores 1.06
-  - Both are new as of 2026-09-03 and neither is in the ledger
+  - Confirmed still missing 2026-09-21: none of 169/177, 95.5% or 4.77 appears in the ledger
+- [ ] Record that the design document's domain prediction is not supported — added 2026-09-02
+  - **Done when:** the outcome of the "Key prediction" at `experiment/study3_revision_yield_design.md:117` is stated in the paper, and `results_FINAL.md` records that the objectivity gradient holds unstripped (p=0.019) and disappears stripped (p=0.151)
+  - Half done 2026-09-21: the ledger records it; no live section mentions it. A pre-registered prediction that failed should be stated
+- [ ] Reference or drop the 11 unreferenced appendix floats — added 2026-09-08, recounted 2026-09-21
+  - **Done when:** every appendix float is pointed at from prose, or removed
+  - 11 of 14 are unreferenced: tab:regression, fig:pipeline, fig:probe-cliff, fig:threshold-ladder, fig:dose-response, tab:pairwise, tab:judge-calibration, tab:human-agreement, tab:direction, tab:pooled-trajectory, tab:domain-variation. Was 13; the Study 1 reliability pair was fixed 2026-09-20
+- [ ] Rewrite the §4b direction-analysis prose in your own voice — added 2026-09-06, rescoped 2026-09-08
+  - **Done when:** the `TKTK Liam` comment block above `paper/sections/results_v2.tex:63` is gone and the paragraph reads in your register
+  - Comment still present 2026-09-21. It also trips preflight's placeholder check and carries your name in source
+- [ ] Update the ABSTRACT section of paper/SKELETON.md to describe the abstract that shipped — added 2026-09-08
+  - **Done when:** `paper/SKELETON.md` section ABSTRACT lists the beats and numbers of the final abstract
+  - Confirmed stale 2026-09-21: it still specifies a 150-180 word target and beats built on figures the shipped abstract does not use, and predates STET entirely
+- [ ] Tidy what a visitor sees at the top level — added 2026-09-21
+  - **Done when:** `emami_update.excalidraw`, `RECOMPUTE_TODO.md` and `worker_trials_OLD_WRONG_PROBE.jsonl` are each removed, renamed or deliberately kept with a reason recorded
+  - The repo is public with a README now. `emami_update.excalidraw` names Ali before he has agreed to be an author; the trials file's own name says its data is wrong
+- [ ] Clear the orphan section backup — added 2026-09-16, recounted 2026-09-21
+  - **Done when:** `paper/sections/` holds no `.bak` file, and any whose content is not in git history has been checked first
+  - Down to one: `sections/results_OLD_DO_NOT_USE.tex.bak`. Was 11
+- [ ] Decide whether the added emphasis in Figure 1 stays — added 2026-09-05
+  - **Done when:** the bold in the task and the highlighting in Turn 1 are either kept with the caption declaring them (current state) or removed
 
+### Blocked
+
+- [ ] Confirm the co-authorship with Ali before 2026-10-12 — added 2026-09-17 — blocked on: your decision on when to ask
+  - **Done when:** he has agreed in writing to be listed as second author, and the affiliation and email in `main.tex` are confirmed by him
+  - The only item gated on another person and the only one whose lead time you do not control. His affiliation in `main.tex` (Emory, aemami@emory.edu) was verified correct against two 2026 papers on 2026-09-20
 - [ ] Decide whether the abstract and introduction close on the same claim — added 2026-09-10 — blocked on: Tania's answer
   - **Done when:** both closes state the same claim, or the split is recorded as deliberate with a reason
-  - The introduction closes on the thesis ("intrinsic self-correction requires extrinsic direction"); the abstract closes on the finding ("naming the fault reverses the effect"). Compatible but not matched. Her second issue, and the one question put back to her on 2026-09-10
-
-- [ ] Rewrite methods, discussion and conclusion; move Limitations after the Conclusion per ACL format — added 2026-09-02 — blocked on: introduction rewrite
-  - **Done when:** the four sections are redrafted and `main.tex` builds with Limitations following the Conclusion
-
-- [ ] ARR submission mechanics — added 2026-09-02 — blocked on: all section rewrites
-  - **Done when:** `paper/main.tex` compiles anonymised with no author name or affiliation, Limitations sits unnumbered after the Conclusion, the body is within the ARR long-paper page limit, and the Responsible NLP Research checklist is completed
-  - `main.tex` currently carries "Liam Neild, Emory University, liam.neild@emory.edu" and must be anonymised for review
-  - The rater table is already anonymised (2026-09-16, key at `.workspace/reference/rater_key.md`). What remains is source-level only and does not print: the author block above, a `TKTK Liam` comment at `results_v2.tex:53`, a comment crediting Tania's rewrite at `introduction_v2.tex:3`, and absolute paths containing the username in `figures/gen_fig3_model_trajectories.py:174` and `gen_fig4_revision_tax.py:81`. Neither of those two scripts is referenced by any live section, so they may simply be dead
-  - `sections/introduction.tex` is the retired v1 file. It is not in `main.tex` and it includes `figures/fig1_combined_v3.pdf`, one of the retired fabricated teasers, which no longer exists on disk. Harmless to the build but a trap for a later session
-  - The exact ARR requirements are being retrieved verbatim into `paper/rules/09_limitations_ethics.md`; use that file, not memory
-
-- [ ] Clear the 11 orphan section backups — added 2026-09-16
-  - **Done when:** `paper/sections/` holds no `.bak` file, and any whose content is not in git history has been checked first
-  - Found while verifying the reversibility item. The 2026-09-14 batch was removed at commit e7d228b; these 11 predate it: `.appendix.tex.bak_2026-09-08`, `.introduction_v2.tex.bak`, `.introduction_v2.tex.bak2`, `.methods.tex.bak`, `.related_work.tex.bak`, `.related_work_v2.tex.bak`, `.related_work_v2.tex.bak2`, `.related_work_v2.tex.bak4`, `.results_v2.tex.bak3`, `.results_v2.tex.bak_2026-09-08`, `results_OLD_DO_NOT_USE.tex.bak`
-  - The last one carries no leading dot, so the `.gitignore` pattern added at e7d228b does not catch it
-
 - [ ] Merge the paragraph stubs in related work and results — added 2026-09-16 — blocked on: Tania's notes on those sections
   - **Done when:** both sections sit inside the corpus band for words per paragraph, with no words added or cut
-  - Related work averages 65 words per paragraph against a corpus p25 of 102 (paragraphs run 120, 66, 62, 59, 49, 35); results averages 64 against 78. Both pass length and fail paragraph length, which is what trimming every paragraph a little instead of cutting whole claims produces
-  - Measured in `paper/reference/prose_census.md`. Merging related work's six run-in clusters to four puts it near 111 words per paragraph
-  - Blocked deliberately: she is reading these two sections now, and her notes would collide with the merge
-
-- [ ] Draft the Responsible NLP Checklist answers on AI assistance — added 2026-09-17
-  - **Done when:** the checklist answers exist in `.workspace/notes/` for Liam to paste into OpenReview, naming the scope of coding assistance and the locations of any AI-drafted text
-  - Policy re-verified live 2026-09-17 at `https://aclrollingreview.org/cfp`, section "AI Writing/Coding Assistance Policy", and it is word-for-word what `rules/09_limitations_ethics.md` recorded on 2026-09-02. Binding sentence: generative AI "use for writing or coding, as well as its scope, must be disclosed in the Responsible NLP Checklist"
-  - Cases (a) language polishing and (b) short-form input assistance are explicitly exempt and cover most prose help. The obligations that bite here are the opening sentence on coding, case (c) literature search (which asks for citation accuracy rather than a disclosure line, and the bibliography and claim audits are that work), and case (d) low-novelty text, which asks authors to "specify where such automatically generated text was used"
-  - Case (d) locations in the live build: the `TKTK` block above `results_v2.tex:53` and the reversibility subsection assembled 2026-09-16. Both are marked in the source
-  - CORRECTION to the 2026-09-17 plan: it said an Acknowledgements section was required and missing. The checklist disclosure is required at submission; the Acknowledgements detail is camera-ready, and acknowledgements come out of an anonymous submission anyway. There is no missing section in the submitted draft
-  - Liam's call on case (e), new ideas. The design, research questions and framing are his
+- [ ] ARR submission mechanics — added 2026-09-02 — blocked on: the checklist and the author list
+  - **Done when:** `paper/main.tex` compiles anonymised with no author name or affiliation, Limitations sits unnumbered after the Conclusion, the body is within the ARR long-paper page limit, and the Responsible NLP Research checklist is completed
+  - Three of the four hold already as of 2026-09-21: the anonymised build is clean, Limitations is unnumbered and follows the Conclusion, and the body ends on page 8. Only the checklist remains
 
 ## Completed
+
+- [x] Regenerate the momentum PDFs or delete them — added 2026-09-08, done 2026-09-20
+  - Verified 2026-09-21: no live section points at any `data/figures/momentum/*.pdf`. The appendix uses the PNG, and the dose-response figure was regenerated with the model-name normalisation
+- [x] Resolve the sample mismatch in the paper's central contrast — added 2026-09-17, done 2026-09-21
+  - Verified: `results_v2.tex` now reads "A critique naming the fault raises quality by 1.16 levels on work rated below the sufficiency threshold", and the paragraph above names the cliff's population (Turn 1 mean 3.66, 33 of 50 beginning above the threshold). The two populations are stated rather than conflated
+- [x] Fix the two float captions that describe a different computation than the one printed — added 2026-09-17, done 2026-09-21
+  - Verified: `tab:domain-variation` describes the paired Wilcoxon on stripped content over trials with a genuine Turn-5 revision, and `tab:pairwise` describes the Bonferroni-within-model and Benjamini-Hochberg-across-analysis correction. Both now match what they print
+- [x] Decide the four bibliography items left open by the audit — added 2026-09-05, done 2026-09-21
+  - Three were made moot by the page cut. The fourth, the `laban2025lost` key reading 2025 for a 2026 paper, was verified correct in its printed fields on 2026-09-20 (ICLR 2026, Outstanding Paper Award, confirmed on the ICLR blog). The key itself does not print; renaming it touches eight call sites and is not worth doing
+- [x] Rewrite methods, discussion and conclusion; move Limitations after the Conclusion — added 2026-09-02, done 2026-09-21
+  - The Discussion was cut entirely on Tania's evidence, and Limitations is unnumbered and follows the Conclusion in `main.tex`. The section rewrites happened across the v2 sections
 
 
 
