@@ -18,7 +18,7 @@ Decades of automation research find that people accept automated output they can
 \cite{skitka1999automation, parasuraman2010complacency}, and in AI-assisted decisions
 fluent presentation raises acceptance without improving discrimination
 \cite{bansal2021whole, bucinca2021trust}. Users rely rather than pay the cost of
-verification \cite{vasconcelos2023explanations, schemmer2023reliance}, which is why a quiet
+verification \cite{vasconcelos2023explanations}, which is why a quiet
 quality decline is absorbed rather than caught.
 
 \paragraph{Intrinsic self-correction and compliance under pressure.}
@@ -31,14 +31,14 @@ the complementary question of what happens when the signal is absent entirely an
 output to be revised is already adequate.
 Models comply and avoid disagreement even when holding firm would help
 \cite{perez2023discovering, sharma2024towards, wei2024simple, openai2025sycophancy}, and
-under sustained pressure correct answers get revised toward worse ones
+correct answers get revised toward worse ones when the user pushes back
 \cite{xu2024earth, fanous2025syceval}. Our repeated probe is a weak instance of that
 pressure.
 
 \paragraph{Biases in LLM-as-judge evaluation.}
 Using LLMs to evaluate generated text is standard practice \cite{zheng2024judging,
 li2024generation}, but judges show self-preference and position biases
-\cite{panickssery2024llm, koo2024benchmarking} and reward stylistic cues over substance \cite{singhal2023long, wu2023style, zhang2024lists, chen2024humans,
+\cite{panickssery2024llm, koo2024benchmarking} and reward stylistic cues over substance \cite{wu2023style, zhang2024lists, chen2024humans,
 ye2024justice}. Meta-commentary is precisely such a cue, and we find it biases a judge strongly enough to
 reverse the measured direction of the effect. Any study comparing first-draft and revised
 outputs with an LLM judge inherits this confound, and controlling for it should be standard
