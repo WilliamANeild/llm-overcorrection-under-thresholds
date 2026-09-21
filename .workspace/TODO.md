@@ -133,6 +133,11 @@ checklist). The introduction is now the head of the chain.
 
 
 
+
+- [x] Verify every reference in the live build — added 2026-09-20, done 2026-09-20
+  - All 36 checked against the ACL Anthology, ICLR/NeurIPS proceedings, Crossref, the arXiv API or the publisher's page. All exist; no fabrication, no misattribution. Four entries completed with published pages; two Findings papers retyped from @article to @inproceedings
+  - The ICLR 2026 Outstanding Paper Award on `laban2025lost` is confirmed by the ICLR blog; "Outstanding Paper" is the official term. The related-work claim that Laban et al. find the effect threshold-shaped was verified against their gradual sharding experiment rather than their wording, and holds
+  - Record: `paper/reference/citation_verification_2026-09-20.md`
 - [x] Decide what to do with the 25 uncorrected decline-phrase rows — added 2026-09-20, done 2026-09-20
   - DECIDED 2026-09-20: sample stays as published. Panel 50, genuine rate 24.9%. Applying the discriminator to all 35 gives -0.74 on 42 trials; removing the ten gives -0.75 on 52. No number in the paper moves under any of the three, so the published sample stands. Evidence: `scripts/study3/audit_hand_corrections.py`, `results_FINAL.md` section 15
 - [x] Resolve the duplicate model labels in the Study 2 dose-response figure — added 2026-09-08, done 2026-09-20
