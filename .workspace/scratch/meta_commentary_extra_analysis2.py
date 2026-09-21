@@ -9,7 +9,7 @@ import json, re, math, statistics as st
 from pathlib import Path
 from collections import defaultdict, Counter
 
-ROOT = Path("/Users/liamneild/Desktop/School/llm-overcorrection-under-thresholds")
+ROOT = Path(str(Path(__file__).resolve().parents[2]))
 D = ROOT/"data"/"study3"/"raw_responses"
 
 PREAMBLE_META = [

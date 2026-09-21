@@ -12,11 +12,13 @@ Reads:  paper/reference/acl2026_abstracts.json, keys sample_2026_09_06 (47) and
 Writes: <scratch>/analysis67.json, and prints the analysis block used to build
         paper/reference/scen_04_length_density.md
 """
+from pathlib import Path
 import json, re, math, os, sys, statistics as st
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, '..', '..'))
-SCRATCH = os.environ.get('ACL_SCRATCH', '/private/tmp/claude-501/-Users-liamneild-Desktop-School-llm-overcorrection-under-thresholds/00744317-e5e0-44e6-9b65-e83966797521/scratchpad')
+SCRATCH = os.environ.get('ACL_SCRATCH',
+    str(Path(__file__).resolve().parents[2] / '.workspace' / 'scratch'))
 
 # ---- reuse the 2026-09-06 measurement code verbatim -------------------------
 _src = open(os.path.join(HERE, '03_measure.py')).read().split('if __name__')[0]

@@ -4,10 +4,11 @@ Same measurement code as .workspace/scratch/abstract_search.py so the numbers ar
 comparable with the header block in paper/sections/abstract_v2.tex.
 Usage: python3 measure_variants.py <file> [<file> ...]
 """
+from pathlib import Path
 import json, re, sys, statistics as st
 from collections import Counter
 
-ROOT = '/Users/liamneild/Desktop/School/llm-overcorrection-under-thresholds/'
+ROOT = str(Path(__file__).resolve().parents[3] / '')
 CORP = json.load(open(ROOT + 'paper/reference/acl2026_abstracts.json'))
 
 def collect(o, acc):
