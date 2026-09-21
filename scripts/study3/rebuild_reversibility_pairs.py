@@ -190,8 +190,8 @@ for t in sorted(turn_dist):
 # Save files
 pairs_path = DATA_DIR / "reversibility_human_pairs.json"
 key_path = DATA_DIR / "reversibility_human_key.json"
-liam_path = DATA_DIR / "reversibility_judgments_liam.json"
-troy_path = DATA_DIR / "reversibility_judgments_troy.json"
+rater_a_path = DATA_DIR / "reversibility_judgments_rater_a.json"
+rater_c_path = DATA_DIR / "reversibility_judgments_rater_c.json"
 
 # Pairs (annotation site data)
 with open(pairs_path, "w") as f:
@@ -207,10 +207,10 @@ print(f"Saved key -> {key_path}")
 null_judgments = [{"pair_id": p["pair_id"], "task_prompt": p["task_prompt"],
                    "output_A": p["output_A"], "output_B": p["output_B"],
                    "judgment": None} for p in pairs]
-with open(liam_path, "w") as f:
+with open(rater_a_path, "w") as f:
     json.dump(null_judgments, f, indent=2)
-with open(troy_path, "w") as f:
+with open(rater_c_path, "w") as f:
     json.dump(null_judgments, f, indent=2)
-print(f"Saved null judgment files for liam and troy")
+print(f"Saved null judgment files for rater_a and rater_c")
 
 print(f"\nDONE. Ready for annotation.")

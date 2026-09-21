@@ -249,13 +249,13 @@ print(f"Saved key -> {stripped_key_path}")
 null_judgments = [{"pair_id": p["pair_id"], "task_prompt": p["task_prompt"],
                    "output_A": p["output_A"], "output_B": p["output_B"],
                    "judgment": None} for p in stripped_pairs]
-liam_path = DATA_DIR / "reversibility_judgments_liam.json"
-troy_path = DATA_DIR / "reversibility_judgments_troy.json"
-with open(liam_path, "w") as f:
+rater_a_path = DATA_DIR / "reversibility_judgments_rater_a.json"
+rater_c_path = DATA_DIR / "reversibility_judgments_rater_c.json"
+with open(rater_a_path, "w") as f:
     json.dump(null_judgments, f, indent=2)
-with open(troy_path, "w") as f:
+with open(rater_c_path, "w") as f:
     json.dump(null_judgments, f, indent=2)
-print(f"Saved null judgment files (overwritten liam + troy)")
+print(f"Saved null judgment files (overwritten rater_a + rater_c)")
 
 # ── Save meta-wrapping asymmetry summary ──
 asymmetry_path = DATA_DIR / "meta_wrapping_asymmetry.json"

@@ -149,7 +149,7 @@ function seededShuffle<T>(arr: T[], seed: string): T[] {
 // Raters whose ratings should be cleared get a versioned key.
 // Add a rater ID here to invalidate their saved ratings.
 const RATINGS_VERSION: Record<string, number> = {
-  sophie: 2,
+  rater_b: 2,
 };
 
 function storageKey(raterId: string) {
@@ -626,7 +626,7 @@ export default function Home() {
                   setLoginError("");
                 }}
                 onKeyDown={(e) => e.key === "Enter" && handleLogin()}
-                placeholder="e.g. rater1, liam, alex"
+                placeholder="e.g. rater1, rater_a, alex"
                 style={{ width: "100%" }}
                 autoFocus
               />

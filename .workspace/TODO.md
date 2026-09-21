@@ -113,7 +113,7 @@ Ali's agreement -> his OpenReview profile -> author list frozen at submission.
   - It fails loudly if `main.tex` stops carrying the switch, rather than silently checking one build twice
 
 - [x] Anonymise the rater names in the appendix before submission — added 2026-09-08, done 2026-09-16
-  - `appendix.tex` Table 13 now reads Rater A/B/C. Mapping recorded outside the submitted source at `.workspace/reference/rater_key.md`: A is Liam, B is Sophie, C is Troy. Agreement figures unchanged
+  - `appendix.tex` Table 13 now reads Rater A/B/C. Mapping recorded outside the submitted source at `.workspace/reference/rater_key.md`, which is gitignored and must stay that way. Agreement figures unchanged
   - Swept the whole live build rather than the three flagged lines. Nothing identifying prints in the PDF now except the author block, which is the submission-mechanics item
 
 - [x] Move the blind pairwise reversibility result out of Limitations and into Results — added 2026-09-02, done 2026-09-16

@@ -26,7 +26,7 @@ const server = http.createServer((req, res) => {
 
   if (req.method === 'GET' && req.url.startsWith('/load/')) {
     const rater = req.url.split('/load/')[1];
-    if (rater !== 'liam' && rater !== 'troy') {
+    if (rater !== 'rater_a' && rater !== 'rater_c') {
       res.writeHead(400); res.end('Invalid rater'); return;
     }
     const file = path.join(DATA_DIR, `reversibility_judgments_${rater}.json`);
@@ -41,7 +41,7 @@ const server = http.createServer((req, res) => {
 
   if (req.method === 'POST' && req.url.startsWith('/save/')) {
     const rater = req.url.split('/save/')[1];
-    if (rater !== 'liam' && rater !== 'troy') {
+    if (rater !== 'rater_a' && rater !== 'rater_c') {
       res.writeHead(400); res.end('Invalid rater'); return;
     }
     let body = '';
