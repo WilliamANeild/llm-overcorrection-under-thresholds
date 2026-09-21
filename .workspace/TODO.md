@@ -57,8 +57,7 @@ Ali's agreement -> his OpenReview profile -> author list frozen at submission.
 - [ ] Confirm the co-authorship with Ali before 2026-10-12 — added 2026-09-17 — blocked on: your decision on when to ask
   - **Done when:** he has agreed in writing to be listed as second author, and the affiliation and email in `main.tex` are confirmed by him
   - The only item gated on another person and the only one whose lead time you do not control. His affiliation in `main.tex` (Emory, aemami@emory.edu) was verified correct against two 2026 papers on 2026-09-20
-- [ ] Decide whether the abstract and introduction close on the same claim — added 2026-09-10 — blocked on: Tania's answer
-  - **Done when:** both closes state the same claim, or the split is recorded as deliberate with a reason
+
 - [ ] Merge the paragraph stubs in related work and results — added 2026-09-16 — blocked on: Tania's notes on those sections
   - **Done when:** both sections sit inside the corpus band for words per paragraph, with no words added or cut
 - [ ] ARR submission mechanics — added 2026-09-02 — blocked on: the checklist and the author list
@@ -68,6 +67,11 @@ Ali's agreement -> his OpenReview profile -> author list frozen at submission.
 ## Completed
 
 
+
+- [x] Decide whether the abstract and introduction close on the same claim — added 2026-09-10, done 2026-09-21
+  - Was mislabelled "blocked on Tania's answer"; re-reading her 2026-09-09 review, she had put the decision to us. That mislabel is why it went unchecked through two reconciliation passes
+  - Decided: the abstract closes on revision robustness deserving evaluation alongside single-turn capability, which all three of her 2026-09-03 abstracts close on and which the Conclusion already carried. Abstract 199 -> 214 words, ceiling 229
+  - Her other 2026-09-09 issue, the units mismatch between abstract and intro, was already fixed: both carry the 70%
 - [x] Write the targeted-feedback repair findings into results_FINAL.md — added 2026-09-03, done 2026-09-21
   - `results_FINAL.md` section 18. All values re-derived from the data on 2026-09-21 and reproduce exactly: 169/177 = 95.5% reaching level 4+, the 113 degraded-from-sufficient inputs splitting 13 genuine / 100 meta, the 13-trial row 4.15 -> 2.69 -> 4.77 at p = 0.000488, and the meta inputs averaging 1.06. The section states plainly that the 100 meta rows are not evidence of repair
 - [x] Regenerate the momentum PDFs or delete them — added 2026-09-08, done 2026-09-20
