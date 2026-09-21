@@ -192,12 +192,19 @@ rubric exists as the evaluator prompt in `scripts/study3/phase2_evaluator.py`, a
 paraphrases it in §3.3, but whether the raters saw that exact wording is not recorded. Do not
 claim they did.
 
-### D2. Did you report information about recruitment and payment adequacy? — **PARTIAL**
+### D2. Did you report information about recruitment and payment adequacy? — **ANSWERED 2026-09-21**
 
-The Ethics Statement says the raters are the first author and two research assistants who
-participated voluntarily. It does not say whether the RAs were compensated. **I could not
-determine this from the repo and am not going to guess.** You know the answer; the form wants
-it stated.
+**Neither rater was compensated.** Both are colleagues who agreed when asked. There was no
+recruitment platform, no payment, and no wage question to assess, which is the honest answer
+and a common one for annotation done by collaborators rather than crowdworkers.
+
+The Ethics Statement already says the raters "participated voluntarily", which is accurate but
+does not state the absence of payment. The form asks for it, so one clause should say so
+plainly: three raters, the first author and two colleagues, unpaid and not recruited through a
+platform.
+
+Do not dress this up. Unpaid annotation by collaborators is normal and defensible; unpaid
+annotation described as though it were a managed recruitment is not.
 
 ### D3. Did you discuss whether and how consent was obtained? — **NO**
 
