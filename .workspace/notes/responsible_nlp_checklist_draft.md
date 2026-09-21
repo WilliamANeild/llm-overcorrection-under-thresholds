@@ -40,9 +40,9 @@ additions are that the work is diagnostic rather than generative (it produces no
 capability that could be misused), and the compute footprint, which is small and now
 quantified under C1.
 
-**One error to fix regardless:** the Ethics Statement says the scenarios span "code, data
-logic, analysis, and writing tasks". There are five domains. Creative writing is missing, and
-Table 1 and the Methods both list five.
+**One error, now fixed (2026-09-21):** the Ethics Statement said the scenarios span "code, data
+logic, analysis, and writing tasks" where there are five domains. It now reads "code, data
+logic, analysis, writing, and creative writing tasks", matching Table 1 and Methods §3.1.
 
 ---
 
@@ -155,14 +155,23 @@ rank-biserial effect sizes, Bonferroni within-model and Benjamini-Hochberg acros
 Error bars on Figures 2, 6 and 8. Single-run reporting is not an issue because every estimate
 pools three runs per cell.
 
-### C4. Did you report implementation details for existing packages? — **NO**
+### C4. Did you report implementation details for existing packages? — **NO, half fixed**
 
-No versions are recorded anywhere and there is no `requirements.txt` or lockfile. The analysis
-depends on scipy, numpy and pandas at minimum.
+`requirements.txt` now exists, derived from the actual imports across `scripts/` and `paper/`
+by ast parse rather than a pip freeze, so it lists direct dependencies only: numpy, scipy,
+pandas, statsmodels, scikit-learn, matplotlib, seaborn, pillow, the three model-API clients,
+python-dotenv, tqdm and playwright.
 
-To make this Yes: pin and record the environment. Locally this is scipy 1.17.1, numpy 2.4.4,
-pandas 3.0.2, but that is **this machine today**, not necessarily what produced the results,
-so it should be confirmed rather than copied from here.
+**Its header says plainly that the pinned versions are the authoring environment on
+2026-09-21 and not the versions that produced the published numbers**, because the environment
+was never pinned at the time. That is the honest statement and it should not be upgraded into
+a provenance claim in the paper.
+
+`textstat` is imported by two readability scripts and is not installed, so those two do not
+currently run. No number in the paper depends on them.
+
+Still to do: the paper itself names no package and no version. One appendix line covering the
+analysis stack answers C4.
 
 ---
 
