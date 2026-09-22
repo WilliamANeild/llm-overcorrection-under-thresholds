@@ -17,6 +17,8 @@ primary throughout the paper. Omissions are marked [...]; nothing else is altere
 
 Writes fig1.png and fig1.pdf next to this file.
 """
+import sys, pathlib
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2]))
 import ast, json, subprocess
 from pathlib import Path
 
@@ -67,7 +69,7 @@ def load():
         s = strip_text(resp)
         s = s[0] if isinstance(s, tuple) else s
         stripped[i], words[i] = s, len(s.split())
-    recode = lambda x: 2 if x == 6 else x
+    from scripts.config import recode_level as recode
     for line in open(RAW / "stripped_rescore_full.jsonl"):
         r = json.loads(line)
         if r["trial_id"] == TRIAL:

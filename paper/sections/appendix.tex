@@ -205,7 +205,7 @@ Post-hoc power analysis at $\alpha = 0.05$, 80\% power:
 \begin{itemize}
     \item \textbf{Study~1 RQ1} ($N = 1{,}920$ per probe): MDE for proportion difference $= 0.032$. Observed $\approx 0.75$, over twenty times the minimum.
     \item \textbf{Study~1 RQ2} ($N = 1{,}920$ leading-probe): MDE for $|\rho| = 0.064$. All observed correlations exceed this.
-    \item \textbf{Study~3} ($N = 720$ trials, balanced panel $n = 50$): Panel-level MDE $= 0.5$ levels. Observed $\Delta = 0.94$ unstripped ($0.74$ after meta-commentary stripping), both exceeding the MDE. The effective sample for the paired test is the balanced panel ($n = 50$ trials with genuine revision at all turns), which yields $p = 3.32 \times 10^{-6}$ (Wilcoxon, $r = 0.658$) on the unstripped cliff; the stripped cliff ($\Delta = 0.74$) has $p = 1.01 \times 10^{-4}$ ($r = 0.55$).
+    \item \textbf{Study~3} ($N = 720$ trials, balanced panel $n = 50$): Panel-level MDE $= 0.5$ levels on the ordinal scale. The observed ordinal decline is $\Delta = 0.44$ unstripped and $0.38$ stripped, both below that MDE, so the ordinal magnitude is not powered at $n = 50$ and is reported as a supporting estimate rather than as the finding. The count is powered: 19 of 50 trials became over-elaborated against 1 the other way, exact binomial $p = 4.01 \times 10^{-5}$. On the paired ordinal test the unstripped cliff gives $p = 3.79 \times 10^{-4}$ (Wilcoxon, $r = 0.50$ on $N = 50$) and the stripped cliff $p = 4.42 \times 10^{-3}$ ($r = 0.40$).
 \end{itemize}
 
 \section{Evaluator Calibration Details}
@@ -241,11 +241,11 @@ Gemini 2.5 Flash & $-0.036$ & $-0.026$ \\
 \toprule
 Rater pair & QW $\kappa$ & Binary & Within 1 \\
 \midrule
-Rater A -- Rater B & 0.578 & 78.1\% & 95.3\% \\
-Rater B -- Rater C & 0.603 & 82.8\% & 87.5\% \\
-Rater A -- Rater C & 0.406 & 76.6\% & 81.2\% \\
+Rater A -- Rater B & 0.502 & 78.1\% & 95.3\% \\
+Rater B -- Rater C & 0.612 & 82.8\% & 93.8\% \\
+Rater A -- Rater C & 0.478 & 76.6\% & 95.3\% \\
 \midrule
-All three ($\alpha$) & 0.529 & --- & --- \\
+All three ($\alpha$) & 0.540 & --- & --- \\
 Evaluator -- Human Mean & 0.526 & --- & --- \\
 \bottomrule
 \end{tabular}
@@ -336,13 +336,13 @@ Per-model and per-domain breakdowns supporting the aggregate figures in Section~
     \toprule
     Turn & Stripped & (Unstripped) & Shift & $n$ \\
     \midrule
-    T1 & 4.11 & (4.11) & 0 & 720 \\
-    T2 & 3.66 & (3.25) & +0.41 & 283 \\
-    T3 & 3.40 & (3.01) & +0.39 & 185 \\
-    T4 & 3.34 & (2.97) & +0.37 & 154 \\
-    T5 & 3.07 & (2.85) & +0.22 & 96 \\
+    T1 & 4.17 & (4.17) & 0 & 720 \\
+    T2 & 3.84 & (3.59) & +0.25 & 283 \\
+    T3 & 3.69 & (3.43) & +0.25 & 185 \\
+    T4 & 3.62 & (3.40) & +0.22 & 154 \\
+    T5 & 3.42 & (3.33) & +0.08 & 96 \\
     \midrule
-    $\Delta$ (T1--T5) & $\mathbf{-1.04}$ & ($-1.26$) & & \\
+    $\Delta$ (T1--T5) & $\mathbf{-0.75}$ & ($-0.84$) & & \\
     \bottomrule
     \end{tabular}
     \caption{Pooled mean quality by turn, restricted to genuine revisions (GENUINE-only at T2--T5, all 720 at T1). Stripped scores are primary. $n$ declines as models exit the revision pool.}
@@ -357,11 +357,11 @@ Per-model and per-domain breakdowns supporting the aggregate figures in Section~
     \toprule
     Domain & $\Delta$ (T1--T5) & $p$ & $n_{\text{T5}}$ \\
     \midrule
-    analysis & $-0.94$ & 0.003 & 17 \\
-    code & $-0.93$ & 0.003 & 30 \\
-    creative & $-0.58$ & 0.031 & 19 \\
-    data\_logic & $-0.53$ & 0.058 & 17 \\
-    writing & $-0.77$ & 0.008 & 13 \\
+    analysis & $-0.59$ & 0.004 & 17 \\
+    code & $-0.47$ & 0.035 & 30 \\
+    creative & $-0.32$ & 0.058 & 19 \\
+    data\_logic & $-0.24$ & 0.206 & 17 \\
+    writing & $-0.77$ & 0.004 & 13 \\
     \bottomrule
     \end{tabular}
     \caption{Paired quality decline from Turn~1 to Turn~5 by domain on stripped content,

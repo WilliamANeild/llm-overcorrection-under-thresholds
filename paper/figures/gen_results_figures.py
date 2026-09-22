@@ -23,7 +23,9 @@ import matplotlib.pyplot as plt
 HERE = Path(__file__).resolve().parent
 RAW = HERE.parents[1] / "data" / "study3" / "raw_responses"
 W, INK, MID, ACCENT = 3.17, "#111", "#555", "#4878A8"
-recode = lambda x: 2 if x == 6 else x
+import sys as _sys
+_sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from scripts.config import recode_level as recode
 
 
 def load():

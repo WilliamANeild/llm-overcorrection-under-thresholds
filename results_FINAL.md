@@ -1752,3 +1752,50 @@ The ordinal cliff restates from -0.74 to -0.38, so the abstract, introduction, R
 the Conclusion all carry a number that changes. `t*` and the revision tax must be recomputed
 with the paper's CARY estimator before either is claimed. The behavioural results, the STET
 score and Section 13's stability are untouched.
+
+## 21. Carry-through of the Overdone-at-3 decision, 2026-09-22
+
+`config.OVERDONE_RANK = 3` is now the single definition; six scripts that hardcoded the
+mapping import it, and the derived `stripped_score` / `orig_score` fields were regenerated
+from their `_raw` counterparts (605 of 3,600 values changed). Every figure below reproduces
+the published value under the old placement first, which is the check on the method.
+
+| Quantity | Old (6→2) | New (6→3) |
+|---|---:|---:|
+| Panel cliff | -0.74, p 1.01e-4 | **-0.38, p 4.42e-3** |
+| Llama-only cliff | -0.67, p 3.76e-4 | **-0.31, p 1.80e-2** |
+| Unstripped panel cliff | -0.94, p 3.32e-6 | **-0.44, p 3.79e-4** |
+| Pooled T1→T5 | 4.11→3.07, -1.04 | **4.17→3.42, -0.75** |
+| Meta-commentary share of the cliff | 21% | **14%** |
+| Revision direction, movers down | 69.6% (199/286) | **68.7% (184/268)** |
+| Mean reversion, input below / at threshold | +0.41 / -0.56 | **+0.35 / -0.38** |
+| Targeted feedback | +1.16, p 5.7e-19 | **+1.01, p 1.9e-19** |
+| Domain deltas (Table 13) | -0.94/-0.93/-0.58/-0.53/-0.77 | **-0.59/-0.47/-0.32/-0.24/-0.77** |
+| Domains significant | four of five | **three of five** |
+| Inter-rater QW kappa range | 0.41-0.60 | **0.48-0.61** |
+| Krippendorff alpha | 0.529 | **0.540** |
+| Within-1 agreement (A-C, B-C) | 81.2%, 87.5% | **95.3%, 93.8%** |
+
+Unchanged, and verified so rather than assumed: 87.6% of first drafts sufficient (631/720),
+39.6% revision-despite-sufficiency (411/1,038), 144/524 = 27.5% ending below, all six STET
+scores, binary rater agreement, and the revision tax, since **t\* remains Turn 1 for all six
+models** under the new placement at both C = 5e-7 and C = 1e-4. Under the old placement
+C = 5e-7 gave GPT-4o t\* = T5 on n = 3, so the claim is cleaner now than it was.
+
+Agreement improves slightly under the new placement (kappa floor 0.41 to 0.48, alpha 0.529 to
+0.540, within-1 up on two of three pairs), which is a small independent point in its favour.
+
+### One consequence that had to be stated rather than absorbed
+
+The appendix power analysis gives a panel-level MDE of 0.5 levels. The ordinal decline is now
+0.44 unstripped and 0.38 stripped, **both below that MDE**, so the ordinal magnitude is not
+powered at n = 50. The appendix now says so, and reports the ordinal cliff as a supporting
+estimate. The count is powered: 19 of 50 trials became over-elaborated against 1 the other
+way, exact binomial p = 4.01e-5. This is the strongest reason the headline is the count.
+
+### Not recomputed
+
+The evaluator-versus-human figures (Spearman r = 0.505, QW kappa = 0.526) could not be
+reproduced on any basis I tried; my reconstruction gives 0.589 / 0.613 under the old placement,
+so the paper uses a different sample or aggregation. They are left untouched and need their own
+check before being restated.
