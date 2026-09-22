@@ -1,5 +1,5 @@
 \begin{abstract}
-% FINAL, 2026-09-08. 189 words / 8 sentences / 23.6 words per sentence.
+% REVISED 2026-09-22 for the Overdone-at-3 recode. 226 words (corpus max 229).
 % Design sentence at S4 of 8. The preceding draft had it at S5 of 9.
 %   Corpus design position across 147: S1 10, S2 30, S3 34, S4 22, S5 12, S6+ 5.
 %   The preceding draft sat in the 12-abstract S5 tail; this sits in the 56-abstract core.
@@ -26,11 +26,11 @@
 %   .workspace/scratch/abstract_fixes/.
 Do language models know when a good answer should be left alone? They are increasingly
 handed work their users cannot judge, and a user who cannot name the fault resorts to
-undirected requests that say nothing about what to change. Self-correction research finds
+undirected requests. Self-correction research finds
 that a model can repair a wrong response given a specific critique and largely cannot
 without one, leaving unexamined the work that is already sufficient and gets revised
 anyway. We run five-turn revision conversations with 6 models on 40 tasks across 5
 domains, adding a targeted critique on outputs rated insufficient, and package the tasks and scoring as STET, a diagnostic for whether a model leaves sufficient work alone. First drafts are
-sufficient in 88\% of trials, and most replies contain no revision at all: models restate the draft or decline while presenting it as compliance. Revisions that change quality make it worse 70\% of the time, and 27\% of those applied to sufficient drafts leave them insufficient. For every model the first draft rates highest, and blind
-readers show no reliable preference between it and the last. Undirected revision lowers work that was already good enough, and naming a fault lifts work that was not. Revision robustness, a model's willingness to leave sufficient work alone, deserves evaluation alongside single-turn capability.
+sufficient in 88\% of trials, and most replies contain no revision at all: models restate the draft or decline while presenting it as compliance. Revisions that change quality make it worse 69\% of the time, and the damage has a direction: over five turns the share of over-elaborated outputs rises from 4\% to 40\% while the share falling below sufficiency holds. Models add unrequested material rather than drop what was asked for. For every model the first draft rates highest, and blind
+readers show no reliable preference between it and the last. A critique naming the fault reverses it, lifting revisions 1.01 levels. Revision robustness, a model's willingness to leave sufficient work alone, deserves evaluation alongside single-turn capability.
 \end{abstract}
