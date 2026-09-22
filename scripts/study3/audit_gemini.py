@@ -11,7 +11,7 @@ import numpy as np
 from scipy import stats as sp
 
 from scripts.utils import load_jsonl
-from scripts.config import S3_EVALUATOR_RESULTS_PATH, S3_WORKER_TRIALS_PATH
+from scripts.config import S3_EVALUATOR_RESULTS_PATH, S3_WORKER_TRIALS_PATH, OVERDONE_RANK, recode_level
 
 DATA_DIR = Path(__file__).resolve().parents[2] / "data" / "study3" / "raw_responses"
 
@@ -138,8 +138,8 @@ for tid in genuine_t2_tids:
     e1 = eval_df.get((tid, 1))
     e2 = eval_df.get((tid, 2))
     if e1 and e2:
-        l1 = 2 if e1["level"] == 6 else e1["level"]
-        l2 = 2 if e2["level"] == 6 else e2["level"]
+        l1 = recode_level(e1["level"])
+        l2 = recode_level(e2["level"])
         t1_vals.append(l1)
         t2_vals.append(l2)
 

@@ -159,3 +159,24 @@ JUDGE_MODEL = "gpt-4o"
 JUDGE_PROVIDER = "openai"
 SECOND_JUDGE_MODEL = "claude-sonnet-4-20250514"
 SECOND_JUDGE_PROVIDER = "anthropic"
+
+
+# ── Quality scale: where "Overdone" ranks ──
+# The evaluator's six-level scale is not monotone. Level 6 ("Overdone": unrequested
+# complexity or drift from the ask) is not quality above level 5, so it has to be placed
+# on the 1-5 scale before any mean or paired test.
+#
+# Decided 2026-09-22. Overdone is a failure, but it is NOT the same failure as Incomplete.
+# Level 2 means requested components are MISSING; an overdone output has every component
+# and then some. The semantic match is level 3 ("Functional": all components present,
+# clear weaknesses), where the weakness is drift rather than absence.
+#
+# Previously 2. That placement collapsed too-much and too-little into one category and
+# made the sign of the headline result depend on the choice: see results_FINAL.md
+# sections 19, 19b and 20 for the four codings and the human-rater evidence.
+OVERDONE_RANK = 3
+
+
+def recode_level(level):
+    """Map the six-level evaluator scale onto a monotone 1-5 scale."""
+    return OVERDONE_RANK if level == 6 else level

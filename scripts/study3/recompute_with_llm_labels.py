@@ -16,6 +16,8 @@ import pandas as pd
 from scipy import stats as sp_stats
 
 from scripts.config import (
+    OVERDONE_RANK,
+    recode_level,
     S3_EVALUATOR_RESULTS_PATH,
     S3_WORKER_TRIALS_PATH,
     S3_TARGETED_FEEDBACK_PATH,
@@ -80,7 +82,7 @@ eval_results = load_jsonl(S3_EVALUATOR_RESULTS_PATH)
 eval_df = pd.DataFrame([r for r in eval_results if r.get("level") is not None])
 
 # Apply fixed scale: Level 6 -> 2
-eval_df["level"] = eval_df["level"].apply(lambda x: 2 if x == 6 else x)
+eval_df["level"] = eval_df["level"].apply(recode_level)
 
 # Build worker turns with BOTH classifiers
 worker_rows = []
@@ -120,7 +122,7 @@ def get_rev_eval(flags):
 
 print("=" * 80)
 print("RECOMPUTATION: OLD (keyword) vs NEW (LLM classifier)")
-print("Fixed 1-5 scale (Level 6 recoded to 2)")
+print(f"Fixed 1-5 scale (Level 6 placed at {OVERDONE_RANK})")
 print("=" * 80)
 
 
@@ -438,7 +440,7 @@ new_gen_mean = np.mean([r["generic_level"] for r in new_filtered]) if new_filter
 new_tgt_mean = np.mean([r["targeted_level"] for r in new_filtered]) if new_filtered else 0
 
 # Apply fixed scale to targeted feedback levels too
-old_gen_fixed = np.mean([2 if r["generic_level"] == 6 else r["generic_level"] for r in old_filtered])
+old_gen_fixed = np.mean([recode_level(r["generic_level"]) for r in old_filtered])
 old_tgt_fixed = np.mean([2 if r["targeted_level"] == 6 else r["targeted_level"] for r in old_filtered])
 new_gen_fixed = np.mean([2 if r["generic_level"] == 6 else r["generic_level"] for r in new_filtered])
 new_tgt_fixed = np.mean([2 if r["targeted_level"] == 6 else r["targeted_level"] for r in new_filtered])

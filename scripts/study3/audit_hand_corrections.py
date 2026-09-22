@@ -15,6 +15,9 @@ Input:  data/study3/raw_responses/genuine_meta_labels.jsonl
         data/study3/raw_responses/stripped_rescore_full.jsonl
 Output: stdout only. Results are recorded in results_FINAL.md section 15.
 """
+import sys, pathlib
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2]))
+from scripts.config import OVERDONE_RANK, recode_level
 import collections
 import json
 import re
@@ -46,8 +49,8 @@ def norm(s):
 
 
 def recode(level):
-    """Level 6 recodes to level 2 throughout the project."""
-    return 2 if level == 6 else level
+    """Level 6 is placed per config.OVERDONE_RANK; see scripts/config.py."""
+    return recode_level(level)
 
 
 def load():
@@ -138,9 +141,11 @@ def main():
     cliff({t for t in panel - drop if "llama" in t}, scores, "llama only, rule applied")
 
     # The published figure is the check on the whole reconstruction, not a result.
-    assert (published, n_pub) == (-0.74, 50), \
+    # -0.38 since 2026-09-22, when Overdone moved from rank 2 to rank 3 (config.OVERDONE_RANK).
+    # It was -0.74 under the old placement; see results_FINAL.md sections 19, 19b and 20.
+    assert (published, n_pub) == (-0.38, 50), \
         f"the published cliff no longer reproduces: {published} on n={n_pub}"
-    print(f"\nThe published -0.74 reproduces. The rule-applied panel gives {applied:+.2f}.")
+    print(f"\nThe published {published:+.2f} reproduces. The rule-applied panel gives {applied:+.2f}.")
     return 0
 
 

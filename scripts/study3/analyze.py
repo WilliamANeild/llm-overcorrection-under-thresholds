@@ -39,6 +39,8 @@ import pandas as pd
 from scipy import stats as sp_stats
 
 from scripts.config import (
+    OVERDONE_RANK,
+    recode_level,
     S3_EVALUATOR_RESULTS_PATH,
     S3_FIGURES_DIR,
     S3_ONESHOT_TRIALS_PATH,
@@ -132,11 +134,11 @@ def load_worker_turns() -> pd.DataFrame:
 
 
 def load_evaluator() -> pd.DataFrame:
-    """Load evaluator results with 6->2 recode (level 6 'Overdone' -> 2)."""
+    """Load evaluator results with level 6 ("Overdone") placed per config.OVERDONE_RANK."""
     results = load_jsonl(S3_EVALUATOR_RESULTS_PATH)
     valid = [r for r in results if r.get("level") is not None]
     df = pd.DataFrame(valid)
-    df.loc[df["level"] == 6, "level"] = 2
+    df.loc[df["level"] == 6, "level"] = OVERDONE_RANK
     return df
 
 

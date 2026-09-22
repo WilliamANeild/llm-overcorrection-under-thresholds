@@ -8,7 +8,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
 import numpy as np
 from scripts.utils import load_jsonl
-from scripts.config import S3_EVALUATOR_RESULTS_PATH, S3_WORKER_TRIALS_PATH
+from scripts.config import S3_EVALUATOR_RESULTS_PATH, S3_WORKER_TRIALS_PATH, OVERDONE_RANK, recode_level
 
 DATA_DIR = Path(__file__).resolve().parents[2] / "data" / "study3" / "raw_responses"
 
@@ -24,7 +24,7 @@ eval_results = load_jsonl(S3_EVALUATOR_RESULTS_PATH)
 eval_lookup = {}
 for r in eval_results:
     if r.get("level") is not None:
-        fixed = 2 if r["level"] == 6 else r["level"]
+        fixed = recode_level(r["level"])
         eval_lookup[(r["worker_trial_id"], r["turn"])] = fixed
 
 # Load full response texts
