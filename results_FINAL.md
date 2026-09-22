@@ -1651,3 +1651,32 @@ large; what the recode decides is whether over-elaboration counts as damage.
 3. Re-run the evaluation on a monotone 1-5 scale with over-elaboration scored separately.
 
 **Decision not made. This is the author's to make and must not be made silently.**
+
+### 19b. The human raters did not treat "Overdone" as worse
+
+Checked 2026-09-21. Joining the 64 calibration items to the three human raters through
+`annotation_id_mapping.json`, and reading the judge's raw pre-recode level:
+
+| Judge's raw level | Mean human rating | n items |
+|---|---:|---:|
+| 2 | 3.00 | 1 |
+| 3 | 2.89 | 3 |
+| 4 (Sufficient) | 4.23 | 34 |
+| 5 (Polished) | 4.48 | 22 |
+| **6 (Overdone)** | **5.33** | **4** |
+
+**Human ratings increase monotonically across the judge's bands, and the items the judge called
+Overdone received the highest human scores of any band.** The recode scores those same items
+as level 2.
+
+- **Filter:** `judge_calibration.jsonl` (judge = claude-sonnet-4, the selected evaluator),
+  joined to `human_ratings_rater_{a,b,c}.json` through `annotation_id_mapping.json`. Human
+  value is the mean of the raters who scored the item, zero and null levels dropped.
+- **n = 4 for the level-6 band.** Four items cannot settle the construct, and this is not
+  presented as settling it. But it is the only direct evidence the project holds on the
+  question, and it points the other way from the recode.
+- The kappa improvement from the recode (Liam-Troy 0.228 to 0.406) is about overall scale
+  coherence and is not evidence that level 6 belongs at the bottom.
+
+This is what makes the level-6 decision substantive rather than clerical: the paper's own
+human validation, on the items where the recode bites, does not support it.
