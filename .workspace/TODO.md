@@ -14,6 +14,17 @@ Ali's agreement -> his OpenReview profile -> author list frozen at submission.
 
 ### Unblocked
 
+- [ ] Decide how level 6 ("Overdone") is scored — added 2026-09-21
+  - **Done when:** the paper either keeps the 6 -> 2 recode and states the sensitivity, or reports the decline on a coding that does not turn on this judgment, and `results_FINAL.md` records the decision
+  - **This determines the sign of the central result.** Panel delta is -0.74 as published, +0.70 with level 6 left alone (p = 2.79e-3), -0.02 scoring it 4, +0.34 scoring it 5. The pooled estimator is not independent triangulation; it reads the same recoded scores
+  - The behaviour results are unaffected: genuine-revision rate, share left alone and the STET score are counts, not quality levels. The revision tax is exposed, because t* = 1 rests on the decline
+  - Mechanism: within the panel, outputs scored level 6 rise 4% -> 20% -> 26% -> 28% -> 40% across turns; at T5, 20 of 50 are "Overdone". The behaviour is real and large; the recode decides whether it counts as damage
+  - Evidence and the four codings: `results_FINAL.md` section 19. Specification decision, yours alone
+- [ ] Verify t* under the paper's own CARY estimator, not a raw argmax — added 2026-09-21
+  - **Done when:** t* is recomputed per model with and without the recode using `compute_cary`, and the revision tax either holds or is restated
+  - Also reconcile the cost constant: `analyze.py:1559` uses C = 5e-7 where the plan records C = 1e-4
+  - blocked on: the level-6 decision above
+
 - [ ] Complete the Responsible NLP Research checklist — added 2026-09-21
   - **Done when:** every one of the 18 subquestions has an answer that is true of the submitted paper, and no answer claims something the paper does not contain
   - Draft with all answers sourced: `.workspace/notes/responsible_nlp_checklist_draft.md`. LICENSE, requirements.txt and the Ethics Statement domain count are done. Remaining: model citations with dated identifiers in Methods, a compute paragraph (numbers measured), and one sentence each for B2/B3 (licence and API terms), B5 (language is English), D3 (consent) and D5 (rater demographics)

@@ -1584,3 +1584,70 @@ quality across models (Section 13), and it is why the headline +1.16 is reported
   input and targeted values.
 - Reproduce with the block in `.workspace/TODO.md` item history, or recompute from the filter
   above; every value here was re-derived from the data files on 2026-09-21.
+
+## 19. The 6 -> 2 recode determines the sign of the central result
+
+Found 2026-09-21 during an adversarial read. **This is the most consequential open item in the
+project.** Nothing here changes the specification; it records what the alternatives give.
+
+### What was run
+
+Four codings of level 6 ("Overdone"), on the published balanced panel and the published pooled
+estimator, changing nothing else. All four are reported; none was selected.
+
+| Coding of level 6 | Panel delta (n=50) | p | Pooled delta |
+|---|---:|---:|---:|
+| **-> 2, as published** | **-0.740** | 1.01e-4 | **-1.04** |
+| left as 6 | **+0.700** | 2.79e-3 | +0.11 |
+| -> 4 (merely sufficient) | -0.020 | 0.796 | -0.46 |
+| -> 5 (above sufficient) | +0.340 | 4.94e-2 | +0.34 |
+
+**The headline finding reverses sign and stays significant when level 6 is left alone.** The
+pooled estimator does not provide independent triangulation, because it reads the same recoded
+scores.
+
+- **Filter:** `stripped_rescore_full.jsonl`, field `stripped_level_raw` for the un-recoded
+  values and `stripped_score` for the published ones (the latter already has the recode
+  applied, which is why it contains no level 6). Balanced panel is GENUINE at turns 2-5.
+  Two-sided Wilcoxon signed-rank on paired turn-1 and turn-5 values.
+
+### Why it moves the result
+
+Within the panel, the share of outputs scored level 6 rises monotonically across turns:
+
+| | T1 | T2 | T3 | T4 | T5 |
+|---|---:|---:|---:|---:|---:|
+| scored "Overdone" | 4% | 20% | 26% | 28% | 40% |
+
+The full panel distribution moves out of Functional and Polished and into Overdone:
+
+- T1: L2=2, L3=13, L4=29, L5=4, **L6=2**
+- T5: L2=6, L3=3, L4=20, L5=1, **L6=20**
+
+So the measured decline is substantially the statement that 20 of 50 turn-5 outputs are
+over-elaborated, scored as if they were incomplete. The underlying behaviour is real and
+large; what the recode decides is whether over-elaboration counts as damage.
+
+### What this does and does not threaten
+
+- **The behavioural results do not depend on it.** Genuine-revision rate, share of sufficient
+  work left alone, and the STET score are counts of whether a model revised, not quality
+  levels. Section 13's stability result is untouched.
+- **The revision tax is exposed.** It rests on `t* = 1` for all six models, which rests on
+  quality declining across turns. A raw argmax proxy suggests `t*` moves later without the
+  recode; this was not verified with the paper's own CARY estimator and should be before any
+  claim is made either way. Note also that `analyze.py:1559` uses C = 5e-7, not the C = 1e-4
+  recorded in the plan.
+- **The targeted-feedback result is likely robust** (its inputs are level 1-3, where level 6
+  does not arise), but this has not been checked.
+
+### The honest positions available
+
+1. Keep the recode and disclose the sensitivity, arguing that drift from the ask is a quality
+   failure. Defensible, and the monotone rise from 4% to 40% is itself a finding worth stating
+   directly rather than folding into a mean.
+2. Report the decline on a scale that does not require the judgment, e.g. share of turn-5
+   outputs at or above sufficiency, or report level 6 as its own outcome.
+3. Re-run the evaluation on a monotone 1-5 scale with over-elaboration scored separately.
+
+**Decision not made. This is the author's to make and must not be made silently.**
