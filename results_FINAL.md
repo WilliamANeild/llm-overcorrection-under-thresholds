@@ -1680,3 +1680,75 @@ as level 2.
 
 This is what makes the level-6 decision substantive rather than clerical: the paper's own
 human validation, on the items where the recode bites, does not support it.
+
+## 20. Overdone as a distinct failure: the decision and what it gives
+
+**Decided 2026-09-22 (author's construct call):** "Overdone" is worse than Sufficient and
+Polished, and is *not* the same failure as Incomplete. Too much and too little are opposite
+faults, and the published 6 -> 2 recode collapses them into one.
+
+### The ordering
+
+| Level | | Relative to the threshold |
+|---|---|---|
+| 1 | Inadequate | clearly worse |
+| 2 | Incomplete, missing requested components | clearly worse |
+| 3 | Functional, all components present with clear weaknesses | below sufficient |
+| 6 | **Overdone, all components present plus unrequested drift** | **below sufficient, ranked with 3** |
+| 4 | Sufficient | the threshold |
+| 5 | Polished | clearly better |
+
+Overdone ranks with Functional rather than Incomplete: the output has every requested
+component, and the weakness is drift rather than absence. That is the semantic content of
+Functional, and it is not the semantic content of Incomplete.
+
+### The ordinal result under each placement
+
+| Overdone placed at | Panel delta (n=50) | p |
+|---|---:|---:|
+| 2, as published | -0.740 | 1.01e-4 |
+| **3, Functional (decided)** | **-0.380** | **4.42e-3** |
+| 4, no penalty | -0.020 | 0.796 |
+
+- **Filter:** as Section 19. Only the mapping of level 6 changes.
+
+### The stronger result: the two failure modes move in opposite directions
+
+Keeping the faults separate, paired across the 50-trial panel from Turn 1 to Turn 5,
+exact binomial on discordant pairs:
+
+| Transition | gained | lost | net | p |
+|---|---:|---:|---:|---:|
+| became overdone | 19 | 1 | **+18** | **4.01e-5** |
+| became below sufficient | 5 | 11 | -6 | 0.21 |
+| left sufficient or polished | 4 | 16 | -12 | 1.18e-2 |
+
+Where Turn 5 landed relative to Turn 1: sufficient+ stayed sufficient+ in 17 trials, went
+overdone in 12, went below sufficient in 4. Seven trials that began below sufficient became
+overdone.
+
+**Undirected revision does not make work incomplete. It makes work overdone.** The share below
+sufficiency does not significantly change across five turns and if anything falls; what moves,
+decisively, is the share that drifts into unrequested elaboration.
+
+- **Filter:** panel as above, `stripped_level_raw`. "Overdone" is level 6, "below sufficient"
+  is 1-3, "sufficient or polished" is 4-5. `scipy.stats.binomtest` on the discordant pairs.
+
+### Why this is the better claim
+
+1. It rests on a count of a category the evaluator assigns directly, not on a contested
+   mapping, so the sign cannot be argued away.
+2. It explains Section 19b, where the human raters scored judge-Overdone items highest at
+   5.33. Those outputs are not bad-looking; they have drifted from the ask. The raters were
+   responding to polish.
+3. It explains Section 4.3, where blind readers could not reliably pick the first draft. A
+   bloated draft does not look worse.
+4. Figure 1 is exactly this case: the model dropped the explanations the prompt requested and
+   added generic recommendations.
+
+### What it costs
+
+The ordinal cliff restates from -0.74 to -0.38, so the abstract, introduction, Results 4.2 and
+the Conclusion all carry a number that changes. `t*` and the revision tax must be recomputed
+with the paper's CARY estimator before either is claimed. The behavioural results, the STET
+score and Section 13's stability are untouched.
