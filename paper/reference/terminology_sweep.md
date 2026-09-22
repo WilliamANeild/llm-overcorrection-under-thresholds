@@ -8,7 +8,7 @@ Written by `paper/preflight.py`. Flags need reading in context: this sweep has p
    (each group is one head; judge whether the modifiers name one thing)
 
    content      new task (3);  stripped (2)
-   output       over-elaborated (3);  complex (2);  initial (2);  already-sufficient (2);  post-turn (2)
+   output       over-elaborated (4);  complex (2);  initial (2);  already-sufficient (2);  post-turn (2)
    probe        balanced (3);  study s balanced (2)
    revision     genuine (10);  targeted (3);  generic (2);  undirected (2)
    turn         single (2);  every (2);  next (2)
@@ -20,7 +20,7 @@ Written by `paper/preflight.py`. Flags need reading in context: this sweep has p
    five turn (2);  five-turn (3)
 
 3. CAPITALISATION OF DEFINED TERMS
-   sufficient         capitalised   4   lower  18
+   sufficient         capitalised   3   lower  18
    incomplete         capitalised   2   lower   2
    polished           capitalised   1   lower   1
    turn               capitalised  25   lower  44
