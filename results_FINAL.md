@@ -1799,3 +1799,37 @@ The evaluator-versus-human figures (Spearman r = 0.505, QW kappa = 0.526) could 
 reproduced on any basis I tried; my reconstruction gives 0.589 / 0.613 under the old placement,
 so the paper uses a different sample or aggregation. They are left untouched and need their own
 check before being restated.
+
+## 22. Evaluator calibration was computed on a different basis from the table beside it
+
+Found 2026-09-22 while chasing figures that would not reproduce.
+
+The published Table 7 values (Claude r = 0.505, QW kappa = 0.526) reproduce **only** with
+rater B's *original* ratings and **no** level-6 recode. Table 8, on the facing page, reproduces
+only with rater B's *corrected* re-rating and the recode applied. Two adjacent tables, two
+bases, and neither said so. This predates the Overdone decision and would have survived it.
+
+Recomputed on the basis the rest of the paper uses (rater B v2, Level 6 at rank 3, mean of the
+three raters, n = 64):
+
+| Judge | published r / kappa | consistent basis |
+|---|---|---|
+| Claude Sonnet 4 | 0.505 / 0.526 | **0.615 / 0.620** |
+| Gemini 2.5 Flash | -0.036 / -0.026 | **0.513 / 0.380** |
+| GPT-4o | 0.140 / 0.065 | 0.422 / 0.165 |
+| Qwen 3 235B | 0.272 / 0.017 | 0.414 / 0.117 |
+| DeepSeek V4 Flash | 0.340 / 0.398 | 0.363 / 0.348 |
+| Llama 3.3 70B | 0.181 / 0.022 | 0.194 / 0.029 |
+
+- **Filter:** `judge_calibration.jsonl` joined to `human_ratings_rater_{a,b_v2,c}.json` through
+  `annotation_id_mapping.json`. Spearman on judge level against the mean of the three raters;
+  QW kappa against that mean rounded. Zero and null human levels dropped.
+
+**The evaluator selection is unaffected:** Claude Sonnet 4 is the highest-correlating judge on
+both bases (0.615, next is 0.513). The paper's selection claim stands.
+
+**One published claim does not survive.** Table 7's caption said "Gemini 2.5 Flash was
+anti-correlated with human judgment." On the consistent basis Gemini correlates +0.513. The
+claim was an artefact of the basis. It is removed, and replaced by the fact that explains why
+Gemini's correlation is unstable either way: it assigns level 5 to 53 of the 64 samples, so its
+coefficient is estimated from almost no variation.

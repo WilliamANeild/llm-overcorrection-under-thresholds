@@ -219,15 +219,15 @@ Post-hoc power analysis at $\alpha = 0.05$, 80\% power:
 \toprule
 \textbf{Candidate Judge} & \textbf{Spearman $r$} & \textbf{QW $\kappa$} \\
 \midrule
-Claude Sonnet 4 & $0.505$ & $0.526$ \\
-DeepSeek V4 Flash & $0.340$ & $0.398$ \\
-Qwen 3 235B & $0.272$ & $0.017$ \\
-Llama 3.3 70B & $0.181$ & $0.022$ \\
-GPT-4o & $0.140$ & $0.065$ \\
-Gemini 2.5 Flash & $-0.036$ & $-0.026$ \\
+Claude Sonnet 4 & $0.615$ & $0.620$ \\
+Gemini 2.5 Flash & $0.513$ & $0.380$ \\
+GPT-4o & $0.422$ & $0.165$ \\
+Qwen 3 235B & $0.414$ & $0.117$ \\
+DeepSeek V4 Flash & $0.363$ & $0.348$ \\
+Llama 3.3 70B & $0.194$ & $0.029$ \\
 \bottomrule
 \end{tabular}
-\caption{Judge calibration results ($n = 64$ stratified samples each; Spearman correlation against the human rater mean). Claude Sonnet~4 was selected as the Study~3 evaluator, with the highest human correlation of the six candidates ($r = 0.505$, $p = 2.1 \times 10^{-5}$). Gemini 2.5 Flash was anti-correlated with human judgment.}
+\caption{Judge calibration results ($n = 64$ stratified samples each; Spearman correlation against the mean of the three human raters, on the same basis as Table~\ref{tab:human-agreement}). Claude Sonnet~4 was selected as the Study~3 evaluator, with the highest human correlation of the six candidates ($r = 0.615$, $p = 6.4 \times 10^{-8}$). Gemini~2.5 Flash assigns level~5 to 53 of the 64 samples, so its correlation is estimated from little variation and should not be read as a precise ranking against the middle of the table.}
 \label{tab:judge-calibration}
 \end{table}
 
@@ -246,10 +246,10 @@ Rater B -- Rater C & 0.612 & 82.8\% & 93.8\% \\
 Rater A -- Rater C & 0.478 & 76.6\% & 95.3\% \\
 \midrule
 All three ($\alpha$) & 0.540 & --- & --- \\
-Evaluator -- Human Mean & 0.526 & --- & --- \\
+Evaluator -- Human Mean & 0.620 & --- & --- \\
 \bottomrule
 \end{tabular}
-\caption{Human rater agreement on 64 stratified samples (Level~6 placed at Level~3, 3 raters). QW $\kappa$: quadratic-weighted Cohen's $\kappa$ on the 1--5 scale; $\alpha$ is Krippendorff's. Binary: both raters agree on sufficient ($\geq 4$) vs.\ not. Within-1: ratings differ by $\leq 1$ level. Evaluator--Human Mean: Spearman $r = 0.505$ ($p < 0.001$).}
+\caption{Human rater agreement on 64 stratified samples (Level~6 placed at Level~3, 3 raters). QW $\kappa$: quadratic-weighted Cohen's $\kappa$ on the 1--5 scale; $\alpha$ is Krippendorff's. Binary: both raters agree on sufficient ($\geq 4$) vs.\ not. Within-1: ratings differ by $\leq 1$ level. Evaluator--Human Mean: Spearman $r = 0.615$.}
 \label{tab:human-agreement}
 \end{table}
 

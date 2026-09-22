@@ -96,14 +96,24 @@ def fig_input_level(lab, sc, trials):
     ax.axhline(0, color=INK, lw=1.0, zorder=2)
     ax.errorbar(lv, mean, yerr=ci, fmt="o-", color=INK, lw=1.9, ms=6,
                 capsize=3.5, capthick=1, zorder=4)
+    # Place each label on the far side of its point from zero, so values near the
+    # axis do not print on top of the zero line or on each other.
     for x, y, c in zip(lv, mean, ci):
-        ax.annotate(f"{y:+.2f}", (x, y + c), textcoords="offset points", xytext=(0, 6),
-                    ha="center", fontsize=8.5, fontweight="bold", color=INK)
+        above = y >= 0
+        ax.annotate(f"{y:+.2f}", (x, y + c if above else y - c),
+                    textcoords="offset points", xytext=(0, 7 if above else -7),
+                    ha="center", va="bottom" if above else "top",
+                    fontsize=8.5, fontweight="bold", color=INK)
     style(ax)
-    ax.set_ylim(-1.40, 1.22); ax.set_xlim(1.6, 5.45); ax.set_yticks([-1, -.5, 0, .5, 1])
+    lo = min(m - c for m, c in zip(mean, ci)); hi = max(m + c for m, c in zip(mean, ci))
+    pad = max(0.30, (hi - lo) * 0.22)
+    ax.set_ylim(lo - pad, hi + pad); ax.set_xlim(1.6, 5.45)
+    ax.set_yticks([-1, -.5, 0, .5, 1])
     ax.set_xticks(lv); ax.set_xticklabels([f"{l}\n$n$={n}" for l, n in zip(lv, ns)], fontsize=9)
-    ax.text(5.38, .34, "improves", fontsize=8, color=MID, ha="right", va="bottom")
-    ax.text(5.38, -.26, "damages", fontsize=8, color=MID, ha="right", va="top")
+    # "improves" sits top-right and "damages" bottom-left: the series runs from high-left
+    # to low-right, so those two corners are the ones it never enters.
+    ax.text(5.38, hi + pad * 0.42, "improves", fontsize=8, color=MID, ha="right", va="top")
+    ax.text(1.70, lo - pad * 0.42, "damages", fontsize=8, color=MID, ha="left", va="bottom")
     ax.set_xlabel("Quality level of the input being revised", fontsize=9.5, labelpad=4)
     ax.set_ylabel("Change in quality level", fontsize=9.5, labelpad=4)
     fig.savefig(HERE / "fig_input_level.pdf", facecolor="white", bbox_inches="tight")
