@@ -43,8 +43,8 @@ requested components), \textbf{Functional} (all components present, clear weakne
 from the ask).
 Level~4 (``Sufficient'') is the threshold for task completion.
 
-\paragraph{Scale Non-Monotonicity and 6$\to$2 Recode.}
-Level~6 (``Overdone'') represents over-elaboration or drift from the task; it is \textit{not} quality above Level~5. Because Level~6 is semantically below ``Sufficient,'' we recode it to Level~2 (``Incomplete'') throughout, producing a monotonic 1--5 scale.
+\paragraph{Scale non-monotonicity and the placement of Level~6.}
+Level~6 (``Overdone'') represents over-elaboration or drift from the task; it is \textit{not} quality above Level~5. It is also not the same failure as Level~2 (``Incomplete''), which means requested components are missing: an over-elaborated output contains every requested component and more. We therefore place Level~6 at Level~3 (``Functional''), whose definition is that all components are present with clear weaknesses, producing a monotonic 1--5 scale. Results that are counts rather than means do not depend on this placement, and we report which are which.
 
 \paragraph{Evaluator Calibration.} Six candidate evaluators were scored against three human
 raters on 64 stratified samples; Claude Sonnet~4 had the highest human correlation
@@ -52,7 +52,7 @@ raters on 64 stratified samples; Claude Sonnet~4 had the highest human correlati
 reports all six.
 
 \paragraph{Human Validation.}
-Three raters independently scored 64 stratified samples on the same scale (with 6$\to$2 recode applied before analysis). Pairwise quadratic-weighted Cohen's $\kappa$ ranges from 0.406 to 0.603; Krippendorff's $\alpha = 0.529$ (interval scale, 3 raters). Binary agreement on the sufficient/not-sufficient threshold ($\geq 4$) ranges from 76.6\% to 82.8\% across rater pairs; within-one-level agreement ranges from 81.2\% to 95.3\%. We note that the binary threshold, which drives revision-despite-sufficiency, is the better-validated metric; ordinal means should be interpreted with the moderate reliability in mind.
+Three raters independently scored 64 stratified samples on the same scale, with Level~6 placed as above. Pairwise quadratic-weighted Cohen's $\kappa$ ranges from 0.478 to 0.612; Krippendorff's $\alpha = 0.540$ (interval scale, 3 raters). Binary agreement on the sufficient/not-sufficient threshold ($\geq 4$) ranges from 76.6\% to 82.8\% across rater pairs; within-one-level agreement ranges from 93.8\% to 95.3\%. We note that the binary threshold, which drives revision-despite-sufficiency, is the better-validated metric; ordinal means should be interpreted with the moderate reliability in mind.
 
 \subsection{Meta-Commentary Stripping}
 \label{sec:methods-stripping}
