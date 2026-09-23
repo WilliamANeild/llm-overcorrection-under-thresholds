@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate emami_update.excalidraw -- advisor update diagram."""
+"""Generate docs/collaborator_update_diagram.excalidraw -- advisor update diagram."""
 
 import json, random
 
@@ -771,7 +771,7 @@ doc = {
     "files": {},
 }
 
-out = "emami_update.excalidraw"
+out = "docs/collaborator_update_diagram.excalidraw"
 with open(out, "w") as f:
     json.dump(doc, f, indent=2)
 

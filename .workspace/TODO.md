@@ -55,8 +55,8 @@ Ali's agreement -> his OpenReview profile -> author list frozen at submission.
   - **Done when:** `paper/SKELETON.md` section ABSTRACT lists the beats and numbers of the final abstract
   - Confirmed stale 2026-09-21: it still specifies a 150-180 word target and beats built on figures the shipped abstract does not use, and predates STET entirely
 - [ ] Tidy what a visitor sees at the top level — added 2026-09-21
-  - **Done when:** `emami_update.excalidraw`, `RECOMPUTE_TODO.md` and `worker_trials_OLD_WRONG_PROBE.jsonl` are each removed, renamed or deliberately kept with a reason recorded
-  - The repo is public with a README now. `emami_update.excalidraw` names Ali before he has agreed to be an author; the trials file's own name says its data is wrong
+  - **Done when:** `docs/collaborator_update_diagram.excalidraw`, `RECOMPUTE_TODO.md` and `worker_trials_OLD_WRONG_PROBE.jsonl` are each removed, renamed or deliberately kept with a reason recorded
+  - The repo is public with a README now. `docs/collaborator_update_diagram.excalidraw` names Ali before he has agreed to be an author; the trials file's own name says its data is wrong
 - [ ] Clear the orphan section backup — added 2026-09-16, recounted 2026-09-21
   - **Done when:** `paper/sections/` holds no `.bak` file, and any whose content is not in git history has been checked first
   - Down to one: `sections/results_OLD_DO_NOT_USE.tex.bak`. Was 11

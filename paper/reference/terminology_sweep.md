@@ -14,13 +14,14 @@ Written by `paper/preflight.py`. Flags need reading in context: this sweep has p
    turn         single (2);  every (2);  next (2)
 
 2. HYPHEN AND SPACING VARIANTS
-   model (89);  model- (4)
+   flash (9);  flash- (1)
+   model (90);  model- (4)
    turn (69);  turn- (1)
    first turn (1);  first-turn (1)
    five turn (2);  five-turn (3)
 
 3. CAPITALISATION OF DEFINED TERMS
-   sufficient         capitalised   3   lower  18
+   sufficient         capitalised   4   lower  18
    incomplete         capitalised   2   lower   2
    polished           capitalised   1   lower   1
    turn               capitalised  25   lower  44
