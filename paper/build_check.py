@@ -76,14 +76,18 @@ def report(label, body, total, warns):
 
 
 src = (HERE / "main.tex").read_text()
-if "\\reviewfalse" not in src:
-    sys.exit("main.tex no longer carries the \\reviewfalse switch; "
+# Target the \newif line itself, not the first occurrence of the word: the switch is
+# also named in the comment above it, and a bare replace flips the comment and leaves the
+# real setting alone, which silently compiles the camera-ready twice.
+SWITCH = re.compile(r'^(\s*\\newif\\ifreview\s*)\\reviewfalse', re.M)
+if not SWITCH.search(src):
+    sys.exit("main.tex no longer sets \\reviewfalse on the \\newif line; "
              "update build_check.py to match how the review build is now selected")
 
 ok = report("camera-ready", *compile_variant("main"))
 
 if "--fast" not in sys.argv:
-    body, total, warns = compile_variant("_review", src.replace("\\reviewfalse", "\\reviewtrue", 1))
+    body, total, warns = compile_variant("_review", SWITCH.sub(r"\1\\reviewtrue", src, count=1))
     ok &= report("ARR review", body, total, warns)
     for f in (HERE / "builds").glob("_review.*"):
         f.unlink()

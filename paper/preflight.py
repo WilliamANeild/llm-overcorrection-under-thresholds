@@ -153,18 +153,108 @@ def check_cite_keys(live):
 def check_anonymity(live):
     src = (HERE / "main.tex").read_text()
     review = bool(re.search(r'^\s*\\newif\\ifreview\s*\\reviewtrue', src, re.M))
-    ab = re.search(r'\\author\{.*?\n\}', src, re.S)
-    author_lines = range(src[:ab.start()].count("\n") + 1,
-                         src[:ab.end()].count("\n") + 2) if ab else range(0)
+    # Identity inside an \ifreview...\fi region is conditional by construction: the
+    # review branch is what reviewers get, and whether that branch is really clean is
+    # settled below by compiling it and reading the page. Trusting the conditional
+    # without rendering is exactly what hid a leaked author block.
+    author_lines = set()
+    for reg in re.finditer(r'\\ifreview\b.*?\\fi', src, re.S):
+        author_lines |= set(range(src[:reg.start()].count('\n') + 1,
+                                  src[:reg.end()].count('\n') + 2))
+    if not re.search(r'\\author\{', src):
+        add('anonymity', 'FAIL', 'no \\author block in main.tex; cannot check anonymity')
+    for f, t in text_of(live, strip_comments=False).items():
+        for m in re.finditer(r'(?<!\\)%.*?(TKTK|TODO|FIXME).*', t):
+            line = t[:m.start()].count("\n") + 1
+            add("placeholders", "WARN", f"{f}:{line} in a comment: {m.group(0).strip()[:64]}")
+
+
+def check_float_refs(live):
+    txt = text_of(live)
+    labels = {}
+    for f, t in txt.items():
+        for m in re.finditer(r'\\begin\{(figure|table)\*?\}(.*?)\\end\{\1\*?\}', t, re.S):
+            for lm in re.finditer(r'\\label\{([^}]+)\}', m.group(2)):
+                labels[lm.group(1)] = (f, t[:m.start()].count("\n") + 1, m.group(1))
+    allt = " ".join(txt.values())
+    for lab, (f, line, _) in sorted(labels.items()):
+        refs = len(re.findall(r'\\(?:ref|autoref|Cref|cref)\{' + re.escape(lab) + r'\}', allt))
+        if refs == 0:
+            add("float-refs", "WARN", f"{f}:{line} float {lab} is never referenced from prose")
+    if not any(l == "WARN" for l, _ in findings["float-refs"]):
+        add("float-refs", "PASS", f"all {len(labels)} floats referenced")
+
+
+# --------------------------------------------- 4. dead sources, 5. cite keys
+
+def check_dead_sources(live):
+    add("dead-sources", "PASS", f"main.tex reads {len(live)} files: " + ", ".join(live[:4]) + " ...")
+    on_disk = {p.name for p in (HERE / "sections").glob("*.tex")}
+    used = {Path(f).name for f in live}
+    for orphan in sorted(on_disk - used):
+        add("dead-sources", "WARN", f"sections/{orphan} is not read by main.tex")
+    for bak in sorted((HERE / "sections").glob("*.bak*")) + sorted((HERE / "sections").glob(".*.bak*")):
+        add("dead-sources", "WARN", f"orphan backup {bak.relative_to(HERE)}")
+    # a retired file pointing at a figure that no longer exists is a trap for a later session
+    for p in (HERE / "sections").glob("*.tex"):
+        if Path(p.name) in {Path(f).name for f in live}:
+            continue
+        for m in re.finditer(r'\\includegraphics(?:\[[^\]]*\])?\{([^}]+)\}', p.read_text()):
+            tgt = m.group(1)
+            if not any((HERE / tgt).exists() or (HERE / (tgt + ext)).exists() for ext in (".pdf", ".png")):
+                add("dead-sources", "WARN",
+                    f"sections/{p.name} (retired) includes {tgt}, which is not on disk")
+
+
+def check_cite_keys(live):
+    txt = " ".join(text_of(live).values())
+    cited = {k.strip() for c in re.findall(r'\\cite[tp]?\*?(?:\[[^\]]*\])*\{([^}]*)\}', txt)
+             for k in c.split(",") if k.strip()}
+    bib = (HERE / "references.bib").read_text()
+    entries = {m.group(1) for m in re.finditer(r'@\w+\s*\{\s*([^,\s]+)\s*,', bib)}
+    for k in sorted(cited - entries):
+        add("cite-keys", "FAIL", f"\\cite{{{k}}} has no entry in references.bib")
+    for k in sorted(entries - cited):
+        add("cite-keys", "WARN", f"references.bib entry {k} is never cited")
+    for k in sorted(cited & entries):
+        m = re.search(r'@\w+\s*\{\s*' + re.escape(k) + r'\s*,(.*?)\n\}', bib, re.S)
+        y = re.search(r'year\s*=\s*\{?\s*(\d{4})', m.group(1)) if m else None
+        ky = re.search(r'(\d{4})', k)
+        if y and ky and y.group(1) != ky.group(1):
+            add("cite-keys", "WARN",
+                f"{k} key says {ky.group(1)} but the entry says {y.group(1)}")
+    if not findings["cite-keys"]:
+        add("cite-keys", "PASS", f"{len(cited)} keys, all present and consistent")
+
+
+# ----------------------------------------------------------- 6. anonymity
+
+def check_anonymity(live):
+    src = (HERE / "main.tex").read_text()
+    review = bool(re.search(r'^\s*\\newif\\ifreview\s*\\reviewtrue', src, re.M))
+    # The author block sits inside \ifreview/\else, so there are two of them and the
+    # real one closes on an indented brace. Collect the lines of every \author{...}.
+    author_lines = set()
+    for ab in re.finditer(r'\\author\{.*?\n?\s*\}', src, re.S):
+        author_lines |= set(range(src[:ab.start()].count("\n") + 1,
+                                  src[:ab.end()].count("\n") + 2))
+    if not author_lines:
+        add("anonymity", "FAIL", "no \\author block found in main.tex; the anonymity check cannot run")
     for f, t in text_of(live, strip_comments=False).items():
         for pat in IDENTITY:
             for m in re.finditer(pat, t):
                 line = t[:m.start()].count("\n") + 1
                 prints = "%" not in t[t.rfind("\n", 0, m.start()) + 1:m.start()]
                 in_author_block = (f == "main.tex" and line in author_lines)
-                if in_author_block:
+                if f == "main.tex":
+                    # main.tex is settled by compiling the review branch and reading the
+                    # rendered page, below. A source-position heuristic cannot tell which
+                    # branch of \ifreview a line is in once the file has several of them,
+                    # and a wrong guess here either hides a leak or invents one.
+                    lvl, where = "PASS", "in main.tex; settled by the rendered check below"
+                elif in_author_block:
                     # correct in camera-ready, suppressed by the review option
-                    lvl, where = ("PASS", "in the author block (suppressed by \\reviewtrue)")
+                    lvl, where = ("PASS", "inside an \\ifreview region; see the rendered check")
                 elif prints:
                     lvl, where = "FAIL", "prints in the PDF"
                 else:
@@ -181,6 +271,33 @@ def check_anonymity(live):
     state = "reviewtrue" if re.search(r'^\s*\\newif\\ifreview\s*\\reviewtrue', src, re.M) else "reviewfalse"
     add("anonymity", "PASS" if state == "reviewtrue" else "WARN",
         f"main.tex is set to \\{state} (submission needs \\reviewtrue)")
+
+    # Compile the anonymised form and read the rendered page, rather than trusting that
+    # flipping the switch suppresses anything. It did not: the author block was outside
+    # the conditional for weeks, and the harness that was meant to catch it flipped the
+    # word inside a comment instead of the switch, so it compiled the camera-ready twice.
+    import subprocess
+    switch = re.compile(r'^(\s*\\newif\\ifreview\s*)\\reviewfalse', re.M)
+    if switch.search(src):
+        tmp = HERE / "_anoncheck.tex"
+        tmp.write_text(switch.sub(r'\1\\reviewtrue', src, count=1))
+        try:
+            r = subprocess.run(["tectonic", "-X", "compile", "_anoncheck.tex", "--outdir", "builds/"],
+                               cwd=HERE, capture_output=True, text=True)
+            if r.returncode == 0:
+                pdf = HERE / "builds" / "_anoncheck.pdf"
+                txt = subprocess.run(["pdftotext", str(pdf), "-"], capture_output=True, text=True).stdout
+                info = subprocess.run(["pdfinfo", str(pdf)], capture_output=True, text=True).stdout
+                leaks = [n for n in ("Neild", "Emami", "emory.edu") if n in txt or n in info]
+                add("anonymity", "FAIL" if leaks else "PASS",
+                    f"anonymised build leaks {leaks}" if leaks
+                    else "anonymised build renders no author name, affiliation or email")
+            else:
+                add("anonymity", "FAIL", "anonymised build does not compile")
+        finally:
+            tmp.unlink(missing_ok=True)
+            for f in (HERE / "builds").glob("_anoncheck.*"):
+                f.unlink()
 
 
 # ------------------------------------- 8. promises, 9. duplicates, 10. axes
